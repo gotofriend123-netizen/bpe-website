@@ -41,12 +41,19 @@ export function BookingForm() {
 
   const onSubmit = async (data: BookingFormValues) => {
     setIsSubmitting(true);
+    
+    // Fallback AbortController to FORCE loading spinner to stop if Vercel hangs
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 9000);
+
     try {
       const response = await fetch("/api/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
 
       let responseData;
       const contentType = response.headers.get("content-type");
@@ -54,8 +61,8 @@ export function BookingForm() {
         responseData = await response.json();
       } else {
         const text = await response.text();
-        console.error("Non-JSON Response:", text);
-        throw new Error("Server returned an invalid response. This is usually due to a timeout or missing environment variables on Vercel.");
+        console.error("Non-JSON Server Response:", text);
+        throw new Error("Server returned an invalid response (Vercel timeout).");
       }
 
       if (!response.ok) {
@@ -65,8 +72,18 @@ export function BookingForm() {
       toast.success("Booking submitted successfully! We will contact you soon.");
       reset();
     } catch (error: unknown) {
+      clearTimeout(timeoutId);
       console.error("Submission Error Response:", error);
-      const errorMessage = error instanceof Error ? error.message : "Something went wrong. Please try again.";
+      
+      let errorMessage = "Something went wrong. Please try again.";
+      if (error instanceof Error) {
+        if (error.name === "AbortError") {
+          errorMessage = "Booking timed out. The server is taking too long to respond. Please check your internet or try again later.";
+        } else {
+          errorMessage = error.message;
+        }
+      }
+      
       toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
@@ -154,6 +171,7 @@ export function BookingForm() {
 
         {/* Specific Studio - Conditional Render */}
         {showSpecificStudio && (
+
           <div className="space-y-2 md:col-span-2 animate-in fade-in slide-in-from-top-4 duration-300">
             <label className="text-sm font-medium text-gray-300">Specific Studio</label>
             <select

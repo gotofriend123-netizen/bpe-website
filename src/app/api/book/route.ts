@@ -10,10 +10,7 @@ export async function POST(req: Request) {
     console.log("Incoming Payload:", body);
 
     // 1. Zod Validation
-    const parsed = bookingFormSchema.safeParse({
-      ...body,
-      date: body.date ? new Date(body.date) : undefined,
-    });
+    const parsed = bookingFormSchema.safeParse(body);
 
     if (!parsed.success) {
       console.error("Zod Validation Error:", parsed.error.issues);
@@ -57,9 +54,9 @@ export async function POST(req: Request) {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
-      connectionTimeout: 10000,
-      greetingTimeout: 5000,
-      socketTimeout: 10000,
+      connectionTimeout: 8000,
+      greetingTimeout: 8000,
+      socketTimeout: 8000,
     });
 
     // 3. Admin Email
@@ -108,10 +105,13 @@ export async function POST(req: Request) {
     };
 
     // 5. Send Emails
-    await Promise.all([
-      transporter.sendMail(adminMailOptions),
-      transporter.sendMail(customerMailOptions),
-    ]);
+    console.log("Sending admin email...");
+    await transporter.sendMail(adminMailOptions);
+    
+    console.log("Sending customer email...");
+    await transporter.sendMail(customerMailOptions);
+
+    console.log("Emails sent successfully.");
 
     return NextResponse.json(
       { message: "Booking submitted successfully." },
