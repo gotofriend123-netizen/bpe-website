@@ -122,10 +122,23 @@ export async function POST(req: Request) {
       { message: "Booking submitted successfully." },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Booking submission error:", error);
+    
+    let errorMessage = "Failed to submit booking. Please try again later.";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === "string") {
+      errorMessage = error;
+    } else if (error && typeof error === "object") {
+      errorMessage = JSON.stringify(error);
+    }
+
     return NextResponse.json(
-      { message: "Failed to submit booking. Please try again later." },
+      { 
+        message: `Backend Error: ${errorMessage}`, 
+        errorDetails: error instanceof Error ? error.stack : undefined 
+      },
       { status: 500 }
     );
   }
