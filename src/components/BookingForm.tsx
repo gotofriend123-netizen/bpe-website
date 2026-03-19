@@ -158,7 +158,7 @@ export function BookingForm() {
             disabled={isSubmitting}
             type="tel"
             className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all"
-            placeholder="+91 98765 43210"
+            placeholder="+91 XXXXX XXXXX"
           />
           {errors.phoneNumber && (
             <p className="text-red-400 text-xs mt-1">{errors.phoneNumber.message}</p>
