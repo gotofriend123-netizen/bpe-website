@@ -10,7 +10,7 @@ export default function NotFound() {
         </p>
         <h1 className="mt-4 mb-3 text-4xl font-semibold tracking-tight text-white">Page not found</h1>
         <p className="mb-8 text-sm leading-7 text-white/60">
-          The page or resource you're looking for doesn't exist, has been moved, or is temporarily unavailable. Let's get you back to safe territory.
+          The page or resource you&apos;re looking for doesn&apos;t exist, has been moved, or is temporarily unavailable. Let&apos;s get you back to safe territory.
         </p>
 
         <div className="flex justify-center">

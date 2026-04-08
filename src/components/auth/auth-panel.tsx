@@ -3,7 +3,7 @@
 import { useMemo, useState, useTransition, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Eye, EyeOff, Mail, Shield, Sparkles, UserRound } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Mail, Shield, Sparkles, UserRound, LockKeyhole } from "lucide-react";
 
 type AuthMode = "login" | "signup";
 

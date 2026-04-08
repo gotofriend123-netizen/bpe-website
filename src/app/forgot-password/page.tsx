@@ -30,7 +30,7 @@ export default function ForgotPasswordPage() {
         } else {
           setSuccess(true);
         }
-      } catch (err) {
+      } catch {
         setError("Something went wrong. Please try again.");
       }
     });
@@ -63,7 +63,7 @@ export default function ForgotPasswordPage() {
         ) : (
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <p className="text-sm leading-7 text-white/65">
-              Enter the email address associated with your account, and we'll send you a link to reset your password.
+              Enter the email address associated with your account, and we&apos;ll send you a link to reset your password.
             </p>
 
             <div className="mt-4">

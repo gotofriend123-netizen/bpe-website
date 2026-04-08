@@ -3,7 +3,7 @@
 import { useState, useTransition, type FormEvent, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Eye, EyeOff, LockKeyhole } from "lucide-react";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import { createBrowserClient } from "@supabase/ssr";
 
 export default function UpdatePasswordPage() {
@@ -44,7 +44,7 @@ export default function UpdatePasswordPage() {
             router.push("/dashboard");
           }, 3000);
         }
-      } catch (err) {
+      } catch {
         setError("Something went wrong. Please try again.");
       }
     });
@@ -78,7 +78,7 @@ export default function UpdatePasswordPage() {
         ) : (
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <p className="text-sm leading-7 text-white/65">
-              Please enter your new password below. Make sure it's secure.
+              Please enter your new password below. Make sure it&apos;s secure.
             </p>
 
             <div className="mt-4">
