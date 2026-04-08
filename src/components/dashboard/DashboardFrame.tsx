@@ -274,7 +274,7 @@ export function DashboardFrame({
             />
           </div>
 
-          <div className="flex flex-wrap gap-3 rounded-[1.5rem] border border-white/6 bg-[#111111] p-3 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] backdrop-blur-xl xl:hidden">
+          <div className="flex gap-3 overflow-x-auto rounded-[1.5rem] border border-white/6 bg-[#111111] p-3 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:hidden">
             {tabItems.map((item) => {
               const Icon = item.icon;
               const active = activeTab === item.key;
@@ -284,7 +284,7 @@ export function DashboardFrame({
                   key={item.key}
                   href={item.href}
                   className={cn(
-                    "inline-flex min-h-12 items-center gap-2 rounded-full border border-white/5 px-4 py-2 text-sm font-medium transition-all duration-200",
+                    "inline-flex min-h-12 shrink-0 items-center gap-2 whitespace-nowrap rounded-full border border-white/5 px-4 py-2 text-sm font-medium transition-all duration-200 active:scale-95",
                     active
                       ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
                       : "bg-[#151515] text-white/70 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",

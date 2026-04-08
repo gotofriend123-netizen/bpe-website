@@ -89,39 +89,18 @@ export function AuthPanel({ mode, nextPath }: AuthPanelProps) {
   const currentCopy = copy[mode];
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14),transparent_36%),linear-gradient(180deg,rgba(16,16,16,0.96),rgba(8,8,8,0.98))] p-8 shadow-[0_28px_80px_rgba(0,0,0,0.45)]">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent,rgba(255,255,255,0.04),transparent)] opacity-70" />
-        <div className="relative max-w-xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70">
-            <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-            Black Pepper Entertainment
-          </div>
-          <h1 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            {currentCopy.title}
-          </h1>
-          <p className="mt-4 max-w-lg text-sm leading-7 text-white/68 sm:text-base">
-            {currentCopy.description}
-          </p>
-
-          <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-              <UserRound className="h-5 w-5 text-white/80" aria-hidden="true" />
-              <p className="mt-3 text-sm font-medium text-white">Personal dashboard</p>
-              <p className="mt-1 text-xs leading-5 text-white/55">Track your bookings and profile.</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-              <Shield className="h-5 w-5 text-white/80" aria-hidden="true" />
-              <p className="mt-3 text-sm font-medium text-white">Role-based access</p>
-              <p className="mt-1 text-xs leading-5 text-white/55">Admin access stays protected.</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-              <LockKeyhole className="h-5 w-5 text-white/80" aria-hidden="true" />
-              <p className="mt-3 text-sm font-medium text-white">Supabase auth</p>
-              <p className="mt-1 text-xs leading-5 text-white/55">Protected access with secure, refreshed sessions.</p>
-            </div>
-          </div>
+    <div className="mx-auto w-full max-w-lg">
+      <div className="mb-6">
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70">
+          <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+          Black Pepper Entertainment
         </div>
+        <h1 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          {currentCopy.title}
+        </h1>
+        <p className="mt-3 max-w-lg text-sm leading-7 text-white/68 sm:text-base">
+          {currentCopy.description}
+        </p>
       </div>
 
       <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.34)] backdrop-blur-xl sm:p-8">
