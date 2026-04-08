@@ -83,7 +83,7 @@ export function DashboardFrame({
         <div className="absolute right-[-8%] top-[8%] h-[14rem] w-[14rem] rounded-full bg-white/[0.02] blur-[110px]" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-4 pb-16 pt-24 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pb-16 pt-20 sm:px-6 sm:pt-24 lg:px-8">
         <div className="grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
           <aside className="hidden xl:block">
             <div className="sticky top-24 rounded-[2.15rem] border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">
@@ -159,23 +159,23 @@ export function DashboardFrame({
           <div className="space-y-6">
         <AnimatedSection className="space-y-6">
           <GlowCard
-            contentClassName="rounded-[2rem] border border-white/6 bg-[#111111] p-6 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)] sm:p-8 lg:p-10"
+            contentClassName="rounded-[1.5rem] border border-white/6 bg-[#111111] p-4 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)] sm:rounded-[2rem] sm:p-6 lg:p-10"
             backgroundColor="#111111"
             borderRadius={32}
             glowIntensity={0.28}
             fillOpacity={0.05}
           >
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+            <div className="flex flex-col gap-4 sm:gap-8 lg:flex-row lg:items-start lg:justify-between">
               <div className="max-w-3xl space-y-5">
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-[#0b0b0b] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-white/65 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
                   <ShieldCheck className="h-3.5 w-3.5 text-[#d8f24d]" />
                   Private account area
                 </span>
-                <div className="space-y-3">
-                  <h1 className="text-4xl font-semibold tracking-[-0.05em] text-white sm:text-5xl lg:text-6xl">
+                <div className="space-y-2 sm:space-y-3">
+                  <h1 className="text-2xl font-semibold tracking-[-0.05em] text-white sm:text-4xl lg:text-5xl">
                     Welcome back, {firstName}.
                   </h1>
-                  <p className="max-w-2xl text-sm leading-7 text-white/55 sm:text-base">
+                  <p className="max-w-2xl text-xs leading-5 text-white/55 sm:text-sm sm:leading-7">
                     Your bookings, waitlist entries, and account details are kept
                     in one polished place. Review your upcoming sessions, manage
                     policy windows, and jump back into the booking flow whenever
@@ -200,7 +200,7 @@ export function DashboardFrame({
                 </div>
               </div>
 
-              <div className="grid gap-3 rounded-[1.75rem] border border-white/5 bg-[#151515] p-4 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)] sm:min-w-[18rem] xl:hidden">
+              <div className="grid gap-2.5 rounded-[1.25rem] border border-white/5 bg-[#151515] p-3 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)] sm:gap-3 sm:rounded-[1.75rem] sm:p-4 sm:min-w-[18rem] xl:hidden">
                 <div className="flex items-center gap-3 rounded-[1.2rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
                   <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/5 bg-[#111111] text-white/90 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)]">
                     <UserRound className="h-5 w-5" />
@@ -246,7 +246,7 @@ export function DashboardFrame({
             </div>
           </GlowCard>
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+          <div className="grid grid-cols-3 gap-2 sm:grid-cols-2 sm:gap-4 xl:grid-cols-5">
             <StatCard
               label="Total bookings"
               value={overview.stats.totalBookings}

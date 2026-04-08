@@ -127,7 +127,7 @@ export function Navbar({ currentUser }: NavbarProps) {
                 "border-white/16 bg-[linear-gradient(180deg,rgba(8,8,8,0.98),rgba(8,8,8,0.88))] shadow-[0_24px_72px_rgba(0,0,0,0.46)]",
             )}
           >
-            <div className="grid min-h-[78px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-5 lg:px-6 min-[1280px]:min-h-[90px] min-[1280px]:grid-cols-[auto_minmax(0,1fr)_auto] min-[1280px]:gap-5">
+            <div className="grid min-h-[68px] grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-3 py-2.5 sm:min-h-[78px] sm:px-5 sm:py-3 lg:px-6 min-[1280px]:min-h-[90px] min-[1280px]:grid-cols-[auto_minmax(0,1fr)_auto] min-[1280px]:gap-5">
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
@@ -139,7 +139,7 @@ export function Navbar({ currentUser }: NavbarProps) {
                     alt="Black Pepper Entertainment Logo"
                     width={260}
                     height={96}
-                    className="h-[3.75rem] w-auto object-contain opacity-92 transition-opacity group-hover:opacity-100 sm:h-[4.25rem] xl:h-[4.75rem]"
+                    className="h-[3rem] w-auto object-contain opacity-92 transition-opacity group-hover:opacity-100 sm:h-[3.75rem] xl:h-[4.75rem]"
                     priority
                   />
                 </div>
@@ -167,11 +167,11 @@ export function Navbar({ currentUser }: NavbarProps) {
                 <AccountMenu currentUser={currentUser ?? null} className="shrink-0" />
               </div>
 
-              <div className="flex items-center justify-end gap-2 min-[1280px]:hidden">
+              <div className="flex items-center justify-end gap-1.5 sm:gap-2 min-[1280px]:hidden">
                 <Link
                   href={BOOKING_HREF}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="inline-flex min-w-[6.75rem] items-center justify-center whitespace-nowrap rounded-full bg-white px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-black shadow-[0_14px_32px_rgba(255,255,255,0.12)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-zinc-100 active:scale-95 sm:px-5 sm:py-2.5 sm:text-[11px]"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-white px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-black shadow-[0_14px_32px_rgba(255,255,255,0.12)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-zinc-100 active:scale-95 sm:px-4 sm:py-2.5 sm:text-[11px]"
                 >
                   <span>Book Now</span>
                 </Link>
@@ -194,7 +194,7 @@ export function Navbar({ currentUser }: NavbarProps) {
 
                 <button
                   type="button"
-                  className="relative rounded-2xl border border-white/10 bg-white/[0.05] p-3 text-white transition-all hover:bg-white/[0.1] active:scale-95 active:bg-white/[0.15]"
+                  className="relative rounded-xl border border-white/10 bg-white/[0.05] p-2.5 text-white transition-all hover:bg-white/[0.1] active:scale-95 active:bg-white/[0.15] sm:rounded-2xl sm:p-3"
                   onClick={() => setMobileMenuOpen((current) => !current)}
                   aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                   aria-expanded={mobileMenuOpen}

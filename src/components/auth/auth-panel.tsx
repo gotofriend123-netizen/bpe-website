@@ -218,9 +218,9 @@ export function AuthPanel({ mode, nextPath }: AuthPanelProps) {
           </button>
         </form>
 
-        <div className="mt-6 flex items-center justify-between gap-4 text-sm text-white/60">
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-sm text-white/60">
           <span>{currentCopy.switchCopy}</span>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {mode === "login" ? (
               <Link className="transition hover:text-white/80" href="/forgot-password">
                 Forgot password?
@@ -232,9 +232,7 @@ export function AuthPanel({ mode, nextPath }: AuthPanelProps) {
           </div>
         </div>
 
-        <div className="mt-5 border-t border-white/8 pt-4 text-xs leading-6 text-white/45">
-          New signups always default to the user role. Admin access stays database-backed and is promoted through the profile layer.
-        </div>
+
       </div>
     </div>
   );
