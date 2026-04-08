@@ -365,7 +365,7 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }}
       />
-      <section className="relative flex min-h-[540px] w-full items-center overflow-hidden pt-24 sm:min-h-[600px] sm:pt-28 md:min-h-[660px] md:pt-28">
+      <section className="relative flex min-h-[460px] w-full items-center overflow-hidden pt-20 sm:min-h-[600px] sm:pt-28 md:min-h-[660px] md:pt-28">
         <div className="absolute inset-0 z-0 h-full w-full">
           <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black via-[#040404] to-black" />
           <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_30%),radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.04),transparent_22%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.03),transparent_20%)]" />
@@ -380,7 +380,7 @@ export default async function HomePage() {
           <div className="pointer-events-none absolute left-1/2 top-0 h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-white/6 blur-[130px]" />
         </div>
 
-        <div className="relative z-20 container mx-auto flex min-h-[calc(100vh-7rem)] w-full flex-col items-center justify-center px-5 py-10 text-center sm:min-h-[calc(100vh-7.5rem)] sm:px-6 sm:py-12 md:min-h-[620px] md:py-14">
+        <div className="relative z-20 container mx-auto flex min-h-[calc(100vh-7rem)] w-full flex-col items-center justify-center px-5 py-6 text-center sm:min-h-[calc(100vh-7.5rem)] sm:px-6 sm:py-12 md:min-h-[620px] md:py-14">
           <AnimatedSection direction="down" delay={0.1}>
             <div className="mb-4 inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/5 px-4 py-2 shadow-[0_0_24px_rgba(255,255,255,0.12)] backdrop-blur-3xl sm:mb-5 sm:px-5 sm:py-2.5">
               <span className="h-2 w-2 animate-pulse rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
@@ -437,7 +437,7 @@ export default async function HomePage() {
 
       <ArcGalleryHeroDemo />
 
-      <section className="relative z-20 bg-black py-8 md:py-12">
+      <section className="relative z-20 bg-black py-5 md:py-12">
         <div className="container mx-auto px-6">
           <AnimatedSection className="mb-5 md:mb-6">
             <SectionHeading
@@ -510,7 +510,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-black py-8 md:py-12">
+      <section className="bg-black py-5 md:py-12">
         <div className="container mx-auto px-6">
           <AnimatedSection className="mb-5 md:mb-6">
             <SectionHeading
@@ -607,7 +607,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-white/5 bg-[#050505] py-8 md:py-12">
+      <section className="border-y border-white/5 bg-[#050505] py-5 md:py-12">
         <div className="container mx-auto px-6">
           <AnimatedSection className="mb-5 md:mb-6">
             <SectionHeading
@@ -686,7 +686,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-black py-8 md:py-12">
+      <section className="bg-black py-5 md:py-12">
         <div className="container mx-auto px-6">
           <div className="grid gap-8 xl:grid-cols-[0.9fr_1.1fr] xl:items-center">
             <AnimatedSection direction="none" className="min-w-0">
@@ -749,7 +749,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-white/5 bg-[#060606] py-8 md:py-12">
+      <section className="border-y border-white/5 bg-[#060606] py-5 md:py-12">
         <div className="container mx-auto px-6">
           <AnimatedSection className="mb-5 md:mb-6">
             <SectionHeading
@@ -801,7 +801,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-black py-8 md:py-12">
+      <section className="bg-black py-5 md:py-12">
         <div className="container mx-auto px-6">
           <AnimatedSection className="mb-5 md:mb-6">
             <SectionHeading
@@ -852,7 +852,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-white/5 bg-[#050505] py-8 md:py-12">
+      <section className="border-y border-white/5 bg-[#050505] py-5 md:py-12">
         <div className="container mx-auto px-6">
           <AnimatedSection className="mb-5 md:mb-6">
             <SectionHeading
@@ -897,7 +897,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="relative py-8 md:py-12">
+      <section className="relative py-5 md:py-12">
         <div className="absolute inset-0 bg-gradient-to-b from-black to-[#090909]" />
         <div className="container relative z-10 mx-auto px-6">
           <AnimatedSection className="mx-auto max-w-4xl rounded-[3rem] border border-white/10 bg-white/[0.05] p-10 text-center shadow-[0_30px_90px_rgba(0,0,0,0.38)] backdrop-blur-3xl md:p-20">
