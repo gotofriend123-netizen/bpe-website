@@ -1,36 +1,160 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Black Pepper Entertainment
 
-## Getting Started
+Premium booking website for:
+- `VSL`
+- `VSR`
+- `The Arcade`
+- `Events`
 
-First, run the development server:
+The app uses:
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- Supabase Auth
+- Prisma ORM
+- Supabase Postgres
+
+## Local Setup
+
+1. Copy the example env file.
+
+```bash
+cp .env.example .env.local
+```
+
+2. Fill in these required values in `.env.local`:
+- `DATABASE_URL`
+- `DIRECT_URL`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `APP_URL`
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_USER`
+- `SMTP_PASS`
+- `MAIL_FROM`
+- `TWILIO_ACCOUNT_SID`
+- `TWILIO_AUTH_TOKEN`
+- `TWILIO_WHATSAPP_FROM`
+
+3. Install dependencies.
+
+```bash
+npm install
+```
+
+4. Generate the Prisma client.
+
+```bash
+npx prisma generate
+```
+
+5. Apply the Prisma migrations to Supabase Postgres.
+
+```bash
+npx prisma migrate deploy
+```
+
+6. Seed baseline settings and availability slots.
+
+```bash
+npm run db:seed
+```
+
+7. Start the app.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Auth + Roles
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- All signups go through Supabase Auth.
+- Every new profile defaults to `role = user`.
+- App roles stay in the Prisma `User` table.
+- Admin access is checked with `role === "admin"` on the server.
+- These emails are allowlisted for admin promotion:
+  - `adityasingh808589@gmail.com`
+  - `gotofriend123@gmail.com`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+If one of those emails signs in and already exists in Supabase Auth, the app profile layer promotes that email to `admin` when the user record syncs.
 
-## Learn More
+If you need to promote a different existing user manually:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+node scripts/promote-admin.mjs someone@example.com
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Useful Commands
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run dev
+npm run build
+npm run lint
+npm run db:generate
+npm run db:migrate
+npm run db:seed
+```
 
-## Deploy on Vercel
+## Booking Notifications
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Booking notifications are triggered only after the booking record is saved successfully.
+- Booking success is never rolled back if email or WhatsApp delivery fails.
+- Each booking stores per-channel delivery flags so refreshes and reopens do not re-send the same notification for the same booking record.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Gmail SMTP
+
+Use a Gmail App Password in `.env.local`:
+
+```bash
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=blackpepperentertainment.in@gmail.com
+SMTP_PASS=your_gmail_app_password
+MAIL_FROM="Black Pepper Entertainment <blackpepperentertainment.in@gmail.com>"
+```
+
+### Twilio WhatsApp Sandbox
+
+- `TWILIO_WHATSAPP_FROM` must be the Twilio sandbox sender, not your business mobile number.
+- Customer numbers and any admin alert number must first join the sandbox.
+- To enable the optional internal WhatsApp alert, set:
+
+```bash
+TWILIO_ADMIN_WHATSAPP_TO=whatsapp:+919203411611
+```
+
+If that variable is omitted, the admin WhatsApp alert stays skipped while customer delivery can still work.
+
+## Events Module
+
+- `/events` is the separate event discovery experience.
+- `/events/[slug]` is the event detail page with its own sticky booking card.
+- `/events/confirmation` is the success state for event bookings.
+- `/host-an-event` is the organizer CTA page.
+- Event bookings are stored in the Prisma `EventBooking` table, separate from the hall/studio `Booking` flow.
+
+## What To Test Locally
+
+1. Guest homepage, header, mobile menu, and auth popup.
+2. Signup flow.
+3. Login flow.
+4. Logged-in user dashboard and booking ownership.
+5. Logged-in admin access to `/admin`.
+6. Booking creation.
+7. Cancel flow and slot reopening.
+8. Reschedule flow and slot transfer.
+9. Waitlist and next-slot suggestions.
+10. Booking confirmation email delivery state on the success page.
+11. Customer WhatsApp confirmation through the Twilio sandbox.
+12. Admin booking page notification status badges and last-attempt state.
+13. Events discovery page, category filters, and promo sections.
+14. Event detail page, ticket tier selection, and quantity controls.
+15. Event booking API validation and event confirmation page.
+
+## Notes
+
+- Deployment is intentionally not included here.
+- Supabase email confirmation should be configured to match your desired signup experience.
+- The forgot-password page is still a placeholder UI until you wire the full email reset flow.

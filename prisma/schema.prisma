@@ -1,0 +1,299 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum UserRole {
+  user
+  admin
+}
+
+enum Space {
+  vsl
+  vsr
+  arcade
+}
+
+enum SlotStatus {
+  available
+  pending
+  booked
+  blocked
+  cancelled
+  rescheduled
+  buffer_blocked
+  waitlist_only
+}
+
+enum BookingStatus {
+  pending
+  pending_payment
+  confirmed
+  cancelled
+  rescheduled
+  completed
+  refund_initiated
+  refund_processed
+  no_show
+}
+
+enum WaitlistStatus {
+  active
+  notified
+  converted
+  closed
+}
+
+enum ReminderStatus {
+  not_scheduled
+  pending
+  sent_72h
+  sent_24h
+  failed
+}
+
+enum EventBookingStatus {
+  confirmed
+  cancelled
+  refunded
+}
+
+enum EventAvailability {
+  available
+  limited
+  sold_out
+}
+
+enum OfferStatus {
+  draft
+  active
+  expired
+  archived
+}
+
+model User {
+  id              String          @id @default(cuid())
+  authUserId      String?         @unique
+  name            String
+  email           String          @unique
+  role            UserRole        @default(user)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  bookings        Booking[]
+  eventBookings   EventBooking[]
+  eventListings   EventListing[]
+  offers          Offer[]
+  waitlistEntries WaitlistEntry[]
+}
+
+model AvailabilitySlot {
+  id            String      @id @default(cuid())
+  space         Space
+  dateKey       String
+  startTime     String
+  endTime       String
+  status        SlotStatus  @default(available)
+  peakTime      Boolean     @default(false)
+  priceModifier Float       @default(1)
+  label         String?
+  bufferBefore  Int         @default(30)
+  bufferAfter   Int         @default(30)
+  note          String?
+  tag           String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  bookings      Booking[]
+
+  @@unique([space, dateKey, startTime, endTime])
+  @@index([space, dateKey, status])
+}
+
+model Booking {
+  id                String            @id @default(cuid())
+  reference         String            @unique
+  userId            String?
+  slotId            String?
+  customerName      String
+  customerEmail     String
+  customerPhone     String
+  space             Space
+  dateKey           String
+  startTime         String
+  endTime           String
+  status            BookingStatus     @default(pending)
+  acceptedPolicies  Boolean
+  specificStudio    String?
+  selectedPackage   String?
+  packageLabel      String?
+  priceModifier     Float?
+  adminNotes        String?
+  reminderStatus    ReminderStatus    @default(not_scheduled)
+  adminEmailSent    Boolean           @default(false)
+  customerEmailSent Boolean           @default(false)
+  customerWhatsappSent Boolean        @default(false)
+  adminWhatsappSent Boolean           @default(false)
+  notificationFailedReason String?
+  notificationLastAttemptAt DateTime?
+  cancelledAt       DateTime?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  rescheduledFromId String?
+  user              User?             @relation(fields: [userId], references: [id], onDelete: SetNull)
+  slot              AvailabilitySlot? @relation(fields: [slotId], references: [id], onDelete: SetNull)
+  rescheduledFrom   Booking?          @relation("BookingReschedules", fields: [rescheduledFromId], references: [id], onDelete: SetNull)
+  rescheduledTo     Booking[]         @relation("BookingReschedules")
+  tags              BookingTag[]
+  waitlistEntries   WaitlistEntry[]
+
+  @@index([userId, createdAt])
+  @@index([customerEmail, createdAt])
+  @@index([space, dateKey, status])
+}
+
+model BookingTag {
+  id        String   @id @default(cuid())
+  bookingId String
+  label     String
+  createdAt DateTime @default(now())
+  booking   Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@unique([bookingId, label])
+}
+
+model WaitlistEntry {
+  id         String         @id @default(cuid())
+  userId     String?
+  bookingId  String?
+  space      Space
+  dateKey    String
+  name       String
+  email      String
+  phone      String
+  note       String?
+  status     WaitlistStatus @default(active)
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  user       User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+  booking    Booking?       @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+
+  @@index([space, dateKey, status])
+}
+
+model AppSettings {
+  id                       Int      @id @default(1)
+  cancelFullRefundHours    Int      @default(72)
+  cancelPartialRefundHours Int      @default(24)
+  partialRefundPercentage  Int      @default(50)
+  defaultBufferBefore      Int      @default(30)
+  defaultBufferAfter       Int      @default(30)
+  peakPricingMultiplier    Float    @default(1.25)
+  whatsappNumber           String?
+  reminderEmailEnabled     Boolean  @default(false)
+  reminderSmsEnabled       Boolean  @default(false)
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+}
+
+model EventBooking {
+  id                       String             @id @default(cuid())
+  reference                String             @unique
+  userId                   String?
+  eventSlug                String
+  eventTitle               String
+  eventCategory            String
+  eventVenue               String
+  organizer                String
+  posterImage              String?
+  eventStartsAt            DateTime
+  eventEndsAt              DateTime?
+  ticketTierId             String
+  ticketTierLabel          String
+  ticketUnitPrice          Int
+  quantity                 Int
+  totalAmount              Int
+  currency                 String             @default("INR")
+  customerName             String
+  customerEmail            String
+  customerPhone            String
+  notes                    String?
+  status                   EventBookingStatus @default(confirmed)
+  confirmationEmailSent    Boolean            @default(false)
+  adminEmailSent           Boolean            @default(false)
+  notificationFailedReason String?
+  notificationLastAttemptAt DateTime?
+  createdAt                DateTime           @default(now())
+  updatedAt                DateTime           @updatedAt
+  user                     User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([eventSlug, createdAt])
+  @@index([customerEmail, createdAt])
+  @@index([status, createdAt])
+}
+
+model EventListing {
+  id            String            @id @default(cuid())
+  slug          String            @unique
+  title         String
+  shortTitle    String?
+  category      String
+  categoryLabel String
+  summary       String
+  teaser        String
+  venue         String
+  organizer     String
+  city          String            @default("Raipur")
+  startsAt      DateTime
+  endsAt        DateTime
+  availability  EventAvailability @default(available)
+  priceFrom     Int
+  posterImage   String
+  coverImage    String?
+  accent        String?
+  metadataLine  String?
+  highlights    Json?
+  description   Json?
+  faq           Json?
+  policies      Json?
+  ticketTiers   Json?
+  hot           Boolean           @default(false)
+  featured      Boolean           @default(false)
+  trending      Boolean           @default(false)
+  homepage      Boolean           @default(false)
+  published     Boolean           @default(true)
+  createdById   String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  createdBy     User?             @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([published, startsAt])
+  @@index([category, startsAt])
+}
+
+model Offer {
+  id            String      @id @default(cuid())
+  slug          String      @unique
+  title         String
+  summary       String
+  description   String?
+  image         String
+  accent        String?
+  venue         String?
+  code          String?
+  discountLabel String?
+  ctaLabel      String      @default("Claim Offer")
+  status        OfferStatus @default(active)
+  featured      Boolean     @default(false)
+  validUntil    DateTime?
+  createdById   String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  createdBy     User?       @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([status, createdAt])
+  @@index([featured, status])
+}

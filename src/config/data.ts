@@ -134,5 +134,5 @@ export const CONFIG = {
   adminEmail: "adityasingh808589@gmail.com",
   adminName: "Aditya Singh",
   senderName: "Verve Studio Team",
-  termsAndConditionsLink: "/terms", // adjust to the actual Terms URL
+  termsAndConditionsLink: "/legal/terms",
 };

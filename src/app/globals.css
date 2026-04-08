@@ -4,34 +4,37 @@
 
 @layer base {
   :root {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
-    --border: 0 0% 12%;
+    --background: #000000;
+    --foreground: #FFFFFF;
+    --border: #1F1F1F;
+    --muted: #888888;
   }
 }
 
 @layer base {
   body {
-    @apply bg-black text-white selection:bg-white/30 selection:text-white;
+    @apply bg-black text-white selection:bg-white/30 selection:text-white antialiased overflow-x-hidden;
+    /* Optional sleek smooth scroll behavior */
+    scroll-behavior: smooth;
   }
 }
 
 /* Custom scrollbar for webkit to match the premium dark theme */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #000;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 5px;
+  background: #2a2a2a;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #4a4a4a;
 }
 
 /* Base Form Inputs (Native autofill override for dark mode) */
@@ -56,4 +59,14 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 input[type="date"]::-webkit-calendar-picker-indicator:hover,
 input[type="time"]::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
+}
+
+/* Utility classes for quick premium effects */
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+  .glass {
+    @apply bg-white/5 border border-white/10 backdrop-blur-md;
+  }
 }

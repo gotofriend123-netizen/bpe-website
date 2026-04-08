@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-export const bookingFormSchema = z.object({
+export const bookingFormBaseSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters."),
   phoneNumber: z.string().min(10, "Please enter a valid phone number."),
   email: z.string().email("Please enter a valid email address."),
@@ -12,7 +12,7 @@ export const bookingFormSchema = z.object({
   termsAccepted: z.boolean().refine((val) => val === true, {
     message: "You must agree to the Terms & Conditions.",
   }),
-}).superRefine((data, ctx) => {
+  }).superRefine((data, ctx) => {
   if (data.bookingType === "verve-studio-left" || data.bookingType === "verve-studio-right") {
     if (!data.specificStudio || data.specificStudio === "") {
       ctx.addIssue({
@@ -30,6 +30,12 @@ export const bookingFormSchema = z.object({
       }
     }
   }
+});
+
+export const bookingFormSchema = bookingFormBaseSchema;
+
+export const bookingRequestSchema = bookingFormBaseSchema.extend({
+  slotId: z.string().optional(),
 });
 
 export type BookingFormValues = z.infer<typeof bookingFormSchema>;
