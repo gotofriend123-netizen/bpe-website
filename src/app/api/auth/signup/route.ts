@@ -57,12 +57,31 @@ export async function POST(request: Request) {
       );
     }
 
-    const hasActiveSession = Boolean(data.session);
-    const redirectTo = hasActiveSession
-      ? normalizeRedirectPath(nextPath, user.role === "admin" ? "/admin" : "/dashboard")
-      : nextPath
-        ? `/login?registered=1&next=${encodeURIComponent(normalizeRedirectPath(nextPath, "/dashboard"))}`
-        : "/login?registered=1";
+    // If Supabase didn't return a session (e.g. email confirmation is on),
+    // force-login the user immediately so they skip email verification.
+    if (!data.session) {
+      const { error: loginError } = await supabase.auth.signInWithPassword({
+        email: normalizedEmail,
+        password,
+      });
+
+      if (loginError) {
+        // Account was created but auto-login failed; send to login page
+        const response = NextResponse.json(
+          {
+            user: { id: user.id, name: user.name, email: user.email, role: user.role },
+            redirectTo: "/login?registered=1",
+          },
+          { status: 201 },
+        );
+        return applyToResponse(response);
+      }
+    }
+
+    const redirectTo = normalizeRedirectPath(
+      nextPath,
+      user.role === "admin" ? "/admin" : "/dashboard",
+    );
 
     const response = NextResponse.json(
       {
