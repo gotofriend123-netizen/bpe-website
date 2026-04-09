@@ -367,17 +367,36 @@ export default async function HomePage() {
       />
       <section className="relative flex min-h-[460px] w-full items-center overflow-hidden pt-20 sm:min-h-[600px] sm:pt-28 md:min-h-[660px] md:pt-28">
         <div className="absolute inset-0 z-0 h-full w-full">
-          <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black via-[#040404] to-black" />
-          <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_30%),radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.04),transparent_22%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.03),transparent_20%)]" />
+          <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-black/90 via-black/60 to-black/90" />
+          <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_30%),radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.04),transparent_22%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.03),transparent_20%)]" />
+          {/* Stars layer 1 – slow twinkle */}
           <div
-            className="pointer-events-none absolute inset-0 z-[1] opacity-100"
+            className="pointer-events-none absolute inset-0 z-[3] animate-[twinkle_4s_ease-in-out_infinite]"
             style={{
               backgroundImage:
-                "radial-gradient(1.7px 1.7px at 22px 26px, rgba(255,255,255,0.98), transparent 55%), radial-gradient(1.5px 1.5px at 112px 84px, rgba(255,255,255,0.9), transparent 55%), radial-gradient(1.9px 1.9px at 184px 44px, rgba(255,255,255,0.92), transparent 55%), radial-gradient(1.35px 1.35px at 72px 152px, rgba(255,255,255,0.82), transparent 55%), radial-gradient(1.65px 1.65px at 198px 172px, rgba(255,255,255,0.88), transparent 55%), radial-gradient(1.3px 1.3px at 144px 132px, rgba(255,255,255,0.9), transparent 55%)",
-              backgroundSize: "190px 190px",
+                "radial-gradient(1.7px 1.7px at 22px 26px, rgba(255,255,255,0.95), transparent 55%), radial-gradient(1.5px 1.5px at 112px 84px, rgba(255,255,255,0.85), transparent 55%), radial-gradient(1.9px 1.9px at 184px 44px, rgba(255,255,255,0.9), transparent 55%), radial-gradient(1.1px 1.1px at 72px 152px, rgba(255,255,255,0.75), transparent 55%), radial-gradient(1.65px 1.65px at 198px 172px, rgba(255,255,255,0.85), transparent 55%), radial-gradient(1.3px 1.3px at 144px 132px, rgba(255,255,255,0.8), transparent 55%)",
+              backgroundSize: "220px 220px",
             }}
           />
-          <div className="pointer-events-none absolute left-1/2 top-0 h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-white/6 blur-[130px]" />
+          {/* Stars layer 2 – offset twinkle for depth */}
+          <div
+            className="pointer-events-none absolute inset-0 z-[3] animate-[twinkle_6s_ease-in-out_2s_infinite]"
+            style={{
+              backgroundImage:
+                "radial-gradient(1.2px 1.2px at 50px 60px, rgba(255,255,255,0.7), transparent 55%), radial-gradient(1.4px 1.4px at 160px 120px, rgba(255,255,255,0.65), transparent 55%), radial-gradient(1px 1px at 90px 30px, rgba(255,255,255,0.6), transparent 55%), radial-gradient(1.3px 1.3px at 130px 180px, rgba(255,255,255,0.55), transparent 55%)",
+              backgroundSize: "260px 260px",
+            }}
+          />
+          {/* Stars layer 3 – tiny fast twinkle */}
+          <div
+            className="pointer-events-none absolute inset-0 z-[3] animate-[twinkle_3s_ease-in-out_1s_infinite]"
+            style={{
+              backgroundImage:
+                "radial-gradient(0.8px 0.8px at 35px 95px, rgba(255,255,255,0.6), transparent 55%), radial-gradient(0.9px 0.9px at 175px 55px, rgba(255,255,255,0.55), transparent 55%), radial-gradient(0.7px 0.7px at 100px 160px, rgba(255,255,255,0.5), transparent 55%)",
+              backgroundSize: "200px 200px",
+            }}
+          />
+          <div className="pointer-events-none absolute left-1/2 top-0 z-[2] h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-white/6 blur-[130px]" />
         </div>
 
         <div className="relative z-20 container mx-auto flex min-h-[calc(100vh-7rem)] w-full flex-col items-center justify-center px-5 py-6 text-center sm:min-h-[calc(100vh-7.5rem)] sm:px-6 sm:py-12 md:min-h-[620px] md:py-14">

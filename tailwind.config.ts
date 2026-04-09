@@ -53,7 +53,11 @@ const config: Config = {
         fadeInBlur: {
           "0%": { opacity: "0", filter: "blur(10px)", transform: "scale(0.95)" },
           "100%": { opacity: "1", filter: "blur(0px)", transform: "scale(1)" },
-        }
+        },
+        twinkle: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.4" },
+        },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
