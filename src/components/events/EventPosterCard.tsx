@@ -29,7 +29,6 @@ export function EventPosterCard({
   variant = "poster",
   showSummary = true,
 }: EventPosterCardProps) {
-  const poster = variant === "featured";
   const compactCard = variant === "compact";
 
   return (
