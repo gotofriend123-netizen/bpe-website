@@ -2,7 +2,7 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
 import { BookingStepsSection } from "@/components/events/BookingStepsSection";
 import { CategoryTilePremium } from "@/components/events/CategoryTilePremium";
-import { EventsLuxuryHeader } from "@/components/events/EventsLuxuryHeader";
+import { EventsCinematicHero } from "@/components/events/EventsCinematicHero";
 import { HotTicketCard } from "@/components/events/HotTicketCard";
 import { MarqueeStrip } from "@/components/events/MarqueeStrip";
 import { PremiumFAQAccordion } from "@/components/events/PremiumFAQAccordion";
@@ -91,15 +91,11 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
   const relatedEvents = heroEvent ? await getRelatedEventItems(heroEvent.slug, 4) : allEvents.slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-black pb-12 pt-24 text-white md:pb-18 md:pt-28">
-      <section className="pb-5 md:pb-8">
-        <div className="container mx-auto px-6">
-          {heroEvent ? (
-            <AnimatedSection>
-              <EventsLuxuryHeader featuredEvent={heroEvent} />
-            </AnimatedSection>
-          ) : null}
-        </div>
+    <div className="min-h-screen bg-black pb-12 text-white md:pb-18">
+      <section className="w-full">
+        {heroEvent ? (
+          <EventsCinematicHero featuredEvent={heroEvent} />
+        ) : null}
       </section>
 
       <section className="pb-5 md:pb-8">
