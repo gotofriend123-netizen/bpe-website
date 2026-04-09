@@ -36,8 +36,7 @@ export function EventPosterCard({
     <Link
       href={href}
       className={cn(
-        "group relative block overflow-hidden rounded-[1.85rem] border border-white/10 bg-[#090909] shadow-[0_18px_50px_rgba(0,0,0,0.24)] transition-all duration-300 hover:-translate-y-1 hover:border-white/18 hover:shadow-[0_24px_70px_rgba(249,115,22,0.12)]",
-        poster ? "h-full" : "",
+        "group relative flex h-full flex-col overflow-hidden rounded-[1.85rem] border border-white/10 bg-[#090909] shadow-[0_18px_50px_rgba(0,0,0,0.24)] transition-all duration-300 hover:-translate-y-1 hover:border-white/18 hover:shadow-[0_24px_70px_rgba(255,255,255,0.06)]",
       )}
     >
       <div
@@ -76,7 +75,7 @@ export function EventPosterCard({
         </div>
       </div>
 
-      <div className={cn(compactCard ? "p-4 sm:p-5" : "p-5 sm:p-6")}>
+      <div className={cn("flex flex-1 flex-col", compactCard ? "p-4 sm:p-5" : "p-5 sm:p-6")}>
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
@@ -111,24 +110,24 @@ export function EventPosterCard({
           )}
         >
           <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-[#f97316]" />
+            <MapPin className="h-4 w-4 text-white/70" />
             <span>{event.venue}</span>
           </div>
           <div className="flex items-center gap-2">
-            <CalendarDays className="h-4 w-4 text-[#f97316]" />
+            <CalendarDays className="h-4 w-4 text-white/70" />
             <span>{format(new Date(event.startsAt), "EEE, d MMM • h:mm a")}</span>
           </div>
           <div className="flex items-center gap-2">
-            <Ticket className="h-4 w-4 text-[#f97316]" />
+            <Ticket className="h-4 w-4 text-white/70" />
             <span>From {formatPrice(event.priceFrom)}</span>
           </div>
         </div>
 
-        <div className={cn("flex items-center justify-between border-t border-white/8", compactCard ? "mt-4 pt-3.5" : "mt-5 pt-4")}>
+        <div className={cn("mt-auto flex items-center justify-between border-t border-white/8", compactCard ? "pt-3.5" : "pt-4")}>
           <span className={cn("uppercase tracking-[0.24em] text-zinc-500", compactCard ? "text-[10px]" : "text-xs")}>
             {event.metadataLine}
           </span>
-          <span className="text-sm font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 group-hover:text-[#f97316]">
+          <span className="text-sm font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-200 group-hover:text-zinc-300">
             View Details
           </span>
         </div>

@@ -898,7 +898,7 @@ export default async function HomePage() {
 
           <div className="hidden gap-5 md:grid md:grid-cols-2 xl:grid-cols-4">
             {upcomingEvents.map((event, index) => (
-              <AnimatedSection key={event.slug} delay={0.1 + index * 0.06} direction="up">
+              <AnimatedSection key={event.slug} delay={0.1 + index * 0.06} direction="up" className="h-full">
                 <EventPosterCard event={event} variant="compact" showSummary={false} />
               </AnimatedSection>
             ))}
@@ -907,7 +907,7 @@ export default async function HomePage() {
           <AnimatedSection className="mt-6 text-center">
             <Link
               href="/events"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-black transition-all hover:-translate-y-0.5 hover:bg-[#f97316]"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-black transition-all hover:-translate-y-0.5 hover:bg-zinc-200"
             >
               View All Events
               <MoveRight className="h-4 w-4" />
