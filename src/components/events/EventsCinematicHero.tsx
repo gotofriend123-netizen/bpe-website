@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CalendarDays, MapPin, Ticket, ChevronDown } from "lucide-react";
+import { CalendarDays, MapPin, Ticket } from "lucide-react";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 
