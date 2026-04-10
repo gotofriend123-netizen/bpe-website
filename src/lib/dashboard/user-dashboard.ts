@@ -369,13 +369,12 @@ function toDashboardBooking(booking: {
     policy,
     canCancel:
       !isActionLocked &&
-      booking.status !== "pending" &&
       policy.isAllowed &&
-      booking.status === "confirmed",
+      (booking.status === "confirmed" || booking.status === "pending"),
     canReschedule:
       !isActionLocked &&
       policy.isAllowed &&
-      booking.status === "confirmed",
+      (booking.status === "confirmed" || booking.status === "pending"),
     actionMessage,
     nextAvailableSlot: null,
     rescheduleOptions: [],
