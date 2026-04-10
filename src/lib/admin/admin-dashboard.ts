@@ -30,8 +30,8 @@ export const ADMIN_ROUTE_LINKS = [
 ] as const;
 
 export const ADMIN_SPACES = [
-  { key: "vsl" as const, label: "VSL", name: SPACE_LABELS.vsl },
-  { key: "vsr" as const, label: "VSR", name: SPACE_LABELS.vsr },
+  { key: "vsl" as const, label: "Verve Studio Left", name: SPACE_LABELS.vsl },
+  { key: "vsr" as const, label: "Verve Studio Right", name: SPACE_LABELS.vsr },
   { key: "arcade" as const, label: "The Arcade", name: SPACE_LABELS.arcade },
 ] as const;
 

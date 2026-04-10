@@ -11,7 +11,6 @@ export const verveImages = [
   "/verve-studio/dsc02511.jpg",
   "/verve-studio/dsc02518.jpg",
   "/verve-studio/DSC02475.JPG",
-  "/verve-studio/dsc02529.jpg",
   "/verve-studio/dsc02531.jpg",
   "/verve-studio/dsc02534.jpg",
   "/verve-studio/DSC02464.JPG",
