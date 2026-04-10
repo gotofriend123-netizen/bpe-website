@@ -369,11 +369,9 @@ function toDashboardBooking(booking: {
     policy,
     canCancel:
       !isActionLocked &&
-      policy.isAllowed &&
       (booking.status === "confirmed" || booking.status === "pending"),
     canReschedule:
       !isActionLocked &&
-      policy.isAllowed &&
       (booking.status === "confirmed" || booking.status === "pending"),
     actionMessage,
     nextAvailableSlot: null,
@@ -551,14 +549,14 @@ export async function getDashboardRescheduleContextForUser(
     return null;
   }
 
-  const rescheduleOptions =
-    booking.canReschedule && booking.status === "confirmed"
-      ? (await getAvailableRescheduleSlotsForSpace(
-          booking.space,
-          booking.dateKey,
-          booking.startTime,
-        )).map((slot) => toDashboardActionSlot(slot))
-      : [];
+  const todayKey = new Date().toISOString().slice(0, 10);
+  const rescheduleOptions = (
+    await getAvailableRescheduleSlotsForSpace(
+      booking.space,
+      todayKey,
+      "00:00",
+    )
+  ).map((slot) => toDashboardActionSlot(slot));
 
   return {
     ...booking,

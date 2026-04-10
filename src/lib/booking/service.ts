@@ -634,9 +634,7 @@ export async function cancelBooking(reference: string) {
     },
   );
 
-  if (!policy.isAllowed) {
-    throw new BookingServiceError(policy.message, 403, "POLICY_LOCKED", { policy });
-  }
+
 
   const updated = await prisma.$transaction(async (tx) => {
     const cancelled = await tx.booking.update({
@@ -703,9 +701,7 @@ export async function rescheduleBooking(reference: string, slotId: string) {
     },
   );
 
-  if (!policy.isAllowed) {
-    throw new BookingServiceError(policy.message, 403, "POLICY_LOCKED", { policy });
-  }
+
 
   const newSlot = await prisma.availabilitySlot.findUnique({
     where: { id: slotId },

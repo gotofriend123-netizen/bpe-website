@@ -46,11 +46,7 @@ export async function cancelDashboardBookingAction(formData: FormData) {
     redirect("/dashboard/bookings?error=Booking%20not%20found.");
   }
 
-  if (!booking.canCancel) {
-    redirect(
-      `/dashboard/cancel?id=${booking.id}&error=${encodeURIComponent(booking.actionMessage)}`,
-    );
-  }
+
 
   try {
     await cancelBooking(booking.reference);
@@ -80,11 +76,7 @@ export async function rescheduleDashboardBookingAction(formData: FormData) {
     redirect("/dashboard/bookings?error=Booking%20not%20found.");
   }
 
-  if (!booking.canReschedule) {
-    redirect(
-      `/dashboard/reschedule?id=${booking.id}&error=${encodeURIComponent(booking.actionMessage)}`,
-    );
-  }
+
 
   const targetSlotId = parsed.data.slotId;
   if (!targetSlotId) {
