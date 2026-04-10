@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { AlertTriangle, ArrowLeft, CalendarSync, Mail, Sparkles } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Mail, Sparkles } from "lucide-react";
 import { DashboardFrame } from "@/components/dashboard/DashboardFrame";
 import { DashboardEmptyState } from "@/components/dashboard/DashboardEmptyState";
 import { UserBookingCard } from "@/components/dashboard/UserBookingCard";
+import { DashboardSubmitButton } from "@/components/dashboard/DashboardSubmitButton";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { rescheduleDashboardBookingAction } from "@/app/dashboard/actions";
 import {
@@ -165,25 +166,11 @@ export default async function RescheduleBookingPage({
                         No alternate valid slot is currently available for this booking.
                       </p>
                     )}
-                    <button
-                      type="submit"
-                      disabled={booking.rescheduleOptions.length === 0}
-                      className="mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-transform duration-200 hover:-translate-y-0.5"
-                    >
-                      <CalendarSync className="h-4 w-4" />
-                      Reschedule booking
-                    </button>
+                    <DashboardSubmitButton variant="reschedule" disabled={booking.rescheduleOptions.length === 0} />
                   </form>
                 ) : null}
 
-                <div className="grid gap-3 sm:grid-cols-3">
-                  <Link
-                    href={`/booking/manage?ref=${booking.reference}`}
-                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-transform duration-200 hover:-translate-y-0.5"
-                  >
-                    <Sparkles className="h-4 w-4" />
-                    Open self-service controls
-                  </Link>
+                <div className="grid gap-3 sm:grid-cols-2">
                   <a
                     href={`mailto:${BUSINESS_SUPPORT_EMAIL}?subject=Reschedule%20booking%20${booking.reference}&body=Hi%20team,%20please%20reschedule%20booking%20${booking.reference}%20for%20${booking.dateLabel}.`}
                     className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-white/75 transition-colors hover:bg-white hover:text-black"

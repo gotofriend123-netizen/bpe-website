@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { AlertTriangle, ArrowLeft, Ban, Mail, ShieldCheck } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Mail, ShieldCheck } from "lucide-react";
 import { DashboardFrame } from "@/components/dashboard/DashboardFrame";
 import { DashboardEmptyState } from "@/components/dashboard/DashboardEmptyState";
 import { UserBookingCard } from "@/components/dashboard/UserBookingCard";
+import { DashboardSubmitButton } from "@/components/dashboard/DashboardSubmitButton";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { cancelDashboardBookingAction } from "@/app/dashboard/actions";
 import {
@@ -122,24 +123,11 @@ export default async function CancelBookingPage({
                     <p className="mt-2 text-sm leading-7 text-white/60">
                       Canceling will immediately reopen the slot if the booking is still tied to an active space reservation.
                     </p>
-                    <button
-                      type="submit"
-                      className="mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-rose-500/20 bg-rose-500/10 px-5 py-3 text-sm font-semibold text-rose-100 transition-colors hover:bg-rose-500/20"
-                    >
-                      <Ban className="h-4 w-4" />
-                      Cancel this booking
-                    </button>
+                    <DashboardSubmitButton variant="cancel" />
                   </form>
                 ) : null}
 
-                <div className="grid gap-3 sm:grid-cols-3">
-                  <Link
-                    href={`/booking/manage?ref=${booking.reference}`}
-                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-transform duration-200 hover:-translate-y-0.5"
-                  >
-                    <ShieldCheck className="h-4 w-4" />
-                    Open self-service controls
-                  </Link>
+                <div className="grid gap-3 sm:grid-cols-2">
                   <a
                     href={`mailto:${BUSINESS_SUPPORT_EMAIL}?subject=Cancel%20booking%20${booking.reference}&body=Hi%20team,%20please%20cancel%20booking%20${booking.reference}%20for%20${booking.dateLabel}.`}
                     className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-white/75 transition-colors hover:bg-white hover:text-black"
