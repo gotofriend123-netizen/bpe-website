@@ -96,7 +96,7 @@ export function DashboardFrame({
                   Welcome back, {firstName}
                 </h1>
                 <p className="mt-2 text-sm leading-6 text-zinc-400">
-                  Track your studio bookings, waitlist entries, and account details from one premium workspace.
+                  Track your studio bookings and account details from one premium workspace.
                 </p>
               </div>
 
@@ -176,7 +176,7 @@ export function DashboardFrame({
                     Welcome back, {firstName}.
                   </h1>
                   <p className="max-w-2xl text-xs leading-5 text-white/55 sm:text-sm sm:leading-7">
-                    Your bookings, waitlist entries, and account details are kept
+                    Your bookings and account details are kept
                     in one polished place. Review your upcoming sessions, manage
                     policy windows, and jump back into the booking flow whenever
                     you need to.
@@ -267,11 +267,7 @@ export function DashboardFrame({
               value={overview.stats.confirmedBookings}
               icon={ShieldCheck}
             />
-            <StatCard
-              label="Waitlist"
-              value={overview.stats.waitlistEntries}
-              icon={UserRound}
-            />
+
           </div>
 
           <div className="flex gap-3 overflow-x-auto rounded-[1.5rem] border border-white/6 bg-[#111111] p-3 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:hidden">

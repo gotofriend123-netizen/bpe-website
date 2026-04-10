@@ -364,7 +364,7 @@ export async function createBookingFromRequest(input: {
         },
       }));
 
-    let status: BookingStatus = BookingStatus.pending;
+    let status: BookingStatus = BookingStatus.confirmed;
     let slotId: string | null = null;
     let actualEndTime = endTime;
     const reservationSlot = matchingSlot;
@@ -422,10 +422,6 @@ export async function createBookingFromRequest(input: {
         tags: true,
       },
     });
-
-    if (status === BookingStatus.pending) {
-      return created;
-    }
 
     return created;
   });
