@@ -10,10 +10,15 @@ export const arcadeImages = [
 export const verveImages = [
   "/verve-studio/dsc02511.jpg",
   "/verve-studio/dsc02518.jpg",
-  "/verve-studio/dsc02520.jpg",
+  "/verve-studio/DSC02475.JPG",
   "/verve-studio/dsc02529.jpg",
   "/verve-studio/dsc02531.jpg",
   "/verve-studio/dsc02534.jpg",
+  "/verve-studio/DSC02464.JPG",
+  "/verve-studio/DSC02469 (1).JPG",
+  "/verve-studio/DSC02496.JPG",
+  "/verve-studio/DSC02501 (1).JPG",
+  "/verve-studio/DSC02505 (1).JPG",
 ] as const;
 
 export const venueImages = [
