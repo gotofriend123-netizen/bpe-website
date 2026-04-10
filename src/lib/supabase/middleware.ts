@@ -22,12 +22,12 @@ export function applyPendingCookies<T extends NextResponse>(
 }
 
 export async function refreshSupabaseAuth(request: NextRequest) {
-  const pendingCookies: PendingCookie[] = [];
-  const response = NextResponse.next({
+  let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
+  const pendingCookies: PendingCookie[] = [];
 
   if (!hasSupabaseEnv()) {
     return { response, pendingCookies, user: null as SupabaseAuthUser | null };
@@ -42,7 +42,17 @@ export async function refreshSupabaseAuth(request: NextRequest) {
       setAll(cookiesToSet) {
         cookiesToSet.forEach((cookie) => {
           pendingCookies.push(cookie);
+          request.cookies.set(cookie.name, cookie.value);
         });
+
+        // Recreate response with the updated request headers/cookies
+        response = NextResponse.next({
+          request: {
+            headers: request.headers,
+          },
+        });
+        
+        applyPendingCookies(response, pendingCookies);
       },
     },
   });
@@ -51,6 +61,8 @@ export async function refreshSupabaseAuth(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Run applyPendingCookies again just in case there were no setAll calls
+  // but we still want to ensure response is up to date
   applyPendingCookies(response, pendingCookies);
 
   return {
