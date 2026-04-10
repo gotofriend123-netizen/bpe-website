@@ -51,7 +51,7 @@ export function AuthEntryPrompt({ currentUser = null }: AuthEntryPromptProps) {
       return;
     }
 
-    if (window.sessionStorage.getItem(DISMISS_KEY) === "true") {
+    if (window.localStorage.getItem(DISMISS_KEY) === "true") {
       setOpen(false);
       return;
     }
@@ -91,7 +91,7 @@ export function AuthEntryPrompt({ currentUser = null }: AuthEntryPromptProps) {
 
   const dismissPrompt = () => {
     if (typeof window !== "undefined") {
-      window.sessionStorage.setItem(DISMISS_KEY, "true");
+      window.localStorage.setItem(DISMISS_KEY, "true");
     }
 
     setOpen(false);
@@ -99,7 +99,7 @@ export function AuthEntryPrompt({ currentUser = null }: AuthEntryPromptProps) {
 
   const handlePrimaryAction = () => {
     if (typeof window !== "undefined") {
-      window.sessionStorage.setItem(DISMISS_KEY, "true");
+      window.localStorage.setItem(DISMISS_KEY, "true");
     }
     setOpen(false);
   };

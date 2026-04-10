@@ -3,7 +3,7 @@ import { ArrowRight, Clock3, Sparkles } from "lucide-react";
 import { DashboardFrame } from "@/components/dashboard/DashboardFrame";
 import { DashboardEmptyState } from "@/components/dashboard/DashboardEmptyState";
 import { UserBookingCard } from "@/components/dashboard/UserBookingCard";
-import { WaitlistEntryCard } from "@/components/dashboard/WaitlistEntryCard";
+
 import { GlowCard } from "@/components/ui/GlowCard";
 import {
   getUserDashboardOverview,
@@ -103,34 +103,7 @@ export default async function UserDashboardPage() {
             </div>
           </GlowCard>
 
-          <div className="space-y-4">
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="text-xl font-semibold tracking-[-0.03em] text-white">
-                Waitlist entries
-              </h3>
-              <Link
-                href="/dashboard/bookings"
-                className="text-sm font-medium text-white/55 transition-colors hover:text-white"
-              >
-                Manage
-              </Link>
-            </div>
 
-            {overview.waitlistEntries.length > 0 ? (
-              <div className="grid gap-4">
-                {overview.waitlistEntries.slice(0, 2).map((entry) => (
-                  <WaitlistEntryCard key={entry.id} entry={entry} />
-                ))}
-              </div>
-            ) : (
-              <DashboardEmptyState
-                title="No waitlist entries."
-                description="If you joined a waitlist for a fully booked date, the entry will appear here with its status and target session details."
-                ctaHref="/availability"
-                ctaLabel="Check availability"
-              />
-            )}
-          </div>
         </div>
       </section>
     </DashboardFrame>
