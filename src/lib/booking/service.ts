@@ -290,7 +290,10 @@ export async function getNextAvailableSlotForSpace(
     orderBy: [{ dateKey: "asc" }, { startTime: "asc" }],
   });
 
-  const publicSlots = slots.map(serializeSlot);
+  const now = Date.now();
+  const publicSlots = slots
+    .map(serializeSlot)
+    .filter((slot) => buildLocalDateTime(slot.dateKey, slot.startTime).getTime() > now);
   return (
     publicSlots.find((slot) => {
       if (slot.dateKey > afterDateKey) {
@@ -314,7 +317,7 @@ export async function getAvailableRescheduleSlotsForSpace(
   space: Space,
   afterDateKey: string,
   afterTime?: string,
-  limit = 8,
+  limit = 120,
 ) {
   const slots = await prisma.availabilitySlot.findMany({
     where: {
@@ -333,10 +336,15 @@ export async function getAvailableRescheduleSlotsForSpace(
       ],
     },
     orderBy: [{ dateKey: "asc" }, { startTime: "asc" }],
-    take: limit,
+    take: Math.max(limit * 2, 180),
   });
 
-  return slots.map(serializeSlot);
+  const now = Date.now();
+
+  return slots
+    .map(serializeSlot)
+    .filter((slot) => buildLocalDateTime(slot.dateKey, slot.startTime).getTime() > now)
+    .slice(0, limit);
 }
 
 async function reserveMatchingSlot(params: {
@@ -372,12 +380,27 @@ async function reserveMatchingSlot(params: {
     );
   }
 
-  const updated = await tx.availabilitySlot.update({
-    where: { id: slot.id },
+  const updated = await tx.availabilitySlot.updateMany({
+    where: {
+      id: slot.id,
+      status: SlotStatus.available,
+    },
     data: { status: SlotStatus.booked },
   });
 
-  return updated;
+  if (updated.count === 0) {
+    throw new BookingServiceError(
+      "Selected slot is no longer available.",
+      409,
+      "SLOT_UNAVAILABLE",
+      { nextAvailableSlot: await getNextAvailableSlotForSpace(space, dateKey, startTime) },
+    );
+  }
+
+  return {
+    ...slot,
+    status: SlotStatus.booked,
+  };
 }
 
 export async function createBookingFromRequest(input: {
@@ -401,6 +424,18 @@ export async function createBookingFromRequest(input: {
   const settings = await ensureBookingVisibilitySettings();
   const endTime = addHoursToTime(input.time, 2);
   const priceModifier = 1;
+  const requestedStartTime = buildLocalDateTime(input.date, input.time).getTime();
+
+  if (requestedStartTime <= Date.now()) {
+    throw new BookingServiceError(
+      "This slot has already started. Please choose a future time.",
+      409,
+      "SLOT_ALREADY_STARTED",
+      {
+        nextAvailableSlot: await getNextAvailableSlotForSpace(space, input.date, input.time),
+      },
+    );
+  }
 
   const booking = await prisma.$transaction(async (tx) => {
     const explicitSlot = input.slotId

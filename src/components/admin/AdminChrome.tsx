@@ -51,15 +51,6 @@ const POST_LINKS = [
   },
 ] as const;
 
-const TICKER_ITEMS = [
-  "ADMIN-ONLY EVENT PUBLISHING",
-  "STUDIO BOOKINGS SYNCED",
-  "LIVE OFFER CONTROLS",
-  "CALENDAR GOVERNANCE",
-  "WAITLIST INTELLIGENCE",
-  "BLACK PEPPER CONTROL ROOM",
-] as const;
-
 function isActive(pathname: string, href: string) {
   if (href === "/admin") {
     return pathname === "/admin";
@@ -123,18 +114,7 @@ export function AdminChrome({
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
-      <div className="mx-auto w-full max-w-[1720px] px-4 pb-16 pt-24 sm:px-6 lg:px-8">
-        <div className="mb-5 overflow-hidden rounded-full border border-[#d8f24d]/25 bg-[#d8f24d] text-black shadow-[0_18px_50px_rgba(216,242,77,0.18)]">
-          <div className="flex min-w-max animate-[adminTicker_26s_linear_infinite] items-center gap-10 px-6 py-2 text-[11px] font-semibold uppercase tracking-[0.3em]">
-            {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, index) => (
-              <span key={`${item}-${index}`} className="flex items-center gap-10 whitespace-nowrap">
-                <span>{item}</span>
-                <span className="h-1.5 w-1.5 rounded-full bg-black/70" />
-              </span>
-            ))}
-          </div>
-        </div>
-
+      <div className="mx-auto w-full max-w-[1720px] px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
         <div className="grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
           <aside className="hidden xl:block">
             <div className="sticky top-24 rounded-[2.2rem] border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">
@@ -147,7 +127,7 @@ export function AdminChrome({
                   Black Pepper Control Room
                 </h1>
                 <p className="mt-2 text-sm leading-6 text-zinc-400">
-                  Manage studio bookings, events, offers, and live venue operations from one protected workspace.
+                  Manage bookings, calendar slots, events, and offers from one protected workspace.
                 </p>
               </div>
 
@@ -226,11 +206,11 @@ export function AdminChrome({
                     Black Pepper Admin Suite
                   </span>
                   <div className="space-y-2">
-                    <h1 className="max-w-3xl text-3xl font-semibold tracking-[-0.05em] text-white md:text-[3rem]">
-                      A unified control room for venue bookings, live events, studio sessions, and premium offers.
+                    <h1 className="max-w-3xl text-3xl font-semibold tracking-[-0.05em] text-white md:text-[2.75rem]">
+                      Manage bookings, live events, and offers without leaving the control room.
                     </h1>
                     <p className="max-w-2xl text-sm leading-7 text-zinc-400 md:text-base">
-                      Monitor studio operations, publish event inventory, shape offers, and keep every guest-facing experience aligned from one protected workspace.
+                      Use the tabs below to review reservations, update slots, publish events, and keep guest-facing operations tidy.
                     </p>
                   </div>
                 </div>
@@ -344,17 +324,6 @@ export function AdminChrome({
           </div>
         </div>
       </div>
-
-      <style jsx global>{`
-        @keyframes adminTicker {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
     </div>
   );
 }

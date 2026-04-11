@@ -557,6 +557,7 @@ export async function getDashboardRescheduleContextForUser(
       booking.space,
       booking.dateKey,
       booking.startTime,
+      120,
     )
   ).map((slot) => toDashboardActionSlot(slot));
 

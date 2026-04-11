@@ -1,5 +1,5 @@
 import type { AvailabilityResponse, DayAvailabilitySummary, PublicSlot } from "@/lib/types/booking";
-import { compareDateTimeKeys, getMonthKeyFromDateKey } from "./time";
+import { buildLocalDateTime, compareDateTimeKeys, getMonthKeyFromDateKey } from "./time";
 
 type SlotLike = {
   id: string;
@@ -128,6 +128,10 @@ export function getNextAvailableSlot(
   );
 }
 
+function isFutureBookableSlot(slot: PublicSlot, now = new Date()) {
+  return buildLocalDateTime(slot.dateKey, slot.startTime).getTime() > now.getTime();
+}
+
 export function buildAvailabilityResponse(params: {
   space: AvailabilityResponse["space"];
   month?: string;
@@ -135,7 +139,9 @@ export function buildAvailabilityResponse(params: {
   slots: PublicSlot[];
 }): AvailabilityResponse {
   const { space, month, date, slots } = params;
-  const filteredSlots = slots.filter((slot) => slot.space === space);
+  const filteredSlots = slots.filter(
+    (slot) => slot.space === space && isFutureBookableSlot(slot),
+  );
 
   const days = new Map<string, DayAvailabilitySummary>();
   for (const slot of filteredSlots) {

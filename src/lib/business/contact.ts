@@ -2,7 +2,7 @@ const DEFAULT_APP_URL = "http://localhost:3000";
 
 export const BUSINESS_NAME = "Black Pepper Entertainment";
 export const BUSINESS_SUPPORT_EMAIL = "blackpepperentertainment.in@gmail.com";
-export const BUSINESS_SUPPORT_WHATSAPP_DISPLAY = "9203411611";
+export const BUSINESS_SUPPORT_WHATSAPP_DISPLAY = "+91 92034 11611";
 export const BUSINESS_SUPPORT_WHATSAPP_E164 = "+919203411611";
 
 function trimTrailingSlash(value: string) {

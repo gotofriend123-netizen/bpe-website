@@ -127,19 +127,19 @@ export function Navbar({ currentUser }: NavbarProps) {
                 "border-white/16 bg-[linear-gradient(180deg,rgba(8,8,8,0.98),rgba(8,8,8,0.88))] shadow-[0_24px_72px_rgba(0,0,0,0.46)]",
             )}
           >
-            <div className="grid min-h-[68px] grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-3 py-2.5 sm:min-h-[78px] sm:px-5 sm:py-3 lg:px-6 min-[1280px]:min-h-[90px] min-[1280px]:grid-cols-[auto_minmax(0,1fr)_auto] min-[1280px]:gap-5">
+            <div className="grid min-h-[72px] grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-3 py-3 sm:min-h-[82px] sm:px-5 sm:py-3.5 lg:px-6 min-[1280px]:min-h-[94px] min-[1280px]:grid-cols-[auto_minmax(0,1fr)_auto] min-[1280px]:gap-5">
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
                 className="group flex min-w-0 items-center gap-2 pr-2 sm:gap-4 min-[1280px]:pr-4"
               >
-                <div className="relative flex shrink-0 items-center justify-center transition-transform duration-300 group-hover:-translate-y-0.5">
+                <div className="relative flex shrink-0 items-center justify-center py-1.5 transition-transform duration-300 group-hover:-translate-y-0.5">
                   <Image
                     src="/BLACK PEPPER LOGO  WIGHT PNG.png"
                     alt="Black Pepper Entertainment Logo"
                     width={260}
                     height={96}
-                    className="h-[3rem] w-auto object-contain opacity-92 transition-opacity group-hover:opacity-100 sm:h-[3.75rem] xl:h-[4.75rem]"
+                    className="h-[2.85rem] w-auto object-contain object-left opacity-92 transition-opacity group-hover:opacity-100 sm:h-[3.45rem] xl:h-[4.2rem]"
                     priority
                   />
                 </div>

@@ -70,3 +70,19 @@ input[type="time"]::-webkit-calendar-picker-indicator:hover {
     @apply bg-white/5 border border-white/10 backdrop-blur-md;
   }
 }
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  35% {
+    opacity: 0.92;
+    transform: scale(1.02);
+  }
+  65% {
+    opacity: 0.58;
+    transform: scale(0.985);
+  }
+}

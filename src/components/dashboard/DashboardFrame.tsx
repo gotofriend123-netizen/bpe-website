@@ -83,7 +83,7 @@ export function DashboardFrame({
         <div className="absolute right-[-8%] top-[8%] h-[14rem] w-[14rem] rounded-full bg-white/[0.02] blur-[110px]" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pb-16 pt-20 sm:px-6 sm:pt-24 lg:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pb-16 pt-28 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
         <div className="grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
           <aside className="hidden xl:block">
             <div className="sticky top-24 rounded-[2.15rem] border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">

@@ -192,6 +192,7 @@ model AppSettings {
   defaultBufferBefore      Int      @default(30)
   defaultBufferAfter       Int      @default(30)
   peakPricingMultiplier    Float    @default(1.25)
+  defaultBookingDurationHours Int    @default(2)
   whatsappNumber           String?
   reminderEmailEnabled     Boolean  @default(false)
   reminderSmsEnabled       Boolean  @default(false)

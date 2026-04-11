@@ -3,16 +3,27 @@ import { NextResponse, type NextRequest } from "next/server";
 import { applyPendingCookies, refreshSupabaseAuth } from "@/lib/supabase/middleware";
 
 const protectedPrefixes = ["/dashboard", "/admin"];
+const authPrefixes = ["/login", "/signup"];
 
 export async function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const isProtected = protectedPrefixes.some(
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   );
+  const isAuthPage = authPrefixes.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
 
   // Always refresh the Supabase session on every route so
   // tokens stay alive while the user browses any page.
   const { response, pendingCookies, user } = await refreshSupabaseAuth(request);
+
+  if (isAuthPage && user) {
+    const dashboardUrl = request.nextUrl.clone();
+    dashboardUrl.pathname = "/dashboard";
+    dashboardUrl.search = "";
+    return applyPendingCookies(NextResponse.redirect(dashboardUrl), pendingCookies);
+  }
 
   if (!isProtected) {
     return response;

@@ -30,7 +30,7 @@ type ArcGalleryHeroProps = {
   secondaryCtaHref?: string;
 };
 
-const FALLBACK_IMAGE = "/BLACK%20PEPPER%20LOGO%20%20WIGHT%20PNG.png";
+const FALLBACK_IMAGE = "/the-arcade/dsc02553.jpg";
 
 export const ArcGalleryHero: React.FC<ArcGalleryHeroProps> = ({
   images,

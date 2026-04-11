@@ -118,20 +118,30 @@ function BookingConfirmationPageContent() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
               Support contacts
             </p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="mt-4 grid gap-3">
               <a
                 href={`mailto:${BUSINESS_SUPPORT_EMAIL}?subject=Booking%20help%20${ref}`}
-                className="rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-sm text-white transition-colors hover:bg-white hover:text-black"
+                className="min-w-0 rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-left text-sm text-white transition-colors hover:bg-white hover:text-black"
               >
-                {BUSINESS_SUPPORT_EMAIL}
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                  Email support
+                </span>
+                <span className="mt-2 block break-all text-sm font-medium leading-6 text-white [overflow-wrap:anywhere]">
+                  {BUSINESS_SUPPORT_EMAIL}
+                </span>
               </a>
               <a
                 href={getBusinessSupportWhatsappLink()}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-sm text-white transition-colors hover:bg-white hover:text-black"
+                className="min-w-0 rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-left text-sm text-white transition-colors hover:bg-white hover:text-black"
               >
-                WhatsApp {BUSINESS_SUPPORT_WHATSAPP_DISPLAY}
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                  WhatsApp
+                </span>
+                <span className="mt-2 block break-all text-sm font-medium leading-6 text-white [overflow-wrap:anywhere]">
+                  {BUSINESS_SUPPORT_WHATSAPP_DISPLAY}
+                </span>
               </a>
             </div>
           </div>

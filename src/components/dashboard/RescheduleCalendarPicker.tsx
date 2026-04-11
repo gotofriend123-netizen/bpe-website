@@ -168,12 +168,12 @@ export function RescheduleCalendarPicker({
         </p>
       </div>
 
-      <div className="mt-5 grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
-        <div className="rounded-[1.2rem] border border-white/8 bg-black/35 p-4">
+      <div className="mt-4 space-y-3">
+        <div className="rounded-[1.2rem] border border-white/8 bg-black/35 p-3.5 sm:p-4">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-white/70">
-                <CalendarDays className="h-4 w-4" />
+              <span className="flex h-9 w-9 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-white/70">
+                <CalendarDays className="h-3.5 w-3.5" />
               </span>
               <div>
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/40">
@@ -190,7 +190,7 @@ export function RescheduleCalendarPicker({
                 type="button"
                 onClick={() => canMoveToPreviousMonth && setCurrentMonth((value) => subMonths(value, 1))}
                 disabled={!canMoveToPreviousMonth}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/75 transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/75 transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
@@ -198,14 +198,14 @@ export function RescheduleCalendarPicker({
                 type="button"
                 onClick={() => canMoveToNextMonth && setCurrentMonth((value) => addMonths(value, 1))}
                 disabled={!canMoveToNextMonth}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/75 transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/75 transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          <div className="mt-4 grid grid-cols-7 gap-2 text-center">
+          <div className="mt-4 grid grid-cols-7 gap-1.5 text-center">
             {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
               <div
                 key={day}
@@ -216,9 +216,9 @@ export function RescheduleCalendarPicker({
             ))}
           </div>
 
-          <div className="mt-3 grid grid-cols-7 gap-2">
+          <div className="mt-3 grid grid-cols-7 gap-1.5">
             {paddingDays.map((day) => (
-              <div key={`pad-${day}`} className="h-11 rounded-xl" />
+              <div key={`pad-${day}`} className="h-9 rounded-xl" />
             ))}
 
             {daysInMonth.map((day) => {
@@ -234,7 +234,7 @@ export function RescheduleCalendarPicker({
                   disabled={!isActive}
                   onClick={() => isActive && setSelectedDateKey(dateKey)}
                   className={[
-                    "relative flex h-11 items-center justify-center rounded-xl border text-sm transition-all duration-200",
+                    "relative flex h-9 items-center justify-center rounded-lg border text-xs transition-all duration-200 sm:h-10 sm:text-sm",
                     isSelected
                       ? "border-white bg-white text-black shadow-[0_0_26px_rgba(255,255,255,0.18)]"
                       : isActive
@@ -257,7 +257,7 @@ export function RescheduleCalendarPicker({
           </div>
         </div>
 
-        <div className="rounded-[1.2rem] border border-white/8 bg-black/35 p-4">
+        <div className="rounded-[1.2rem] border border-white/8 bg-black/35 p-3.5 sm:p-4">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-[11px] uppercase tracking-[0.22em] text-white/40">
@@ -272,7 +272,7 @@ export function RescheduleCalendarPicker({
             </p>
           </div>
 
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          <div className="mt-4 grid max-h-[17.5rem] gap-3 overflow-y-auto pr-1 sm:grid-cols-2">
             {selectedDateSlots.map((slot) => {
               const isSelected = slot.id === selectedSlotId;
 
@@ -282,7 +282,7 @@ export function RescheduleCalendarPicker({
                   type="button"
                   onClick={() => setSelectedSlotId(slot.id)}
                   className={[
-                    "rounded-[1.1rem] border p-4 text-left transition-all duration-200",
+                    "rounded-[1.05rem] border p-3.5 text-left transition-all duration-200",
                     isSelected
                       ? "border-white bg-white text-black shadow-[0_0_26px_rgba(255,255,255,0.18)]"
                       : "border-white/10 bg-white/[0.04] text-white hover:border-white/22 hover:bg-white/[0.08]",
@@ -333,7 +333,7 @@ export function RescheduleCalendarPicker({
             })}
           </div>
 
-          <form action={rescheduleDashboardBookingAction} className="mt-5">
+          <form action={rescheduleDashboardBookingAction} className="mt-4">
             <input type="hidden" name="bookingId" value={bookingId} />
             <input type="hidden" name="slotId" value={selectedSlotId} />
 

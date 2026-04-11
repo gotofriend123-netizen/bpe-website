@@ -103,8 +103,8 @@ export function UserBookingCard({ booking }: UserBookingCardProps) {
             </div>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="rounded-[1.35rem] border border-white/5 bg-[#0b0b0b] p-4 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
+          <div className="grid gap-3 lg:grid-cols-2">
+            <div className="min-w-0 rounded-[1.35rem] border border-white/5 bg-[#0b0b0b] p-4 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
               <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/40">
                 <MapPin className="h-3.5 w-3.5" />
                 Selected slot
@@ -115,7 +115,7 @@ export function UserBookingCard({ booking }: UserBookingCardProps) {
                   : "Slot stored in booking record"}
               </p>
             </div>
-            <div className="rounded-[1.35rem] border border-white/5 bg-[#0b0b0b] p-4 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
+            <div className="min-w-0 rounded-[1.35rem] border border-white/5 bg-[#0b0b0b] p-4 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
               <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/40">
                 <Mail className="h-3.5 w-3.5" />
                 Booking contact
@@ -123,7 +123,9 @@ export function UserBookingCard({ booking }: UserBookingCardProps) {
               <p className="mt-2 break-words text-sm font-medium text-white/80 [overflow-wrap:anywhere]">
                 {booking.customerEmail}
               </p>
-              <p className="mt-1 text-sm text-white/55">{booking.customerPhone}</p>
+              <p className="mt-1 break-all text-sm text-white/55 [overflow-wrap:anywhere]">
+                {booking.customerPhone}
+              </p>
             </div>
           </div>
 

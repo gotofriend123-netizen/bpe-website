@@ -38,10 +38,10 @@ const galleryImages = [
     alt: "The Arcade premium ambience",
   },
   {
-    src: "/verve-studio/dsc02511.jpg",
-    width: 4608,
+    src: "/verve-studio/DSC02505 (1).JPG",
+    width: 7008,
     height: 3072,
-    alt: "Verve Studio seating composition",
+    alt: "Verve Studio wide room view",
   },
   {
     src: "/verve-studio/dsc02518.jpg",
@@ -50,22 +50,22 @@ const galleryImages = [
     alt: "Verve Studio recording setup",
   },
   {
-    src: "/verve-studio/dsc02520.jpg",
+    src: "/verve-studio/DSC02464.JPG",
     width: 4096,
     height: 3072,
-    alt: "Verve Studio production corner",
+    alt: "Verve Studio premium interview corner",
   },
   {
-    src: "/verve-studio/dsc02529.jpg",
+    src: "/verve-studio/DSC02469 (1).JPG",
+    width: 4096,
+    height: 3072,
+    alt: "Verve Studio accent backdrop",
+  },
+  {
+    src: "/verve-studio/DSC02496.JPG",
     width: 7008,
-    height: 4672,
-    alt: "Verve Studio room detail",
-  },
-  {
-    src: "/verve-studio/dsc02534.jpg",
-    width: 4096,
     height: 3072,
-    alt: "Verve Studio creator-focused angle",
+    alt: "Verve Studio styled seating composition",
   },
 ];
 
