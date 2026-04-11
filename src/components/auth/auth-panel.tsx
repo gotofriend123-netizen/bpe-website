@@ -2,7 +2,6 @@
 
 import { useMemo, useState, useTransition, type FormEvent } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ArrowRight, Eye, EyeOff, Mail, Sparkles, UserRound } from "lucide-react";
 
 type AuthMode = "login" | "signup";
@@ -30,7 +29,6 @@ const copy = {
 } as const;
 
 export function AuthPanel({ mode, nextPath }: AuthPanelProps) {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState("");
@@ -69,6 +67,7 @@ export function AuthPanel({ mode, nextPath }: AuthPanelProps) {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "same-origin",
         body: JSON.stringify(payload),
       });
 
@@ -81,8 +80,7 @@ export function AuthPanel({ mode, nextPath }: AuthPanelProps) {
         return;
       }
 
-      router.replace(data?.redirectTo ?? nextPath ?? "/dashboard");
-      router.refresh();
+      window.location.assign(data?.redirectTo ?? nextPath ?? "/dashboard");
     });
   };
 

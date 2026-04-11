@@ -46,18 +46,17 @@ export async function cancelDashboardBookingAction(formData: FormData) {
     redirect("/dashboard/bookings?error=Booking%20not%20found.");
   }
 
-
-
+  let redirectPath = "";
   try {
     await cancelBooking(booking.reference);
+    revalidateDashboardPaths();
+    redirectPath = `/dashboard/bookings?updated=${booking.reference}&action=cancelled`;
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Unable to cancel this booking right now.";
-    redirect(`/dashboard/cancel?id=${booking.id}&error=${encodeURIComponent(message)}`);
+    const message = error instanceof Error ? error.message : "Unable to cancel this booking right now.";
+    redirectPath = `/dashboard/cancel?id=${booking.id}&error=${encodeURIComponent(message)}`;
   }
 
-  revalidateDashboardPaths();
-  redirect(`/dashboard/bookings?updated=${booking.reference}&action=cancelled`);
+  redirect(redirectPath);
 }
 
 export async function rescheduleDashboardBookingAction(formData: FormData) {
@@ -76,20 +75,20 @@ export async function rescheduleDashboardBookingAction(formData: FormData) {
     redirect("/dashboard/bookings?error=Booking%20not%20found.");
   }
 
-
-
   const targetSlotId = parsed.data.slotId;
   if (!targetSlotId) {
     redirect("/dashboard/bookings?error=No%20alternate%20slot%20is%20currently%20available.");
   }
 
+  let redirectPath = "";
   try {
     const result = await rescheduleBooking(booking.reference, targetSlotId);
     revalidateDashboardPaths();
-    redirect(`/dashboard/bookings?updated=${result.booking.reference}&action=rescheduled`);
+    redirectPath = `/dashboard/bookings?updated=${result.booking.reference}&action=rescheduled`;
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Unable to reschedule this booking right now.";
-    redirect(`/dashboard/reschedule?id=${booking.id}&error=${encodeURIComponent(message)}`);
+    const message = error instanceof Error ? error.message : "Unable to reschedule this booking right now.";
+    redirectPath = `/dashboard/reschedule?id=${booking.id}&error=${encodeURIComponent(message)}`;
   }
+
+  redirect(redirectPath);
 }

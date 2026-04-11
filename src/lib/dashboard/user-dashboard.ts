@@ -340,6 +340,7 @@ function toDashboardBooking(booking: {
   const actionMessage = isActionLocked
     ? "This booking is no longer eligible for cancellation or rescheduling as per policy."
     : policy.message;
+  const policyAllowsActions = policy.isAllowed;
 
   return {
     id: booking.id,
@@ -369,9 +370,11 @@ function toDashboardBooking(booking: {
     policy,
     canCancel:
       !isActionLocked &&
+      policyAllowsActions &&
       (booking.status === "confirmed" || booking.status === "pending"),
     canReschedule:
       !isActionLocked &&
+      policyAllowsActions &&
       (booking.status === "confirmed" || booking.status === "pending"),
     actionMessage,
     nextAvailableSlot: null,
@@ -549,12 +552,11 @@ export async function getDashboardRescheduleContextForUser(
     return null;
   }
 
-  const todayKey = new Date().toISOString().slice(0, 10);
   const rescheduleOptions = (
     await getAvailableRescheduleSlotsForSpace(
       booking.space,
-      todayKey,
-      "00:00",
+      booking.dateKey,
+      booking.startTime,
     )
   ).map((slot) => toDashboardActionSlot(slot));
 

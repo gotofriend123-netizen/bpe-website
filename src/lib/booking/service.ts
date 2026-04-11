@@ -134,6 +134,51 @@ async function ensureBookingVisibilitySettings(tx = prisma) {
   return getSettings(tx);
 }
 
+function isBookingActionLocked(status: BookingStatus) {
+  return (
+    status === BookingStatus.cancelled ||
+    status === BookingStatus.rescheduled ||
+    status === BookingStatus.no_show
+  );
+}
+
+function assertBookingCanBeChanged(params: {
+  booking: {
+    status: BookingStatus;
+    dateKey: string;
+    startTime: string;
+  };
+  action: "cancel" | "reschedule";
+  settings: Awaited<ReturnType<typeof getSettings>>;
+}) {
+  const { booking, action, settings } = params;
+  const policy = evaluatePolicy(action, booking.dateKey, booking.startTime, {
+    fullRefundHours: settings.cancelFullRefundHours,
+    partialRefundHours: settings.cancelPartialRefundHours,
+    partialRefundPercentage: settings.partialRefundPercentage,
+  });
+
+  if (isBookingActionLocked(booking.status)) {
+    throw new BookingServiceError(
+      "This booking is no longer eligible for cancellation or rescheduling as per policy.",
+      409,
+      "BOOKING_ACTION_LOCKED",
+      { policy },
+    );
+  }
+
+  if (!policy.isAllowed) {
+    throw new BookingServiceError(
+      policy.message,
+      409,
+      "POLICY_WINDOW_CLOSED",
+      { policy },
+    );
+  }
+
+  return policy;
+}
+
 function toPublicBooking(booking: {
   id: string;
   reference: string;
@@ -623,18 +668,11 @@ export async function cancelBooking(reference: string) {
     throw new BookingServiceError("Booking not found.", 404, "BOOKING_NOT_FOUND");
   }
 
-  const policy = evaluatePolicy(
-    "cancel",
-    booking.dateKey,
-    booking.startTime,
-    {
-      fullRefundHours: settings.cancelFullRefundHours,
-      partialRefundHours: settings.cancelPartialRefundHours,
-      partialRefundPercentage: settings.partialRefundPercentage,
-    },
-  );
-
-
+  const policy = assertBookingCanBeChanged({
+    booking,
+    action: "cancel",
+    settings,
+  });
 
   const updated = await prisma.$transaction(async (tx) => {
     const cancelled = await tx.booking.update({
@@ -690,18 +728,11 @@ export async function rescheduleBooking(reference: string, slotId: string) {
     throw new BookingServiceError("Booking not found.", 404, "BOOKING_NOT_FOUND");
   }
 
-  const policy = evaluatePolicy(
-    "reschedule",
-    booking.dateKey,
-    booking.startTime,
-    {
-      fullRefundHours: settings.cancelFullRefundHours,
-      partialRefundHours: settings.cancelPartialRefundHours,
-      partialRefundPercentage: settings.partialRefundPercentage,
-    },
-  );
-
-
+  const policy = assertBookingCanBeChanged({
+    booking,
+    action: "reschedule",
+    settings,
+  });
 
   const newSlot = await prisma.availabilitySlot.findUnique({
     where: { id: slotId },
@@ -713,6 +744,25 @@ export async function rescheduleBooking(reference: string, slotId: string) {
 
   if (newSlot.status !== SlotStatus.available) {
     throw new BookingServiceError("Requested slot is no longer available.", 409, "SLOT_UNAVAILABLE");
+  }
+
+  if (newSlot.space !== booking.space) {
+    throw new BookingServiceError(
+      "Please choose a slot from the same space as your current booking.",
+      400,
+      "SPACE_MISMATCH",
+    );
+  }
+
+  const currentSlotDateTime = buildLocalDateTime(booking.dateKey, booking.startTime).getTime();
+  const newSlotDateTime = buildLocalDateTime(newSlot.dateKey, newSlot.startTime).getTime();
+
+  if (newSlotDateTime <= currentSlotDateTime) {
+    throw new BookingServiceError(
+      "Please choose a future slot for this reschedule request.",
+      400,
+      "INVALID_RESCHEDULE_SLOT",
+    );
   }
 
   const created = await prisma.$transaction(async (tx) => {

@@ -57,25 +57,22 @@ export async function POST(request: Request) {
       );
     }
 
-    // If Supabase didn't return a session (e.g. email confirmation is on),
-    // force-login the user immediately so they skip email verification.
-    if (!data.session) {
-      const { error: loginError } = await supabase.auth.signInWithPassword({
-        email: normalizedEmail,
-        password,
-      });
+    // Perform an explicit sign-in after signup so the browser receives a
+    // fresh authenticated cookie before we send the user to the dashboard.
+    const { error: loginError } = await supabase.auth.signInWithPassword({
+      email: normalizedEmail,
+      password,
+    });
 
-      if (loginError) {
-        // Account was created but auto-login failed; send to login page
-        const response = NextResponse.json(
-          {
-            user: { id: user.id, name: user.name, email: user.email, role: user.role },
-            redirectTo: "/login?registered=1",
-          },
-          { status: 201 },
-        );
-        return applyToResponse(response);
-      }
+    if (loginError && !data.session) {
+      const response = NextResponse.json(
+        {
+          user: { id: user.id, name: user.name, email: user.email, role: user.role },
+          redirectTo: "/login?registered=1",
+        },
+        { status: 201 },
+      );
+      return applyToResponse(response);
     }
 
     const redirectTo = normalizeRedirectPath(
