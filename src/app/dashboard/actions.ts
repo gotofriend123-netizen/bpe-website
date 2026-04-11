@@ -9,6 +9,7 @@ import {
   getDashboardBookingForUser,
   requireDashboardUser,
 } from "@/lib/dashboard/user-dashboard";
+import { getPublicApiError } from "@/lib/server-errors";
 
 const bookingIdSchema = z.object({
   bookingId: z.string().min(1),
@@ -29,6 +30,10 @@ function revalidateDashboardPaths() {
   ]) {
     revalidatePath(path);
   }
+}
+
+function getDashboardActionErrorMessage(error: unknown, fallbackMessage: string) {
+  return getPublicApiError(error, fallbackMessage).message;
 }
 
 export async function cancelDashboardBookingAction(formData: FormData) {
@@ -52,7 +57,10 @@ export async function cancelDashboardBookingAction(formData: FormData) {
     revalidateDashboardPaths();
     redirectPath = `/dashboard/bookings?updated=${booking.reference}&action=cancelled`;
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unable to cancel this booking right now.";
+    const message = getDashboardActionErrorMessage(
+      error,
+      "Unable to cancel this booking right now.",
+    );
     redirectPath = `/dashboard/cancel?id=${booking.id}&error=${encodeURIComponent(message)}`;
   }
 
@@ -86,7 +94,10 @@ export async function rescheduleDashboardBookingAction(formData: FormData) {
     revalidateDashboardPaths();
     redirectPath = `/dashboard/bookings?updated=${result.booking.reference}&action=rescheduled`;
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unable to reschedule this booking right now.";
+    const message = getDashboardActionErrorMessage(
+      error,
+      "Unable to reschedule this booking right now.",
+    );
     redirectPath = `/dashboard/reschedule?id=${booking.id}&error=${encodeURIComponent(message)}`;
   }
 

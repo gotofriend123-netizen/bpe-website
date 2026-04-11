@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getCurrentSession } from "@/lib/auth/session";
 import { cancelBooking } from "@/lib/booking/service";
 import { getBookingDetailsByReference } from "@/lib/booking/service";
+import { getPublicApiError } from "@/lib/server-errors";
 
 type Context = {
   params: { reference: string };
@@ -39,19 +40,14 @@ export async function POST(_request: Request, context: Context) {
       { status: 200 },
     );
   } catch (error) {
-    if (error && typeof error === "object" && "status" in error) {
-      const serviceError = error as { message?: string; status?: number; code?: string; details?: unknown };
-      return NextResponse.json(
-        {
-          message: serviceError.message || "Unable to cancel booking.",
-          code: serviceError.code,
-          details: serviceError.details,
-        },
-        { status: serviceError.status || 500 },
-      );
-    }
-
-    const message = error instanceof Error ? error.message : "Unable to cancel booking.";
-    return NextResponse.json({ message }, { status: 500 });
+    const response = getPublicApiError(error, "Unable to cancel booking.");
+    return NextResponse.json(
+      {
+        message: response.message,
+        code: response.code,
+        details: response.details,
+      },
+      { status: response.status },
+    );
   }
 }

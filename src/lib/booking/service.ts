@@ -33,6 +33,16 @@ const defaultSettings = {
   reminderSmsEnabled: false,
 };
 
+function getUniqueBookingTagLabels(labels: Array<string | null | undefined>) {
+  return Array.from(
+    new Set(
+      labels
+        .map((label) => label?.trim())
+        .filter((label): label is string => Boolean(label)),
+    ),
+  );
+}
+
 function mapBookingStatus(status: BookingStatus): Booking["status"] {
   switch (status) {
     case BookingStatus.pending:
@@ -778,6 +788,11 @@ export async function rescheduleBooking(reference: string, slotId: string) {
       });
     }
 
+    const nextTagLabels = getUniqueBookingTagLabels([
+      ...(booking.tags ?? []).map((tag) => tag.label),
+      "rescheduled",
+    ]);
+
     const rescheduled = await tx.booking.create({
       data: {
         reference: createReference(booking.space),
@@ -800,10 +815,7 @@ export async function rescheduleBooking(reference: string, slotId: string) {
         rescheduledFromId: booking.id,
         adminNotes: booking.adminNotes,
         tags: {
-          create: [
-            ...(booking.tags ?? []).map((tag) => ({ label: tag.label })),
-            { label: "rescheduled" },
-          ],
+          create: nextTagLabels.map((label) => ({ label })),
         },
       },
       include: { tags: true },

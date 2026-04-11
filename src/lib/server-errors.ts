@@ -1,3 +1,5 @@
+import { Prisma } from "@prisma/client";
+
 const POSTGRES_PROTOCOLS = ["postgresql://", "postgres://"] as const;
 
 export class DatabaseConfigurationError extends Error {
@@ -21,6 +23,16 @@ function getErrorMessage(error: unknown) {
 
 function isValidPostgresUrl(value?: string) {
   return Boolean(value && POSTGRES_PROTOCOLS.some((protocol) => value.startsWith(protocol)));
+}
+
+function isUnexpectedPrismaError(error: unknown) {
+  return (
+    error instanceof Prisma.PrismaClientKnownRequestError ||
+    error instanceof Prisma.PrismaClientValidationError ||
+    error instanceof Prisma.PrismaClientUnknownRequestError ||
+    error instanceof Prisma.PrismaClientInitializationError ||
+    error instanceof Prisma.PrismaClientRustPanicError
+  );
 }
 
 export function ensureDatabaseConfiguration() {
@@ -84,6 +96,13 @@ export function getPublicApiError(
       status: serviceError.status || 500,
       code: serviceError.code,
       details: serviceError.details,
+    };
+  }
+
+  if (isUnexpectedPrismaError(error)) {
+    return {
+      message: fallbackMessage,
+      status: 500,
     };
   }
 
