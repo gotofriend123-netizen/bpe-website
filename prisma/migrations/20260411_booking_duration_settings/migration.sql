@@ -1,0 +1,2 @@
+ALTER TABLE "AppSettings"
+ADD COLUMN IF NOT EXISTS "defaultBookingDurationHours" INTEGER NOT NULL DEFAULT 2;

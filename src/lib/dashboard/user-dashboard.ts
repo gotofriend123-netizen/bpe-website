@@ -328,12 +328,27 @@ function toDashboardBooking(booking: {
   partialRefundHours: number;
   partialRefundPercentage: number;
 }) {
-  const isUpcoming = buildLocalDateTime(booking.dateKey, booking.startTime).getTime() >= Date.now();
-  const hoursUntil = getHoursUntil(booking.dateKey, booking.startTime);
+  const activeSchedule = booking.slot
+    ? {
+        space: booking.slot.space as DashboardSpace,
+        dateKey: booking.slot.dateKey,
+        startTime: booking.slot.startTime,
+        endTime: booking.slot.endTime,
+      }
+    : {
+        space: booking.space as DashboardSpace,
+        dateKey: booking.dateKey,
+        startTime: booking.startTime,
+        endTime: booking.endTime,
+      };
+  const isUpcoming =
+    buildLocalDateTime(activeSchedule.dateKey, activeSchedule.startTime).getTime() >=
+    Date.now();
+  const hoursUntil = getHoursUntil(activeSchedule.dateKey, activeSchedule.startTime);
   const policy = evaluatePolicy(
     "reschedule",
-    booking.dateKey,
-    booking.startTime,
+    activeSchedule.dateKey,
+    activeSchedule.startTime,
     policySettings,
   );
   const isActionLocked = booking.status === "cancelled" || booking.status === "rescheduled" || booking.status === "no_show";
@@ -345,10 +360,10 @@ function toDashboardBooking(booking: {
   return {
     id: booking.id,
     reference: booking.reference,
-    space: booking.space as DashboardSpace,
-    dateKey: booking.dateKey,
-    startTime: booking.startTime,
-    endTime: booking.endTime,
+    space: activeSchedule.space,
+    dateKey: activeSchedule.dateKey,
+    startTime: activeSchedule.startTime,
+    endTime: activeSchedule.endTime,
     status: mapBookingStatus(booking.status),
     acceptedPolicies: booking.acceptedPolicies,
     customerName: booking.customerName,
@@ -364,7 +379,7 @@ function toDashboardBooking(booking: {
     adminNotes: booking.adminNotes,
     tags: booking.tags.map((tag) => tag.label),
     slot: booking.slot ? toDashboardSlot(booking.slot) : null,
-    dateLabel: formatDateLabel(booking.dateKey),
+    dateLabel: formatDateLabel(activeSchedule.dateKey),
     isUpcoming,
     hoursUntil,
     policy,

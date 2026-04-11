@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware';
 import { Space, TimeSlot, Booking, WaitlistEntry, SlotStatus, BookingStatus } from '../types/booking';
 import { generateMockSlots } from './mock-data';
 import { addHoursToTime, formatLocalDateKey } from '@/lib/booking-utils';
+import { FALLBACK_BOOKING_DURATION_HOURS } from '@/lib/booking/duration';
 
 interface CustomerBookingInput {
   customerName: string;
@@ -52,7 +53,7 @@ const createBookingRecord = (
   const space = overrides?.space ?? bookingData.space;
   const date = overrides?.date ?? bookingData.date;
   const startTime = overrides?.startTime ?? bookingData.startTime;
-  const endTime = overrides?.endTime ?? addHoursToTime(startTime, 2);
+  const endTime = overrides?.endTime ?? addHoursToTime(startTime, FALLBACK_BOOKING_DURATION_HOURS);
 
   return {
     id: `bk-${Date.now()}`,

@@ -15,7 +15,11 @@ import type {
 } from "@/lib/types/booking";
 import type { BookingNotificationSummary } from "@/lib/notifications/types";
 import { bookingTypeToSpace, isBookingTypeId } from "@/lib/booking-utils";
-import { sendBookingNotifications } from "@/lib/notifications/service";
+import {
+  recordBookingNotificationFailure,
+  sendBookingNotifications,
+} from "@/lib/notifications/service";
+import { normalizeBookingDurationHours } from "@/lib/booking/duration";
 import { BookingServiceError } from "./errors";
 import { buildAvailabilityResponse, serializeSlot } from "./availability";
 import { evaluatePolicy } from "./policy";
@@ -28,6 +32,7 @@ const defaultSettings = {
   defaultBufferBefore: 30,
   defaultBufferAfter: 30,
   peakPricingMultiplier: 1.25,
+  defaultBookingDurationHours: 2,
   whatsappNumber: null,
   reminderEmailEnabled: false,
   reminderSmsEnabled: false,
@@ -103,6 +108,34 @@ function mapWaitlistStatus(status: WaitlistStatus) {
 function createReference(space: Space) {
   const suffix = randomBytes(3).toString("hex").toUpperCase();
   return `BP-${space.toUpperCase()}-${suffix}`;
+}
+
+function getBookingScheduleSnapshot(booking: {
+  slotId: string | null;
+  space: Space;
+  dateKey: string;
+  startTime: string;
+  endTime: string;
+  priceModifier: number | null;
+  slot?: {
+    id: string;
+    space: Space;
+    dateKey: string;
+    startTime: string;
+    endTime: string;
+    priceModifier: number;
+  } | null;
+}) {
+  const source = booking.slot ?? null;
+
+  return {
+    slotId: source?.id ?? booking.slotId ?? null,
+    space: source?.space ?? booking.space,
+    dateKey: source?.dateKey ?? booking.dateKey,
+    startTime: source?.startTime ?? booking.startTime,
+    endTime: source?.endTime ?? booking.endTime,
+    priceModifier: booking.priceModifier ?? source?.priceModifier ?? null,
+  };
 }
 
 function buildConfirmationUrl(params: {
@@ -212,20 +245,30 @@ function toPublicBooking(booking: {
   priceModifier: number | null;
   rescheduledFromId: string | null;
   cancelledAt: Date | null;
+  slot?: {
+    id: string;
+    space: Space;
+    dateKey: string;
+    startTime: string;
+    endTime: string;
+    priceModifier: number;
+  } | null;
   tags?: { label: string }[];
 }): Booking {
+  const schedule = getBookingScheduleSnapshot(booking);
+
   return {
     id: booking.id,
     reference: booking.reference,
     userId: booking.userId ?? undefined,
-    slotId: booking.slotId ?? undefined,
+    slotId: schedule.slotId ?? undefined,
     customerName: booking.customerName,
     customerEmail: booking.customerEmail,
     customerPhone: booking.customerPhone,
-    space: booking.space.toLowerCase() as Booking["space"],
-    date: booking.dateKey,
-    startTime: booking.startTime,
-    endTime: booking.endTime,
+    space: schedule.space.toLowerCase() as Booking["space"],
+    date: schedule.dateKey,
+    startTime: schedule.startTime,
+    endTime: schedule.endTime,
     status: mapBookingStatus(booking.status),
     acceptedPolicies: booking.acceptedPolicies,
     createdAt: booking.createdAt.toISOString(),
@@ -233,7 +276,7 @@ function toPublicBooking(booking: {
     adminNotes: booking.adminNotes ?? undefined,
     reminderStatus: mapReminderStatus(booking.reminderStatus),
     rescheduledFromId: booking.rescheduledFromId ?? undefined,
-    priceModifier: booking.priceModifier ?? undefined,
+    priceModifier: schedule.priceModifier ?? undefined,
     packageLabel: booking.packageLabel ?? undefined,
     specificStudio: booking.specificStudio ?? undefined,
   };
@@ -422,25 +465,24 @@ export async function createBookingFromRequest(input: {
 
   const space = bookingTypeToSpace(input.bookingType as Parameters<typeof bookingTypeToSpace>[0]);
   const settings = await ensureBookingVisibilitySettings();
-  const endTime = addHoursToTime(input.time, 2);
-  const priceModifier = 1;
-  const requestedStartTime = buildLocalDateTime(input.date, input.time).getTime();
-
-  if (requestedStartTime <= Date.now()) {
-    throw new BookingServiceError(
-      "This slot has already started. Please choose a future time.",
-      409,
-      "SLOT_ALREADY_STARTED",
-      {
-        nextAvailableSlot: await getNextAvailableSlotForSpace(space, input.date, input.time),
-      },
-    );
-  }
+  const bookingDurationHours = normalizeBookingDurationHours(
+    settings.defaultBookingDurationHours,
+  );
+  const requestedEndTime = addHoursToTime(input.time, bookingDurationHours);
 
   const booking = await prisma.$transaction(async (tx) => {
     const explicitSlot = input.slotId
       ? await tx.availabilitySlot.findUnique({ where: { id: input.slotId } })
       : null;
+
+    if (explicitSlot && explicitSlot.space !== space) {
+      throw new BookingServiceError(
+        "Please choose a slot that matches the selected space.",
+        400,
+        "SPACE_MISMATCH",
+      );
+    }
+
     const matchingSlot =
       explicitSlot ??
       (await tx.availabilitySlot.findUnique({
@@ -449,17 +491,41 @@ export async function createBookingFromRequest(input: {
             space,
             dateKey: input.date,
             startTime: input.time,
-            endTime,
+            endTime: requestedEndTime,
           },
         },
       }));
 
     let status: BookingStatus = BookingStatus.confirmed;
     let slotId: string | null = null;
-    let actualEndTime = endTime;
+    let actualSpace = space;
+    let actualDateKey = input.date;
+    let actualStartTime = input.time;
+    let actualEndTime = requestedEndTime;
+    let priceModifier = 1;
     const reservationSlot = matchingSlot;
 
-    if (reservationSlot && reservationSlot.status === SlotStatus.available) {
+    if (reservationSlot) {
+      const requestedStartTime = buildLocalDateTime(
+        reservationSlot.dateKey,
+        reservationSlot.startTime,
+      ).getTime();
+
+      if (requestedStartTime <= Date.now()) {
+        throw new BookingServiceError(
+          "This slot has already started. Please choose a future time.",
+          409,
+          "SLOT_ALREADY_STARTED",
+          {
+            nextAvailableSlot: await getNextAvailableSlotForSpace(
+              space,
+              reservationSlot.dateKey,
+              reservationSlot.startTime,
+            ),
+          },
+        );
+      }
+
       const reservedSlot = await reserveMatchingSlot({
         tx,
         space,
@@ -467,10 +533,30 @@ export async function createBookingFromRequest(input: {
         startTime: reservationSlot.startTime,
         endTime: reservationSlot.endTime,
       });
+
       slotId = reservedSlot?.id ?? null;
+      actualSpace = reservedSlot?.space ?? actualSpace;
+      actualDateKey = reservedSlot?.dateKey ?? actualDateKey;
+      actualStartTime = reservedSlot?.startTime ?? actualStartTime;
       actualEndTime = reservedSlot?.endTime ?? actualEndTime;
+      priceModifier = reservedSlot?.priceModifier ?? priceModifier;
       status = BookingStatus.confirmed;
-    } else if (input.slotId || matchingSlot) {
+    } else {
+      const requestedStartTime = buildLocalDateTime(input.date, input.time).getTime();
+
+      if (requestedStartTime <= Date.now()) {
+        throw new BookingServiceError(
+          "This slot has already started. Please choose a future time.",
+          409,
+          "SLOT_ALREADY_STARTED",
+          {
+            nextAvailableSlot: await getNextAvailableSlotForSpace(space, input.date, input.time),
+          },
+        );
+      }
+    }
+
+    if (input.slotId && !reservationSlot) {
       throw new BookingServiceError(
         "Selected slot is no longer available.",
         409,
@@ -489,9 +575,9 @@ export async function createBookingFromRequest(input: {
         customerName: input.customerName,
         customerEmail: input.customerEmail,
         customerPhone: input.customerPhone,
-        space,
-        dateKey: input.date,
-        startTime: input.time,
+        space: actualSpace,
+        dateKey: actualDateKey,
+        startTime: actualStartTime,
         endTime: actualEndTime,
         status,
         acceptedPolicies: input.acceptedPolicies,
@@ -510,6 +596,7 @@ export async function createBookingFromRequest(input: {
       },
       include: {
         tags: true,
+        slot: true,
       },
     });
 
@@ -518,15 +605,15 @@ export async function createBookingFromRequest(input: {
 
   const publicBooking = toPublicBooking({
     ...booking,
-    dateKey: booking.dateKey,
     reminderStatus: booking.reminderStatus,
+    slot: booking.slot,
     tags: booking.tags,
   });
 
   const policy = evaluatePolicy(
     "cancel",
-    booking.dateKey,
-    booking.startTime,
+    publicBooking.date,
+    publicBooking.startTime,
     {
       fullRefundHours: settings.cancelFullRefundHours,
       partialRefundHours: settings.cancelPartialRefundHours,
@@ -545,6 +632,10 @@ export async function createBookingFromRequest(input: {
     });
   } catch (error) {
     const reason = error instanceof Error ? error.message : "Unknown notification failure.";
+    await recordBookingNotificationFailure({
+      bookingId: booking.id,
+      reason: `Notification orchestration failed: ${reason}`,
+    });
     console.error(
       `[booking-notifications] Booking ${publicBooking.reference} saved but notification orchestration failed: ${reason}`,
     );
@@ -553,7 +644,11 @@ export async function createBookingFromRequest(input: {
   return {
     booking: publicBooking,
     policy,
-    nextAvailableSlot: await getNextAvailableSlotForSpace(space, input.date, input.time),
+    nextAvailableSlot: await getNextAvailableSlotForSpace(
+      publicBooking.space as Space,
+      publicBooking.date,
+      publicBooking.startTime,
+    ),
     manageUrl,
     confirmationUrl: buildConfirmationUrl({
       reference: publicBooking.reference,
@@ -635,6 +730,7 @@ export async function getBookingByReference(reference: string) {
     priceModifier: booking.priceModifier,
     rescheduledFromId: booking.rescheduledFromId,
     cancelledAt: booking.cancelledAt,
+    slot: booking.slot,
     tags: booking.tags,
   });
 }
@@ -673,6 +769,7 @@ export async function getBookingDetailsByReference(reference: string) {
     priceModifier: booking.priceModifier,
     rescheduledFromId: booking.rescheduledFromId,
     cancelledAt: booking.cancelledAt,
+    slot: booking.slot,
     tags: booking.tags,
   });
 
@@ -745,7 +842,6 @@ export async function cancelBooking(reference: string) {
   return {
     booking: toPublicBooking({
       ...updated,
-      dateKey: updated.dateKey,
       reminderStatus: updated.reminderStatus,
       tags: updated.tags,
     }),
@@ -810,11 +906,22 @@ export async function rescheduleBooking(reference: string, slotId: string) {
     );
   }
 
-  const created = await prisma.$transaction(async (tx) => {
-    await tx.availabilitySlot.update({
-      where: { id: newSlot.id },
+  const updated = await prisma.$transaction(async (tx) => {
+    const reserved = await tx.availabilitySlot.updateMany({
+      where: {
+        id: newSlot.id,
+        status: SlotStatus.available,
+      },
       data: { status: SlotStatus.booked },
     });
+
+    if (reserved.count === 0) {
+      throw new BookingServiceError(
+        "Requested slot is no longer available.",
+        409,
+        "SLOT_UNAVAILABLE",
+      );
+    }
 
     if (booking.slotId) {
       await tx.availabilitySlot.updateMany({
@@ -824,65 +931,57 @@ export async function rescheduleBooking(reference: string, slotId: string) {
     }
 
     const nextTagLabels = getUniqueBookingTagLabels([
-      ...(booking.tags ?? []).map((tag) => tag.label),
       "rescheduled",
+      `rescheduled-from:${booking.dateKey} ${booking.startTime}-${booking.endTime}`,
     ]);
 
-    const rescheduled = await tx.booking.create({
+    if (nextTagLabels.length > 0) {
+      await tx.bookingTag.createMany({
+        data: nextTagLabels.map((label) => ({
+          bookingId: booking.id,
+          label,
+        })),
+        skipDuplicates: true,
+      });
+    }
+
+    return tx.booking.update({
+      where: { reference },
       data: {
-        reference: createReference(booking.space),
-        userId: booking.userId,
         slotId: newSlot.id,
-        customerName: booking.customerName,
-        customerEmail: booking.customerEmail,
-        customerPhone: booking.customerPhone,
-        space: booking.space,
+        space: newSlot.space,
         dateKey: newSlot.dateKey,
         startTime: newSlot.startTime,
         endTime: newSlot.endTime,
         status: BookingStatus.confirmed,
-        acceptedPolicies: booking.acceptedPolicies,
-        specificStudio: booking.specificStudio,
-        selectedPackage: booking.selectedPackage,
-        packageLabel: booking.packageLabel,
         priceModifier: newSlot.priceModifier,
         reminderStatus: ReminderStatus.not_scheduled,
-        rescheduledFromId: booking.id,
-        adminNotes: booking.adminNotes,
-        tags: {
-          create: nextTagLabels.map((label) => ({ label })),
-        },
+        cancelledAt: null,
       },
-      include: { tags: true },
+      include: { tags: true, slot: true },
     });
-
-    await tx.booking.update({
-      where: { reference },
-      data: {
-        status: BookingStatus.rescheduled,
-        cancelledAt: new Date(),
-      },
-    });
-
-    return rescheduled;
   });
 
   return {
     booking: toPublicBooking({
-      ...created,
-      dateKey: created.dateKey,
-      reminderStatus: created.reminderStatus,
-      tags: created.tags,
+      ...updated,
+      reminderStatus: updated.reminderStatus,
+      slot: updated.slot,
+      tags: updated.tags,
     }),
     policy,
-    nextAvailableSlot: await getNextAvailableSlotForSpace(created.space, created.dateKey, created.startTime),
-    manageUrl: `/booking/manage?ref=${created.reference}`,
+    nextAvailableSlot: await getNextAvailableSlotForSpace(
+      updated.space,
+      updated.dateKey,
+      updated.startTime,
+    ),
+    manageUrl: `/booking/manage?ref=${updated.reference}`,
     confirmationUrl: buildConfirmationUrl({
-      reference: created.reference,
-      space: created.space,
-      date: created.dateKey,
-      time: created.startTime,
-      status: created.status,
+      reference: updated.reference,
+      space: updated.space,
+      date: updated.dateKey,
+      time: updated.startTime,
+      status: updated.status,
     }),
   } satisfies BookingResponse;
 }

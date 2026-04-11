@@ -134,10 +134,55 @@ function normalizeChannelResult(
   }
 
   return {
-    state: result.kind === "not-configured" ? "skipped" : "failed",
-    reason: result.kind === "error" ? result.reason : null,
-    sent: false,
-  };
+      state: result.kind === "not-configured" ? "skipped" : "failed",
+      reason: result.kind === "error" ? result.reason : null,
+      sent: false,
+    };
+}
+
+function getNotificationErrorReason(error: unknown) {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "Unknown notification failure.";
+}
+
+async function runNotificationChannel(
+  operation: () => Promise<
+    | { ok: true }
+    | { ok: false; kind: "error" | "not-configured"; reason: string }
+  >,
+) {
+  try {
+    return await operation();
+  } catch (error) {
+    return {
+      ok: false as const,
+      kind: "error" as const,
+      reason: getNotificationErrorReason(error),
+    };
+  }
+}
+
+export async function recordBookingNotificationFailure(params: {
+  bookingId: string;
+  reason: string;
+}) {
+  try {
+    await prisma.booking.update({
+      where: { id: params.bookingId },
+      data: {
+        notificationLastAttemptAt: new Date(),
+        notificationFailedReason: params.reason.slice(0, 1800),
+      },
+    });
+  } catch (error) {
+    const reason = getNotificationErrorReason(error);
+    console.error(
+      `[booking-notifications] Failed to persist notification error state for ${params.bookingId}: ${reason}`,
+    );
+  }
 }
 
 export async function sendBookingNotifications(params: {
@@ -175,20 +220,24 @@ export async function sendBookingNotifications(params: {
     booking.adminEmailSent,
     booking.adminEmailSent
       ? { ok: true as const }
-      : await sendMail({
-          to: templateInput.supportEmail,
-          ...buildAdminBookingAlertEmail(templateInput),
-        }),
+      : await runNotificationChannel(() =>
+          sendMail({
+            to: templateInput.supportEmail,
+            ...buildAdminBookingAlertEmail(templateInput),
+          }),
+        ),
   );
 
   const customerEmailResult = normalizeChannelResult(
     booking.customerEmailSent,
     booking.customerEmailSent
       ? { ok: true as const }
-      : await sendMail({
-          to: booking.customerEmail,
-          ...buildCustomerBookingConfirmationEmail(templateInput),
-        }),
+      : await runNotificationChannel(() =>
+          sendMail({
+            to: booking.customerEmail,
+            ...buildCustomerBookingConfirmationEmail(templateInput),
+          }),
+        ),
   );
 
   const customerWhatsappRecipient = toWhatsappRecipient(booking.customerPhone);
@@ -197,10 +246,12 @@ export async function sendBookingNotifications(params: {
     booking.customerWhatsappSent
       ? { ok: true as const }
       : customerWhatsappRecipient
-        ? await sendWhatsappMessage({
-            to: customerWhatsappRecipient,
-            body: buildCustomerBookingWhatsappMessage(templateInput),
-          })
+        ? await runNotificationChannel(() =>
+            sendWhatsappMessage({
+              to: customerWhatsappRecipient,
+              body: buildCustomerBookingWhatsappMessage(templateInput),
+            }),
+          )
         : {
             ok: false as const,
             kind: "error" as const,
@@ -216,10 +267,12 @@ export async function sendBookingNotifications(params: {
     booking.adminWhatsappSent
       ? { ok: true as const }
       : adminWhatsappRecipient
-        ? await sendWhatsappMessage({
-            to: adminWhatsappRecipient,
-            body: buildAdminBookingWhatsappMessage(templateInput),
-          })
+        ? await runNotificationChannel(() =>
+            sendWhatsappMessage({
+              to: adminWhatsappRecipient,
+              body: buildAdminBookingWhatsappMessage(templateInput),
+            }),
+          )
         : {
             ok: false as const,
             kind: "not-configured" as const,

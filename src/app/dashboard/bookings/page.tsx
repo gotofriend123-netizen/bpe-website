@@ -41,11 +41,16 @@ function getFilteredBookings(
     case "upcoming":
       return bookings.filter((booking) => booking.isUpcoming);
     case "past":
-      return bookings.filter((booking) => !booking.isUpcoming && booking.status !== "cancelled" && booking.status !== "rescheduled");
+      return bookings.filter(
+        (booking) =>
+          !booking.isUpcoming &&
+          booking.status !== "cancelled" &&
+          !booking.tags.includes("rescheduled"),
+      );
     case "cancelled":
       return bookings.filter((booking) => booking.status === "cancelled");
     case "rescheduled":
-      return bookings.filter((booking) => booking.status === "rescheduled");
+      return bookings.filter((booking) => booking.tags.includes("rescheduled"));
     case "all":
     default:
       return bookings;
