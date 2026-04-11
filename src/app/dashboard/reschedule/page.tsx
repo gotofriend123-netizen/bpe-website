@@ -2,10 +2,9 @@ import Link from "next/link";
 import { AlertTriangle, ArrowLeft, Mail, Sparkles } from "lucide-react";
 import { DashboardFrame } from "@/components/dashboard/DashboardFrame";
 import { DashboardEmptyState } from "@/components/dashboard/DashboardEmptyState";
+import { RescheduleCalendarPicker } from "@/components/dashboard/RescheduleCalendarPicker";
 import { UserBookingCard } from "@/components/dashboard/UserBookingCard";
-import { DashboardSubmitButton } from "@/components/dashboard/DashboardSubmitButton";
 import { GlowCard } from "@/components/ui/GlowCard";
-import { rescheduleDashboardBookingAction } from "@/app/dashboard/actions";
 import {
   getUserDashboardOverview,
   getDashboardRescheduleContextForUser,
@@ -137,37 +136,12 @@ export default async function RescheduleBookingPage({
                 )}
 
                 {booking.canReschedule ? (
-                  <form action={rescheduleDashboardBookingAction} className="rounded-[1.35rem] border border-white/8 bg-white/[0.03] p-4">
-                    <input type="hidden" name="bookingId" value={booking.id} />
-                    <p className="text-xs uppercase tracking-[0.24em] text-white/40">
-                      Confirm reschedule
-                    </p>
-                    {booking.rescheduleOptions.length > 0 ? (
-                      <>
-                        <p className="mt-2 text-sm leading-7 text-white/60">
-                          Choose a valid future slot in the same space. Only bookable options inside the current policy window are shown here.
-                        </p>
-                        <select
-                          name="slotId"
-                          defaultValue={booking.rescheduleOptions[0]?.id}
-                          className="mt-4 w-full rounded-[1.15rem] border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
-                        >
-                          {booking.rescheduleOptions.map((slot) => (
-                            <option key={slot.id} value={slot.id}>
-                              {slot.dateKey} · {slot.startTime} - {slot.endTime}
-                              {slot.peakTime ? " · Peak" : ""}
-                              {slot.label ? ` · ${slot.label}` : ""}
-                            </option>
-                          ))}
-                        </select>
-                      </>
-                    ) : (
-                      <p className="mt-2 text-sm leading-7 text-white/60">
-                        No alternate valid slot is currently available for this booking.
-                      </p>
-                    )}
-                    <DashboardSubmitButton variant="reschedule" disabled={booking.rescheduleOptions.length === 0} />
-                  </form>
+                  <RescheduleCalendarPicker
+                    bookingId={booking.id}
+                    spaceLabel={getDashboardSpaceLabel(booking.space)}
+                    currentDateKey={booking.dateKey}
+                    options={booking.rescheduleOptions}
+                  />
                 ) : null}
 
                 <div className="grid gap-3 sm:grid-cols-2">
