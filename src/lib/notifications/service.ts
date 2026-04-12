@@ -64,7 +64,7 @@ function buildPolicySummary(settings: {
   const partialHours = settings?.cancelPartialRefundHours ?? 24;
   const partialPercent = settings?.partialRefundPercentage ?? 50;
 
-  return `Changes more than ${fullHours} hours before the slot remain eligible for cancellation or rescheduling support. Between ${partialHours} and ${fullHours} hours, rescheduling remains available and partial refunds may apply (${partialPercent}% placeholder). Under ${partialHours} hours, changes may be restricted by policy.`;
+  return `Changes more than ${fullHours} hours before the slot remain eligible for cancellation or rescheduling support. Between ${partialHours} and ${fullHours} hours, rescheduling remains available and partial refunds may apply (${partialPercent}%). Under ${partialHours} hours, changes may be restricted by policy.`;
 }
 
 function createSkippedSummary(): BookingNotificationSummary {
