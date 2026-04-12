@@ -40,7 +40,7 @@ function formatPolicyCopy(booking: DashboardBooking) {
 
 export function UserBookingAccordionCard({
   booking,
-  defaultOpen = false,
+  defaultOpen = true,
 }: UserBookingAccordionCardProps) {
   const spaceLabel = getDashboardSpaceLabel(booking.space);
   const statusTone = getBookingStatusTone(booking.status);
@@ -50,7 +50,7 @@ export function UserBookingAccordionCard({
 
   return (
     <details
-      className="group overflow-hidden rounded-[1.85rem] border border-white/8 bg-[#141414] shadow-[18px_18px_36px_rgba(0,0,0,0.48),-10px_-10px_24px_rgba(255,255,255,0.02)]"
+      className="group overflow-hidden rounded-[1.85rem] border border-white/8 bg-[#141414] shadow-[18px_18px_36px_rgba(0,0,0,0.48),-10px_-10px_24px_rgba(255,255,255,0.02)] open:border-white/6"
       open={defaultOpen}
     >
       <summary className="flex cursor-pointer list-none flex-col gap-4 p-5 outline-none transition-colors hover:bg-white/[0.02] sm:p-6 [&::-webkit-details-marker]:hidden">
@@ -107,7 +107,7 @@ export function UserBookingAccordionCard({
               </div>
             </div>
 
-            <span className="inline-flex items-center gap-2 self-start rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/60 transition-colors group-open:text-white xl:self-end">
+            <span className="hidden sm:inline-flex items-center gap-2 self-start rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/60 transition-colors group-open:text-white xl:self-end">
               Tap to view details
               <ChevronDown className="h-4 w-4 transition-transform duration-200 group-open:rotate-180" />
             </span>
