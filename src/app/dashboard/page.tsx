@@ -7,19 +7,19 @@ import { UserBookingCard } from "@/components/dashboard/UserBookingCard";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { cn } from "@/lib/utils";
 import {
-  getUserDashboardOverview,
+  getUserDashboardHomeData,
   requireDashboardUser,
   getDashboardSpaceLabel,
 } from "@/lib/dashboard/user-dashboard";
 
 export default async function UserDashboardPage() {
   const currentUser = await requireDashboardUser();
-  const overview = await getUserDashboardOverview(currentUser.id);
+  const { frameOverview, upcomingBookings } = await getUserDashboardHomeData(currentUser.id);
 
   return (
     <DashboardFrame
       currentUser={currentUser}
-      overview={overview}
+      overview={frameOverview}
       activeTab="overview"
     >
       <section className="space-y-6">
@@ -44,14 +44,14 @@ export default async function UserDashboardPage() {
           </Link>
         </div>
 
-        {overview.upcomingBookings.length > 0 ? (
+        {upcomingBookings.length > 0 ? (
           <div
             className={cn(
               "grid gap-5",
-              overview.upcomingBookings.length > 1 && "2xl:grid-cols-2",
+              upcomingBookings.length > 1 && "2xl:grid-cols-2",
             )}
           >
-            {overview.upcomingBookings.slice(0, 2).map((booking) => (
+            {upcomingBookings.slice(0, 2).map((booking) => (
               <UserBookingCard key={booking.id} booking={booking} />
             ))}
           </div>
@@ -80,8 +80,8 @@ export default async function UserDashboardPage() {
                   Latest booking
                 </p>
                 <h3 className="mt-1 text-xl font-semibold text-white">
-                  {overview.latestBooking
-                    ? `${overview.latestBooking.reference} · ${getDashboardSpaceLabel(overview.latestBooking.space)}`
+                  {frameOverview.latestBooking
+                    ? `${frameOverview.latestBooking.reference} · ${getDashboardSpaceLabel(frameOverview.latestBooking.space)}`
                     : "No bookings yet"}
                 </h3>
                 <p className="mt-2 text-sm leading-7 text-white/60">
@@ -90,11 +90,11 @@ export default async function UserDashboardPage() {
               </div>
             </div>
 
-            {overview.latestBooking ? (
+            {frameOverview.latestBooking ? (
               <div className="rounded-[1.35rem] border border-white/8 bg-black/35 px-4 py-3 lg:min-w-[18rem]">
                 <p className="flex items-center gap-2 text-sm text-white/55">
                   <Clock3 className="h-4 w-4" />
-                  {overview.latestBooking.dateLabel} at {overview.latestBooking.startTime}
+                  {frameOverview.latestBooking.dateLabel} at {frameOverview.latestBooking.startTime}
                 </p>
               </div>
             ) : null}

@@ -6,7 +6,7 @@ import { RescheduleCalendarPicker } from "@/components/dashboard/RescheduleCalen
 import { UserBookingCard } from "@/components/dashboard/UserBookingCard";
 import { GlowCard } from "@/components/ui/GlowCard";
 import {
-  getUserDashboardOverview,
+  getUserDashboardFrameData,
   getDashboardRescheduleContextForUser,
   requireDashboardUser,
   getDashboardSpaceLabel,
@@ -24,7 +24,7 @@ export default async function RescheduleBookingPage({
   searchParams: SearchParams;
 }) {
   const currentUser = await requireDashboardUser();
-  const overview = await getUserDashboardOverview(currentUser.id);
+  const overview = await getUserDashboardFrameData(currentUser.id);
   const bookingId = searchParams.id;
   const booking = bookingId
     ? await getDashboardRescheduleContextForUser(currentUser.id, bookingId)

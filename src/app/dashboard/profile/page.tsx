@@ -5,13 +5,13 @@ import { DashboardEmptyState } from "@/components/dashboard/DashboardEmptyState"
 import { GlowCard } from "@/components/ui/GlowCard";
 import {
   getDashboardSpaceLabel,
-  getUserDashboardOverview,
+  getUserDashboardFrameData,
   requireDashboardUser,
 } from "@/lib/dashboard/user-dashboard";
 
 export default async function UserProfilePage() {
   const currentUser = await requireDashboardUser();
-  const overview = await getUserDashboardOverview(currentUser.id);
+  const overview = await getUserDashboardFrameData(currentUser.id);
 
   return (
     <DashboardFrame

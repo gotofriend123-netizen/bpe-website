@@ -60,6 +60,7 @@ export function getAccountMenuItems(
   return [
     { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { label: "My Bookings", href: "/dashboard/bookings", icon: BookOpenCheck },
+    { label: "My Events", href: "/dashboard/events", icon: Ticket },
     { label: "Profile", href: "/dashboard/profile", icon: Settings2 },
     { label: "Logout", href: "/logout", icon: LogOut, tone: "soft" },
   ];

@@ -7,7 +7,7 @@ import { DashboardSubmitButton } from "@/components/dashboard/DashboardSubmitBut
 import { GlowCard } from "@/components/ui/GlowCard";
 import { cancelDashboardBookingAction } from "@/app/dashboard/actions";
 import {
-  getUserDashboardOverview,
+  getUserDashboardFrameData,
   getDashboardBookingForUser,
   requireDashboardUser,
 } from "@/lib/dashboard/user-dashboard";
@@ -24,7 +24,7 @@ export default async function CancelBookingPage({
   searchParams: SearchParams;
 }) {
   const currentUser = await requireDashboardUser();
-  const overview = await getUserDashboardOverview(currentUser.id);
+  const overview = await getUserDashboardFrameData(currentUser.id);
   const bookingId = searchParams.id;
   const booking = bookingId
     ? await getDashboardBookingForUser(currentUser.id, bookingId)

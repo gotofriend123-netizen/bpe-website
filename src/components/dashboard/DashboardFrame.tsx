@@ -1,20 +1,30 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowRight, CalendarDays, Clock3, LayoutDashboard, NotebookTabs, ShieldCheck, UserRound } from "lucide-react";
+import {
+  ArrowRight,
+  CalendarDays,
+  ChevronDown,
+  Clock3,
+  LayoutDashboard,
+  NotebookTabs,
+  ShieldCheck,
+  Ticket,
+  UserRound,
+} from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { cn } from "@/lib/utils";
 import {
   type CurrentUserSummary,
-  type DashboardOverview,
+  type DashboardFrameOverview,
   getDashboardSpaceLabel,
 } from "@/lib/dashboard/user-dashboard";
 
-type DashboardTab = "overview" | "bookings" | "profile";
+type DashboardTab = "overview" | "bookings" | "events" | "profile";
 
 type DashboardFrameProps = {
   currentUser: CurrentUserSummary;
-  overview: DashboardOverview;
+  overview: DashboardFrameOverview;
   activeTab: DashboardTab;
   children: ReactNode;
 };
@@ -29,6 +39,12 @@ const tabItems: Array<{
   { key: "bookings", label: "My Bookings", href: "/dashboard/bookings", icon: NotebookTabs },
   { key: "profile", label: "Profile", href: "/dashboard/profile", icon: UserRound },
 ];
+
+const eventTabItem = {
+  key: "events" as const,
+  label: "My Event Tickets",
+  href: "/dashboard/events",
+};
 
 function StatCard({
   label,
@@ -72,9 +88,13 @@ export function DashboardFrame({
 }: DashboardFrameProps) {
   const firstName = currentUser.name.split(" ")[0] ?? currentUser.name;
   const latestBooking = overview.latestBooking;
+  const latestEventBooking = overview.latestEventBooking;
   const latestBookingLabel = latestBooking
     ? `${getDashboardSpaceLabel(latestBooking.space)} · ${latestBooking.dateLabel}`
     : "No bookings yet";
+  const latestEventLabel = latestEventBooking
+    ? `${latestEventBooking.eventTitle} · ${latestEventBooking.startsAtLabel}`
+    : "No event tickets yet";
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505] text-white">
@@ -121,6 +141,48 @@ export function DashboardFrame({
                     </Link>
                   );
                 })}
+
+                <details
+                  className="group rounded-[1.35rem] border border-white/5 bg-[#151515] p-3 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)]"
+                  open={activeTab === "events"}
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-[1.1rem] border border-white/5 bg-[#0f0f0f] px-4 py-3 text-sm font-medium text-white/80 transition-colors hover:text-white [&::-webkit-details-marker]:hidden">
+                    <span className="flex min-w-0 items-center gap-3">
+                      <Ticket className="h-4 w-4 text-[#d8f24d]" />
+                      <span className="truncate">Events</span>
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <span className="inline-flex min-w-8 items-center justify-center rounded-full border border-white/8 bg-white/[0.04] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
+                        {overview.stats.eventBookings}
+                      </span>
+                      <ChevronDown className="h-4 w-4 text-white/55 transition-transform duration-200 group-open:rotate-180" />
+                    </span>
+                  </summary>
+
+                  <div className="mt-3 space-y-3">
+                    <Link
+                      href={eventTabItem.href}
+                      className={cn(
+                        "flex items-center gap-3 rounded-[1.1rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
+                        activeTab === "events"
+                          ? "bg-[#0b0b0b] text-white shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
+                          : "bg-[#121212] text-white/72 shadow-[inset_6px_6px_12px_rgba(0,0,0,0.45),inset_-4px_-4px_10px_rgba(255,255,255,0.02)] hover:text-white",
+                      )}
+                    >
+                      <Ticket className={cn("h-4 w-4", activeTab === "events" && "text-[#d8f24d]")} />
+                      {eventTabItem.label}
+                    </Link>
+
+                    <div className="rounded-[1.1rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
+                      <p className="text-[10px] uppercase tracking-[0.24em] text-white/38">
+                        Latest event
+                      </p>
+                      <p className="mt-2 text-sm font-medium text-white/75">
+                        {latestEventLabel}
+                      </p>
+                    </div>
+                  </div>
+                </details>
               </div>
 
               <div className="mt-8 space-y-3 rounded-[1.5rem] border border-white/5 bg-[#151515] p-4 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)]">
@@ -292,6 +354,46 @@ export function DashboardFrame({
               );
             })}
           </div>
+
+          <details
+            className="group rounded-[1.5rem] border border-white/6 bg-[#111111] p-3 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] xl:hidden"
+            open={activeTab === "events"}
+          >
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-[1.2rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 text-sm font-medium text-white/82 [&::-webkit-details-marker]:hidden">
+              <span className="flex min-w-0 items-center gap-3">
+                <Ticket className="h-4 w-4 text-[#d8f24d]" />
+                <span className="truncate">Events</span>
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="inline-flex min-w-8 items-center justify-center rounded-full border border-white/8 bg-white/[0.04] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
+                  {overview.stats.eventBookings}
+                </span>
+                <ChevronDown className="h-4 w-4 text-white/55 transition-transform duration-200 group-open:rotate-180" />
+              </span>
+            </summary>
+
+            <div className="mt-3 space-y-3">
+              <p className="px-1 text-xs leading-6 text-white/52">
+                Keep your event confirmations, ticket tiers, and venue details together in one place.
+              </p>
+
+              <Link
+                href={eventTabItem.href}
+                className={cn(
+                  "flex min-h-12 items-center justify-between gap-3 rounded-[1.2rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
+                  activeTab === "events"
+                    ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
+                    : "bg-[#151515] text-white/75 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
+                )}
+              >
+                <span className="flex items-center gap-3">
+                  <Ticket className="h-4 w-4" />
+                  {eventTabItem.label}
+                </span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </details>
         </AnimatedSection>
 
             <div className="space-y-8 rounded-[2rem] border border-white/6 bg-[#101010] p-4 shadow-[inset_12px_12px_24px_rgba(0,0,0,0.58),inset_-10px_-10px_20px_rgba(255,255,255,0.02)] sm:p-6">

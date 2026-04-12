@@ -5,7 +5,8 @@ import { DashboardEmptyState } from "@/components/dashboard/DashboardEmptyState"
 import { UserBookingCard } from "@/components/dashboard/UserBookingCard";
 import { GlowCard } from "@/components/ui/GlowCard";
 import {
-  getUserDashboardOverview,
+  type DashboardBooking,
+  getUserDashboardBookingsPageData,
   requireDashboardUser,
   getDashboardSpaceLabel,
   getDashboardBookingForUser,
@@ -34,7 +35,7 @@ const bookingFilters: Array<{
 ];
 
 function getFilteredBookings(
-  bookings: Awaited<ReturnType<typeof getUserDashboardOverview>>["bookings"],
+  bookings: DashboardBooking[],
   filter: BookingFilter,
 ) {
   switch (filter) {
@@ -63,10 +64,15 @@ export default async function UserBookingsPage({
   searchParams?: SearchParams;
 }) {
   const currentUser = await requireDashboardUser();
-  const overview = await getUserDashboardOverview(currentUser.id);
+  const {
+    frameOverview,
+    bookings,
+    upcomingBookings,
+    pastBookings,
+  } = await getUserDashboardBookingsPageData(currentUser.id);
   const activeFilter = (searchParams?.filter as BookingFilter | undefined) ?? "upcoming";
   const selectedFilter = bookingFilters.find((filter) => filter.key === activeFilter) ?? bookingFilters[0];
-  const filteredBookings = getFilteredBookings(overview.bookings, selectedFilter.key);
+  const filteredBookings = getFilteredBookings(bookings, selectedFilter.key);
   const selectedBooking = searchParams?.view
     ? await getDashboardBookingForUser(currentUser.id, searchParams.view)
     : null;
@@ -74,7 +80,7 @@ export default async function UserBookingsPage({
   return (
     <DashboardFrame
       currentUser={currentUser}
-      overview={overview}
+      overview={frameOverview}
       activeTab="bookings"
     >
       <section className="space-y-6">
@@ -263,7 +269,7 @@ export default async function UserBookingsPage({
                 Upcoming
               </p>
               <p className="mt-2 text-2xl font-semibold text-white">
-                {overview.upcomingBookings.length}
+                {upcomingBookings.length}
               </p>
             </div>
             <div className="rounded-[1.25rem] border border-white/8 bg-white/[0.03] p-4">
@@ -271,7 +277,7 @@ export default async function UserBookingsPage({
                 Past
               </p>
               <p className="mt-2 text-2xl font-semibold text-white">
-                {overview.pastBookings.length}
+                {pastBookings.length}
               </p>
             </div>
             <div className="rounded-[1.25rem] border border-white/8 bg-white/[0.03] p-4">
@@ -279,13 +285,13 @@ export default async function UserBookingsPage({
                 Total
               </p>
               <p className="mt-2 text-2xl font-semibold text-white">
-                {overview.stats.totalBookings}
+                {frameOverview.stats.totalBookings}
               </p>
             </div>
           </div>
         </GlowCard>
 
-        {overview.bookings.length > 0 ? (
+        {bookings.length > 0 ? (
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-3">
               <h3 className="text-xl font-semibold tracking-[-0.03em] text-white">
@@ -342,16 +348,16 @@ export default async function UserBookingsPage({
           </div>
 
           <div className="mt-5 rounded-[1.35rem] border border-white/8 bg-black/35 p-4">
-            {overview.upcomingBookings[0] ? (
+            {upcomingBookings[0] ? (
               <>
                 <p className="text-sm font-semibold text-white">
-                  {overview.upcomingBookings[0].reference} ·{" "}
-                  {getDashboardSpaceLabel(overview.upcomingBookings[0].space)}
+                  {upcomingBookings[0].reference} ·{" "}
+                  {getDashboardSpaceLabel(upcomingBookings[0].space)}
                 </p>
                 <p className="mt-2 flex items-center gap-2 text-sm text-white/55">
                   <Clock3 className="h-4 w-4" />
-                  {overview.upcomingBookings[0].dateLabel} at{" "}
-                  {overview.upcomingBookings[0].startTime}
+                  {upcomingBookings[0].dateLabel} at{" "}
+                  {upcomingBookings[0].startTime}
                 </p>
               </>
             ) : (

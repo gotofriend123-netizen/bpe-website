@@ -47,6 +47,11 @@ export type DashboardWaitlistStatus =
 
 export type DashboardPolicyAction = "cancel" | "reschedule";
 
+export type DashboardEventBookingStatus =
+  | "confirmed"
+  | "cancelled"
+  | "refunded";
+
 export type DashboardActionSlot = {
   id: string;
   space: DashboardSpace;
@@ -107,6 +112,39 @@ export type DashboardBooking = {
   rescheduleOptions: DashboardActionSlot[];
 };
 
+export type DashboardEventBooking = {
+  id: string;
+  reference: string;
+  eventSlug: string;
+  eventTitle: string;
+  eventCategory: string;
+  eventVenue: string;
+  organizer: string;
+  posterImage: string | null;
+  eventStartsAt: string;
+  eventEndsAt: string | null;
+  ticketTierId: string;
+  ticketTierLabel: string;
+  ticketUnitPrice: number;
+  quantity: number;
+  totalAmount: number;
+  currency: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  notes: string | null;
+  status: DashboardEventBookingStatus;
+  confirmationEmailSent: boolean;
+  adminEmailSent: boolean;
+  notificationFailedReason: string | null;
+  notificationLastAttemptAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  startsAtLabel: string;
+  timeLabel: string;
+  isUpcoming: boolean;
+};
+
 export type DashboardWaitlistEntry = {
   id: string;
   space: DashboardSpace;
@@ -125,18 +163,62 @@ export type DashboardOverview = {
   user: CurrentUserSummary;
   createdAt: string;
   bookings: DashboardBooking[];
+  eventBookings: DashboardEventBooking[];
   upcomingBookings: DashboardBooking[];
   pastBookings: DashboardBooking[];
+  upcomingEventBookings: DashboardEventBooking[];
+  pastEventBookings: DashboardEventBooking[];
   waitlistEntries: DashboardWaitlistEntry[];
   stats: {
     totalBookings: number;
+    eventBookings: number;
     upcomingBookings: number;
+    upcomingEventBookings: number;
     pastBookings: number;
     confirmedBookings: number;
     pendingBookings: number;
     waitlistEntries: number;
   };
   latestBooking: DashboardBooking | null;
+  latestEventBooking: DashboardEventBooking | null;
+};
+
+export type DashboardLatestBookingSummary = {
+  reference: string;
+  space: DashboardSpace;
+  dateLabel: string;
+  startTime: string;
+};
+
+export type DashboardLatestEventBookingSummary = {
+  reference: string;
+  eventTitle: string;
+  startsAtLabel: string;
+};
+
+export type DashboardFrameOverview = {
+  stats: DashboardOverview["stats"];
+  latestBooking: DashboardLatestBookingSummary | null;
+  latestEventBooking: DashboardLatestEventBookingSummary | null;
+};
+
+type DashboardBookingsData = {
+  bookings: DashboardBooking[];
+  upcomingBookings: DashboardBooking[];
+  pastBookings: DashboardBooking[];
+  stats: Pick<
+    DashboardOverview["stats"],
+    "totalBookings" | "upcomingBookings" | "pastBookings" | "confirmedBookings" | "pendingBookings"
+  >;
+  latestBooking: DashboardBooking | null;
+};
+
+type DashboardEventBookingsData = {
+  eventBookings: DashboardEventBooking[];
+  upcomingEventBookings: DashboardEventBooking[];
+  pastEventBookings: DashboardEventBooking[];
+  stats: Pick<DashboardOverview["stats"], "eventBookings" | "upcomingEventBookings">;
+  latestEventBooking: DashboardEventBooking | null;
 };
 
 function formatDateLabel(dateKey: string) {
@@ -147,6 +229,31 @@ function formatDateLabel(dateKey: string) {
     day: "numeric",
     year: "numeric",
   }).format(new Date(`${dateKey}T00:00:00+05:30`));
+}
+
+function formatEventDateLabel(value: Date) {
+  return new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(value);
+}
+
+function formatEventTimeLabel(start: Date, end?: Date | null) {
+  const formatter = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+  const startLabel = formatter.format(start);
+
+  if (!end) {
+    return startLabel;
+  }
+
+  return `${startLabel} - ${formatter.format(end)}`;
 }
 
 function mapBookingStatus(status: string): DashboardBookingStatus {
@@ -190,6 +297,14 @@ function mapWaitlistStatus(status: string): DashboardWaitlistStatus {
   }
 
   return "active";
+}
+
+function mapEventBookingStatus(status: string): DashboardEventBookingStatus {
+  if (status === "confirmed" || status === "cancelled" || status === "refunded") {
+    return status;
+  }
+
+  return "confirmed";
 }
 
 function toDashboardSlot(slot: {
@@ -252,6 +367,71 @@ function toDashboardActionSlot(slot: {
     bufferAfter: slot.bufferAfter,
     priceModifier: slot.priceModifier,
   } satisfies DashboardActionSlot;
+}
+
+function toDashboardEventBooking(booking: {
+  id: string;
+  reference: string;
+  eventSlug: string;
+  eventTitle: string;
+  eventCategory: string;
+  eventVenue: string;
+  organizer: string;
+  posterImage: string | null;
+  eventStartsAt: Date;
+  eventEndsAt: Date | null;
+  ticketTierId: string;
+  ticketTierLabel: string;
+  ticketUnitPrice: number;
+  quantity: number;
+  totalAmount: number;
+  currency: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  notes: string | null;
+  status: string;
+  confirmationEmailSent: boolean;
+  adminEmailSent: boolean;
+  notificationFailedReason: string | null;
+  notificationLastAttemptAt: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
+}) {
+  const effectiveEnd = booking.eventEndsAt ?? booking.eventStartsAt;
+
+  return {
+    id: booking.id,
+    reference: booking.reference,
+    eventSlug: booking.eventSlug,
+    eventTitle: booking.eventTitle,
+    eventCategory: booking.eventCategory,
+    eventVenue: booking.eventVenue,
+    organizer: booking.organizer,
+    posterImage: booking.posterImage,
+    eventStartsAt: booking.eventStartsAt.toISOString(),
+    eventEndsAt: booking.eventEndsAt?.toISOString() ?? null,
+    ticketTierId: booking.ticketTierId,
+    ticketTierLabel: booking.ticketTierLabel,
+    ticketUnitPrice: booking.ticketUnitPrice,
+    quantity: booking.quantity,
+    totalAmount: booking.totalAmount,
+    currency: booking.currency,
+    customerName: booking.customerName,
+    customerEmail: booking.customerEmail,
+    customerPhone: booking.customerPhone,
+    notes: booking.notes,
+    status: mapEventBookingStatus(booking.status),
+    confirmationEmailSent: booking.confirmationEmailSent,
+    adminEmailSent: booking.adminEmailSent,
+    notificationFailedReason: booking.notificationFailedReason,
+    notificationLastAttemptAt: booking.notificationLastAttemptAt?.toISOString() ?? null,
+    createdAt: booking.createdAt.toISOString(),
+    updatedAt: booking.updatedAt.toISOString(),
+    startsAtLabel: formatEventDateLabel(booking.eventStartsAt),
+    timeLabel: formatEventTimeLabel(booking.eventStartsAt, booking.eventEndsAt),
+    isUpcoming: effectiveEnd.getTime() >= Date.now(),
+  } satisfies DashboardEventBooking;
 }
 
 function getNextAvailableSlot(
@@ -404,14 +584,10 @@ function sortBookingsAsc(left: DashboardBooking, right: DashboardBooking) {
   );
 }
 
-async function enrichWithNextAvailableSlot(bookings: DashboardBooking[]) {
-  return Promise.all(
-    bookings.map(async (booking) => ({
-      ...booking,
-      nextAvailableSlot: booking.status === "confirmed" && !booking.canReschedule
-        ? await getNextAvailableSlot(booking.space, booking.dateKey, booking.startTime)
-        : null,
-    })),
+function sortEventBookingsAsc(left: DashboardEventBooking, right: DashboardEventBooking) {
+  return (
+    new Date(left.eventStartsAt).getTime() -
+    new Date(right.eventStartsAt).getTime()
   );
 }
 
@@ -437,8 +613,77 @@ export async function requireDashboardUser() {
   return currentUser;
 }
 
+async function loadDashboardBookingsData(userId: string): Promise<DashboardBookingsData> {
+  const [bookings, policySettings] = await Promise.all([
+    prisma.booking.findMany({
+      where: { userId },
+      orderBy: [{ createdAt: "desc" }],
+      include: {
+        tags: true,
+        slot: true,
+      },
+    }),
+    getPolicySettings(),
+  ]);
+
+  const bookingsByCreatedAt = bookings.map((booking) =>
+    toDashboardBooking(booking, policySettings),
+  );
+  const sortedUpcoming = bookingsByCreatedAt
+    .filter((booking) => booking.isUpcoming && booking.status !== "cancelled")
+    .sort(sortBookingsAsc);
+  const sortedPast = bookingsByCreatedAt
+    .filter((booking) => !booking.isUpcoming || booking.status === "cancelled")
+    .sort((left, right) => sortBookingsAsc(right, left));
+
+  return {
+    bookings: [...sortedUpcoming, ...sortedPast],
+    upcomingBookings: sortedUpcoming,
+    pastBookings: sortedPast,
+    stats: {
+      totalBookings: bookingsByCreatedAt.length,
+      upcomingBookings: sortedUpcoming.length,
+      pastBookings: sortedPast.length,
+      confirmedBookings: bookingsByCreatedAt.filter((booking) => booking.status === "confirmed").length,
+      pendingBookings: bookingsByCreatedAt.filter((booking) => booking.status === "pending").length,
+    },
+    latestBooking: bookingsByCreatedAt[0] ?? null,
+  };
+}
+
+async function loadDashboardEventBookingsData(
+  userId: string,
+): Promise<DashboardEventBookingsData> {
+  const eventBookings = await prisma.eventBooking.findMany({
+    where: { userId },
+    orderBy: [{ eventStartsAt: "asc" }, { createdAt: "desc" }],
+  });
+
+  const mappedEventBookings = eventBookings.map((booking) =>
+    toDashboardEventBooking(booking),
+  );
+  const upcomingEventBookings = mappedEventBookings
+    .filter((booking) => booking.isUpcoming && booking.status === "confirmed")
+    .sort(sortEventBookingsAsc);
+  const pastEventBookings = mappedEventBookings
+    .filter((booking) => !booking.isUpcoming || booking.status !== "confirmed")
+    .sort((left, right) => sortEventBookingsAsc(right, left));
+
+  return {
+    eventBookings: [...upcomingEventBookings, ...pastEventBookings],
+    upcomingEventBookings,
+    pastEventBookings,
+    stats: {
+      eventBookings: mappedEventBookings.length,
+      upcomingEventBookings: upcomingEventBookings.length,
+    },
+    latestEventBooking:
+      [...upcomingEventBookings, ...pastEventBookings][0] ?? null,
+  };
+}
+
 export async function getUserDashboardOverview(userId: string): Promise<DashboardOverview> {
-  const [user, policySettings] = await Promise.all([
+  const [user, bookingsData, eventBookingsData, waitlistEntries] = await Promise.all([
     prisma.user.findUnique({
       where: { id: userId },
       select: {
@@ -447,44 +692,28 @@ export async function getUserDashboardOverview(userId: string): Promise<Dashboar
         email: true,
         role: true,
         createdAt: true,
-        bookings: {
-          orderBy: [{ createdAt: "desc" }],
-          include: {
-            tags: true,
-            slot: true,
-          },
-        },
-        waitlistEntries: {
-          orderBy: [{ createdAt: "desc" }],
-          include: {
-            booking: {
-              select: {
-                reference: true,
-              },
-            },
+      },
+    }),
+    loadDashboardBookingsData(userId),
+    loadDashboardEventBookingsData(userId),
+    prisma.waitlistEntry.findMany({
+      where: { userId },
+      orderBy: [{ createdAt: "desc" }],
+      include: {
+        booking: {
+          select: {
+            reference: true,
           },
         },
       },
     }),
-    getPolicySettings(),
   ]);
 
   if (!user) {
     redirect("/login");
   }
 
-  const bookingsByCreatedAt = user.bookings.map((booking) =>
-    toDashboardBooking(booking, policySettings),
-  );
-  const bookings = await enrichWithNextAvailableSlot(bookingsByCreatedAt);
-  const sortedUpcoming = bookings
-    .filter((booking) => booking.isUpcoming && booking.status !== "cancelled")
-    .sort(sortBookingsAsc);
-  const sortedPast = bookings
-    .filter((booking) => !booking.isUpcoming || booking.status === "cancelled")
-    .sort((left, right) => sortBookingsAsc(right, left));
-  const orderedBookings = [...sortedUpcoming, ...sortedPast];
-  const waitlistEntries = user.waitlistEntries.map((entry) => ({
+  const mappedWaitlistEntries = waitlistEntries.map((entry) => ({
     id: entry.id,
     space: entry.space as DashboardSpace,
     dateKey: entry.dateKey,
@@ -507,19 +736,187 @@ export async function getUserDashboardOverview(userId: string): Promise<Dashboar
       createdAt: user.createdAt,
     },
     createdAt: user.createdAt.toISOString(),
-    bookings: orderedBookings,
-    upcomingBookings: sortedUpcoming,
-    pastBookings: sortedPast,
-    waitlistEntries,
+    bookings: bookingsData.bookings,
+    eventBookings: eventBookingsData.eventBookings,
+    upcomingBookings: bookingsData.upcomingBookings,
+    pastBookings: bookingsData.pastBookings,
+    upcomingEventBookings: eventBookingsData.upcomingEventBookings,
+    pastEventBookings: eventBookingsData.pastEventBookings,
+    waitlistEntries: mappedWaitlistEntries,
     stats: {
-      totalBookings: bookings.length,
-      upcomingBookings: sortedUpcoming.length,
-      pastBookings: sortedPast.length,
-      confirmedBookings: bookings.filter((booking) => booking.status === "confirmed").length,
-      pendingBookings: bookings.filter((booking) => booking.status === "pending").length,
-      waitlistEntries: waitlistEntries.length,
+      ...bookingsData.stats,
+      ...eventBookingsData.stats,
+      waitlistEntries: mappedWaitlistEntries.length,
     },
-    latestBooking: bookingsByCreatedAt[0] ?? null,
+    latestBooking: bookingsData.latestBooking,
+    latestEventBooking: eventBookingsData.latestEventBooking,
+  };
+}
+
+export async function getUserDashboardFrameData(
+  userId: string,
+): Promise<DashboardFrameOverview> {
+  const [bookings, eventBookings, waitlistEntries] = await Promise.all([
+    prisma.booking.findMany({
+      where: { userId },
+      orderBy: [{ createdAt: "desc" }],
+      select: {
+        reference: true,
+        space: true,
+        dateKey: true,
+        startTime: true,
+        status: true,
+        slot: {
+          select: {
+            space: true,
+            dateKey: true,
+            startTime: true,
+          },
+        },
+      },
+    }),
+    prisma.eventBooking.findMany({
+      where: { userId },
+      orderBy: [{ eventStartsAt: "asc" }, { createdAt: "desc" }],
+      select: {
+        reference: true,
+        eventTitle: true,
+        eventStartsAt: true,
+        eventEndsAt: true,
+        status: true,
+      },
+    }),
+    prisma.waitlistEntry.count({
+      where: { userId },
+    }),
+  ]);
+
+  const bookingSummaries = bookings.map((booking) => {
+    const activeSpace = (booking.slot?.space ?? booking.space) as DashboardSpace;
+    const activeDateKey = booking.slot?.dateKey ?? booking.dateKey;
+    const activeStartTime = booking.slot?.startTime ?? booking.startTime;
+    const mappedStatus = mapBookingStatus(booking.status);
+    const isUpcoming =
+      buildLocalDateTime(activeDateKey, activeStartTime).getTime() >= Date.now();
+
+    return {
+      reference: booking.reference,
+      space: activeSpace,
+      dateLabel: formatDateLabel(activeDateKey),
+      startTime: activeStartTime,
+      status: mappedStatus,
+      isUpcoming,
+    };
+  });
+
+  const eventSummaries = eventBookings.map((booking) => {
+    const effectiveEnd = booking.eventEndsAt ?? booking.eventStartsAt;
+    const mappedStatus = mapEventBookingStatus(booking.status);
+    const isUpcoming = effectiveEnd.getTime() >= Date.now();
+
+    return {
+      reference: booking.reference,
+      eventTitle: booking.eventTitle,
+      startsAtLabel: formatEventDateLabel(booking.eventStartsAt),
+      status: mappedStatus,
+      isUpcoming,
+    };
+  });
+
+  const orderedEventSummaries = [
+    ...eventSummaries.filter((booking) => booking.isUpcoming && booking.status === "confirmed"),
+    ...eventSummaries.filter((booking) => !booking.isUpcoming || booking.status !== "confirmed"),
+  ];
+
+  return {
+    stats: {
+      totalBookings: bookingSummaries.length,
+      eventBookings: eventSummaries.length,
+      upcomingBookings: bookingSummaries.filter((booking) => booking.isUpcoming && booking.status !== "cancelled").length,
+      upcomingEventBookings: eventSummaries.filter((booking) => booking.isUpcoming && booking.status === "confirmed").length,
+      pastBookings: bookingSummaries.filter((booking) => !booking.isUpcoming || booking.status === "cancelled").length,
+      confirmedBookings: bookingSummaries.filter((booking) => booking.status === "confirmed").length,
+      pendingBookings: bookingSummaries.filter((booking) => booking.status === "pending").length,
+      waitlistEntries,
+    },
+    latestBooking: bookingSummaries[0]
+      ? {
+          reference: bookingSummaries[0].reference,
+          space: bookingSummaries[0].space,
+          dateLabel: bookingSummaries[0].dateLabel,
+          startTime: bookingSummaries[0].startTime,
+        }
+      : null,
+    latestEventBooking: orderedEventSummaries[0]
+      ? {
+          reference: orderedEventSummaries[0].reference,
+          eventTitle: orderedEventSummaries[0].eventTitle,
+          startsAtLabel: orderedEventSummaries[0].startsAtLabel,
+        }
+      : null,
+  };
+}
+
+export function toDashboardFrameOverview(
+  overview: Pick<DashboardOverview, "stats" | "latestBooking" | "latestEventBooking">,
+): DashboardFrameOverview {
+  return {
+    stats: overview.stats,
+    latestBooking: overview.latestBooking
+      ? {
+          reference: overview.latestBooking.reference,
+          space: overview.latestBooking.space,
+          dateLabel: overview.latestBooking.dateLabel,
+          startTime: overview.latestBooking.startTime,
+        }
+      : null,
+    latestEventBooking: overview.latestEventBooking
+      ? {
+          reference: overview.latestEventBooking.reference,
+          eventTitle: overview.latestEventBooking.eventTitle,
+          startsAtLabel: overview.latestEventBooking.startsAtLabel,
+        }
+      : null,
+  };
+}
+
+export async function getUserDashboardHomeData(userId: string) {
+  const [frameOverview, bookingsData] = await Promise.all([
+    getUserDashboardFrameData(userId),
+    loadDashboardBookingsData(userId),
+  ]);
+
+  return {
+    frameOverview,
+    upcomingBookings: bookingsData.upcomingBookings,
+  };
+}
+
+export async function getUserDashboardBookingsPageData(userId: string) {
+  const [frameOverview, bookingsData] = await Promise.all([
+    getUserDashboardFrameData(userId),
+    loadDashboardBookingsData(userId),
+  ]);
+
+  return {
+    frameOverview,
+    bookings: bookingsData.bookings,
+    upcomingBookings: bookingsData.upcomingBookings,
+    pastBookings: bookingsData.pastBookings,
+  };
+}
+
+export async function getUserDashboardEventsPageData(userId: string) {
+  const [frameOverview, eventBookingsData] = await Promise.all([
+    getUserDashboardFrameData(userId),
+    loadDashboardEventBookingsData(userId),
+  ]);
+
+  return {
+    frameOverview,
+    eventBookings: eventBookingsData.eventBookings,
+    upcomingEventBookings: eventBookingsData.upcomingEventBookings,
+    pastEventBookings: eventBookingsData.pastEventBookings,
   };
 }
 
@@ -627,6 +1024,32 @@ export function getBookingStatusTone(status: DashboardBookingStatus) {
       return "border-fuchsia-500/20 bg-fuchsia-500/10 text-fuchsia-300";
     case "no-show":
       return "border-zinc-500/20 bg-zinc-500/10 text-zinc-300";
+    default:
+      return "border-white/10 bg-white/5 text-white";
+  }
+}
+
+export function getEventBookingStatusLabel(status: DashboardEventBookingStatus) {
+  switch (status) {
+    case "confirmed":
+      return "Confirmed";
+    case "cancelled":
+      return "Cancelled";
+    case "refunded":
+      return "Refunded";
+    default:
+      return "Confirmed";
+  }
+}
+
+export function getEventBookingStatusTone(status: DashboardEventBookingStatus) {
+  switch (status) {
+    case "confirmed":
+      return "border-emerald-500/20 bg-emerald-500/10 text-emerald-300";
+    case "cancelled":
+      return "border-rose-500/20 bg-rose-500/10 text-rose-300";
+    case "refunded":
+      return "border-violet-500/20 bg-violet-500/10 text-violet-300";
     default:
       return "border-white/10 bg-white/5 text-white";
   }
