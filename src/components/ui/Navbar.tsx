@@ -139,7 +139,7 @@ export function Navbar({ currentUser }: NavbarProps) {
                     alt="Black Pepper Entertainment Logo"
                     width={260}
                     height={96}
-                    className="h-[2.2rem] w-auto object-contain object-left opacity-92 transition-opacity group-hover:opacity-100 min-[400px]:h-[2.6rem] sm:h-[3.45rem] xl:h-[4.2rem]"
+                    className="h-[2.8rem] w-auto object-contain object-left opacity-92 transition-opacity group-hover:opacity-100 min-[400px]:h-[3.2rem] sm:h-[3.45rem] xl:h-[4.2rem]"
                     priority
                   />
                 </div>

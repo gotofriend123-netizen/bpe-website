@@ -4,7 +4,6 @@ import localFont from "next/font/local";
 import { Toaster } from "sonner";
 import { Navbar } from "@/components/ui/Navbar";
 import { Footer } from "@/components/ui/Footer";
-import { FloatingActions } from "@/components/ui/FloatingActions";
 import { AuthEntryPrompt } from "@/components/auth/AuthEntryPrompt";
 import { getCurrentUserSummary } from "@/lib/auth/session";
 import "./globals.css";
@@ -47,7 +46,6 @@ export default async function RootLayout({
           {children}
         </main>
         <Footer />
-        <FloatingActions />
         <Toaster theme="dark" position="bottom-right" />
       </body>
     </html>
