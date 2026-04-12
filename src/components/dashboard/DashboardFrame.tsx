@@ -76,10 +76,8 @@ function StatCard({
 
 function MobileBottomNav({
   activeTab,
-  overview,
 }: {
   activeTab: DashboardTab;
-  overview: DashboardFrameOverview;
 }) {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/8 bg-[#0c0c0c] px-2 py-2 pb-safe sm:hidden">
@@ -368,7 +366,7 @@ export function DashboardFrame({
         </div>
       </div>
 
-      <MobileBottomNav activeTab={activeTab} overview={overview} />
+      <MobileBottomNav activeTab={activeTab} />
     </div>
   );
 }

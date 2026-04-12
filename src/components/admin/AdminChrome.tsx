@@ -11,12 +11,10 @@ import {
   CalendarDays,
   ChevronDown,
   Home,
-  LayoutDashboard,
   Plus,
   Settings2,
   Shield,
   Ticket,
-  UserRound,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -96,7 +94,7 @@ function MobileBottomNav({ pathname }: { pathname: string }) {
   );
 }
 
-function MobileHeader({ initials, currentUser }: { initials: string; currentUser: AdminUser }) {
+function MobileHeader({ initials }: { initials: string }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/6 bg-[#050505]/95 px-3 py-2.5 backdrop-blur-md sm:hidden">
       <div className="flex items-center justify-between">
@@ -163,7 +161,7 @@ export function AdminChrome({
 
   return (
     <div className="min-h-screen bg-[#050505] text-white pb-20 sm:pb-0">
-      <MobileHeader initials={initials} currentUser={currentUser} />
+      <MobileHeader initials={initials} />
 
       <div className="mx-auto w-full max-w-[1720px] px-3 pt-16 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
         <div className="grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
