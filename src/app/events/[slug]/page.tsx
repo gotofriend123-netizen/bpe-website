@@ -43,53 +43,53 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
   const usesPosterAsHero = event.coverImage === event.posterImage;
 
   return (
-    <div className="min-h-screen bg-black pb-24 pt-28 text-white">
-      <section className="container mx-auto px-6">
-        <AnimatedSection className="overflow-hidden rounded-[2.25rem] border border-white/10 bg-[#080808] shadow-[0_28px_90px_rgba(0,0,0,0.32)]">
-          <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
-            <div className="relative min-h-[24rem] lg:min-h-[40rem]">
+    <div className="min-h-screen bg-black pb-24 pt-24 text-white sm:pt-28">
+      <section className="px-0 sm:container sm:mx-auto sm:px-6">
+        <AnimatedSection>
+          <div className="grid md:grid-cols-[1fr_1fr] lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="relative min-h-[18rem] sm:min-h-[24rem] lg:min-h-[40rem]">
               <Image
                 src={event.coverImage}
                 alt={event.title}
                 fill
-                className={usesPosterAsHero ? "object-contain bg-[#050505] p-4 sm:p-6 lg:p-8" : "object-cover"}
+                className={usesPosterAsHero ? "object-contain bg-[#050505] p-2 sm:p-4 lg:p-8" : "object-cover"}
                 sizes="(max-width: 1024px) 100vw, 55vw"
                 priority
               />
               <div className={`absolute inset-0 bg-gradient-to-br ${event.accent}`} />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.1),rgba(0,0,0,0.88))]" />
-              <div className="absolute left-6 top-6">
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.1),rgba(0,0,0,0.88)]" />
+              <div className="absolute left-4 top-4 sm:left-6">
                 <EventStatusBadge status={event.availability} />
               </div>
-              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 lg:p-10">
+              <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 lg:p-10">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-orange-100">
                   {event.categoryLabel}
                 </p>
-                <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-[-0.06em] text-white md:text-6xl">
+                <h1 className="mt-2 sm:mt-4 max-w-3xl text-2xl sm:text-4xl font-semibold tracking-[-0.06em] text-white md:text-6xl">
                   {event.title}
                 </h1>
-                <p className="mt-4 max-w-2xl text-[15px] leading-7 text-zinc-200 md:text-lg md:leading-8">
+                <p className="mt-2 sm:mt-4 max-w-2xl text-[13px] sm:text-[15px] leading-6 sm:leading-7 text-zinc-200 md:text-lg md:leading-8">
                   {event.teaser}
                 </p>
 
-                <div className="mt-6 flex flex-wrap gap-3 text-sm text-zinc-100">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-4 py-2 backdrop-blur-md">
-                    <CalendarDays className="h-4 w-4 text-[#f97316]" />
-                    {format(new Date(event.startsAt), "EEE, d MMM yyyy")}
+                <div className="mt-3 sm:mt-6 flex flex-wrap gap-2 sm:gap-3 text-xs sm:text-sm text-zinc-100">
+                  <span className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/15 bg-black/35 px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-md">
+                    <CalendarDays className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#f97316]" />
+                    {format(new Date(event.startsAt), "EEE, d MMM")}
                   </span>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-4 py-2 backdrop-blur-md">
-                    <Clock3 className="h-4 w-4 text-[#f97316]" />
-                    {format(new Date(event.startsAt), "h:mm a")} - {format(new Date(event.endsAt), "h:mm a")}
+                  <span className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/15 bg-black/35 px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-md">
+                    <Clock3 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#f97316]" />
+                    {format(new Date(event.startsAt), "h:mm a")}
                   </span>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-4 py-2 backdrop-blur-md">
-                    <MapPin className="h-4 w-4 text-[#f97316]" />
+                  <span className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/15 bg-black/35 px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-md">
+                    <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#f97316]" />
                     {event.venue}
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="border-t border-white/10 p-6 lg:border-l lg:border-t-0 lg:p-8">
+            <div className="border-t border-white/10 p-4 sm:p-6 md:border-l md:border-t-0 lg:p-8">
               <EventBookingCard event={event} />
             </div>
           </div>
