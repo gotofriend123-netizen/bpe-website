@@ -44,8 +44,12 @@ const tabItems: Array<{
 const eventTabItem = {
   key: "events" as const,
   label: "My Event Tickets",
+  mobileLabel: "Events",
   href: "/dashboard/events",
+  icon: Ticket,
 };
+
+const mobileNavigationItems = [...tabItems, eventTabItem];
 
 function StatCard({
   label,
@@ -96,6 +100,10 @@ export function DashboardFrame({
   const latestEventLabel = latestEventBooking
     ? `${latestEventBooking.eventTitle} · ${latestEventBooking.startsAtLabel}`
     : "No event tickets yet";
+  const activeMobileItem =
+    mobileNavigationItems.find((item) => item.key === activeTab) ??
+    mobileNavigationItems[0];
+  const ActiveMobileIcon = activeMobileItem.icon;
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050505] text-white">
@@ -310,7 +318,52 @@ export function DashboardFrame({
             </div>
           </GlowCard>
 
-          <div className="order-4 grid min-w-0 grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-4">
+          <details className="group order-4 rounded-[1.45rem] border border-white/6 bg-[#111111] p-2.5 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] sm:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-[1rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 text-sm font-medium text-white/85 [&::-webkit-details-marker]:hidden">
+              <span className="flex min-w-0 items-center gap-3">
+                <ShieldCheck className="h-4 w-4 shrink-0 text-[#d8f24d]" />
+                <span className="truncate">Dashboard summary</span>
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="rounded-full border border-white/8 bg-white/[0.04] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
+                  {overview.stats.totalBookings}
+                </span>
+                <ChevronDown className="h-4 w-4 shrink-0 text-white/55 transition-transform duration-200 group-open:rotate-180" />
+              </span>
+            </summary>
+
+            <div className="mt-3 grid gap-2.5">
+              {[
+                { label: "Total bookings", value: overview.stats.totalBookings, icon: CalendarDays },
+                { label: "Upcoming", value: overview.stats.upcomingBookings, icon: Clock3 },
+                { label: "Past", value: overview.stats.pastBookings, icon: NotebookTabs },
+                { label: "Confirmed", value: overview.stats.confirmedBookings, icon: ShieldCheck },
+              ].map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <div
+                    key={item.label}
+                    className="flex min-w-0 items-center justify-between gap-3 rounded-[1rem] border border-white/5 bg-[#151515] px-4 py-3 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)]"
+                  >
+                    <div className="min-w-0">
+                      <p className="truncate text-[10px] font-semibold uppercase tracking-[0.22em] text-white/38">
+                        {item.label}
+                      </p>
+                      <p className="mt-1 text-2xl font-semibold tracking-[-0.04em] text-white">
+                        {item.value}
+                      </p>
+                    </div>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/5 bg-[#0b0b0b] text-white/80">
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </details>
+
+          <div className="order-4 hidden min-w-0 grid-cols-2 gap-2.5 sm:grid sm:grid-cols-4 sm:gap-4">
             <StatCard
               label="Total bookings"
               value={overview.stats.totalBookings}
@@ -334,66 +387,52 @@ export function DashboardFrame({
 
           </div>
 
-          <div className="order-2 grid grid-cols-3 gap-2 rounded-[1.45rem] border border-white/6 bg-[#111111] p-2.5 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] backdrop-blur-xl xl:hidden">
-            {tabItems.map((item) => {
-              const Icon = item.icon;
-              const active = activeTab === item.key;
-
-              return (
-                <Link
-                  key={item.key}
-                  href={item.href}
-                  className={cn(
-                    "inline-flex min-h-12 flex-col items-center justify-center gap-1 rounded-[1rem] border border-white/5 px-2 py-2 text-center text-[11px] font-medium leading-tight transition-all duration-200 active:scale-95",
-                    active
-                      ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
-                      : "bg-[#151515] text-white/70 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
-                  )}
-                >
-                  <Icon className="h-4 w-4 shrink-0" />
-                  <span className="truncate">{item.mobileLabel}</span>
-                </Link>
-              );
-            })}
-          </div>
-
           <details
-            className="group order-3 rounded-[1.45rem] border border-white/6 bg-[#111111] p-2.5 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] xl:hidden"
-            open={activeTab === "events"}
+            className="group order-2 rounded-[1.45rem] border border-white/6 bg-[#111111] p-2.5 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] xl:hidden"
           >
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-[1rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 text-sm font-medium text-white/82 [&::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-[1rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 text-sm font-medium text-white/85 [&::-webkit-details-marker]:hidden">
               <span className="flex min-w-0 items-center gap-3">
-                <Ticket className="h-4 w-4 text-[#d8f24d]" />
-                <span className="truncate">Events</span>
+                <ActiveMobileIcon className="h-4 w-4 shrink-0 text-[#d8f24d]" />
+                <span className="truncate">{activeMobileItem.label}</span>
               </span>
               <span className="flex items-center gap-2">
                 <span className="inline-flex min-w-8 items-center justify-center rounded-full border border-white/8 bg-white/[0.04] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
-                  {overview.stats.eventBookings}
+                  Menu
                 </span>
                 <ChevronDown className="h-4 w-4 text-white/55 transition-transform duration-200 group-open:rotate-180" />
               </span>
             </summary>
 
-            <div className="mt-3 space-y-3">
-              <p className="px-1 text-xs leading-6 text-white/52">
-                Keep your event confirmations, ticket tiers, and venue details together in one place.
-              </p>
+            <div className="mt-3 grid gap-2">
+              {mobileNavigationItems.map((item) => {
+                const Icon = item.icon;
+                const active = activeTab === item.key;
 
-              <Link
-                href={eventTabItem.href}
-                className={cn(
-                  "flex min-h-11 items-center justify-between gap-3 rounded-[1rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
-                  activeTab === "events"
-                    ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
-                    : "bg-[#151515] text-white/75 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
-                )}
-              >
-                <span className="flex items-center gap-3">
-                  <Ticket className="h-4 w-4" />
-                  {eventTabItem.label}
-                </span>
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+                return (
+                  <Link
+                    key={item.key}
+                    href={item.href}
+                    className={cn(
+                      "flex min-h-11 items-center justify-between gap-3 rounded-[1rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
+                      active
+                        ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
+                        : "bg-[#151515] text-white/75 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
+                    )}
+                  >
+                    <span className="flex min-w-0 items-center gap-3">
+                      <Icon className="h-4 w-4 shrink-0" />
+                      <span className="truncate">{item.label}</span>
+                    </span>
+                    {item.key === "events" ? (
+                      <span className="rounded-full border border-white/8 bg-white/[0.04] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
+                        {overview.stats.eventBookings}
+                      </span>
+                    ) : (
+                      <ArrowRight className="h-4 w-4 shrink-0 text-white/40" />
+                    )}
+                  </Link>
+                );
+              })}
             </div>
           </details>
         </AnimatedSection>
