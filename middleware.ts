@@ -18,6 +18,11 @@ export async function middleware(request: NextRequest) {
   // tokens stay alive while the user browses any page.
   const { response, pendingCookies, user } = await refreshSupabaseAuth(request);
 
+  // Ensure cookies are always applied to response
+  if (pendingCookies.length > 0) {
+    applyPendingCookies(response, pendingCookies);
+  }
+
   if (isAuthPage && user) {
     const dashboardUrl = request.nextUrl.clone();
     dashboardUrl.pathname = "/dashboard";
@@ -28,11 +33,22 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!isProtected) {
+    // Ensure cookies are applied for non-protected routes too
+    if (pendingCookies.length > 0) {
+      applyPendingCookies(response, pendingCookies);
+    }
     return response;
   }
 
   if (user) {
-    return response;
+    // Apply cookies to authenticated response
+    const authResponse = NextResponse.next({
+      request: {
+        headers: request.headers,
+      },
+    });
+    applyPendingCookies(authResponse, pendingCookies);
+    return authResponse;
   }
 
   const loginUrl = request.nextUrl.clone();
