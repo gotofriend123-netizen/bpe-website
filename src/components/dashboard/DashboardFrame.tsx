@@ -5,6 +5,7 @@ import {
   CalendarDays,
   ChevronDown,
   Clock3,
+  Home,
   LayoutDashboard,
   NotebookTabs,
   ShieldCheck,
@@ -32,24 +33,14 @@ type DashboardFrameProps = {
 const tabItems: Array<{
   key: DashboardTab;
   label: string;
-  mobileLabel: string;
   href: string;
   icon: typeof LayoutDashboard;
 }> = [
-  { key: "overview", label: "Overview", mobileLabel: "Overview", href: "/dashboard", icon: LayoutDashboard },
-  { key: "bookings", label: "My Bookings", mobileLabel: "Bookings", href: "/dashboard/bookings", icon: NotebookTabs },
-  { key: "profile", label: "Profile", mobileLabel: "Profile", href: "/dashboard/profile", icon: UserRound },
+  { key: "overview", label: "Overview", href: "/dashboard", icon: Home },
+  { key: "bookings", label: "Bookings", href: "/dashboard/bookings", icon: NotebookTabs },
+  { key: "profile", label: "Profile", href: "/dashboard/profile", icon: UserRound },
+  { key: "events", label: "Events", href: "/dashboard/events", icon: Ticket },
 ];
-
-const eventTabItem = {
-  key: "events" as const,
-  label: "My Event Tickets",
-  mobileLabel: "Events",
-  href: "/dashboard/events",
-  icon: Ticket,
-};
-
-const mobileNavigationItems = [...tabItems, eventTabItem];
 
 function StatCard({
   label,
@@ -62,26 +53,88 @@ function StatCard({
 }) {
   return (
     <GlowCard
-      contentClassName="h-full rounded-[1.25rem] border border-white/6 bg-[#151515] p-3.5 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)] sm:rounded-[1.55rem] sm:p-5"
+      contentClassName="h-full rounded-2xl border border-white/6 bg-[#151515] p-4 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)]"
       backgroundColor="#111111"
       borderRadius={26}
       glowIntensity={0.4}
       fillOpacity={0.05}
     >
-      <div className="flex min-w-0 items-start justify-between gap-2 sm:gap-4">
+      <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="break-words text-[9px] font-semibold uppercase leading-4 tracking-[0.18em] text-white/38 [overflow-wrap:anywhere] sm:text-[11px] sm:leading-5 sm:tracking-[0.28em]">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
             {label}
           </p>
-          <p className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-white sm:mt-3 sm:text-3xl">
-            {value}
-          </p>
+          <p className="mt-1 text-2xl font-bold tracking-tight text-white">{value}</p>
         </div>
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/5 bg-[#0b0b0b] text-white/80 shadow-[8px_8px_18px_rgba(0,0,0,0.38),-5px_-5px_14px_rgba(255,255,255,0.018)] sm:h-11 sm:w-11 sm:rounded-2xl sm:shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)]">
-          <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/5 bg-[#0b0b0b] text-white/80">
+          <Icon className="h-4 w-4" aria-hidden="true" />
         </span>
       </div>
     </GlowCard>
+  );
+}
+
+function MobileBottomNav({
+  activeTab,
+  overview,
+}: {
+  activeTab: DashboardTab;
+  overview: DashboardFrameOverview;
+}) {
+  return (
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/8 bg-[#0c0c0c] px-2 py-2 pb-safe sm:hidden">
+      <div className="flex items-center justify-around">
+        {tabItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = activeTab === item.key;
+          return (
+            <Link
+              key={item.key}
+              href={item.href}
+              className={cn(
+                "flex flex-col items-center gap-1 rounded-xl px-3 py-2 text-[10px] font-medium transition-colors",
+                isActive
+                  ? "text-[#d8f24d]"
+                  : "text-white/50 hover:text-white",
+              )}
+            >
+              <Icon className="h-5 w-5" />
+              <span className="text-[9px] uppercase tracking-wider">{item.label}</span>
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
+
+function MobileHeader({
+  currentUser,
+  firstName,
+}: {
+  currentUser: CurrentUserSummary;
+  firstName: string;
+}) {
+  return (
+    <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/6 bg-[#050505]/95 px-4 py-3 backdrop-blur-md sm:hidden">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[#151515] text-white">
+            <UserRound className="h-4 w-4" />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-white">{firstName}</p>
+            <p className="text-[10px] text-white/50">{currentUser.role}</p>
+          </div>
+        </div>
+        <Link
+          href="/booking"
+          className="flex items-center gap-1 rounded-full bg-[#d8f24d] px-3 py-1.5 text-xs font-semibold text-black"
+        >
+          Book
+        </Link>
+      </div>
+    </header>
   );
 }
 
@@ -93,26 +146,20 @@ export function DashboardFrame({
 }: DashboardFrameProps) {
   const firstName = currentUser.name.split(" ")[0] ?? currentUser.name;
   const latestBooking = overview.latestBooking;
-  const latestEventBooking = overview.latestEventBooking;
   const latestBookingLabel = latestBooking
     ? `${getDashboardSpaceLabel(latestBooking.space)} · ${latestBooking.dateLabel}`
     : "No bookings yet";
-  const latestEventLabel = latestEventBooking
-    ? `${latestEventBooking.eventTitle} · ${latestEventBooking.startsAtLabel}`
-    : "No event tickets yet";
-  const activeMobileItem =
-    mobileNavigationItems.find((item) => item.key === activeTab) ??
-    mobileNavigationItems[0];
-  const ActiveMobileIcon = activeMobileItem.icon;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#050505] text-white">
-      <div className="pointer-events-none absolute inset-0">
+    <div className="relative min-h-screen overflow-hidden bg-[#050505] text-white pb-20 sm:pb-0">
+      <div className="pointer-events-none fixed inset-0">
         <div className="absolute left-[-10%] top-[-4%] h-[18rem] w-[18rem] rounded-full bg-white/[0.025] blur-[130px]" />
         <div className="absolute right-[-8%] top-[8%] h-[14rem] w-[14rem] rounded-full bg-white/[0.02] blur-[110px]" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pb-24 pt-24 sm:px-6 sm:pb-16 sm:pt-32 lg:px-8 lg:pt-36">
+      <MobileHeader currentUser={currentUser} firstName={firstName} />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pt-20 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
         <div className="grid gap-5 xl:grid-cols-[280px_minmax(0,1fr)]">
           <aside className="hidden xl:block">
             <div className="sticky top-24 rounded-[2.15rem] border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">
@@ -133,7 +180,7 @@ export function DashboardFrame({
                 {tabItems.map((item) => {
                   const Icon = item.icon;
                   const active = activeTab === item.key;
-
+                  if (item.key === "events") return null;
                   return (
                     <Link
                       key={item.key}
@@ -170,7 +217,7 @@ export function DashboardFrame({
 
                   <div className="mt-3 space-y-3">
                     <Link
-                      href={eventTabItem.href}
+                      href="/dashboard/events"
                       className={cn(
                         "flex items-center gap-3 rounded-[1.1rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
                         activeTab === "events"
@@ -179,17 +226,8 @@ export function DashboardFrame({
                       )}
                     >
                       <Ticket className={cn("h-4 w-4", activeTab === "events" && "text-[#d8f24d]")} />
-                      {eventTabItem.label}
+                      My Event Tickets
                     </Link>
-
-                    <div className="rounded-[1.1rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
-                      <p className="text-[10px] uppercase tracking-[0.24em] text-white/38">
-                        Latest event
-                      </p>
-                      <p className="mt-2 text-sm font-medium text-white/75">
-                        {latestEventLabel}
-                      </p>
-                    </div>
                   </div>
                 </details>
               </div>
@@ -200,7 +238,9 @@ export function DashboardFrame({
                     <UserRound className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-white">{currentUser.name}</p>
+                    <p className="truncate text-sm font-semibold text-white">
+                      {currentUser.name}
+                    </p>
                     <p className="truncate text-[10px] uppercase tracking-[0.18em] text-white/45">
                       {currentUser.email}
                     </p>
@@ -228,204 +268,107 @@ export function DashboardFrame({
           </aside>
 
           <div className="space-y-5">
-        <AnimatedSection className="flex flex-col gap-5">
-          <GlowCard
-            className="order-1"
-            contentClassName="rounded-[1.5rem] border border-white/6 bg-[#111111] p-4 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)] sm:rounded-[2rem] sm:p-6 lg:p-10"
-            backgroundColor="#111111"
-            borderRadius={32}
-            glowIntensity={0.28}
-            fillOpacity={0.05}
-          >
-            <div className="flex flex-col gap-4 sm:gap-8 lg:flex-row lg:items-start lg:justify-between">
-              <div className="max-w-3xl space-y-4">
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-[#0b0b0b] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-white/65 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
-                  <ShieldCheck className="h-3.5 w-3.5 text-[#d8f24d]" />
-                  Private account area
-                </span>
-                <div className="space-y-2 sm:space-y-3">
-                  <h1 className="text-2xl font-semibold tracking-[-0.05em] text-white sm:text-4xl lg:text-5xl">
-                    Welcome back, {firstName}.
-                  </h1>
-                  <p className="max-w-2xl text-xs leading-5 text-white/55 sm:text-sm sm:leading-7">
-                    Your bookings and account details are kept
-                    in one polished place. Review your upcoming sessions, manage
-                    policy windows, and jump back into the booking flow whenever
-                    you need to.
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    href="/booking"
-                    className="inline-flex items-center gap-2 rounded-full bg-[#d8f24d] px-5 py-3 text-sm font-semibold text-black transition-transform duration-200 hover:-translate-y-0.5"
-                  >
-                    Book Now
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                  <Link
-                    href="/dashboard/bookings"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-[#151515] px-5 py-3 text-sm font-semibold text-white transition-colors hover:text-[#d8f24d]"
-                  >
-                    View bookings
-                  </Link>
-                </div>
-              </div>
-
-              <div className="grid gap-2.5 rounded-[1.25rem] border border-white/5 bg-[#151515] p-3 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)] sm:gap-3 sm:rounded-[1.75rem] sm:p-4 sm:min-w-[18rem] xl:hidden">
-                <div className="flex items-center gap-3 rounded-[1.2rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/5 bg-[#111111] text-white/90 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)]">
-                    <UserRound className="h-5 w-5" />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-white">
-                      {currentUser.name}
-                    </p>
-                    <p className="truncate text-[11px] uppercase tracking-[0.18em] text-white/45">
-                      {currentUser.email}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <div className="rounded-[1.15rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
-                    <p className="text-[10px] uppercase tracking-[0.24em] text-white/40">
-                      Role
-                    </p>
-                    <p className="mt-2 text-sm font-semibold text-white">
-                      {currentUser.role}
-                    </p>
-                  </div>
-                  <div className="rounded-[1.15rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
-                    <p className="text-[10px] uppercase tracking-[0.24em] text-white/40">
-                      Latest booking
-                    </p>
-                    <p className="mt-2 truncate text-sm font-semibold text-white">
-                      {latestBooking ? latestBooking.reference : "None"}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="rounded-[1.15rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
-                  <p className="text-[10px] uppercase tracking-[0.24em] text-white/40">
-                    Next focus
-                  </p>
-                  <p className="mt-2 text-sm font-medium text-white/75">
-                    {latestBookingLabel}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </GlowCard>
-
-          <div className="order-4 grid grid-cols-2 gap-2.5 sm:hidden">
-            {[
-              { label: "Total bookings", value: overview.stats.totalBookings, icon: CalendarDays },
-              { label: "Upcoming", value: overview.stats.upcomingBookings, icon: Clock3 },
-              { label: "Past", value: overview.stats.pastBookings, icon: NotebookTabs },
-              { label: "Confirmed", value: overview.stats.confirmedBookings, icon: ShieldCheck },
-            ].map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <div
-                  key={item.label}
-                  className="relative overflow-hidden rounded-[1.25rem] border border-white/6 bg-[#111111] p-4 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)]"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="truncate text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
-                      {item.label}
-                    </p>
-                    <Icon className="h-3.5 w-3.5 text-white/45" aria-hidden="true" />
-                  </div>
-                  <p className="mt-2 text-2xl font-bold tracking-tight text-white">
-                    {item.value}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="order-4 hidden min-w-0 grid-cols-2 gap-2.5 sm:grid sm:grid-cols-4 sm:gap-4">
-            <StatCard
-              label="Total bookings"
-              value={overview.stats.totalBookings}
-              icon={CalendarDays}
-            />
-            <StatCard
-              label="Upcoming"
-              value={overview.stats.upcomingBookings}
-              icon={Clock3}
-            />
-            <StatCard
-              label="Past"
-              value={overview.stats.pastBookings}
-              icon={NotebookTabs}
-            />
-            <StatCard
-              label="Confirmed"
-              value={overview.stats.confirmedBookings}
-              icon={ShieldCheck}
-            />
-
-          </div>
-
-          <details
-            className="group order-2 rounded-[1.45rem] border border-white/6 bg-[#111111] p-2.5 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] xl:hidden"
-          >
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-[1rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 text-sm font-medium text-white/85 [&::-webkit-details-marker]:hidden">
-              <span className="flex min-w-0 items-center gap-3">
-                <ActiveMobileIcon className="h-4 w-4 shrink-0 text-[#d8f24d]" />
-                <span className="truncate">{activeMobileItem.label}</span>
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="inline-flex min-w-8 items-center justify-center rounded-full border border-white/8 bg-white/[0.04] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
-                  Menu
-                </span>
-                <ChevronDown className="h-4 w-4 text-white/55 transition-transform duration-200 group-open:rotate-180" />
-              </span>
-            </summary>
-
-            <div className="mt-3 grid gap-2">
-              {mobileNavigationItems.map((item) => {
-                const Icon = item.icon;
-                const active = activeTab === item.key;
-
-                return (
-                  <Link
-                    key={item.key}
-                    href={item.href}
-                    className={cn(
-                      "flex min-h-12 items-center justify-between gap-3 rounded-[1rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
-                      active
-                        ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
-                        : "bg-[#151515] text-white/75 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
-                    )}
-                  >
-                    <span className="flex min-w-0 items-center gap-3">
-                      <Icon className="h-4 w-4 shrink-0" />
-                      <span className="truncate">{item.label}</span>
+            <AnimatedSection className="flex flex-col gap-5">
+              <GlowCard
+                className="order-1"
+                contentClassName="rounded-2xl border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)] sm:rounded-[2rem] sm:p-6 lg:p-10"
+                backgroundColor="#111111"
+                borderRadius={32}
+                glowIntensity={0.28}
+                fillOpacity={0.05}
+              >
+                <div className="flex flex-col gap-6 sm:gap-8 lg:flex-row lg:items-start lg:justify-between">
+                  <div className="max-w-3xl space-y-4">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-[#0b0b0b] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-white/65 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
+                      <ShieldCheck className="h-3.5 w-3.5 text-[#d8f24d]" />
+                      Private account area
                     </span>
-                    {item.key === "events" ? (
-                      <span className="rounded-full border border-white/8 bg-white/[0.04] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
-                        {overview.stats.eventBookings}
-                      </span>
-                    ) : (
-                      <ArrowRight className="h-4 w-4 shrink-0 text-white/40" />
-                    )}
-                  </Link>
-                );
-              })}
-            </div>
-          </details>
-        </AnimatedSection>
+                    <div className="space-y-2 sm:space-y-3">
+                      <h1 className="text-2xl font-semibold tracking-[-0.05em] text-white sm:text-4xl lg:text-5xl">
+                        Welcome back, {firstName}.
+                      </h1>
+                      <p className="max-w-2xl text-xs leading-5 text-white/55 sm:text-sm sm:leading-7">
+                        Your bookings and account details are kept in one polished place.
+                      </p>
+                    </div>
 
-            <div className="space-y-6 rounded-[1.85rem] border border-white/6 bg-[#101010] p-3.5 shadow-[inset_12px_12px_24px_rgba(0,0,0,0.58),inset_-10px_-10px_20px_rgba(255,255,255,0.02)] sm:space-y-8 sm:rounded-[2rem] sm:p-6">
+                    <div className="flex flex-wrap gap-3">
+                      <Link
+                        href="/booking"
+                        className="inline-flex items-center gap-2 rounded-full bg-[#d8f24d] px-5 py-3 text-sm font-semibold text-black transition-transform duration-200 hover:-translate-y-0.5"
+                      >
+                        Book Now
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                      <Link
+                        href="/dashboard/bookings"
+                        className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-[#151515] px-5 py-3 text-sm font-semibold text-white transition-colors hover:text-[#d8f24d]"
+                      >
+                        View bookings
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="hidden sm:block sm:w-72 lg:w-80">
+                    <div className="rounded-2xl border border-white/5 bg-[#151515] p-4 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)]">
+                      <div className="flex items-center gap-3 rounded-xl border border-white/5 bg-[#0b0b0b] px-4 py-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/5 bg-[#111111] text-white/90">
+                          <UserRound className="h-5 w-5" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-semibold text-white">
+                            {currentUser.name}
+                          </p>
+                          <p className="truncate text-[10px] uppercase tracking-[0.16em] text-white/45">
+                            {currentUser.role}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="mt-3 rounded-xl border border-white/5 bg-[#0b0b0b] px-4 py-3">
+                        <p className="text-[10px] uppercase tracking-[0.22em] text-white/40">
+                          Next Session
+                        </p>
+                        <p className="mt-1 text-sm font-medium text-white">
+                          {latestBookingLabel}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </GlowCard>
+
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+                <StatCard
+                  label="Total"
+                  value={overview.stats.totalBookings}
+                  icon={CalendarDays}
+                />
+                <StatCard
+                  label="Upcoming"
+                  value={overview.stats.upcomingBookings}
+                  icon={Clock3}
+                />
+                <StatCard
+                  label="Past"
+                  value={overview.stats.pastBookings}
+                  icon={NotebookTabs}
+                />
+                <StatCard
+                  label="Confirmed"
+                  value={overview.stats.confirmedBookings}
+                  icon={ShieldCheck}
+                />
+              </div>
+            </AnimatedSection>
+
+            <div className="rounded-2xl border border-white/6 bg-[#101010] p-5 shadow-[inset_12px_12px_24px_rgba(0,0,0,0.58),inset_-10px_-10px_20px_rgba(255,255,255,0.02)] sm:rounded-[2rem] sm:p-6">
               {children}
             </div>
           </div>
         </div>
       </div>
+
+      <MobileBottomNav activeTab={activeTab} overview={overview} />
     </div>
   );
 }
