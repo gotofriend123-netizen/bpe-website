@@ -1,20 +1,19 @@
 import Link from "next/link";
-import { ArrowRight, Clock3, Sparkles } from "lucide-react";
+import { ArrowRight, CalendarDays, Clock3, Sparkles } from "lucide-react";
 import { DashboardFrame } from "@/components/dashboard/DashboardFrame";
 import { DashboardEmptyState } from "@/components/dashboard/DashboardEmptyState";
 import { UserBookingAccordionCard } from "@/components/dashboard/UserBookingAccordionCard";
-
 import { GlowCard } from "@/components/ui/GlowCard";
 import { cn } from "@/lib/utils";
 import {
   getUserDashboardHomeData,
   requireDashboardUser,
-  getDashboardSpaceLabel,
 } from "@/lib/dashboard/user-dashboard";
 
 export default async function UserDashboardPage() {
   const currentUser = await requireDashboardUser();
   const { frameOverview, upcomingBookings } = await getUserDashboardHomeData(currentUser.id);
+  const firstName = currentUser.name.split(" ")[0] ?? currentUser.name;
 
   return (
     <DashboardFrame
@@ -23,83 +22,96 @@ export default async function UserDashboardPage() {
       activeTab="overview"
     >
       <section className="space-y-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <GlowCard
+          contentClassName="rounded-2xl p-5 sm:p-6"
+          backgroundColor="#111111"
+          borderRadius={32}
+          glowIntensity={0.35}
+          fillOpacity={0.08}
+        >
+          <div className="flex flex-col gap-5">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/50">
+                Welcome back
+              </p>
+              <h1 className="mt-1 text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl">
+                Hello, {firstName}!
+              </h1>
+              <p className="mt-2 text-sm text-white/60">
+                Your bookings and account details in one place.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <div className="rounded-xl border border-white/8 bg-black/40 px-3 py-3">
+                <CalendarDays className="h-4 w-4 text-white/50" />
+                <p className="mt-2 text-xl font-bold text-white">{frameOverview.stats.totalBookings}</p>
+                <p className="text-[10px] uppercase tracking-[0.16em] text-white/50">Total</p>
+              </div>
+              <div className="rounded-xl border border-white/8 bg-black/40 px-3 py-3">
+                <Clock3 className="h-4 w-4 text-white/50" />
+                <p className="mt-2 text-xl font-bold text-white">{frameOverview.stats.upcomingBookings}</p>
+                <p className="text-[10px] uppercase tracking-[0.16em] text-white/50">Upcoming</p>
+              </div>
+              <div className="rounded-xl border border-white/8 bg-black/40 px-3 py-3">
+                <Sparkles className="h-4 w-4 text-white/50" />
+                <p className="mt-2 text-xl font-bold text-white">{frameOverview.stats.confirmedBookings}</p>
+                <p className="text-[10px] uppercase tracking-[0.16em] text-white/50">Confirmed</p>
+              </div>
+              <div className="rounded-xl border border-white/8 bg-black/40 px-3 py-3">
+                <ArrowRight className="h-4 w-4 text-white/50" />
+                <p className="mt-2 text-xl font-bold text-white">{frameOverview.stats.pastBookings}</p>
+                <p className="text-[10px] uppercase tracking-[0.16em] text-white/50">Past</p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <Link
+                href="/booking"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-black"
+              >
+                Book Session
+              </Link>
+              <Link
+                href="/dashboard/bookings"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2.5 text-sm font-medium text-white"
+              >
+                View All Bookings
+              </Link>
+            </div>
+          </div>
+        </GlowCard>
+
+        <div className="flex items-center justify-between">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-white/45">
-              Overview
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-white">
-              Upcoming sessions
+            <h2 className="text-xl font-semibold tracking-[-0.03em] text-white">
+              Upcoming Sessions
             </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-7 text-white/55">
-              Your next booking is always shown first so the important actions stay easy to reach.
-            </p>
           </div>
           <Link
             href="/dashboard/bookings"
-            className="inline-flex items-center gap-2 self-start rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white/75 transition-colors hover:bg-white hover:text-black sm:self-auto"
+            className="text-sm text-white/60 hover:text-white"
           >
             See all
-            <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
         {upcomingBookings.length > 0 ? (
-          <div
-            className={cn(
-              "grid gap-5",
-              upcomingBookings.length > 1 && "2xl:grid-cols-2",
-            )}
-          >
+          <div className={cn(
+            "grid gap-4",
+            upcomingBookings.length > 1 && "2xl:grid-cols-2",
+          )}>
             {upcomingBookings.slice(0, 2).map((booking) => (
               <UserBookingAccordionCard key={booking.id} booking={booking} />
             ))}
           </div>
         ) : (
           <DashboardEmptyState
-            title="No upcoming bookings yet."
-            description="Once a booking is confirmed, it will appear here with the reference number, session details, and policy window so you can manage it quickly."
-            ctaLabel="Book your first session"
+            title="No upcoming bookings"
+            description="Book a session to get started."
+            ctaLabel="Book Now"
           />
         )}
-
-        <GlowCard
-          contentClassName="rounded-[1.75rem] p-6"
-          backgroundColor="#08070f"
-          borderRadius={28}
-          glowIntensity={0.75}
-          fillOpacity={0.12}
-        >
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex items-start gap-3">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05]">
-                <Sparkles className="h-5 w-5 text-white/80" />
-              </span>
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-white/45">
-                  Latest booking
-                </p>
-                <h3 className="mt-1 text-xl font-semibold text-white">
-                  {frameOverview.latestBooking
-                    ? `${frameOverview.latestBooking.reference} · ${getDashboardSpaceLabel(frameOverview.latestBooking.space)}`
-                    : "No bookings yet"}
-                </h3>
-                <p className="mt-2 text-sm leading-7 text-white/60">
-                  Keep this reference handy if you need to cancel, reschedule, or contact support.
-                </p>
-              </div>
-            </div>
-
-            {frameOverview.latestBooking ? (
-              <div className="rounded-[1.35rem] border border-white/8 bg-black/35 px-4 py-3 lg:min-w-[18rem]">
-                <p className="flex items-center gap-2 text-sm text-white/55">
-                  <Clock3 className="h-4 w-4" />
-                  {frameOverview.latestBooking.dateLabel} at {frameOverview.latestBooking.startTime}
-                </p>
-              </div>
-            ) : null}
-          </div>
-        </GlowCard>
       </section>
     </DashboardFrame>
   );

@@ -22,7 +22,9 @@ export async function middleware(request: NextRequest) {
     const dashboardUrl = request.nextUrl.clone();
     dashboardUrl.pathname = "/dashboard";
     dashboardUrl.search = "";
-    return applyPendingCookies(NextResponse.redirect(dashboardUrl), pendingCookies);
+    const redirectResponse = NextResponse.redirect(dashboardUrl);
+    applyPendingCookies(redirectResponse, pendingCookies);
+    return redirectResponse;
   }
 
   if (!isProtected) {
@@ -36,8 +38,9 @@ export async function middleware(request: NextRequest) {
   const loginUrl = request.nextUrl.clone();
   loginUrl.pathname = "/login";
   loginUrl.searchParams.set("next", `${pathname}${search}`);
-
-  return applyPendingCookies(NextResponse.redirect(loginUrl), pendingCookies);
+  const redirectResponse = NextResponse.redirect(loginUrl);
+  applyPendingCookies(redirectResponse, pendingCookies);
+  return redirectResponse;
 }
 
 export const config = {

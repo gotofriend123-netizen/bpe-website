@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-  Ban,
   CalendarDays,
   ChevronDown,
   Clock3,
@@ -13,6 +12,7 @@ import {
 } from "lucide-react";
 
 import { RescheduleBookingDialog } from "@/components/dashboard/RescheduleBookingDialog";
+import { CancelBookingDialog } from "@/components/dashboard/CancelBookingDialog";
 import {
   getBookingStatusLabel,
   getBookingStatusTone,
@@ -188,15 +188,7 @@ export function UserBookingAccordionCard({
             {eligibleActions ? (
               <>
                 {booking.canReschedule ? <RescheduleBookingDialog booking={booking} /> : null}
-                {booking.canCancel ? (
-                  <Link
-                    href={`/dashboard/cancel?id=${booking.id}`}
-                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-rose-500/20 bg-rose-500/10 px-5 py-2.5 text-sm font-semibold text-rose-200 transition-colors hover:bg-rose-500/15"
-                  >
-                    <Ban className="h-4 w-4" />
-                    Cancel booking
-                  </Link>
-                ) : null}
+                {booking.canCancel ? <CancelBookingDialog booking={booking} /> : null}
               </>
             ) : null}
 
