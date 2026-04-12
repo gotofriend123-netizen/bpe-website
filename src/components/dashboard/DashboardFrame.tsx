@@ -58,23 +58,23 @@ function StatCard({
 }) {
   return (
     <GlowCard
-      contentClassName="h-full rounded-[1.55rem] border border-white/6 bg-[#151515] p-5 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)]"
+      contentClassName="h-full rounded-[1.25rem] border border-white/6 bg-[#151515] p-3.5 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)] sm:rounded-[1.55rem] sm:p-5"
       backgroundColor="#111111"
       borderRadius={26}
       glowIntensity={0.4}
       fillOpacity={0.05}
     >
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/38">
+      <div className="flex min-w-0 items-start justify-between gap-2 sm:gap-4">
+        <div className="min-w-0">
+          <p className="break-words text-[9px] font-semibold uppercase leading-4 tracking-[0.18em] text-white/38 [overflow-wrap:anywhere] sm:text-[11px] sm:leading-5 sm:tracking-[0.28em]">
             {label}
           </p>
-          <p className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-white">
+          <p className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-white sm:mt-3 sm:text-3xl">
             {value}
           </p>
         </div>
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/5 bg-[#0b0b0b] text-white/80 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)]">
-          <Icon className="h-5 w-5" aria-hidden="true" />
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/5 bg-[#0b0b0b] text-white/80 shadow-[8px_8px_18px_rgba(0,0,0,0.38),-5px_-5px_14px_rgba(255,255,255,0.018)] sm:h-11 sm:w-11 sm:rounded-2xl sm:shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)]">
+          <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
         </span>
       </div>
     </GlowCard>
@@ -310,7 +310,7 @@ export function DashboardFrame({
             </div>
           </GlowCard>
 
-          <div className="order-4 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+          <div className="order-4 grid min-w-0 grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-4">
             <StatCard
               label="Total bookings"
               value={overview.stats.totalBookings}
