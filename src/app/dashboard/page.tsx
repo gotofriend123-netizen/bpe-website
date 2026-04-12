@@ -30,13 +30,15 @@ export default async function UserDashboardPage() {
           fillOpacity={0.08}
         >
           <div className="flex flex-col gap-5">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/50">
-                Welcome back
-              </p>
-              <h1 className="mt-1 text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl">
-                Hello, {firstName}!
-              </h1>
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl">
+                  {firstName}'s Dashboard
+                </h1>
+              </div>
+              <Link href="/booking" className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black">
+                Book Now
+              </Link>
             </div>
 
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
