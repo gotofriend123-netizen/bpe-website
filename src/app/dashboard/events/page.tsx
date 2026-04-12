@@ -3,7 +3,7 @@ import { ArrowRight, CalendarClock, MailCheck, Ticket } from "lucide-react";
 
 import { DashboardFrame } from "@/components/dashboard/DashboardFrame";
 import { DashboardEmptyState } from "@/components/dashboard/DashboardEmptyState";
-import { UserEventBookingCard } from "@/components/dashboard/UserEventBookingCard";
+import { UserEventBookingAccordionCard } from "@/components/dashboard/UserEventBookingAccordionCard";
 import { GlowCard } from "@/components/ui/GlowCard";
 import {
   getUserDashboardEventsPageData,
@@ -86,7 +86,7 @@ export default async function UserDashboardEventsPage() {
           </Link>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           <MetricCard
             label="Total event bookings"
             value={frameOverview.stats.eventBookings}
@@ -126,9 +126,9 @@ export default async function UserDashboardEventsPage() {
                   </div>
                 </div>
 
-                <div className="grid gap-5 xl:grid-cols-2">
+                <div className="grid gap-4 xl:grid-cols-2">
                   {upcomingEventBookings.map((booking) => (
-                    <UserEventBookingCard key={booking.id} booking={booking} />
+                    <UserEventBookingAccordionCard key={booking.id} booking={booking} />
                   ))}
                 </div>
               </div>
@@ -145,9 +145,9 @@ export default async function UserDashboardEventsPage() {
                   </p>
                 </div>
 
-                <div className="grid gap-5 xl:grid-cols-2">
+                <div className="grid gap-4 xl:grid-cols-2">
                   {pastEventBookings.map((booking) => (
-                    <UserEventBookingCard key={booking.id} booking={booking} />
+                    <UserEventBookingAccordionCard key={booking.id} booking={booking} />
                   ))}
                 </div>
               </div>

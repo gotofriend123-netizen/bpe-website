@@ -103,8 +103,8 @@ export function DashboardFrame({
         <div className="absolute right-[-8%] top-[8%] h-[14rem] w-[14rem] rounded-full bg-white/[0.02] blur-[110px]" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pb-16 pt-24 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
-        <div className="grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
+      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pb-12 pt-24 sm:px-6 sm:pb-16 sm:pt-32 lg:px-8 lg:pt-36">
+        <div className="grid gap-5 xl:grid-cols-[280px_minmax(0,1fr)]">
           <aside className="hidden xl:block">
             <div className="sticky top-24 rounded-[2.15rem] border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">
               <div className="rounded-[1.5rem] border border-white/5 bg-[#151515] p-4 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)]">
@@ -218,8 +218,8 @@ export function DashboardFrame({
             </div>
           </aside>
 
-          <div className="space-y-6">
-        <AnimatedSection className="space-y-6">
+          <div className="space-y-5">
+        <AnimatedSection className="space-y-5">
           <GlowCard
             contentClassName="rounded-[1.5rem] border border-white/6 bg-[#111111] p-4 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)] sm:rounded-[2rem] sm:p-6 lg:p-10"
             backgroundColor="#111111"
@@ -228,7 +228,7 @@ export function DashboardFrame({
             fillOpacity={0.05}
           >
             <div className="flex flex-col gap-4 sm:gap-8 lg:flex-row lg:items-start lg:justify-between">
-              <div className="max-w-3xl space-y-5">
+              <div className="max-w-3xl space-y-4">
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-[#0b0b0b] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-white/65 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
                   <ShieldCheck className="h-3.5 w-3.5 text-[#d8f24d]" />
                   Private account area
@@ -332,7 +332,7 @@ export function DashboardFrame({
 
           </div>
 
-          <div className="grid grid-cols-2 gap-3 rounded-[1.5rem] border border-white/6 bg-[#111111] p-3 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] backdrop-blur-xl xl:hidden">
+          <div className="grid grid-cols-2 gap-2.5 rounded-[1.45rem] border border-white/6 bg-[#111111] p-2.5 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] backdrop-blur-xl xl:hidden">
             {tabItems.map((item, index) => {
               const Icon = item.icon;
               const active = activeTab === item.key;
@@ -342,7 +342,7 @@ export function DashboardFrame({
                   key={item.key}
                   href={item.href}
                   className={cn(
-                    "inline-flex min-h-12 items-center justify-center gap-2 rounded-[1.1rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200 active:scale-95",
+                    "inline-flex min-h-11 items-center justify-center gap-2 rounded-[1rem] border border-white/5 px-3 py-2.5 text-sm font-medium transition-all duration-200 active:scale-95",
                     index === tabItems.length - 1 && "col-span-2",
                     active
                       ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
@@ -357,10 +357,10 @@ export function DashboardFrame({
           </div>
 
           <details
-            className="group rounded-[1.5rem] border border-white/6 bg-[#111111] p-3 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] xl:hidden"
+            className="group rounded-[1.45rem] border border-white/6 bg-[#111111] p-2.5 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] xl:hidden"
             open={activeTab === "events"}
           >
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-[1.2rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 text-sm font-medium text-white/82 [&::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-[1rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 text-sm font-medium text-white/82 [&::-webkit-details-marker]:hidden">
               <span className="flex min-w-0 items-center gap-3">
                 <Ticket className="h-4 w-4 text-[#d8f24d]" />
                 <span className="truncate">Events</span>
@@ -381,7 +381,7 @@ export function DashboardFrame({
               <Link
                 href={eventTabItem.href}
                 className={cn(
-                  "flex min-h-12 items-center justify-between gap-3 rounded-[1.2rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
+                  "flex min-h-11 items-center justify-between gap-3 rounded-[1rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
                   activeTab === "events"
                     ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
                     : "bg-[#151515] text-white/75 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
@@ -397,7 +397,7 @@ export function DashboardFrame({
           </details>
         </AnimatedSection>
 
-            <div className="space-y-8 rounded-[2rem] border border-white/6 bg-[#101010] p-4 shadow-[inset_12px_12px_24px_rgba(0,0,0,0.58),inset_-10px_-10px_20px_rgba(255,255,255,0.02)] sm:p-6">
+            <div className="space-y-6 rounded-[1.85rem] border border-white/6 bg-[#101010] p-3.5 shadow-[inset_12px_12px_24px_rgba(0,0,0,0.58),inset_-10px_-10px_20px_rgba(255,255,255,0.02)] sm:space-y-8 sm:rounded-[2rem] sm:p-6">
               {children}
             </div>
           </div>
