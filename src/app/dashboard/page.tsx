@@ -37,9 +37,6 @@ export default async function UserDashboardPage() {
               <h1 className="mt-1 text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl">
                 Hello, {firstName}!
               </h1>
-              <p className="mt-2 text-sm text-white/60">
-                Your bookings and account details in one place.
-              </p>
             </div>
 
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -64,30 +61,13 @@ export default async function UserDashboardPage() {
                 <p className="text-[10px] uppercase tracking-[0.16em] text-white/50">Past</p>
               </div>
             </div>
-
-            <div className="flex flex-wrap gap-2">
-              <Link
-                href="/booking"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-black"
-              >
-                Book Session
-              </Link>
-              <Link
-                href="/dashboard/bookings"
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2.5 text-sm font-medium text-white"
-              >
-                View All Bookings
-              </Link>
-            </div>
           </div>
         </GlowCard>
 
         <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-white">
-              Upcoming Sessions
-            </h2>
-          </div>
+          <h2 className="text-xl font-semibold tracking-[-0.03em] text-white">
+            Upcoming Sessions
+          </h2>
           <Link
             href="/dashboard/bookings"
             className="text-sm text-white/60 hover:text-white"
@@ -112,6 +92,21 @@ export default async function UserDashboardPage() {
             ctaLabel="Book Now"
           />
         )}
+
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/booking"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black"
+          >
+            Book Session
+          </Link>
+          <Link
+            href="/dashboard/bookings"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-5 py-3 text-sm font-medium text-white"
+          >
+            View All Bookings
+          </Link>
+        </div>
       </section>
     </DashboardFrame>
   );
