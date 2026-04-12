@@ -22,10 +22,10 @@ export function FloatingActions() {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1, type: "spring" }}
-        className="w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(37,211,102,0.4)] hover:scale-110 transition-transform cursor-pointer"
+        className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_0_20px_rgba(37,211,102,0.4)] transition-transform hover:scale-110 sm:h-14 sm:w-14"
         aria-label="Chat on WhatsApp"
       >
-        <MessageCircle className="w-6 h-6" />
+        <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" />
       </motion.a>
 
       {/* Sticky Book Now (Hides inside booking flow routes) */}
@@ -39,10 +39,10 @@ export function FloatingActions() {
           >
             <Link
               href="/calendar"
-              className="bg-black/40 backdrop-blur-xl border border-white/20 text-white pl-4 pr-6 py-3 rounded-full font-bold flex items-center gap-3 shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] hover:bg-black/60 transition-all group uppercase tracking-widest text-sm"
+              className="group flex items-center gap-2 rounded-full border border-white/20 bg-black/40 px-3.5 py-2.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white shadow-[0_0_30px_rgba(255,255,255,0.2)] backdrop-blur-xl transition-all hover:bg-black/60 hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] sm:gap-3 sm:px-4 sm:pr-6 sm:py-3 sm:text-sm sm:tracking-widest"
             >
-              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                 <Calendar className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/10 sm:h-8 sm:w-8">
+                <Calendar className="h-3.5 w-3.5 text-white transition-transform group-hover:scale-110 sm:h-4 sm:w-4" />
               </div>
               Book Now
             </Link>

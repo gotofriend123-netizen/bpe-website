@@ -112,7 +112,7 @@ export function DashboardFrame({
         <div className="absolute right-[-8%] top-[8%] h-[14rem] w-[14rem] rounded-full bg-white/[0.02] blur-[110px]" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pb-12 pt-24 sm:px-6 sm:pb-16 sm:pt-32 lg:px-8 lg:pt-36">
+      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pb-24 pt-24 sm:px-6 sm:pb-16 sm:pt-32 lg:px-8 lg:pt-36">
         <div className="grid gap-5 xl:grid-cols-[280px_minmax(0,1fr)]">
           <aside className="hidden xl:block">
             <div className="sticky top-24 rounded-[2.15rem] border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">
@@ -318,50 +318,33 @@ export function DashboardFrame({
             </div>
           </GlowCard>
 
-          <details className="group order-4 rounded-[1.45rem] border border-white/6 bg-[#111111] p-2.5 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] sm:hidden">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-[1rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 text-sm font-medium text-white/85 [&::-webkit-details-marker]:hidden">
-              <span className="flex min-w-0 items-center gap-3">
-                <ShieldCheck className="h-4 w-4 shrink-0 text-[#d8f24d]" />
-                <span className="truncate">Dashboard summary</span>
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="rounded-full border border-white/8 bg-white/[0.04] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
-                  {overview.stats.totalBookings}
-                </span>
-                <ChevronDown className="h-4 w-4 shrink-0 text-white/55 transition-transform duration-200 group-open:rotate-180" />
-              </span>
-            </summary>
+          <div className="order-4 grid grid-cols-2 gap-3 sm:hidden">
+            {[
+              { label: "Total bookings", value: overview.stats.totalBookings, icon: CalendarDays },
+              { label: "Upcoming", value: overview.stats.upcomingBookings, icon: Clock3 },
+              { label: "Past", value: overview.stats.pastBookings, icon: NotebookTabs },
+              { label: "Confirmed", value: overview.stats.confirmedBookings, icon: ShieldCheck },
+            ].map((item) => {
+              const Icon = item.icon;
 
-            <div className="mt-3 grid gap-2.5">
-              {[
-                { label: "Total bookings", value: overview.stats.totalBookings, icon: CalendarDays },
-                { label: "Upcoming", value: overview.stats.upcomingBookings, icon: Clock3 },
-                { label: "Past", value: overview.stats.pastBookings, icon: NotebookTabs },
-                { label: "Confirmed", value: overview.stats.confirmedBookings, icon: ShieldCheck },
-              ].map((item) => {
-                const Icon = item.icon;
-
-                return (
-                  <div
-                    key={item.label}
-                    className="flex min-w-0 items-center justify-between gap-3 rounded-[1rem] border border-white/5 bg-[#151515] px-4 py-3 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)]"
-                  >
-                    <div className="min-w-0">
-                      <p className="truncate text-[10px] font-semibold uppercase tracking-[0.22em] text-white/38">
-                        {item.label}
-                      </p>
-                      <p className="mt-1 text-2xl font-semibold tracking-[-0.04em] text-white">
-                        {item.value}
-                      </p>
-                    </div>
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/5 bg-[#0b0b0b] text-white/80">
-                      <Icon className="h-4 w-4" aria-hidden="true" />
-                    </span>
+              return (
+                <div
+                  key={item.label}
+                  className="relative overflow-hidden rounded-[1.25rem] border border-white/6 bg-[#111111] p-3.5 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)]"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="truncate text-[9px] font-semibold uppercase tracking-[0.2em] text-white/35">
+                      {item.label}
+                    </p>
+                    <Icon className="h-3 w-3 text-white/40" aria-hidden="true" />
                   </div>
-                );
-              })}
-            </div>
-          </details>
+                  <p className="mt-1.5 text-2xl font-bold tracking-tight text-white">
+                    {item.value}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
 
           <div className="order-4 hidden min-w-0 grid-cols-2 gap-2.5 sm:grid sm:grid-cols-4 sm:gap-4">
             <StatCard

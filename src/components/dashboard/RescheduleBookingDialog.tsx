@@ -101,19 +101,28 @@ export function RescheduleBookingDialog({
       {mounted && open
         ? createPortal(
             <div
-              className="fixed inset-0 z-[120] flex items-end justify-center p-3 sm:items-center sm:p-6"
+              className="fixed inset-0 z-[120] flex items-end justify-center p-0 sm:items-center sm:p-6"
               role="dialog"
               aria-modal="true"
               aria-label={`Reschedule ${booking.reference}`}
             >
-              <button
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 type="button"
                 aria-label="Close reschedule dialog"
                 onClick={() => setOpen(false)}
-                className="absolute inset-0 bg-black/78 backdrop-blur-sm"
+                className="absolute inset-0 bg-black/80 backdrop-blur-md"
               />
 
-              <div className="relative z-[121] max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-[2rem] border border-white/10 bg-[#0a0a0a] p-4 shadow-[28px_28px_80px_rgba(0,0,0,0.7),-12px_-12px_24px_rgba(255,255,255,0.02)] sm:p-6">
+              <motion.div
+                initial={{ opacity: 0, y: 100, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 100, scale: 0.95 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                className="relative z-[121] max-h-[95vh] w-full max-w-4xl overflow-y-auto rounded-t-[2.5rem] border-x border-t border-white/10 bg-[#080808] p-5 shadow-[0_-24px_80px_rgba(0,0,0,0.8)] sm:rounded-[2.5rem] sm:border sm:p-7 sm:shadow-[28px_28px_80px_rgba(0,0,0,0.7),-12px_-12px_24px_rgba(255,255,255,0.02)]"
+              >
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/42">
@@ -188,7 +197,7 @@ export function RescheduleBookingDialog({
                     />
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>,
             document.body,
           )

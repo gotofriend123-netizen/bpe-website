@@ -127,11 +127,11 @@ export function Navbar({ currentUser }: NavbarProps) {
                 "border-white/16 bg-[linear-gradient(180deg,rgba(8,8,8,0.98),rgba(8,8,8,0.88))] shadow-[0_24px_72px_rgba(0,0,0,0.46)]",
             )}
           >
-            <div className="grid min-h-[72px] grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-3 py-3 sm:min-h-[82px] sm:px-5 sm:py-3.5 lg:px-6 min-[1280px]:min-h-[94px] min-[1280px]:grid-cols-[auto_minmax(0,1fr)_auto] min-[1280px]:gap-5">
+            <div className="flex min-h-[64px] items-center justify-between gap-2 px-2.5 py-2.5 sm:min-h-[82px] sm:px-5 sm:py-3.5 lg:px-6 min-[1280px]:grid min-[1280px]:min-h-[94px] min-[1280px]:grid-cols-[auto_minmax(0,1fr)_auto] min-[1280px]:gap-5">
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="group flex min-w-0 items-center gap-2 pr-2 sm:gap-4 min-[1280px]:pr-4"
+                className="group flex min-w-0 shrink flex-1 items-center gap-2 pr-1 sm:gap-4 sm:pr-2 min-[1280px]:pr-4"
               >
                 <div className="relative flex shrink-0 items-center justify-center py-1.5 transition-transform duration-300 group-hover:-translate-y-0.5">
                   <Image
@@ -139,7 +139,7 @@ export function Navbar({ currentUser }: NavbarProps) {
                     alt="Black Pepper Entertainment Logo"
                     width={260}
                     height={96}
-                    className="h-[2.85rem] w-auto object-contain object-left opacity-92 transition-opacity group-hover:opacity-100 sm:h-[3.45rem] xl:h-[4.2rem]"
+                    className="h-[2.2rem] w-auto object-contain object-left opacity-92 transition-opacity group-hover:opacity-100 min-[400px]:h-[2.6rem] sm:h-[3.45rem] xl:h-[4.2rem]"
                     priority
                   />
                 </div>
@@ -171,7 +171,7 @@ export function Navbar({ currentUser }: NavbarProps) {
                 <Link
                   href={BOOKING_HREF}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-white px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-black shadow-[0_14px_32px_rgba(255,255,255,0.12)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-zinc-100 active:scale-95 sm:px-4 sm:py-2.5 sm:text-[11px]"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-white px-2.5 py-1.5 text-[8px] font-semibold uppercase tracking-[0.12em] text-black shadow-[0_14px_32px_rgba(255,255,255,0.12)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-zinc-100 active:scale-95 min-[380px]:px-3 min-[380px]:text-[9px] min-[380px]:tracking-[0.14em] sm:px-4 sm:py-2.5 sm:text-[11px]"
                 >
                   <span>Book Now</span>
                 </Link>
@@ -194,16 +194,16 @@ export function Navbar({ currentUser }: NavbarProps) {
 
                 <button
                   type="button"
-                  className="relative rounded-xl border border-white/10 bg-white/[0.05] p-2.5 text-white transition-all hover:bg-white/[0.1] active:scale-95 active:bg-white/[0.15] sm:rounded-2xl sm:p-3"
+                  className="relative rounded-xl border border-white/10 bg-white/[0.05] p-2 text-white transition-all hover:bg-white/[0.1] active:scale-95 active:bg-white/[0.15] sm:rounded-2xl sm:p-3"
                   onClick={() => setMobileMenuOpen((current) => !current)}
                   aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                   aria-expanded={mobileMenuOpen}
                   aria-controls="mobile-site-menu"
                 >
                   {mobileMenuOpen ? (
-                    <X className="h-5 w-5" />
+                    <X className="h-4 w-4 sm:h-5 sm:w-5" />
                   ) : (
-                    <Menu className="h-5 w-5" />
+                    <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
                   )}
                 </button>
               </div>

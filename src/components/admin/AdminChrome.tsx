@@ -114,7 +114,7 @@ export function AdminChrome({
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
-      <div className="mx-auto w-full max-w-[1720px] px-3 pb-16 pt-24 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
+      <div className="mx-auto w-full max-w-[1720px] px-3 pb-24 pt-24 sm:px-6 sm:pb-16 sm:pt-32 lg:px-8 lg:pt-36">
         <div className="grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
           <aside className="hidden xl:block">
             <div className="sticky top-24 rounded-[2.2rem] border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">
@@ -294,7 +294,7 @@ export function AdminChrome({
                 </div>
               </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-2 xl:hidden">
+              <div className="mt-6 grid grid-cols-2 gap-2 min-[440px]:grid-cols-3 xl:hidden">
                 {ADMIN_LINKS.map((item) => {
                   const Icon = item.icon;
                   const active = isActive(pathname, item.href);

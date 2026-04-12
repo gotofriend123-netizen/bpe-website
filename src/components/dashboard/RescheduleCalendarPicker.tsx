@@ -234,22 +234,23 @@ export function RescheduleCalendarPicker({
                   disabled={!isActive}
                   onClick={() => isActive && setSelectedDateKey(dateKey)}
                   className={[
-                    "relative flex h-9 items-center justify-center rounded-lg border text-xs transition-all duration-200 sm:h-10 sm:text-sm",
+                    "relative flex h-10 items-center justify-center rounded-[0.85rem] border text-sm transition-all duration-300 sm:h-11 sm:text-base",
                     isSelected
-                      ? "border-white bg-white text-black shadow-[0_0_26px_rgba(255,255,255,0.18)]"
+                      ? "border-white bg-white text-black shadow-[0_12px_28px_rgba(255,255,255,0.22)] scale-105 z-10 font-bold"
                       : isActive
-                        ? "border-white/12 bg-white/[0.04] text-white hover:border-white/22 hover:bg-white/[0.08]"
-                        : "border-white/[0.04] bg-transparent text-white/18",
+                        ? "border-white/12 bg-white/[0.04] text-white hover:border-white/30 hover:bg-white/[0.08] hover:scale-105 active:scale-95"
+                        : "border-transparent bg-transparent text-white/12",
                   ].join(" ")}
                 >
-                  <span>{format(day, "d")}</span>
+                  <span className="relative z-10">{format(day, "d")}</span>
                   {isActive && !isSelected ? (
-                    <span className="absolute bottom-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400/90" />
+                    <span className="absolute bottom-2 h-1.5 w-1.5 rounded-full bg-[#d8f24d] shadow-[0_0_8px_rgba(216,242,77,0.4)]" />
                   ) : null}
-                  {isActive ? (
-                    <span className="absolute right-1.5 top-1.5 text-[9px] font-semibold leading-none text-current/70">
-                      {slotsForDay.length}
-                    </span>
+                  {isActive && isSelected ? (
+                    <motion.div
+                      layoutId="activeDay"
+                      className="absolute inset-0 rounded-[0.85rem] bg-white ring-2 ring-white/20"
+                    />
                   ) : null}
                 </button>
               );
@@ -272,7 +273,7 @@ export function RescheduleCalendarPicker({
             </p>
           </div>
 
-          <div className="mt-4 grid max-h-[17.5rem] gap-3 overflow-y-auto pr-1 sm:grid-cols-2">
+          <div className="mt-4 grid max-h-[17.5rem] gap-2.5 overflow-y-auto pr-1 sm:grid-cols-2">
             {selectedDateSlots.map((slot) => {
               const isSelected = slot.id === selectedSlotId;
 
@@ -282,51 +283,59 @@ export function RescheduleCalendarPicker({
                   type="button"
                   onClick={() => setSelectedSlotId(slot.id)}
                   className={[
-                    "rounded-[1.05rem] border p-3.5 text-left transition-all duration-200",
+                    "group/slot relative overflow-hidden rounded-[1.25rem] border p-4 text-left transition-all duration-300",
                     isSelected
-                      ? "border-white bg-white text-black shadow-[0_0_26px_rgba(255,255,255,0.18)]"
-                      : "border-white/10 bg-white/[0.04] text-white hover:border-white/22 hover:bg-white/[0.08]",
+                      ? "border-white bg-white text-black shadow-[0_16px_36px_rgba(255,255,255,0.12)] scale-[1.02] z-10"
+                      : "border-white/8 bg-white/[0.03] text-white hover:border-white/20 hover:bg-white/[0.06] active:scale-[0.98]",
                   ].join(" ")}
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="text-base font-semibold">
+                  <div className="flex flex-col gap-2 relative z-10">
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="text-[15px] font-bold tracking-tight">
                         {slot.startTime} - {slot.endTime}
                       </p>
+                      {slot.peakTime ? (
+                        <span
+                          className={[
+                            "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.2em]",
+                            isSelected
+                              ? "bg-black/10 text-black/80"
+                              : "bg-[#d8f24d]/10 border border-[#d8f24d]/20 text-[#d8f24d]",
+                          ].join(" ")}
+                        >
+                          <Sparkles className="h-3 w-3" />
+                          Peak
+                        </span>
+                      ) : null}
+                    </div>
+
+                    <div className="flex items-center justify-between gap-3">
                       <p
                         className={[
-                          "mt-2 flex items-center gap-2 text-xs",
-                          isSelected ? "text-black/70" : "text-white/55",
+                          "flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.12em]",
+                          isSelected ? "text-black/60" : "text-white/45",
                         ].join(" ")}
                       >
-                        <Clock3 className="h-3.5 w-3.5" />
-                        Same-space reschedule
+                        <Clock3 className="h-3 w-3" />
+                        Live slot
                       </p>
+                      {isSelected && (
+                        <div className="h-1.5 w-1.5 rounded-full bg-black animate-pulse" />
+                      )}
                     </div>
-                    {slot.peakTime ? (
-                      <span
-                        className={[
-                          "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em]",
-                          isSelected
-                            ? "bg-black/10 text-black/80"
-                            : "border border-amber-400/20 bg-amber-400/10 text-amber-200",
-                        ].join(" ")}
-                      >
-                        <Sparkles className="h-3 w-3" />
-                        Peak
-                      </span>
-                    ) : null}
                   </div>
 
                   {slot.label || slot.note ? (
-                    <p
-                      className={[
-                        "mt-3 text-xs leading-6",
-                        isSelected ? "text-black/70" : "text-white/52",
-                      ].join(" ")}
-                    >
-                      {slot.label ?? slot.note}
-                    </p>
+                    <div className="mt-3 relative z-10">
+                      <p
+                        className={[
+                          "text-[11px] leading-relaxed",
+                          isSelected ? "text-black/70" : "text-white/50",
+                        ].join(" ")}
+                      >
+                        {slot.label ?? slot.note}
+                      </p>
+                    </div>
                   ) : null}
                 </button>
               );
