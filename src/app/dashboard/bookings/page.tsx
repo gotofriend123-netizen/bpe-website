@@ -2,14 +2,13 @@ import { ArrowRight, CalendarDays, Clock3 } from "lucide-react";
 import Link from "next/link";
 import { DashboardFrame } from "@/components/dashboard/DashboardFrame";
 import { DashboardEmptyState } from "@/components/dashboard/DashboardEmptyState";
-import { UserBookingCard } from "@/components/dashboard/UserBookingCard";
+import { UserBookingAccordionCard } from "@/components/dashboard/UserBookingAccordionCard";
 import { GlowCard } from "@/components/ui/GlowCard";
 import {
   type DashboardBooking,
   getUserDashboardBookingsPageData,
   requireDashboardUser,
   getDashboardSpaceLabel,
-  getDashboardBookingForUser,
 } from "@/lib/dashboard/user-dashboard";
 
 type SearchParams = {
@@ -73,9 +72,6 @@ export default async function UserBookingsPage({
   const activeFilter = (searchParams?.filter as BookingFilter | undefined) ?? "upcoming";
   const selectedFilter = bookingFilters.find((filter) => filter.key === activeFilter) ?? bookingFilters[0];
   const filteredBookings = getFilteredBookings(bookings, selectedFilter.key);
-  const selectedBooking = searchParams?.view
-    ? await getDashboardBookingForUser(currentUser.id, searchParams.view)
-    : null;
 
   return (
     <DashboardFrame
@@ -187,75 +183,6 @@ export default async function UserBookingsPage({
           </div>
         </GlowCard>
 
-        {selectedBooking ? (
-          <div className="grid gap-5 xl:grid-cols-[0.95fr_1.05fr]">
-            <GlowCard
-              contentClassName="rounded-[1.75rem] p-6"
-              backgroundColor="#08070f"
-              borderRadius={28}
-              glowIntensity={0.75}
-              fillOpacity={0.14}
-            >
-              <div className="space-y-4">
-                <div>
-                  <p className="text-[10px] uppercase tracking-[0.24em] text-white/40">
-                    Selected booking
-                  </p>
-                  <h3 className="mt-2 text-2xl font-semibold text-white">
-                    {selectedBooking.reference}
-                  </h3>
-                  <p className="mt-2 text-sm leading-7 text-white/60">
-                    {selectedBooking.actionMessage}
-                  </p>
-                </div>
-                <div className="rounded-[1.35rem] border border-white/8 bg-black/35 p-4">
-                  <p className="text-xs uppercase tracking-[0.24em] text-white/40">
-                    Policy result
-                  </p>
-                  <p className="mt-2 text-sm leading-7 text-white/70">
-                    {selectedBooking.policy.message}
-                  </p>
-                </div>
-                {selectedBooking.nextAvailableSlot ? (
-                  <div className="rounded-[1.35rem] border border-white/8 bg-black/35 p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-white/40">
-                      Next available slot
-                    </p>
-                    <p className="mt-2 text-sm font-semibold text-white">
-                      {getDashboardSpaceLabel(selectedBooking.nextAvailableSlot.space)}
-                    </p>
-                    <p className="mt-1 text-sm text-white/60">
-                      {selectedBooking.nextAvailableSlot.dateKey} at{" "}
-                      {selectedBooking.nextAvailableSlot.startTime} -{" "}
-                      {selectedBooking.nextAvailableSlot.endTime}
-                    </p>
-                  </div>
-                ) : null}
-
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {selectedBooking.canCancel ? (
-                    <Link
-                      href={`/dashboard/cancel?id=${selectedBooking.id}`}
-                      className="inline-flex min-h-11 items-center justify-center rounded-full border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm font-semibold text-rose-100 transition-colors hover:bg-rose-500/20"
-                    >
-                      Review cancellation
-                    </Link>
-                  ) : null}
-                  {selectedBooking.canReschedule ? (
-                    <Link
-                      href={`/dashboard/reschedule?id=${selectedBooking.id}`}
-                      className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/10 bg-white px-4 py-3 text-sm font-semibold text-black transition-colors hover:bg-zinc-100"
-                    >
-                      Review reschedule
-                    </Link>
-                  ) : null}
-                </div>
-              </div>
-            </GlowCard>
-            <UserBookingCard booking={selectedBooking} />
-          </div>
-        ) : null}
-
         <GlowCard
           contentClassName="rounded-[1.75rem] p-6"
           backgroundColor="#08070f"
@@ -304,7 +231,11 @@ export default async function UserBookingsPage({
             {filteredBookings.length > 0 ? (
               <div className="grid gap-5 lg:grid-cols-2">
                 {filteredBookings.map((booking) => (
-                  <UserBookingCard key={booking.id} booking={booking} />
+                  <UserBookingAccordionCard
+                    key={booking.id}
+                    booking={booking}
+                    defaultOpen={searchParams?.view === booking.id}
+                  />
                 ))}
               </div>
             ) : (

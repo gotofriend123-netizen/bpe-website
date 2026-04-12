@@ -103,7 +103,7 @@ export function DashboardFrame({
         <div className="absolute right-[-8%] top-[8%] h-[14rem] w-[14rem] rounded-full bg-white/[0.02] blur-[110px]" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pb-16 pt-28 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
+      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pb-16 pt-24 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
         <div className="grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
           <aside className="hidden xl:block">
             <div className="sticky top-24 rounded-[2.15rem] border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">
@@ -277,7 +277,7 @@ export function DashboardFrame({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <div className="rounded-[1.15rem] border border-white/5 bg-[#0b0b0b] px-4 py-3 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
                     <p className="text-[10px] uppercase tracking-[0.24em] text-white/40">
                       Role
@@ -308,7 +308,7 @@ export function DashboardFrame({
             </div>
           </GlowCard>
 
-          <div className="grid grid-cols-3 gap-2 sm:grid-cols-2 sm:gap-4 xl:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
             <StatCard
               label="Total bookings"
               value={overview.stats.totalBookings}
@@ -332,8 +332,8 @@ export function DashboardFrame({
 
           </div>
 
-          <div className="flex gap-3 overflow-x-auto rounded-[1.5rem] border border-white/6 bg-[#111111] p-3 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:hidden">
-            {tabItems.map((item) => {
+          <div className="grid grid-cols-2 gap-3 rounded-[1.5rem] border border-white/6 bg-[#111111] p-3 shadow-[18px_18px_32px_rgba(0,0,0,0.46),-10px_-10px_24px_rgba(255,255,255,0.02)] backdrop-blur-xl xl:hidden">
+            {tabItems.map((item, index) => {
               const Icon = item.icon;
               const active = activeTab === item.key;
 
@@ -342,7 +342,8 @@ export function DashboardFrame({
                   key={item.key}
                   href={item.href}
                   className={cn(
-                    "inline-flex min-h-12 shrink-0 items-center gap-2 whitespace-nowrap rounded-full border border-white/5 px-4 py-2 text-sm font-medium transition-all duration-200 active:scale-95",
+                    "inline-flex min-h-12 items-center justify-center gap-2 rounded-[1.1rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200 active:scale-95",
+                    index === tabItems.length - 1 && "col-span-2",
                     active
                       ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
                       : "bg-[#151515] text-white/70 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",

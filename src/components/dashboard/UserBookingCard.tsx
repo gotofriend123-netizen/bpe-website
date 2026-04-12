@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   Ban,
-  CalendarSync,
   CalendarDays,
   Clock3,
   Hash,
@@ -11,6 +10,7 @@ import {
   ShieldAlert,
   Sparkles,
 } from "lucide-react";
+import { RescheduleBookingDialog } from "@/components/dashboard/RescheduleBookingDialog";
 import { GlowCard } from "@/components/ui/GlowCard";
 import {
   getBookingStatusLabel,
@@ -164,15 +164,7 @@ export function UserBookingCard({ booking }: UserBookingCardProps) {
 
           {eligibleActions ? (
             <>
-              {booking.canReschedule ? (
-                <Link
-                  href={`/dashboard/reschedule?id=${booking.id}`}
-                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/12 bg-white px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-white/90"
-                >
-                  <CalendarSync className="h-4 w-4" />
-                  Reschedule
-                </Link>
-              ) : null}
+              {booking.canReschedule ? <RescheduleBookingDialog booking={booking} /> : null}
               {booking.canCancel ? (
                 <Link
                   href={`/dashboard/cancel?id=${booking.id}`}

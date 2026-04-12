@@ -114,7 +114,7 @@ export function AdminChrome({
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
-      <div className="mx-auto w-full max-w-[1720px] px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
+      <div className="mx-auto w-full max-w-[1720px] px-3 pb-16 pt-24 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
         <div className="grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
           <aside className="hidden xl:block">
             <div className="sticky top-24 rounded-[2.2rem] border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">
@@ -275,11 +275,11 @@ export function AdminChrome({
                     </AnimatePresence>
                   </div>
 
-                  <div className="rounded-[1.4rem] border border-white/5 bg-[#151515] px-4 py-3 text-right shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] xl:hidden">
+                  <div className="rounded-[1.4rem] border border-white/5 bg-[#151515] px-4 py-3 text-left shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] xl:hidden sm:text-right">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
                       Signed in as
                     </p>
-                    <div className="mt-2 flex items-center justify-end gap-3">
+                    <div className="mt-2 flex items-center gap-3 sm:justify-end">
                       <div className="rounded-full border border-white/5 bg-[#0b0b0b] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
                         {initials}
                       </div>
@@ -294,7 +294,7 @@ export function AdminChrome({
                 </div>
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-2 xl:hidden">
+              <div className="mt-6 grid grid-cols-2 gap-2 xl:hidden">
                 {ADMIN_LINKS.map((item) => {
                   const Icon = item.icon;
                   const active = isActive(pathname, item.href);
@@ -304,7 +304,7 @@ export function AdminChrome({
                       key={item.href}
                       href={item.href}
                       className={cn(
-                        "inline-flex items-center gap-2 rounded-full border border-white/5 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] transition-all duration-200 active:scale-95",
+                        "inline-flex min-h-11 items-center justify-center gap-2 rounded-[1.1rem] border border-white/5 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] transition-all duration-200 active:scale-95",
                         active
                           ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
                           : "bg-[#151515] text-white/75 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",

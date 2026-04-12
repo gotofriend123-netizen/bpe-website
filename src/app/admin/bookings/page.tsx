@@ -105,23 +105,23 @@ export default async function AdminBookingsPage({
                 key={booking.id}
                 className="group overflow-hidden rounded-[1.85rem] border border-white/10 bg-black/25 transition-all open:pb-5"
               >
-                <summary className="flex cursor-pointer list-none flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 outline-none hover:bg-white/[0.02] [&::-webkit-details-marker]:hidden">
-                  <div>
+                <summary className="flex list-none cursor-pointer flex-col justify-between gap-4 p-5 outline-none hover:bg-white/[0.02] sm:flex-row sm:items-center [&::-webkit-details-marker]:hidden">
+                  <div className="min-w-0">
                     <p className="text-sm font-semibold uppercase tracking-[0.24em] text-zinc-500">
                       {booking.reference}
                     </p>
-                    <h2 className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-white">
+                    <h2 className="mt-1 break-words text-2xl font-semibold tracking-[-0.03em] text-white [overflow-wrap:anywhere]">
                       {booking.customerName}
                     </h2>
                   </div>
                   <span
-                    className={`inline-flex items-center justify-center rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] ${BOOKING_STATUS_META[booking.status].className}`}
+                    className={`inline-flex shrink-0 items-center justify-center rounded-full border px-3 py-1.5 text-center text-[11px] font-semibold uppercase tracking-[0.22em] ${BOOKING_STATUS_META[booking.status].className}`}
                   >
                     {BOOKING_STATUS_META[booking.status].label}
                   </span>
                 </summary>
 
-                <div className="mt-1 grid gap-6 border-t border-white/5 px-5 pt-6 lg:grid-cols-[1.5fr_1fr] xl:grid-cols-[minmax(0,1.8fr)_400px]">
+                <div className="mt-1 grid gap-6 border-t border-white/5 px-4 pt-5 sm:px-5 sm:pt-6 lg:grid-cols-[1.45fr_minmax(0,1fr)] xl:grid-cols-[minmax(0,1.75fr)_minmax(0,390px)]">
                   <div className="min-w-0 space-y-4">
                     <div className="grid gap-3 sm:grid-cols-2">
                       <div className="rounded-[1.25rem] border border-white/8 bg-white/[0.03] p-4">
@@ -158,7 +158,7 @@ export default async function AdminBookingsPage({
                         <LayoutDashboard className="h-4 w-4 text-zinc-400" />
                         Booking status
                       </div>
-                      <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+                      <div className="mt-3 flex flex-col gap-3 xl:flex-row">
                         <select
                           name="status"
                           defaultValue={booking.status}
@@ -182,8 +182,8 @@ export default async function AdminBookingsPage({
 
 
 
-                    <div className="grid gap-3 md:grid-cols-2">
-                      <form action={cancelAdminBookingAction} className="flex h-full flex-col rounded-[1.4rem] border border-rose-500/20 bg-rose-500/10 p-4">
+                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2">
+                      <form action={cancelAdminBookingAction} className="flex h-full min-w-0 flex-col rounded-[1.4rem] border border-rose-500/20 bg-rose-500/10 p-4">
                         <input type="hidden" name="bookingId" value={booking.id} />
                         <div className="flex items-center gap-2 text-sm font-semibold text-rose-100">
                           <Ban className="h-4 w-4" />
@@ -204,7 +204,7 @@ export default async function AdminBookingsPage({
                         </button>
                       </form>
 
-                      <form action={rescheduleAdminBookingAction} className="flex h-full flex-col rounded-[1.4rem] border border-sky-500/20 bg-sky-500/10 p-4">
+                      <form action={rescheduleAdminBookingAction} className="flex h-full min-w-0 flex-col rounded-[1.4rem] border border-sky-500/20 bg-sky-500/10 p-4">
                         <input type="hidden" name="bookingId" value={booking.id} />
                         <div className="flex items-center gap-2 text-sm font-semibold text-sky-100">
                           <CalendarSync className="h-4 w-4" />

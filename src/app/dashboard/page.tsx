@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Clock3, Sparkles } from "lucide-react";
 import { DashboardFrame } from "@/components/dashboard/DashboardFrame";
 import { DashboardEmptyState } from "@/components/dashboard/DashboardEmptyState";
-import { UserBookingCard } from "@/components/dashboard/UserBookingCard";
+import { UserBookingAccordionCard } from "@/components/dashboard/UserBookingAccordionCard";
 
 import { GlowCard } from "@/components/ui/GlowCard";
 import { cn } from "@/lib/utils";
@@ -52,7 +52,7 @@ export default async function UserDashboardPage() {
             )}
           >
             {upcomingBookings.slice(0, 2).map((booking) => (
-              <UserBookingCard key={booking.id} booking={booking} />
+              <UserBookingAccordionCard key={booking.id} booking={booking} />
             ))}
           </div>
         ) : (

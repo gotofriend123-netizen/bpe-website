@@ -98,7 +98,7 @@ export async function rescheduleDashboardBookingAction(formData: FormData) {
       error,
       "Unable to reschedule this booking right now.",
     );
-    redirectPath = `/dashboard/reschedule?id=${booking.id}&error=${encodeURIComponent(message)}`;
+    redirectPath = `/dashboard/bookings?view=${booking.id}&error=${encodeURIComponent(message)}`;
   }
 
   redirect(redirectPath);
