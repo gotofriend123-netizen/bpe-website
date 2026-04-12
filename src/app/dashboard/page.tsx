@@ -33,7 +33,7 @@ export default async function UserDashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl">
-                  {firstName}'s Dashboard
+                  {firstName} Dashboard
                 </h1>
               </div>
               <Link href="/booking" className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black">

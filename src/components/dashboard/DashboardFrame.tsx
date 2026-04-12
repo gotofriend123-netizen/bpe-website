@@ -36,10 +36,10 @@ const tabItems: Array<{
   href: string;
   icon: typeof LayoutDashboard;
 }> = [
-  { key: "overview", label: "Overview", href: "/dashboard", icon: Home },
-  { key: "bookings", label: "Bookings", href: "/dashboard/bookings", icon: NotebookTabs },
-  { key: "profile", label: "Profile", href: "/dashboard/profile", icon: UserRound },
-  { key: "events", label: "Events", href: "/dashboard/events", icon: Ticket },
+  { key: "overview", label: "Home", href: "/", icon: Home },
+  { key: "bookings", label: "Dashboard", href: "/dashboard", icon: NotebookTabs },
+  { key: "events", label: "Events", href: "/events", icon: Ticket },
+  { key: "profile", label: "Login", href: "/login", icon: UserRound },
 ];
 
 function StatCard({
