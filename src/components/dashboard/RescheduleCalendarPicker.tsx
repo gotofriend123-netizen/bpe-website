@@ -274,7 +274,7 @@ export function RescheduleCalendarPicker({
             </p>
           </div>
 
-          <div className="mt-4 grid max-h-[15rem] gap-2.5 overflow-y-auto pr-1 sm:grid-cols-2 sm:max-h-[17.5rem]">
+          <div className="mt-4 grid max-h-[20rem] gap-2.5 overflow-y-auto pr-1 sm:grid-cols-2 sm:max-h-[17.5rem]">
             {selectedDateSlots.map((slot) => {
               const isSelected = slot.id === selectedSlotId;
 
@@ -284,7 +284,7 @@ export function RescheduleCalendarPicker({
                   type="button"
                   onClick={() => setSelectedSlotId(slot.id)}
                   className={[
-                    "group/slot relative overflow-hidden rounded-[1.25rem] border p-3.5 sm:p-4 text-left transition-all duration-300 min-h-[4.5rem]",
+                    "group/slot relative overflow-hidden rounded-xl border p-4 sm:p-4 text-left transition-all duration-300 min-h-[5rem]",
                     isSelected
                       ? "border-white bg-white text-black shadow-[0_16px_36px_rgba(255,255,255,0.12)] scale-[1.02] z-10"
                       : "border-white/8 bg-white/[0.03] text-white hover:border-white/20 hover:bg-white/[0.06] active:scale-[0.98]",

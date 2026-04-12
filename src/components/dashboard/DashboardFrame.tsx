@@ -108,10 +108,8 @@ function MobileBottomNav({
 
 function MobileHeader({
   currentUser,
-  firstName,
 }: {
   currentUser: CurrentUserSummary;
-  firstName: string;
 }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/6 bg-[#050505]/95 px-4 py-3 backdrop-blur-md sm:hidden">
@@ -121,8 +119,8 @@ function MobileHeader({
             <UserRound className="h-4 w-4" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-white">{firstName}</p>
-            <p className="text-[10px] text-white/50">{currentUser.role}</p>
+            <p className="text-sm font-semibold text-white">{currentUser.name}</p>
+            <p className="text-[10px] text-white/50">My Dashboard</p>
           </div>
         </div>
         <Link
@@ -155,7 +153,7 @@ export function DashboardFrame({
         <div className="absolute right-[-8%] top-[8%] h-[14rem] w-[14rem] rounded-full bg-white/[0.02] blur-[110px]" />
       </div>
 
-      <MobileHeader currentUser={currentUser} firstName={firstName} />
+      <MobileHeader currentUser={currentUser} />
 
       <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pt-20 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
         <div className="grid gap-5 xl:grid-cols-[280px_minmax(0,1fr)]">
