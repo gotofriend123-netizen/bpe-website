@@ -1,7 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { applyPendingCookies, refreshSupabaseAuth } from "@/lib/supabase/middleware";
-import { syncUserProfileFromAuthIdentity } from "@/lib/auth/session";
 
 const protectedPrefixes = ["/dashboard", "/admin"];
 const authPrefixes = ["/login", "/signup"];

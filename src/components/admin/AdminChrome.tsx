@@ -294,7 +294,7 @@ export function AdminChrome({
                 </div>
               </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-2 min-[440px]:grid-cols-3 xl:hidden">
+              <div className="mt-6 grid grid-cols-3 gap-2 sm:grid-cols-4 xl:hidden">
                 {ADMIN_LINKS.map((item) => {
                   const Icon = item.icon;
                   const active = isActive(pathname, item.href);
@@ -304,14 +304,14 @@ export function AdminChrome({
                       key={item.href}
                       href={item.href}
                       className={cn(
-                        "inline-flex min-h-11 items-center justify-center gap-2 rounded-[1.1rem] border border-white/5 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] transition-all duration-200 active:scale-95",
+                        "inline-flex min-h-12 items-center justify-center gap-1.5 rounded-[1.1rem] border border-white/5 px-2 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] transition-all duration-200 active:scale-95",
                         active
                           ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
                           : "bg-[#151515] text-white/75 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
                       )}
                     >
-                      <Icon className="h-4 w-4" aria-hidden="true" />
-                      {item.label}
+                      <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
+                      <span className="truncate">{item.label}</span>
                     </Link>
                   );
                 })}

@@ -318,7 +318,7 @@ export function DashboardFrame({
             </div>
           </GlowCard>
 
-          <div className="order-4 grid grid-cols-2 gap-3 sm:hidden">
+          <div className="order-4 grid grid-cols-2 gap-2.5 sm:hidden">
             {[
               { label: "Total bookings", value: overview.stats.totalBookings, icon: CalendarDays },
               { label: "Upcoming", value: overview.stats.upcomingBookings, icon: Clock3 },
@@ -330,15 +330,15 @@ export function DashboardFrame({
               return (
                 <div
                   key={item.label}
-                  className="relative overflow-hidden rounded-[1.25rem] border border-white/6 bg-[#111111] p-3.5 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)]"
+                  className="relative overflow-hidden rounded-[1.25rem] border border-white/6 bg-[#111111] p-4 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)]"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <p className="truncate text-[9px] font-semibold uppercase tracking-[0.2em] text-white/35">
+                    <p className="truncate text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
                       {item.label}
                     </p>
-                    <Icon className="h-3 w-3 text-white/40" aria-hidden="true" />
+                    <Icon className="h-3.5 w-3.5 text-white/45" aria-hidden="true" />
                   </div>
-                  <p className="mt-1.5 text-2xl font-bold tracking-tight text-white">
+                  <p className="mt-2 text-2xl font-bold tracking-tight text-white">
                     {item.value}
                   </p>
                 </div>
@@ -396,7 +396,7 @@ export function DashboardFrame({
                     key={item.key}
                     href={item.href}
                     className={cn(
-                      "flex min-h-11 items-center justify-between gap-3 rounded-[1rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
+                      "flex min-h-12 items-center justify-between gap-3 rounded-[1rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
                       active
                         ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
                         : "bg-[#151515] text-white/75 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
