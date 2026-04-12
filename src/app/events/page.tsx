@@ -24,6 +24,8 @@ import {
   getUpcomingEventItems,
 } from "@/lib/events/repository";
 
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Events | Black Pepper Entertainment",
   description:
