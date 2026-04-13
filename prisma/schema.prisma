@@ -298,3 +298,41 @@ model Offer {
   @@index([status, createdAt])
   @@index([featured, status])
 }
+
+enum CheckinStatus {
+  pending
+  checked_in
+  checked_out
+  auto_checked_out
+}
+
+model BookingCheckin {
+  id                    String        @id @default(cuid())
+  bookingId             String
+  userId               String
+  space                Space
+  qrCodeId             String?
+  checkedInAt           DateTime?
+  checkedOutAt          DateTime?
+  status               CheckinStatus @default(pending)
+  checkinMethod        String        @default("qr_scan")
+  actualDurationMinutes Int?
+  autoCheckoutReason   String?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  booking              Booking      @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  user                 User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([bookingId, status])
+  @@index([userId, status])
+  @@index([space, status])
+}
+
+model VenueQRCode {
+  id          String   @id @default(cuid())
+  venue       Space    @unique
+  code        String   @unique
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
