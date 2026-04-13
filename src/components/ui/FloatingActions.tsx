@@ -1,34 +1,17 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, Calendar } from "lucide-react";
+import { Calendar } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { getBusinessSupportWhatsappLink } from "@/lib/business/contact";
 import { cn } from "@/lib/utils";
 
 export function FloatingActions() {
   const pathname = usePathname();
   const showBookingBtn = !pathname?.includes("/booking") && !pathname?.includes("/calendar");
-  const whatsappLink = getBusinessSupportWhatsappLink();
 
   return (
-    <div className="fixed bottom-20 right-4 z-50 flex flex-col gap-4 sm:bottom-6 sm:right-6">
-      {/* WhatsApp */}
-      <motion.a
-        href={whatsappLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1, type: "spring" }}
-        className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_0_30px_rgba(37,211,102,0.5)] transition-transform hover:scale-110"
-        aria-label="Chat on WhatsApp"
-      >
-        <MessageCircle className="h-6 w-6" />
-      </motion.a>
-
-      {/* Book Now */}
+    <div className="fixed bottom-20 right-4 z-50 sm:bottom-6 sm:right-6">
       <AnimatePresence>
         {showBookingBtn && (
           <motion.div
