@@ -8,6 +8,7 @@ import {
   Home,
   LayoutDashboard,
   NotebookTabs,
+  ScanLine,
   ShieldCheck,
   Ticket,
   UserRound,
@@ -39,7 +40,7 @@ const tabItems: Array<{
   { key: "overview", label: "Home", href: "/", icon: Home },
   { key: "bookings", label: "Dashboard", href: "/dashboard", icon: NotebookTabs },
   { key: "events", label: "Events", href: "/events", icon: Ticket },
-  { key: "profile", label: "Login", href: "/login", icon: UserRound },
+  { key: "profile", label: "Scan QR", href: "/scan-qr", icon: ScanLine },
 ];
 
 function StatCard({
