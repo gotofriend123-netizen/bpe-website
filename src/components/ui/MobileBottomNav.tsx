@@ -41,7 +41,7 @@ export function MobileBottomNav() {
                   key={item.key}
                   href={item.href}
                   className={cn(
-                    "group relative flex flex-col items-center gap-0.5 rounded-full px-3 py-2 transition-all duration-300",
+                    "group relative flex flex-col items-center gap-1 rounded-full px-2 min-[380px]:px-3 py-2 transition-all duration-300",
                     isActive
                       ? "text-[#d8f24d]"
                       : "text-white/50 hover:text-white",
@@ -53,19 +53,19 @@ export function MobileBottomNav() {
                   )}
                   
                   <div className={cn(
-                    "relative flex h-7 w-7 items-center justify-center rounded-xl transition-all duration-300",
+                    "relative flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-300",
                     isActive
                       ? "bg-[#d8f24d]/10 shadow-[0_0_20px_rgba(216,242,77,0.3)]"
                       : "bg-white/5 group-hover:bg-white/10",
                   )}>
                     <Icon className={cn(
-                      "h-4 w-4 transition-all duration-300",
+                      "h-5 w-5 transition-all duration-300",
                       isActive && "scale-110",
                     )} />
                   </div>
                   
                   <span className={cn(
-                    "text-[9px] font-medium uppercase tracking-wider transition-all duration-300",
+                    "text-[10px] font-medium uppercase tracking-wider transition-all duration-300",
                     isActive ? "text-[#d8f24d]" : "text-white/50",
                   )}>
                     {item.label}

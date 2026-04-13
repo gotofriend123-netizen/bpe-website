@@ -470,9 +470,9 @@ export default async function HomePage() {
 
       <ArcGalleryHeroDemo />
 
-      <section className="relative z-20 bg-black py-5 md:py-12">
+      <section className="relative z-20 bg-black py-1.5 md:py-12">
         <div className="container mx-auto px-6">
-          <AnimatedSection className="mb-5 md:mb-6">
+          <AnimatedSection className="mb-3 md:mb-6">
             <SectionHeading
               eyebrow="Choose Your Space"
               title="Two premium environments, each built for a different kind of moment."
@@ -543,9 +543,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-black py-5 md:py-12">
+      <section className="bg-black py-1.5 md:py-12">
         <div className="container mx-auto px-6">
-          <AnimatedSection className="mb-5 md:mb-6">
+          <AnimatedSection className="mb-3 md:mb-6">
             <SectionHeading
               eyebrow="Premium Experience"
               title="Why Choose Black Pepper Entertainment"
@@ -640,9 +640,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-white/5 bg-[#050505] py-5 md:py-12">
+      <section className="border-y border-white/5 bg-[#050505] py-1.5 md:py-12">
         <div className="container mx-auto px-6">
-          <AnimatedSection className="mb-5 md:mb-6">
+          <AnimatedSection className="mb-3 md:mb-6">
             <SectionHeading
               eyebrow="How Booking Works"
               title="A simple path from discovery to confirmation."
@@ -719,7 +719,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-black py-5 md:py-12">
+      <section className="bg-black py-1.5 md:py-12">
         <div className="container mx-auto px-6">
           <div className="grid gap-8 xl:grid-cols-[0.9fr_1.1fr] xl:items-center">
             <AnimatedSection direction="none" className="min-w-0">
@@ -782,9 +782,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-white/5 bg-[#060606] py-5 md:py-12">
+      <section className="border-y border-white/5 bg-[#060606] py-1.5 md:py-12">
         <div className="container mx-auto px-6">
-          <AnimatedSection className="mb-5 md:mb-6">
+          <AnimatedSection className="mb-3 md:mb-6">
             <SectionHeading
               eyebrow="Packages And Pricing Preview"
               title="Preview the most common booking paths before diving deeper."
@@ -834,9 +834,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-black py-5 md:py-12">
+      <section className="bg-black py-1.5 md:py-12">
         <div className="container mx-auto px-6">
-          <AnimatedSection className="mb-5 md:mb-6">
+          <AnimatedSection className="mb-3 md:mb-6">
             <SectionHeading
               eyebrow="Gallery And Recent Sessions"
               title="A quick look at the atmosphere behind recent events and shoots."
@@ -885,9 +885,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-white/5 bg-[#050505] py-5 md:py-12">
+      <section className="border-y border-white/5 bg-[#050505] py-1.5 md:py-12">
         <div className="container mx-auto px-6">
-          <AnimatedSection className="mb-5 md:mb-6">
+          <AnimatedSection className="mb-3 md:mb-6">
             <SectionHeading
               eyebrow="Upcoming Events"
               title="Ticketed formats, live experiences, and culture-led nights are now part of the lineup."
@@ -930,7 +930,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="relative py-5 md:py-12">
+      <section className="relative py-1.5 md:py-12">
         <div className="absolute inset-0 bg-gradient-to-b from-black to-[#090909]" />
         <div className="container relative z-10 mx-auto px-6">
           <AnimatedSection className="mx-auto max-w-4xl rounded-[3rem] border border-white/10 bg-white/[0.05] p-10 text-center shadow-[0_30px_90px_rgba(0,0,0,0.38)] backdrop-blur-3xl md:p-20">

@@ -140,7 +140,7 @@ export function Navbar({ currentUser }: NavbarProps) {
                     alt="Black Pepper Entertainment Logo"
                     width={260}
                     height={96}
-                    className="h-[3.5rem] w-auto object-contain object-left opacity-92 transition-opacity group-hover:opacity-100 min-[400px]:h-[4rem] sm:h-[3.45rem] xl:h-[4.2rem]"
+                    className="h-[4.5rem] w-auto object-contain object-left opacity-92 transition-opacity group-hover:opacity-100 min-[400px]:h-[4.8rem] sm:h-[4.5rem] xl:h-[5rem]"
                     priority
                   />
                 </div>
@@ -172,7 +172,7 @@ export function Navbar({ currentUser }: NavbarProps) {
                 <Link
                   href={BOOKING_HREF}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-white px-2.5 py-1.5 text-[8px] font-semibold uppercase tracking-[0.12em] text-black shadow-[0_14px_32px_rgba(255,255,255,0.12)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-zinc-100 active:scale-95 min-[380px]:px-3 min-[380px]:text-[9px] min-[380px]:tracking-[0.14em] sm:px-4 sm:py-2.5 sm:text-[11px]"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-white px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-black shadow-[0_14px_32px_rgba(255,255,255,0.12)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-zinc-100 active:scale-95 min-[380px]:px-4 min-[380px]:text-[11px] min-[380px]:tracking-[0.14em] sm:px-5 sm:py-3 sm:text-[12px]"
                 >
                   <span>Book Now</span>
                 </Link>
@@ -195,16 +195,16 @@ export function Navbar({ currentUser }: NavbarProps) {
 
                 <button
                   type="button"
-                  className="relative rounded-xl border border-white/10 bg-white/[0.05] p-2 text-white transition-all hover:bg-white/[0.1] active:scale-95 active:bg-white/[0.15] sm:rounded-2xl sm:p-3"
+                  className="relative rounded-xl border border-white/10 bg-white/[0.05] p-2.5 text-white transition-all hover:bg-white/[0.1] active:scale-95 active:bg-white/[0.15] sm:rounded-2xl sm:p-3.5"
                   onClick={() => setMobileMenuOpen((current) => !current)}
                   aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                   aria-expanded={mobileMenuOpen}
                   aria-controls="mobile-site-menu"
                 >
                   {mobileMenuOpen ? (
-                    <X className="h-4 w-4 sm:h-5 sm:w-5" />
+                    <X className="h-5 w-5 sm:h-6 sm:w-6" />
                   ) : (
-                    <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
+                    <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
                   )}
                 </button>
               </div>
