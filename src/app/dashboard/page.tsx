@@ -13,7 +13,6 @@ import {
 export default async function UserDashboardPage() {
   const currentUser = await requireDashboardUser();
   const { frameOverview, upcomingBookings } = await getUserDashboardHomeData(currentUser.id);
-  const firstName = currentUser.name.split(" ")[0] ?? currentUser.name;
 
   return (
     <DashboardFrame
