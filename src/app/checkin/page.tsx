@@ -3,17 +3,60 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { QrCode, CheckCircle, Clock, MapPin, AlertCircle } from "lucide-react";
+import { QrCode, CheckCircle, Clock, AlertCircle, User } from "lucide-react";
+
+type Booking = {
+  id: string;
+  reference: string;
+  space: string;
+  dateKey: string;
+  startTime: string;
+  endTime: string;
+  packageLabel?: string;
+};
+
+type ValidationResult = {
+  valid: boolean;
+  error?: string;
+  message?: string;
+  booking?: Booking;
+};
 
 export default function CheckinPage() {
   const searchParams = useSearchParams();
   const qrCode = searchParams.get("qr");
   
   const [loading, setLoading] = useState(true);
+  const [validation, setValidation] = useState<ValidationResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "checking_in" | "checked_in" | "checked_out">("idle");
   const [timer, setTimer] = useState<number>(0);
   const [checkinTime, setCheckinTime] = useState<Date | null>(null);
+  const [notLoggedIn, setNotLoggedIn] = useState(false);
+
+  useEffect(() => {
+    async function validateCheckin() {
+      try {
+        const response = await fetch(`/api/checkin/validate?qr=${qrCode || ""}`);
+        const data = await response.json();
+        
+        if (response.status === 401) {
+          setNotLoggedIn(true);
+          setError(data.message || "Please log in to continue check-in.");
+        } else if (!data.valid) {
+          setError(data.message || "Unable to check in.");
+        } else {
+          setValidation(data);
+        }
+      } catch {
+        setError("Failed to validate. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    validateCheckin();
+  }, [qrCode]);
 
   useEffect(() => {
     const timerInterval = setInterval(() => {
@@ -25,15 +68,6 @@ export default function CheckinPage() {
     return () => clearInterval(timerInterval);
   }, [checkinTime]);
 
-  useEffect(() => {
-    if (!qrCode) {
-      setError("Please scan a valid QR code from the venue.");
-      setLoading(false);
-    } else {
-      setTimeout(() => setLoading(false), 500);
-    }
-  }, [qrCode]);
-
   function formatTimer(seconds: number) {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
@@ -41,17 +75,51 @@ export default function CheckinPage() {
     return `${hrs.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   }
 
-  function handleStartCheckIn() {
+  async function handleStartCheckIn() {
+    if (!validation?.booking) return;
+    
     setStatus("checking_in");
-    setTimeout(() => {
-      setCheckinTime(new Date());
-      setStatus("checked_in");
-    }, 1000);
+    try {
+      const response = await fetch("/api/checkin/start", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bookingId: validation.booking.id }),
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        setCheckinTime(new Date());
+        setStatus("checked_in");
+      } else {
+        setError(data.message || "Failed to check in");
+        setStatus("idle");
+      }
+    } catch {
+      setError("Network error. Please try again.");
+      setStatus("idle");
+    }
   }
 
-  function handleCheckOut() {
-    setStatus("checked_out");
-    setCheckinTime(null);
+  async function handleCheckOut() {
+    if (!validation?.booking) return;
+    
+    try {
+      const response = await fetch("/api/checkin/end", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bookingId: validation.booking.id }),
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        setStatus("checked_out");
+        setCheckinTime(null);
+      } else {
+        setError(data.message || "Failed to check out");
+      }
+    } catch {
+      setError("Network error. Please try again.");
+    }
   }
 
   if (loading) {
@@ -65,7 +133,7 @@ export default function CheckinPage() {
     );
   }
 
-  if (error) {
+  if (notLoggedIn || error) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center p-6">
         <div className="max-w-md text-center">
@@ -75,7 +143,7 @@ export default function CheckinPage() {
           <h1 className="text-2xl font-semibold text-white mb-3">Unable to Check In</h1>
           <p className="text-white/60 mb-8">{error}</p>
           <div className="space-y-3">
-            <Link href="/login" className="block w-full bg-white text-black py-3.5 rounded-full font-semibold text-center">
+            <Link href={`/login?next=/checkin?qr=${qrCode || ""}`} className="block w-full bg-white text-black py-3.5 rounded-full font-semibold text-center">
               Log In to Continue
             </Link>
             <Link href="/booking" className="block w-full border border-white/20 text-white py-3.5 rounded-full font-semibold text-center">
@@ -98,27 +166,25 @@ export default function CheckinPage() {
           <p className="text-white/60 mt-1">Arcade Community Hall</p>
         </div>
 
-        <div className="bg-[#111111] rounded-2xl border border-white/10 p-5 mb-6">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
-              <MapPin className="w-6 h-6 text-[#d8f24d]" />
+        {validation?.booking && (
+          <div className="bg-[#111111] rounded-2xl border border-white/10 p-5 mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[10px] uppercase tracking-widest text-white/50">Booking</span>
+              <span className="text-xs text-[#d8f24d]">{validation.booking.reference}</span>
             </div>
-            <div>
-              <p className="text-sm text-white/50">Venue</p>
-              <p className="font-semibold">The Arcade</p>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
-              <Clock className="w-6 h-6 text-[#d8f24d]" />
-            </div>
-            <div>
-              <p className="text-sm text-white/50">Time</p>
-              <p className="font-semibold">10:00 AM - 12:00 PM</p>
+            
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <User className="w-4 h-4 text-white/50" />
+                <span className="text-sm">Arcade Community Hall</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Clock className="w-4 h-4 text-white/50" />
+                <span className="text-sm">{validation.booking.dateKey} • {validation.booking.startTime} - {validation.booking.endTime}</span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {status === "checked_in" && (
           <div className="bg-[#111111] rounded-2xl border border-[#d8f24d]/30 p-6 mb-6 text-center">
@@ -137,7 +203,7 @@ export default function CheckinPage() {
           </div>
         )}
 
-        {status === "idle" && (
+        {status === "idle" && validation?.valid && (
           <button
             onClick={handleStartCheckIn}
             className="w-full bg-[#d8f24d] text-black py-4 rounded-full font-semibold text-lg hover:bg-[#c4d244] transition-colors"
@@ -162,19 +228,10 @@ export default function CheckinPage() {
         )}
 
         {status === "checked_out" && (
-          <Link
-            href="/"
-            className="block w-full bg-white text-black py-4 rounded-full font-semibold text-lg text-center"
-          >
+          <Link href="/" className="block w-full bg-white text-black py-4 rounded-full font-semibold text-lg text-center">
             Go to Home
           </Link>
         )}
-
-        <div className="mt-8 pt-6 border-t border-white/10">
-          <p className="text-xs text-white/40 text-center">
-            QR Code: {qrCode}
-          </p>
-        </div>
       </div>
     </div>
   );
