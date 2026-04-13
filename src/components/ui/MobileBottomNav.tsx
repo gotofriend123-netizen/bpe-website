@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, LayoutDashboard, Ticket, User } from "lucide-react";
+import { Home, LayoutDashboard, Ticket, ScanLine } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
@@ -10,7 +10,7 @@ const navItems = [
   { key: "home", label: "Home", href: "/", icon: Home },
   { key: "dashboard", label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { key: "events", label: "Events", href: "/events", icon: Ticket },
-  { key: "login", label: "Account", href: "/login", icon: User },
+  { key: "scan-qr", label: "Scan QR", href: "/scan-qr", icon: ScanLine },
 ];
 
 export function MobileBottomNav() {
@@ -68,7 +68,7 @@ export function MobileBottomNav() {
                     "text-[9px] font-medium uppercase tracking-wider transition-all duration-300",
                     isActive ? "text-[#d8f24d]" : "text-white/50",
                   )}>
-                    {item.key === "login" ? (pathname?.includes("dashboard") ? "Account" : "Login") : item.label}
+                    {item.label}
                   </span>
                 </Link>
               );

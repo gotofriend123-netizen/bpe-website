@@ -42,7 +42,7 @@ const PUBLIC_LINKS: readonly NavItem[] = [
   },
   { label: "Pricing", href: "/pricing" },
   { label: "Events", href: "/events" },
-  { label: "Scan QR", href: "/checkin" },
+  { label: "Scan QR", href: "/scan-qr" },
   { label: "Gallery", href: "/gallery" },
   { label: "Contact", href: "/contact" },
 ] as const;

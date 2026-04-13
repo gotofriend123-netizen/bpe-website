@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { applyPendingCookies, refreshSupabaseAuth } from "@/lib/supabase/middleware";
 
-const protectedPrefixes = ["/dashboard", "/admin"];
+const protectedPrefixes = ["/dashboard", "/admin", "/check-in"];
 const authPrefixes = ["/login", "/signup"];
 
 export async function middleware(request: NextRequest) {

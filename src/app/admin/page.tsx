@@ -9,10 +9,12 @@ import {
   Ticket,
   IndianRupee,
   History,
+  QrCode,
 } from "lucide-react";
 
 import { getAdminControlCenterData } from "@/lib/admin/control-center";
 import { BOOKING_STATUS_META } from "@/lib/admin/admin-dashboard";
+import { VenueQRManager } from "@/components/admin/VenueQRManager";
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-IN", {
@@ -611,6 +613,21 @@ export default async function AdminOverviewPage() {
               </div>
             )}
           </div>
+        </Panel>
+      </section>
+
+      <section>
+        <Panel
+          eyebrow="Venue QR Codes"
+          title="Permanent check-in QR codes for all venue gates"
+          action={
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#d8f24d]/20 bg-[#d8f24d]/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#d8f24d]">
+              <QrCode className="h-3.5 w-3.5" />
+              Permanent
+            </span>
+          }
+        >
+          <VenueQRManager />
         </Panel>
       </section>
     </div>
