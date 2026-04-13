@@ -5,7 +5,6 @@ import { Toaster } from "sonner";
 import { Navbar } from "@/components/ui/Navbar";
 import { Footer } from "@/components/ui/Footer";
 import { MobileBottomNav } from "@/components/ui/MobileBottomNav";
-import { FloatingActions } from "@/components/ui/FloatingActions";
 import { AuthEntryPrompt } from "@/components/auth/AuthEntryPrompt";
 import { getCurrentUserSummary } from "@/lib/auth/session";
 import "./globals.css";
@@ -49,7 +48,6 @@ export default async function RootLayout({
         </main>
         <Footer />
         <MobileBottomNav />
-        <FloatingActions />
         <Toaster theme="dark" position="bottom-right" />
       </body>
     </html>
