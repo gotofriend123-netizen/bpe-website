@@ -14,13 +14,26 @@ export async function middleware(request: NextRequest) {
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   );
 
-  // Always refresh the Supabase session on every route so
-  // tokens stay alive while the user browses any page.
-  const { response, pendingCookies, user } = await refreshSupabaseAuth(request);
+  let user = null;
+  let response = NextResponse.next({ request: { headers: request.headers } });
+  let pendingCookies: { name: string; value: string; options: import("@supabase/ssr").CookieOptions }[] = [];
 
-  // Ensure cookies are always applied to response
-  if (pendingCookies.length > 0) {
-    applyPendingCookies(response, pendingCookies);
+  try {
+    // Always refresh the Supabase session on every route so
+    // tokens stay alive while the user browses any page.
+    const authResult = await refreshSupabaseAuth(request);
+    response = authResult.response;
+    pendingCookies = authResult.pendingCookies;
+    user = authResult.user;
+
+    // Ensure cookies are always applied to response
+    if (pendingCookies.length > 0) {
+      applyPendingCookies(response, pendingCookies);
+    }
+  } catch {
+    // If Supabase auth fails for any reason, treat user as unauthenticated.
+    // Protected routes will redirect to login below.
+    user = null;
   }
 
   if (isAuthPage && user) {
