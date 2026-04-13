@@ -26,7 +26,7 @@ export default function ContactPage() {
               <Phone className="w-8 h-8 text-gray-400" />
               <div>
                 <p className="text-sm text-gray-500 mb-1">Call Us</p>
-                <p className="text-xl font-bold text-white">+91 98765 43210</p>
+                <p className="text-xl font-bold text-white">+91 92034 11611</p>
               </div>
             </div>
 
@@ -34,7 +34,7 @@ export default function ContactPage() {
               <Mail className="w-8 h-8 text-gray-400" />
               <div>
                 <p className="text-sm text-gray-500 mb-1">Email Us</p>
-                <p className="text-xl font-bold text-white">hello@blackpepper.ent</p>
+                <p className="text-xl font-bold text-white">blackpepperentertainment.in@gmail.com</p>
               </div>
             </div>
 
@@ -42,7 +42,7 @@ export default function ContactPage() {
               <MessageCircle className="w-8 h-8" />
               <div>
                 <p className="text-sm opacity-80 mb-1">WhatsApp Chat</p>
-                <a href="#" className="text-xl font-bold hover:underline">Message Us Instantly</a>
+                <a href="https://wa.me/919203411611" target="_blank" rel="noopener noreferrer" className="text-xl font-bold hover:underline">Message Us Instantly</a>
               </div>
             </div>
           </AnimatedSection>
@@ -54,9 +54,9 @@ export default function ContactPage() {
               </div>
               <h2 className="text-3xl font-bold text-white mb-4">Location</h2>
               <p className="text-gray-400 text-lg leading-relaxed mb-6">
-                123 Creative Avenue, <br />
-                Innovation District, Phase 4 <br />
-                Mumbai, Maharashtra 400001
+                Arcade Community Hall, <br />
+                Near Hotel Royal Avenue, <br />
+                Raipur, Chhattisgarh 492001
               </p>
               
               <div className="w-full h-48 bg-white/5 border border-white/10 rounded-2xl overflow-hidden relative">
