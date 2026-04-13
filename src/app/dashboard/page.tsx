@@ -26,19 +26,19 @@ export default async function UserDashboardPage() {
             <h2 className="text-xl font-semibold tracking-[-0.03em] text-white">
               Upcoming Sessions
             </h2>
-            <div className="flex items-center gap-3">
-              <Link
-                href="/dashboard/bookings"
-                className="text-sm text-white/60 hover:text-white transition-colors"
-                onClick={(e) => e.stopPropagation()}
-              >
-                See all
-              </Link>
-              <ChevronDown className="h-5 w-5 text-white/50 transition-transform duration-200 group-open:rotate-180" />
-            </div>
+            <ChevronDown className="h-5 w-5 text-white/50 transition-transform duration-200 group-open:rotate-180" />
           </summary>
 
-          <div className="mt-4 space-y-4">
+          <div className="mt-3 flex justify-end px-1">
+            <Link
+              href="/dashboard/bookings"
+              className="text-sm text-white/60 hover:text-white transition-colors"
+            >
+              See all →
+            </Link>
+          </div>
+
+          <div className="mt-3 space-y-4">
             {upcomingBookings.length > 0 ? (
               <div className={cn(
                 "grid gap-4",
