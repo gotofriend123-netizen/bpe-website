@@ -5,10 +5,8 @@ import {
   CalendarDays,
   ChevronDown,
   Clock3,
-  Home,
   LayoutDashboard,
   NotebookTabs,
-  ScanLine,
   ShieldCheck,
   Ticket,
   UserRound,
@@ -31,17 +29,6 @@ type DashboardFrameProps = {
   children: ReactNode;
 };
 
-const tabItems: Array<{
-  key: DashboardTab;
-  label: string;
-  href: string;
-  icon: typeof LayoutDashboard;
-}> = [
-  { key: "overview", label: "Home", href: "/", icon: Home },
-  { key: "bookings", label: "Dashboard", href: "/dashboard", icon: NotebookTabs },
-  { key: "events", label: "Events", href: "/events", icon: Ticket },
-  { key: "profile", label: "Scan QR", href: "/scan-qr", icon: ScanLine },
-];
 
 function StatCard({
   label,
@@ -75,37 +62,7 @@ function StatCard({
   );
 }
 
-function MobileBottomNav({
-  activeTab,
-}: {
-  activeTab: DashboardTab;
-}) {
-  return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/8 bg-[#0c0c0c] px-2 py-2 pb-safe sm:hidden">
-      <div className="flex items-center justify-around">
-        {tabItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = activeTab === item.key;
-          return (
-            <Link
-              key={item.key}
-              href={item.href}
-              className={cn(
-                "flex flex-col items-center gap-1 rounded-xl px-3 py-2 text-[10px] font-medium transition-colors",
-                isActive
-                  ? "text-[#d8f24d]"
-                  : "text-white/50 hover:text-white",
-              )}
-            >
-              <Icon className="h-5 w-5" />
-              <span className="text-[9px] uppercase tracking-wider">{item.label}</span>
-            </Link>
-          );
-        })}
-      </div>
-    </nav>
-  );
-}
+
 
 function MobileHeader({
   currentUser,
@@ -174,26 +131,30 @@ export function DashboardFrame({
               </div>
 
               <div className="mt-6 space-y-3">
-                {tabItems.map((item) => {
-                  const Icon = item.icon;
-                  const active = activeTab === item.key;
-                  if (item.key === "events") return null;
-                  return (
-                    <Link
-                      key={item.key}
-                      href={item.href}
-                      className={cn(
-                        "flex items-center gap-3 rounded-[1.2rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
-                        active
-                          ? "bg-[#0b0b0b] text-white shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
-                          : "bg-[#151515] text-white/70 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
-                      )}
-                    >
-                      <Icon className={cn("h-4 w-4", active && "text-[#d8f24d]")} />
-                      {item.label}
-                    </Link>
-                  );
-                })}
+                <Link
+                  href="/"
+                  className={cn(
+                    "flex items-center gap-3 rounded-[1.2rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
+                    activeTab === "overview"
+                      ? "bg-[#0b0b0b] text-white shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
+                      : "bg-[#151515] text-white/70 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
+                  )}
+                >
+                  <LayoutDashboard className={cn("h-4 w-4", activeTab === "overview" && "text-[#d8f24d]")} />
+                  Home
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className={cn(
+                    "flex items-center gap-3 rounded-[1.2rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
+                    activeTab === "bookings"
+                      ? "bg-[#0b0b0b] text-white shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
+                      : "bg-[#151515] text-white/70 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
+                  )}
+                >
+                  <NotebookTabs className={cn("h-4 w-4", activeTab === "bookings" && "text-[#d8f24d]")} />
+                  Dashboard
+                </Link>
 
                 <details
                   className="group rounded-[1.35rem] border border-white/5 bg-[#151515] p-3 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)]"
@@ -267,7 +228,6 @@ export function DashboardFrame({
           <div className="space-y-5">
             <AnimatedSection className="flex flex-col gap-5">
               <GlowCard
-                className="order-1"
                 contentClassName="rounded-2xl border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)] sm:rounded-[2rem] sm:p-6 lg:p-10"
                 backgroundColor="#111111"
                 borderRadius={32}
@@ -364,8 +324,6 @@ export function DashboardFrame({
           </div>
         </div>
       </div>
-
-      <MobileBottomNav activeTab={activeTab} />
     </div>
   );
 }
