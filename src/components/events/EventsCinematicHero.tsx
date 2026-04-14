@@ -98,7 +98,7 @@ export function EventsCinematicHero({
           ))}
         </div>
 
-        <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_50%_18%,rgba(216,242,77,0.08),transparent_26%),linear-gradient(180deg,rgba(16,16,16,0.34),rgba(16,16,16,0.72)_48%,#101010_98%)]" />
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.06),transparent_26%),linear-gradient(180deg,rgba(16,16,16,0.34),rgba(16,16,16,0.72)_48%,#101010_98%)]" />
         <div className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-40 bg-gradient-to-b from-[#101010] via-[#101010]/72 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-52 bg-gradient-to-t from-[#101010] via-[#101010]/88 to-transparent" />
 
@@ -107,7 +107,7 @@ export function EventsCinematicHero({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.22, duration: 0.55 }}
-            className="mb-5 inline-flex rounded-full border border-white/10 bg-black/35 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#d8f24d] backdrop-blur-xl"
+            className="mb-5 inline-flex rounded-full border border-white/20 bg-black/35 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-white backdrop-blur-xl"
           >
             Events by Black Pepper
           </motion.p>
@@ -149,7 +149,7 @@ export function EventsCinematicHero({
             </label>
             <button
               type="submit"
-              className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-black px-5 text-xs font-bold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:bg-[#d8f24d] hover:text-black"
+              className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-black px-5 text-xs font-bold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:bg-white hover:text-black hover:border-black border border-transparent"
             >
               Search
             </button>
@@ -162,10 +162,10 @@ export function EventsCinematicHero({
             className="mt-5 flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55"
           >
             <span>{featuredEvent.categoryLabel}</span>
-            <span className="h-1 w-1 rounded-full bg-[#d8f24d]" />
+            <span className="h-1 w-1 rounded-full bg-white/50" />
             <Link
               href={`/events/${featuredEvent.slug}`}
-              className="inline-flex items-center gap-2 text-[#d8f24d] transition-colors hover:text-white"
+              className="inline-flex items-center gap-2 text-white font-bold transition-colors hover:text-white/70"
             >
               <Ticket className="h-3.5 w-3.5" />
               Featured ticket

@@ -205,7 +205,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
                     <span
                       key={event.slug}
                       className={`h-2.5 rounded-full transition-all duration-300 ${
-                        index === 0 ? "w-2.5 bg-[#d8f24d]" : "w-2.5 bg-white/65"
+                        index === 0 ? "w-2.5 bg-white" : "w-2.5 bg-white/40"
                       }`}
                     />
                   ))}
@@ -215,7 +215,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
           ) : (
             <AnimatedSection direction="up">
               <div className="rounded-[1.8rem] border border-white/10 bg-white/[0.035] p-8 text-center shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#d8f24d]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-white">
                   No events found
                 </p>
                 <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-white">
@@ -243,7 +243,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
               <h2 className="font-sans text-[1.8rem] font-semibold tracking-[-0.05em] text-white md:text-[2.2rem]">
                 Explore By Category
               </h2>
-              <span className="text-[1.5rem] font-semibold text-[#d8f24d]">›</span>
+              <span className="text-[1.5rem] font-semibold text-white">›</span>
             </div>
           </AnimatedSection>
 
@@ -283,12 +283,12 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
                 <h2 className="font-sans text-[1.8rem] font-semibold tracking-[-0.05em] text-white md:text-[2.2rem]">
                   Hot-Selling Ticket
                 </h2>
-                <span className="text-[1.5rem] font-semibold text-[#d8f24d]">›</span>
+                <span className="text-[1.5rem] font-semibold text-white">›</span>
               </div>
 
               <Link
                 href="/events"
-                className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#d8f24d] transition-colors duration-300 hover:text-white"
+                className="text-[12px] font-semibold uppercase tracking-[0.18em] text-white/70 transition-colors duration-300 hover:text-white"
               >
                 View All
               </Link>

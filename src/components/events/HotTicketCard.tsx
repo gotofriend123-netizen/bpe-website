@@ -60,7 +60,7 @@ export function HotTicketCard({
           <div className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/92 text-zinc-900 shadow-[0_10px_24px_rgba(0,0,0,0.24)] backdrop-blur-xl transition-transform duration-300 group-hover:scale-105">
             <Heart className="h-4 w-4" />
           </div>
-          <div className="absolute bottom-3 left-3 rounded-[0.95rem] bg-[#d8f24d] px-3 py-2 text-black shadow-[0_12px_24px_rgba(216,242,77,0.26)]">
+          <div className="absolute bottom-3 left-3 rounded-[0.95rem] bg-white px-3 py-2 text-black shadow-[0_12px_24px_rgba(255,255,255,0.15)]">
             <div className="text-[9px] font-semibold uppercase tracking-[0.18em] opacity-80">
               {format(date, "MMM")}
             </div>
@@ -84,7 +84,7 @@ export function HotTicketCard({
             <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/72">
               {format(date, "dd MMM")}
             </span>
-            <span className="text-[12px] font-semibold text-[#d8f24d]">
+            <span className="text-[12px] font-semibold text-white">
               From {formatPrice(event.priceFrom)}
             </span>
           </div>
