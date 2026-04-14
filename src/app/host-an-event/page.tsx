@@ -12,7 +12,7 @@ export const metadata = {
 
 export default function HostAnEventPage() {
   return (
-    <div className="min-h-screen bg-black pb-24 pt-32 text-white">
+    <div className="min-h-screen bg-black pb-24 pt-32 text-white paper-texture-dark">
       <div className="container mx-auto px-6">
         <AnimatedSection>
           <div className="overflow-hidden rounded-[2.25rem] border border-white/10 bg-[linear-gradient(135deg,rgba(249,115,22,0.12),rgba(255,255,255,0.03),rgba(0,0,0,0.85))] p-8 shadow-[0_30px_90px_rgba(0,0,0,0.3)] md:p-12">

@@ -13,17 +13,14 @@ import { MoveRight } from "lucide-react";
 import {
   EVENT_CATEGORIES,
   type EventCategoryId,
+  type EventItem,
 } from "@/lib/events/catalog";
 import {
   getAllEventItems,
-  getEventsForCategoryItems,
-  getFeaturedEventItems,
-  getHotSellingEventItems,
   getRelatedEventItems,
-  getUpcomingEventItems,
 } from "@/lib/events/repository";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Events in Raipur | Black Pepper Entertainment",
@@ -34,6 +31,7 @@ export const metadata = {
 type EventsPageProps = {
   searchParams?: {
     category?: string;
+    q?: string;
   };
 };
 
@@ -70,22 +68,72 @@ const FAQ_ITEMS = [
   },
 ] as const;
 
+function normalizeSearchValue(value: string) {
+  return value.trim().toLowerCase();
+}
+
+function isEventCategoryId(value: string | undefined): value is EventCategoryId {
+  return EVENT_CATEGORIES.some((category) => category.id === value);
+}
+
+function eventMatchesSearch(event: EventItem, query: string) {
+  const normalizedQuery = normalizeSearchValue(query);
+
+  if (
+    !normalizedQuery ||
+    ["all", "all event", "all events", "events"].includes(normalizedQuery)
+  ) {
+    return true;
+  }
+
+  const searchableText = [
+    event.title,
+    event.shortTitle,
+    event.categoryLabel,
+    event.summary,
+    event.teaser,
+    event.venue,
+    event.organizer,
+    event.city,
+    event.metadataLine,
+    ...event.highlights,
+  ]
+    .join(" ")
+    .toLowerCase();
+
+  return searchableText.includes(normalizedQuery);
+}
+
 export default async function EventsPage({ searchParams }: EventsPageProps) {
-  const selectedCategory = (searchParams?.category as EventCategoryId | undefined) ?? null;
+  const selectedCategory = isEventCategoryId(searchParams?.category)
+    ? searchParams.category
+    : null;
+  const searchQuery = searchParams?.q?.trim() ?? "";
   const allEvents = await getAllEventItems();
-  const featuredEvents = await getFeaturedEventItems(1);
-  const hotSelling = await getHotSellingEventItems(3);
-  const heroEvent = featuredEvents[0] ?? hotSelling[0] ?? allEvents[0];
-  const upcomingEvents = selectedCategory
-    ? await getEventsForCategoryItems(selectedCategory, 4)
-    : await getUpcomingEventItems(4);
-  const relatedEvents = heroEvent ? await getRelatedEventItems(heroEvent.slug, 4) : allEvents.slice(0, 4);
+  const hotSelling = allEvents.filter((event) => event.hot).slice(0, 3);
+  const heroEvent =
+    allEvents.find((event) => event.featured) ?? hotSelling[0] ?? allEvents[0];
+  const filteredEvents = allEvents.filter((event) => {
+    const categoryMatch = selectedCategory
+      ? event.category === selectedCategory
+      : true;
+    const searchMatch = searchQuery
+      ? eventMatchesSearch(event, searchQuery)
+      : true;
+
+    return categoryMatch && searchMatch;
+  });
+  const upcomingEvents = searchQuery ? filteredEvents : filteredEvents.slice(0, 4);
+  const relatedEvents = heroEvent
+    ? await getRelatedEventItems(heroEvent.slug, 4)
+    : allEvents.slice(0, 4);
+  const hasActiveFilter = Boolean(selectedCategory || searchQuery);
 
   return (
-    <div className="min-h-screen bg-black pb-12 text-white md:pb-18">
+    <div className="min-h-screen bg-black pb-12 text-white md:pb-18 paper-texture-dark">
       <section className="w-full">
         {heroEvent ? (
-          <EventsCinematicHero featuredEvent={heroEvent} />
+          <EventsCinematicHero featuredEvent={heroEvent} searchQuery={searchQuery} />
         ) : null}
       </section>
 
@@ -96,16 +144,22 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
               <div className="max-w-2xl">
                 <div className="flex items-center gap-3">
                   <h2 className="font-sans text-[1.9rem] font-semibold tracking-[-0.05em] text-white md:text-[2.4rem]">
-                    {selectedCategory ? "Filtered Event Picks" : "Events You Can't Miss"}
+                    {searchQuery
+                      ? `Search results for “${searchQuery}”`
+                      : selectedCategory
+                        ? "Filtered Event Picks"
+                        : "Events You Can't Miss"}
                   </h2>
                   <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#d6b98c]/20 bg-[#d6b98c]/[0.08] text-[#d6b98c]">
                     <MoveRight className="h-4 w-4" />
                   </span>
                 </div>
                 <p className="mt-3 max-w-xl text-[14px] leading-7 text-zinc-400">
-                  {selectedCategory
-                    ? `A tighter poster-led selection for ${selectedCategory.replace("-", " ")}, designed to scan quickly and feel more premium.`
-                    : "A sharper first drop of posters, dates, and city-ready event picks with the same premium energy as modern ticket platforms."}
+                  {searchQuery
+                    ? "Every matching published event is pulled into this section, including newly posted admin events."
+                    : selectedCategory
+                      ? `A tighter poster-led selection for ${selectedCategory.replace("-", " ")}, designed to scan quickly and feel more premium.`
+                      : "A sharper first drop of posters, dates, and city-ready event picks with the same premium energy as modern ticket platforms."}
                 </p>
               </div>
 
@@ -113,44 +167,72 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
                 href="/events"
                 className="inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-full border border-white/12 bg-white/[0.04] px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d6b98c]/35 hover:bg-[#d6b98c] hover:text-black"
               >
-                View All Events
+                {hasActiveFilter ? "Clear Filters" : "View All Events"}
                 <MoveRight className="h-4 w-4" />
               </Link>
             </div>
           </AnimatedSection>
 
-          <div className="hidden gap-6 md:grid md:grid-cols-2 xl:grid-cols-4">
-            {upcomingEvents.map((event, index) => (
-              <AnimatedSection key={event.slug} delay={0.06 + index * 0.05} direction="up">
-                <HotTicketCard event={event} />
-              </AnimatedSection>
-            ))}
-          </div>
+          {upcomingEvents.length > 0 ? (
+            <>
+              <div className="hidden gap-6 md:grid md:grid-cols-2 xl:grid-cols-4">
+                {upcomingEvents.map((event, index) => (
+                  <AnimatedSection
+                    key={event.slug}
+                    delay={0.06 + index * 0.05}
+                    direction="up"
+                  >
+                    <HotTicketCard event={event} />
+                  </AnimatedSection>
+                ))}
+              </div>
 
-          <div className="-mx-6 md:hidden">
-            <div className="flex snap-x gap-4 overflow-x-auto px-6 pb-1">
-              {upcomingEvents.map((event, index) => (
-                <AnimatedSection
-                  key={event.slug}
-                  delay={0.06 + index * 0.05}
-                  direction="up"
-                  className="w-[18.25rem] shrink-0 snap-start"
+              <div className="-mx-6 md:hidden">
+                <div className="flex snap-x gap-4 overflow-x-auto px-6 pb-1">
+                  {upcomingEvents.map((event, index) => (
+                    <AnimatedSection
+                      key={event.slug}
+                      delay={0.06 + index * 0.05}
+                      direction="up"
+                      className="w-[18.25rem] shrink-0 snap-start"
+                    >
+                      <HotTicketCard event={event} />
+                    </AnimatedSection>
+                  ))}
+                </div>
+                <div className="mt-4 flex items-center justify-center gap-2">
+                  {upcomingEvents.map((event, index) => (
+                    <span
+                      key={event.slug}
+                      className={`h-2.5 rounded-full transition-all duration-300 ${
+                        index === 0 ? "w-2.5 bg-[#d8f24d]" : "w-2.5 bg-white/65"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </>
+          ) : (
+            <AnimatedSection direction="up">
+              <div className="rounded-[1.8rem] border border-white/10 bg-white/[0.035] p-8 text-center shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#d8f24d]">
+                  No events found
+                </p>
+                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-white">
+                  Try another search or browse all events.
+                </h3>
+                <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-white/55">
+                  Published admin events are included here automatically once they are live, but nothing matched this exact query.
+                </p>
+                <Link
+                  href="/events"
+                  className="mt-5 inline-flex min-h-11 items-center justify-center rounded-full bg-white px-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-black transition-transform hover:-translate-y-0.5"
                 >
-                  <HotTicketCard event={event} />
-                </AnimatedSection>
-              ))}
-            </div>
-            <div className="mt-4 flex items-center justify-center gap-2">
-              {upcomingEvents.map((event, index) => (
-                <span
-                  key={event.slug}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    index === 0 ? "w-2.5 bg-[#d8f24d]" : "w-2.5 bg-white/65"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
+                  Show all events
+                </Link>
+              </div>
+            </AnimatedSection>
+          )}
         </div>
       </section>
 

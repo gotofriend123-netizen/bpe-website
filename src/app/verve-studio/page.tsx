@@ -44,7 +44,7 @@ const verveOptions = [
 
 export default function VerveStudioPage() {
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-black min-h-screen paper-texture-dark">
       {/* Hero */}
       <section className="relative h-[80vh] min-h-[700px] flex items-center justify-center text-center pt-20">
         <div className="absolute inset-0 z-0">

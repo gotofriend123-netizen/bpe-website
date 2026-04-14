@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function PodcastStudioRaipurPage() {
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-black min-h-screen paper-texture-dark">
       <OrganizationSchema />
       <LocalBusinessSchema
         title="Verve Studio - Podcast Studio in Raipur"

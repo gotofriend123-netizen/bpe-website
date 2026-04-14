@@ -55,7 +55,7 @@ const arcadeOptions = [
 
 export default function TheArcadePage() {
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-black min-h-screen paper-texture-dark">
       {/* Hero */}
       <section className="relative h-[70vh] min-h-[600px] flex items-center pt-20">
         <div className="absolute inset-0 z-0">

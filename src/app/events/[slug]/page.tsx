@@ -52,7 +52,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
   const usesPosterAsHero = event.coverImage === event.posterImage;
 
   return (
-    <div className="min-h-screen bg-black pb-24 pt-24 text-white sm:pt-28">
+    <div className="min-h-screen bg-black pb-24 pt-24 text-white sm:pt-28 paper-texture-dark">
       <section className="px-0 sm:container sm:mx-auto sm:px-6">
         <AnimatedSection>
           <div className="grid md:grid-cols-[1fr_1fr] lg:grid-cols-[1.15fr_0.85fr]">
