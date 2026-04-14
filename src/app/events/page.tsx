@@ -9,7 +9,7 @@ import { PremiumFAQAccordion } from "@/components/events/PremiumFAQAccordion";
 import { PromoBannerLuxury } from "@/components/events/PromoBannerLuxury";
 import { RelatedEventCard } from "@/components/events/RelatedEventCard";
 import { SectionHeadingPremium } from "@/components/events/SectionHeadingPremium";
-import { UpcomingEventCard } from "@/components/events/UpcomingEventCard";
+// Removed UpcomingEventCard import as we now unify all cards to HotTicketCard
 import { MoveRight } from "lucide-react";
 import {
   EVENT_CATEGORIES,
@@ -141,7 +141,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
           <div className="hidden gap-6 md:grid md:grid-cols-2 xl:grid-cols-4">
             {upcomingEvents.map((event, index) => (
               <AnimatedSection key={event.slug} delay={0.06 + index * 0.05} direction="up">
-                <UpcomingEventCard event={event} />
+                <HotTicketCard event={event} />
               </AnimatedSection>
             ))}
           </div>
@@ -155,7 +155,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
                   direction="up"
                   className="w-[18.25rem] shrink-0 snap-start"
                 >
-                  <UpcomingEventCard event={event} />
+                  <HotTicketCard event={event} />
                 </AnimatedSection>
               ))}
             </div>
