@@ -1,6 +1,6 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
-import { Users, MoveRight, Lightbulb, Focus, Video, Maximize, CheckCircle2, Music } from "lucide-react";
+import { Users, MoveRight, Lightbulb, Focus, Video, Maximize, CheckCircle2 } from "lucide-react";
 import { PaperIcon } from "@/components/ui/PaperIcon";
 import { InteractiveSelector } from "@/components/ui/interactive-selector";
 import { arcadeImages, verveImages } from "@/lib/content/site-images";

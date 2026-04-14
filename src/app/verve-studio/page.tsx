@@ -1,6 +1,6 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
-import { Mic, Mic2, Speaker, Headphones, Video, MoveRight, Camera, Armchair, Monitor, Radio as Soundwave } from "lucide-react";
+import { Mic, MoveRight, Camera, Armchair, Monitor, Radio as Soundwave } from "lucide-react";
 import { PaperIcon } from "@/components/ui/PaperIcon";
 import { InteractiveSelector } from "@/components/ui/interactive-selector";
 import { arcadeImages, verveImages } from "@/lib/content/site-images";

@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Search, Ticket } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { type FormEvent, useState } from "react";
+import { Search, Ticket } from "lucide-react";
 import { motion } from "framer-motion";
 
 import type { EventItem } from "@/lib/events/catalog";
@@ -10,15 +12,8 @@ import { venueImages } from "@/lib/content/site-images";
 
 type EventsCinematicHeroProps = {
   featuredEvent: EventItem;
+  searchQuery?: string;
 };
-
-const tickerItems = [
-  "Do not feel the FOMO",
-  "Zero Convenience Fee",
-  "Curated Events",
-  "Limited Seats",
-  "Live Vibes",
-] as const;
 
 const tileClasses = [
   "left-[-7%] top-[8%] h-[11rem] w-[18rem] md:left-[-3%] md:top-[10%] md:h-[15rem] md:w-[24rem]",
@@ -50,24 +45,32 @@ function getHeroImages(featuredEvent: EventItem) {
   ].filter(Boolean);
 }
 
-export function EventsCinematicHero({ featuredEvent }: EventsCinematicHeroProps) {
+export function EventsCinematicHero({
+  featuredEvent,
+  searchQuery = "",
+}: EventsCinematicHeroProps) {
   const heroImages = getHeroImages(featuredEvent);
+  const router = useRouter();
+  const [query, setQuery] = useState(searchQuery);
+
+  function handleSearch(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const nextQuery = query.trim();
+    const params = new URLSearchParams();
+
+    if (nextQuery.length > 0) {
+      params.set("q", nextQuery);
+    }
+
+    const target = params.toString()
+      ? `/events?${params.toString()}#upcoming-events`
+      : "/events#upcoming-events";
+
+    router.push(target);
+  }
 
   return (
     <section className="relative isolate w-full overflow-hidden bg-[#101010] pt-[6.4rem] text-white sm:pt-[7.4rem] lg:pt-[8.2rem]">
-      <div className="relative z-30 overflow-hidden border-y border-black/35 bg-[#d8f24d] py-2 text-black shadow-[0_16px_44px_rgba(0,0,0,0.34)]">
-        <div className="flex min-w-max animate-[events-lime-ticker_24s_linear_infinite] items-center gap-12 whitespace-nowrap">
-          {[...tickerItems, ...tickerItems, ...tickerItems].map((item, index) => (
-            <span
-              key={`${item}-${index}`}
-              className="text-[11px] font-semibold tracking-[0.02em] text-black/82"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-
       <div className="relative min-h-[520px] overflow-hidden bg-[#101010] md:min-h-[590px] lg:min-h-[620px]">
         <div className="absolute inset-0 z-0">
           {tileClasses.map((className, index) => (
@@ -127,27 +130,30 @@ export function EventsCinematicHero({ featuredEvent }: EventsCinematicHeroProps)
             Find curated nights, workshops, live vibes, and community moments hosted with Black Pepper&apos;s premium event atmosphere.
           </motion.p>
 
-          <motion.div
+          <motion.form
+            onSubmit={handleSearch}
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.52, duration: 0.65 }}
-            className="mt-7 flex w-full max-w-[33rem] flex-col gap-3 rounded-[1.6rem] border border-white/10 bg-white/[0.92] p-2 text-black shadow-[0_24px_90px_rgba(0,0,0,0.48)] backdrop-blur-xl sm:flex-row sm:rounded-full"
+            className="mt-7 flex w-full max-w-[34rem] gap-2 rounded-[1.6rem] border border-white/10 bg-white/[0.94] p-2 text-black shadow-[0_24px_90px_rgba(0,0,0,0.48)] backdrop-blur-xl sm:rounded-full"
           >
-            <Link
-              href="#upcoming-events"
-              className="flex min-h-12 flex-1 items-center gap-3 rounded-full px-4 text-left text-sm font-medium text-black/70 transition-colors hover:bg-black/[0.045]"
-            >
+            <label className="flex min-h-12 flex-1 items-center gap-3 rounded-full px-4 text-left text-sm font-medium text-black/70 transition-colors focus-within:bg-black/[0.045]">
               <Search className="h-4 w-4 text-black/45" />
-              <span>What&apos;s your vibe?</span>
-            </Link>
-            <Link
-              href="#explore-by-category"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-black/[0.08] px-5 text-sm font-semibold text-black transition-all duration-300 hover:bg-[#d8f24d]"
+              <span className="sr-only">Search events</span>
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search events, workshops, comedy..."
+                className="min-w-0 flex-1 bg-transparent text-sm text-black outline-none placeholder:text-black/45"
+              />
+            </label>
+            <button
+              type="submit"
+              className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-black px-5 text-xs font-bold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:bg-[#d8f24d] hover:text-black"
             >
-              <MapPin className="h-4 w-4" />
-              Select your city
-            </Link>
-          </motion.div>
+              Search
+            </button>
+          </motion.form>
 
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -155,8 +161,6 @@ export function EventsCinematicHero({ featuredEvent }: EventsCinematicHeroProps)
             transition={{ delay: 0.62, duration: 0.65 }}
             className="mt-5 flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55"
           >
-            <span>Raipur</span>
-            <span className="h-1 w-1 rounded-full bg-[#d8f24d]" />
             <span>{featuredEvent.categoryLabel}</span>
             <span className="h-1 w-1 rounded-full bg-[#d8f24d]" />
             <Link
@@ -170,16 +174,6 @@ export function EventsCinematicHero({ featuredEvent }: EventsCinematicHeroProps)
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes events-lime-ticker {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-33.333%);
-          }
-        }
-      `}</style>
     </section>
   );
 }
