@@ -3,9 +3,9 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { PremiumGalleryGrid } from "@/components/gallery/PremiumGalleryGrid";
 
 export const metadata = {
-  title: "Gallery | Black Pepper Entertainment",
+  title: "Event Gallery | Black Pepper Entertainment Raipur",
   description:
-    "Explore the incredible moments captured at Verve Studio and The Arcade — the premium creative spaces by Black Pepper Entertainment.",
+    "Explore the incredible moments captured at Verve Studio and The Arcade — the premium creative spaces by Black Pepper Entertainment in Raipur.",
 };
 
 export default function GalleryPage() {

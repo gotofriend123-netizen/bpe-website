@@ -4,8 +4,8 @@ import { MoveRight } from "lucide-react";
 import { BLOG_POSTS } from "@/lib/content/blogs";
 
 export const metadata = {
-  title: "Journal & Blogs | Black Pepper Entertainment",
-  description: "Read the latest news, guides, and creator stories from Black Pepper Entertainment.",
+  title: "Journal & Blogs | Event & Creator Insights in Raipur",
+  description: "Read the latest news, event guides, and creator stories from Black Pepper Entertainment in Raipur, Chhattisgarh.",
 };
 
 export default function BlogsPage() {

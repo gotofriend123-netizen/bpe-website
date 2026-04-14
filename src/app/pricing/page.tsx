@@ -3,8 +3,8 @@ import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 
 export const metadata = {
-  title: "Pricing & Packages | Black Pepper Entertainment",
-  description: "Transparent pricing for The Arcade and Verve Studio.",
+  title: "Pricing for The Arcade & Verve Studio in Raipur",
+  description: "Transparent pricing for The Arcade (Event Venue) and Verve Studio (Podcast Studio) in Raipur.",
 };
 
 const ARCADE_PKGS = [
@@ -22,7 +22,7 @@ export default function PricingPage() {
     <div className="bg-black min-h-screen pt-32 pb-24">
       <div className="container mx-auto px-6 max-w-6xl">
         <AnimatedSection className="text-center mb-24">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">Transparent Pricing</h1>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">Pricing for Event and Studio Bookings in Raipur</h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             Choose a package that fits your creative scale. No hidden fees.
           </p>

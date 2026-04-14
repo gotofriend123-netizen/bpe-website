@@ -2,9 +2,9 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { arcadeImages, verveImages } from "@/lib/content/site-images";
 
 export const metadata = {
-  title: "About Us | Black Pepper Entertainment",
+  title: "About Us | Black Pepper Entertainment Raipur",
   description:
-    "Learn about the mission and vision behind Black Pepper Entertainment's premium creative spaces — Verve Studio and The Arcade.",
+    "Learn about Black Pepper Entertainment in Raipur, Chhattisgarh. Discover the mission behind our premium creative spaces: Verve Studio and The Arcade.",
 };
 
 export default function AboutPage() {

@@ -1,9 +1,11 @@
-"use client";
-
-import { useState } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { FaqAccordion } from "@/components/ui/FaqAccordion";
+import { FAQSchema } from "@/components/seo/LocalSchema";
+
+export const metadata = {
+  title: "Booking FAQ | Black Pepper Entertainment Raipur",
+  description: "Frequently asked questions for booking The Arcade and Verve Studio in Raipur, Chhattisgarh.",
+};
 
 const FAQS = [
   { q: "How do I book a space?", a: "You can book directly through our online reservation system. Just head to the Booking page, select your desired space (The Arcade or Verve Studio), choose your package, date, and time. Your slot will be instantly requested." },
@@ -15,43 +17,16 @@ const FAQS = [
 ];
 
 export default function FAQPage() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
   return (
     <div className="bg-black min-h-screen pt-32 pb-24">
+      <FAQSchema faqs={FAQS} />
       <div className="container mx-auto px-6 max-w-4xl">
         <AnimatedSection className="text-center mb-16">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">FAQ</h1>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">Frequently Asked Questions About Booking in Raipur</h1>
           <p className="text-xl text-gray-400">Everything you need to know before stepping into our spaces.</p>
         </AnimatedSection>
 
-        <AnimatedSection delay={0.2} className="space-y-4">
-          {FAQS.map((faq, i) => {
-            const isOpen = openIndex === i;
-            return (
-              <div 
-                key={i} 
-                className="bg-[#111] border border-white/10 rounded-2xl overflow-hidden transition-all duration-300"
-              >
-                <button 
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none"
-                >
-                  <span className="font-semibold text-lg text-white">{faq.q}</span>
-                  <ChevronDown className={cn("w-5 h-5 text-gray-500 transition-transform duration-300", isOpen && "rotate-180")} />
-                </button>
-                <div 
-                  className={cn(
-                    "px-6 text-gray-400 overflow-hidden transition-all duration-300",
-                    isOpen ? "pb-5 max-h-96 opacity-100" : "max-h-0 opacity-0 pb-0"
-                  )}
-                >
-                  {faq.a}
-                </div>
-              </div>
-            )
-          })}
-        </AnimatedSection>
+        <FaqAccordion faqs={FAQS} />
       </div>
     </div>
   );

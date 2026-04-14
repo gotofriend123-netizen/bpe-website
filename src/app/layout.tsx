@@ -39,6 +39,15 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
       >
+        <script src="https://www.googletagmanager.com/gtag/js?id=G-0L0LHXY2JY" async></script>
+        <script id="google-analytics" dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-0L0LHXY2JY');
+          `
+        }}></script>
         <Navbar currentUser={currentUser} />
         <Suspense fallback={null}>
           <AuthEntryPrompt currentUser={currentUser} />

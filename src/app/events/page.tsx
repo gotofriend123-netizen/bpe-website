@@ -27,9 +27,9 @@ import {
 export const dynamic = "force-static";
 
 export const metadata = {
-  title: "Events | Black Pepper Entertainment",
+  title: "Events in Raipur | Black Pepper Entertainment",
   description:
-    "Discover premium events, workshops, concerts, comedy nights, and curated cultural experiences inside Black Pepper Entertainment.",
+    "Discover premium events, workshops, concerts, comedy nights, and curated cultural experiences hosted in Shankar Nagar, Raipur at Black Pepper Entertainment.",
 };
 
 type EventsPageProps = {

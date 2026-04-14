@@ -5,9 +5,9 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionHeader } from "@/components/events/SectionHeader";
 
 export const metadata = {
-  title: "Host An Event | Black Pepper Entertainment",
+  title: "Host An Event in Raipur | Black Pepper Entertainment",
   description:
-    "Bring your event concept to Black Pepper Entertainment and host it in The Arcade or Verve Studio.",
+    "Bring your event concept to Black Pepper Entertainment and host it in The Arcade or Verve Studio in Shankar Nagar, Raipur.",
 };
 
 export default function HostAnEventPage() {
