@@ -73,30 +73,9 @@ input[type="time"]::-webkit-calendar-picker-indicator:hover {
 
 /* ── Dark Paper / Syndicate Cloth Texture ── */
 .paper-texture-dark {
-  position: relative;
-  isolation: isolate;
-}
-
-/* Layer 1: Real paper texture image — tiled across full page */
-.paper-texture-dark::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
   background: #080808 url("/EVENTS%20IMAGES/ddd245f7f8d2784fe1c6f791844e5cb5.jpg") no-repeat center center;
   background-size: cover;
-}
-
-/* Layer 2: Vignette + subtle grain overlay for depth */
-.paper-texture-dark::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at 50% 50%, transparent 20%, rgba(0,0,0,0.4) 100%);
+  background-attachment: fixed;
 }
 
 @keyframes twinkle {
