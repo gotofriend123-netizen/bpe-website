@@ -64,33 +64,7 @@ function StatCard({
 
 
 
-function MobileHeader({
-  currentUser,
-}: {
-  currentUser: CurrentUserSummary;
-}) {
-  return (
-    <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/6 bg-[#050505]/95 px-4 py-3 backdrop-blur-md sm:hidden">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[#151515] text-white">
-            <UserRound className="h-4 w-4" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-white">{currentUser.name}</p>
-            <p className="text-[10px] text-white/50">My Dashboard</p>
-          </div>
-        </div>
-        <Link
-          href="/booking"
-          className="flex items-center gap-1 rounded-full bg-[#d8f24d] px-3 py-1.5 text-xs font-semibold text-black"
-        >
-          Book
-        </Link>
-      </div>
-    </header>
-  );
-}
+
 
 export function DashboardFrame({
   currentUser,
@@ -111,9 +85,7 @@ export function DashboardFrame({
         <div className="absolute right-[-8%] top-[8%] h-[14rem] w-[14rem] rounded-full bg-white/[0.02] blur-[110px]" />
       </div>
 
-      <MobileHeader currentUser={currentUser} />
-
-      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-3 pt-20 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
+      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-4 pt-32 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
         <div className="grid gap-5 xl:grid-cols-[280px_minmax(0,1fr)]">
           <aside className="hidden xl:block">
             <div className="sticky top-24 rounded-[2.15rem] border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">
@@ -227,13 +199,7 @@ export function DashboardFrame({
 
           <div className="space-y-5">
             <AnimatedSection className="flex flex-col gap-5">
-              <GlowCard
-                contentClassName="rounded-2xl border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)] sm:rounded-[2rem] sm:p-6 lg:p-10"
-                backgroundColor="#111111"
-                borderRadius={32}
-                glowIntensity={0.28}
-                fillOpacity={0.05}
-              >
+              <div className="rounded-2xl lg:border lg:border-white/6 lg:bg-[#111111] py-4 sm:rounded-[2rem] sm:p-6 lg:p-10 lg:shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">
                 <div className="flex flex-col gap-6 sm:gap-8 lg:flex-row lg:items-start lg:justify-between">
                   <div className="max-w-3xl space-y-4">
                     <span className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-[#0b0b0b] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-white/65 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
@@ -292,7 +258,7 @@ export function DashboardFrame({
                     </div>
                   </div>
                 </div>
-              </GlowCard>
+              </div>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
                 <StatCard
