@@ -79,7 +79,7 @@ export function LocalBusinessSchema({
 
   return (
     <script
-      id={`local-schema-${title.replace(/\\s+/g, '-').toLowerCase()}`}
+      id={`local-schema-${title.replace(/\s+/g, '-').toLowerCase()}`}
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />

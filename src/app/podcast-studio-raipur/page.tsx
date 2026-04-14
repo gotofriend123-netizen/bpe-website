@@ -57,7 +57,7 @@ export default function PodcastStudioRaipurPage() {
           <ul className="space-y-4 mb-8">
             <li className="flex items-start gap-3 text-gray-300">
               <Mic2 className="w-6 h-6 text-[#d8f24d] shrink-0" />
-              <span><strong>Broadcast Audio:</strong> Shure SM7B microphones perfectly EQ'd through a RØDECaster Pro.</span>
+              <span><strong>Broadcast Audio:</strong> Shure SM7B microphones perfectly EQ&apos;d through a RØDECaster Pro.</span>
             </li>
             <li className="flex items-start gap-3 text-gray-300">
               <Camera className="w-6 h-6 text-[#d8f24d] shrink-0" />
