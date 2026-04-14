@@ -1,6 +1,7 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
-import { MoveRight, MapPin, Mic2, Camera, UserSquare2 } from "lucide-react";
+import { MoveRight, MapPin } from "lucide-react";
+import { PaperIcon } from "@/components/ui/PaperIcon";
 import { verveImages } from "@/lib/content/site-images";
 import { LocalBusinessSchema, OrganizationSchema } from "@/components/seo/LocalSchema";
 
@@ -56,15 +57,15 @@ export default function PodcastStudioRaipurPage() {
           </p>
           <ul className="space-y-4 mb-8">
             <li className="flex items-start gap-3 text-gray-300">
-              <Mic2 className="w-6 h-6 text-[#d8f24d] shrink-0" />
+              <div className="shrink-0"><PaperIcon name="microphone" size={28} /></div>
               <span><strong>Broadcast Audio:</strong> Shure SM7B microphones perfectly EQ&apos;d through a RØDECaster Pro.</span>
             </li>
             <li className="flex items-start gap-3 text-gray-300">
-              <Camera className="w-6 h-6 text-[#d8f24d] shrink-0" />
+              <div className="shrink-0"><PaperIcon name="camera" size={28} /></div>
               <span><strong>4K Video:</strong> Multi-cam Blackmagic cinema setups pre-balanced.</span>
             </li>
             <li className="flex items-start gap-3 text-gray-300">
-              <UserSquare2 className="w-6 h-6 text-[#d8f24d] shrink-0" />
+              <div className="shrink-0"><PaperIcon name="users" size={28} /></div>
               <span><strong>Two Sets:</strong> Choose between our moody neon corner or the warm acoustic setup.</span>
             </li>
           </ul>

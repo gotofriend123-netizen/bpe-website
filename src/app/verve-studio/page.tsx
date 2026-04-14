@@ -1,6 +1,7 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
 import { Mic, Mic2, Speaker, Headphones, Video, MoveRight, Camera, Armchair, Monitor, Radio as Soundwave } from "lucide-react";
+import { PaperIcon } from "@/components/ui/PaperIcon";
 import { InteractiveSelector } from "@/components/ui/interactive-selector";
 import { arcadeImages, verveImages } from "@/lib/content/site-images";
 
@@ -78,25 +79,25 @@ export default function VerveStudioPage() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <AnimatedSection delay={0.1} direction="up" className="bg-[#0a0a0a] border border-white/10 p-8 rounded-3xl text-center hover:bg-white/5 transition-colors">
-              <Video className="w-10 h-10 text-white mx-auto mb-4" />
+              <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="video" size={56} /></div>
               <h3 className="font-bold text-white mb-2">4K Cinema Cams</h3>
               <p className="text-sm text-gray-400">Crisp, cinematic visuals with stunning depth of field.</p>
             </AnimatedSection>
 
             <AnimatedSection delay={0.2} direction="up" className="bg-[#0a0a0a] border border-white/10 p-8 rounded-3xl text-center hover:bg-white/5 transition-colors">
-              <Mic2 className="w-10 h-10 text-white mx-auto mb-4" />
+              <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="microphone" size={56} /></div>
               <h3 className="font-bold text-white mb-2">Shure SM7B</h3>
               <p className="text-sm text-gray-400">The industry standard for warm, perfect broadcast sound.</p>
             </AnimatedSection>
 
             <AnimatedSection delay={0.3} direction="up" className="bg-[#0a0a0a] border border-white/10 p-8 rounded-3xl text-center hover:bg-white/5 transition-colors">
-              <Speaker className="w-10 h-10 text-white mx-auto mb-4" />
+              <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="speaker" size={56} /></div>
               <h3 className="font-bold text-white mb-2">Aputure Lighting</h3>
               <p className="text-sm text-gray-400">Beautiful, flattering lighting engineered per set.</p>
             </AnimatedSection>
 
             <AnimatedSection delay={0.4} direction="up" className="bg-[#0a0a0a] border border-white/10 p-8 rounded-3xl text-center hover:bg-white/5 transition-colors">
-              <Headphones className="w-10 h-10 text-white mx-auto mb-4" />
+              <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="headphones" size={56} /></div>
               <h3 className="font-bold text-white mb-2">Zero Friction</h3>
               <p className="text-sm text-gray-400">Bring your SD card or hard drive and take raw stems immediately.</p>
             </AnimatedSection>

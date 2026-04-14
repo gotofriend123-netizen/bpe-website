@@ -1,6 +1,7 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
-import { MoveRight, MapPin, Sparkles, Music, GlassWater } from "lucide-react";
+import { MoveRight, MapPin } from "lucide-react";
+import { PaperIcon } from "@/components/ui/PaperIcon";
 import { arcadeImages } from "@/lib/content/site-images";
 import { LocalBusinessSchema, OrganizationSchema } from "@/components/seo/LocalSchema";
 
@@ -52,17 +53,17 @@ export default function PartyHallRaipurPage() {
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
              <AnimatedSection delay={0.1} className="p-8 bg-[#111] rounded-3xl border border-white/10">
-                <Sparkles className="w-10 h-10 text-yellow-500 mx-auto mb-4" />
+                <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="sparkles" size={56} /></div>
                 <h3 className="font-bold text-white text-xl mb-2">Cinematic Vibe</h3>
                 <p className="text-gray-400">Match the room&apos;s entire ambient structure to your birthday or party theme.</p>
              </AnimatedSection>
              <AnimatedSection delay={0.2} className="p-8 bg-[#111] rounded-3xl border border-white/10">
-                <Music className="w-10 h-10 text-[#d8f24d] mx-auto mb-4" />
+                <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="music" size={56} /></div>
                 <h3 className="font-bold text-white text-xl mb-2">Acoustic Perfection</h3>
                 <p className="text-gray-400">Built to handle loud DJ sets without echo, making a flawless dance environment.</p>
              </AnimatedSection>
              <AnimatedSection delay={0.3} className="p-8 bg-[#111] rounded-3xl border border-white/10">
-                <GlassWater className="w-10 h-10 text-cyan-500 mx-auto mb-4" />
+                <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="glass" size={56} /></div>
                 <h3 className="font-bold text-white text-xl mb-2">Private Lounge</h3>
                 <p className="text-gray-400">Rest, prep, or secure belongings in the VIP green room during the party.</p>
              </AnimatedSection>

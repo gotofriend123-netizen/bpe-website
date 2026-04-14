@@ -1,6 +1,7 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
-import { MoveRight, MapPin, Camera, Lightbulb, UserSquare2 } from "lucide-react";
+import { MoveRight, MapPin } from "lucide-react";
+import { PaperIcon } from "@/components/ui/PaperIcon";
 import { verveImages } from "@/lib/content/site-images";
 import { LocalBusinessSchema, OrganizationSchema } from "@/components/seo/LocalSchema";
 
@@ -52,17 +53,17 @@ export default function PhotoshootStudioRaipurPage() {
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
              <AnimatedSection delay={0.1} className="p-8 bg-[#111] rounded-3xl border border-white/10">
-                <Camera className="w-10 h-10 text-pink-500 mx-auto mb-4" />
+                <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="camera" size={56} /></div>
                 <h3 className="font-bold text-white text-xl mb-2">Cinematic Angles</h3>
                 <p className="text-gray-400">Multiple practical backdrops and rich, textured foregrounds available on site.</p>
              </AnimatedSection>
              <AnimatedSection delay={0.2} className="p-8 bg-[#111] rounded-3xl border border-white/10">
-                <Lightbulb className="w-10 h-10 text-yellow-500 mx-auto mb-4" />
+                <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="lightbulb" size={56} /></div>
                 <h3 className="font-bold text-white text-xl mb-2">Aputure Lighting</h3>
                 <p className="text-gray-400">Industry-leading RGB lighting setups to dial in your exact mood.</p>
              </AnimatedSection>
              <AnimatedSection delay={0.3} className="p-8 bg-[#111] rounded-3xl border border-white/10">
-                <UserSquare2 className="w-10 h-10 text-cyan-500 mx-auto mb-4" />
+                <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="shield" size={56} /></div>
                 <h3 className="font-bold text-white text-xl mb-2">Private & Secure</h3>
                 <p className="text-gray-400">Locked-down studio access ensuring talent privacy and focus.</p>
              </AnimatedSection>

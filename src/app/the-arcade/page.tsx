@@ -1,6 +1,7 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
 import { Users, MoveRight, Lightbulb, Focus, Video, Maximize, CheckCircle2, Music } from "lucide-react";
+import { PaperIcon } from "@/components/ui/PaperIcon";
 import { InteractiveSelector } from "@/components/ui/interactive-selector";
 import { arcadeImages, verveImages } from "@/lib/content/site-images";
 
@@ -84,22 +85,22 @@ export default function TheArcadePage() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <AnimatedSection delay={0.1} className="flex flex-col items-center justify-center text-center">
-              <Users className="w-8 h-8 text-gray-500 mb-3" />
+              <div className="mb-3"><PaperIcon name="users" size={40} /></div>
               <p className="text-2xl font-bold text-white">100 / 60</p>
               <p className="text-sm text-gray-400">Standing / Seated</p>
             </AnimatedSection>
             <AnimatedSection delay={0.2} className="flex flex-col items-center justify-center text-center">
-              <Maximize className="w-8 h-8 text-gray-500 mb-3" />
+              <div className="mb-3"><PaperIcon name="shield" size={40} /></div>
               <p className="text-2xl font-bold text-white">1,500 sq ft</p>
               <p className="text-sm text-gray-400">Usable Floor Area</p>
             </AnimatedSection>
             <AnimatedSection delay={0.3} className="flex flex-col items-center justify-center text-center">
-              <Music className="w-8 h-8 text-gray-500 mb-3" />
+              <div className="mb-3"><PaperIcon name="music" size={40} /></div>
               <p className="text-2xl font-bold text-white">Acoustic</p>
               <p className="text-sm text-gray-400">Treated Space</p>
             </AnimatedSection>
             <AnimatedSection delay={0.4} className="flex flex-col items-center justify-center text-center">
-              <CheckCircle2 className="w-8 h-8 text-gray-500 mb-3" />
+              <div className="mb-3"><PaperIcon name="sparkles" size={40} /></div>
               <p className="text-2xl font-bold text-white">24/7</p>
               <p className="text-sm text-gray-400">Availability</p>
             </AnimatedSection>
