@@ -135,10 +135,10 @@ export function EventsCinematicHero({
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.52, duration: 0.65 }}
-            className="mt-7 flex w-full max-w-[34rem] gap-2 rounded-[1.6rem] border border-white/10 bg-white/[0.94] p-2 text-black shadow-[0_24px_90px_rgba(0,0,0,0.48)] backdrop-blur-xl sm:rounded-full"
+            className="mt-7 flex flex-col sm:flex-row w-full max-w-[34rem] gap-2 rounded-[1.6rem] border border-white/10 bg-white/[0.94] p-2 text-black shadow-[0_24px_90px_rgba(0,0,0,0.48)] backdrop-blur-xl sm:rounded-full"
           >
             <label className="flex min-h-12 flex-1 items-center gap-3 rounded-full px-4 text-left text-sm font-medium text-black/70 transition-colors focus-within:bg-black/[0.045]">
-              <Search className="h-4 w-4 text-black/45" />
+              <Search className="h-4 w-4 shrink-0 text-black/45" />
               <span className="sr-only">Search events</span>
               <input
                 value={query}

@@ -32,7 +32,7 @@ export function PaperIcon({ name, size = 48, className = "" }: PaperIconProps) {
       alt={String(name)}
       width={size}
       height={size}
-      className={`object-contain ${className}`}
+      className={`object-contain mix-blend-screen brightness-125 saturate-0 ${className}`}
     />
   );
 }
