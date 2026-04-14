@@ -4,7 +4,6 @@ import { BookingStepsSection } from "@/components/events/BookingStepsSection";
 import { CategoryTilePremium } from "@/components/events/CategoryTilePremium";
 import { EventsCinematicHero } from "@/components/events/EventsCinematicHero";
 import { HotTicketCard } from "@/components/events/HotTicketCard";
-import { MarqueeStrip } from "@/components/events/MarqueeStrip";
 import { PremiumFAQAccordion } from "@/components/events/PremiumFAQAccordion";
 import { PromoBannerLuxury } from "@/components/events/PromoBannerLuxury";
 import { RelatedEventCard } from "@/components/events/RelatedEventCard";
@@ -37,16 +36,6 @@ type EventsPageProps = {
     category?: string;
   };
 };
-
-const MARQUEE_ITEMS = [
-  "LIVE EVENTS",
-  "WORKSHOPS",
-  "COMEDY NIGHTS",
-  "MUSIC EXPERIENCES",
-  "CULTURAL EVENINGS",
-  "EXCLUSIVE TICKETS",
-  "BOOK NOW",
-] as const;
 
 const FAQ_ITEMS = [
   {
@@ -98,14 +87,6 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
         {heroEvent ? (
           <EventsCinematicHero featuredEvent={heroEvent} />
         ) : null}
-      </section>
-
-      <section className="pb-5 md:pb-8">
-        <div className="container mx-auto px-6">
-          <AnimatedSection delay={0.05}>
-            <MarqueeStrip items={MARQUEE_ITEMS} />
-          </AnimatedSection>
-        </div>
       </section>
 
       <section id="upcoming-events" className="py-7 md:py-12">
