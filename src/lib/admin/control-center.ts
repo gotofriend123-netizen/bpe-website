@@ -473,3 +473,123 @@ export async function createOffer(input: CreateOfferInput, createdById?: string)
     },
   });
 }
+
+export async function getAdminEventListingById(eventId: string) {
+  const row = await prisma.eventListing.findUnique({
+    where: { id: eventId },
+  });
+
+  if (!row) return null;
+
+  return {
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    shortTitle: row.shortTitle,
+    category: row.category,
+    categoryLabel: row.categoryLabel,
+    summary: row.summary,
+    teaser: row.teaser,
+    venue: row.venue,
+    organizer: row.organizer,
+    city: row.city,
+    startsAt: row.startsAt.toISOString(),
+    endsAt: row.endsAt.toISOString(),
+    availability: row.availability,
+    priceFrom: row.priceFrom,
+    posterImage: row.posterImage,
+    coverImage: row.coverImage,
+    accent: row.accent,
+    metadataLine: row.metadataLine,
+    hot: row.hot,
+    featured: row.featured,
+    trending: row.trending,
+    homepage: row.homepage,
+    published: row.published,
+    highlights: row.highlights,
+    description: row.description,
+    faq: row.faq,
+    policies: row.policies,
+    ticketTiers: row.ticketTiers,
+  };
+}
+
+export type UpdateEventListingInput = {
+  title: string;
+  slug?: string;
+  category: EventCategoryId;
+  summary: string;
+  teaser: string;
+  venue: string;
+  organizer: string;
+  city: string;
+  startsAt: Date;
+  endsAt: Date;
+  priceFrom: number;
+  posterImage: string;
+  coverImage?: string | null;
+  availability: EventAvailability;
+  metadataLine?: string | null;
+  hot: boolean;
+  featured: boolean;
+  trending: boolean;
+  homepage: boolean;
+  published: boolean;
+  highlights: string[];
+  description: string[];
+  policies: string[];
+  ticketLabel: string;
+  ticketDescription: string;
+  ticketPerks: string[];
+};
+
+export async function updateEventListing(
+  eventId: string,
+  input: UpdateEventListingInput,
+) {
+  const slug = input.slug?.trim() ? slugify(input.slug) : slugify(input.title);
+
+  return prisma.eventListing.update({
+    where: { id: eventId },
+    data: {
+      slug,
+      title: input.title,
+      shortTitle: input.title,
+      category: input.category,
+      categoryLabel: getCategoryLabel(input.category),
+      summary: input.summary,
+      teaser: input.teaser,
+      venue: input.venue,
+      organizer: input.organizer,
+      city: input.city,
+      startsAt: input.startsAt,
+      endsAt: input.endsAt,
+      availability: input.availability,
+      priceFrom: input.priceFrom,
+      posterImage: input.posterImage,
+      coverImage: input.coverImage || input.posterImage,
+      accent: CATEGORY_ACCENTS[input.category],
+      metadataLine:
+        input.metadataLine?.trim() ||
+        `${getCategoryLabel(input.category)} • ${input.organizer} • ${input.city}`,
+      hot: input.hot,
+      featured: input.featured,
+      trending: input.trending,
+      homepage: input.homepage,
+      published: input.published,
+      highlights: input.highlights,
+      description: input.description,
+      policies: input.policies,
+      ticketTiers: [
+        {
+          id: slugify(input.ticketLabel) || "general",
+          label: input.ticketLabel,
+          description: input.ticketDescription,
+          price: input.priceFrom,
+          perks: input.ticketPerks,
+        },
+      ],
+    },
+  });
+}
+

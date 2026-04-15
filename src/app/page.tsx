@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-export const dynamic = "force-static";
+export const revalidate = 60;
 
 import Link from "next/link";
 import {

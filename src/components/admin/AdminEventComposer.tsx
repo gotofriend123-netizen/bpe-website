@@ -24,8 +24,35 @@ import { pickVenueImage } from "@/lib/content/site-images";
 import { type EventCategoryId, EVENT_CATEGORIES } from "@/lib/events/catalog";
 import { cn } from "@/lib/utils";
 
+type EventInitialData = {
+  title: string;
+  category: string;
+  summary: string;
+  teaser: string;
+  venue: string;
+  city: string;
+  startsAt: string;
+  endsAt: string;
+  priceFrom: number;
+  posterImage: string;
+  coverImage: string | null;
+  metadataLine: string | null;
+  hot: boolean;
+  featured: boolean;
+  trending: boolean;
+  homepage: boolean;
+  published: boolean;
+  highlights: unknown;
+  description: unknown;
+  policies: unknown;
+  ticketTiers: unknown;
+  slug: string;
+};
+
 type AdminEventComposerProps = {
   action: (formData: FormData) => void | Promise<void>;
+  initialData?: EventInitialData;
+  eventId?: string;
 };
 
 type Step = 1 | 2 | 3;
@@ -209,35 +236,60 @@ function FileTrigger({
   );
 }
 
-export function AdminEventComposer({ action }: AdminEventComposerProps) {
+function extractStringArray(value: unknown): string[] {
+  if (Array.isArray(value)) return value.filter((item): item is string => typeof item === "string");
+  return [];
+}
+
+function extractFirstTicketTier(value: unknown): { label: string; description: string; perks: string[] } {
+  if (Array.isArray(value) && value.length > 0) {
+    const tier = value[0];
+    if (tier && typeof tier === "object") {
+      return {
+        label: typeof tier.label === "string" ? tier.label : "General Access",
+        description: typeof tier.description === "string" ? tier.description : "Premium event access",
+        perks: Array.isArray(tier.perks) ? tier.perks.filter((p: unknown): p is string => typeof p === "string") : [],
+      };
+    }
+  }
+  return { label: "General Access", description: "Premium event entry with core access perks.", perks: ["Entry access", "Curated event experience"] };
+}
+
+export function AdminEventComposer({ action, initialData, eventId }: AdminEventComposerProps) {
+  const isEditMode = Boolean(eventId && initialData);
   const [currentStep, setCurrentStep] = useState<Step>(1);
 
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState<EventCategoryId>(CATEGORY_OPTIONS[0]?.id ?? "concert");
-  const [summary, setSummary] = useState("");
-  const [teaser, setTeaser] = useState("");
-  const [city, setCity] = useState("Raipur");
+  const initTicket = initialData ? extractFirstTicketTier(initialData.ticketTiers) : null;
+  const initStartDate = initialData?.startsAt ? initialData.startsAt.slice(0, 10) : "";
+  const initStartTime = initialData?.startsAt ? initialData.startsAt.slice(11, 16) : "";
+  const initEndTime = initialData?.endsAt ? initialData.endsAt.slice(11, 16) : "";
+
+  const [title, setTitle] = useState(initialData?.title ?? "");
+  const [category, setCategory] = useState<EventCategoryId>((initialData?.category as EventCategoryId) ?? CATEGORY_OPTIONS[0]?.id ?? "concert");
+  const [summary, setSummary] = useState(initialData?.summary ?? "");
+  const [teaser, setTeaser] = useState(initialData?.teaser ?? "");
+  const [city, setCity] = useState(initialData?.city ?? "Raipur");
   const [stateRegion, setStateRegion] = useState("Chhattisgarh");
-  const [venue, setVenue] = useState("The Arcade");
-  const [address, setAddress] = useState("");
-  const [eventDate, setEventDate] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
+  const [venue, setVenue] = useState(initialData?.venue ?? "The Arcade");
+  const [address, setAddress] = useState(initialData?.venue ?? "");
+  const [eventDate, setEventDate] = useState(initStartDate);
+  const [startTime, setStartTime] = useState(initStartTime);
+  const [endTime, setEndTime] = useState(initEndTime);
   const [dateType, setDateType] = useState("single_day");
-  const [priceType, setPriceType] = useState("paid");
-  const [priceFrom, setPriceFrom] = useState("799");
-  const [ticketLabel, setTicketLabel] = useState("General Access");
-  const [ticketDescription, setTicketDescription] = useState("Premium event entry with core access perks.");
-  const [ticketPerks, setTicketPerks] = useState("Entry access\nCurated event experience");
-  const [highlights, setHighlights] = useState("Premium venue atmosphere\nCurated crowd experience");
+  const [priceType, setPriceType] = useState(initialData ? (initialData.priceFrom === 0 ? "free" : "paid") : "paid");
+  const [priceFrom, setPriceFrom] = useState(String(initialData?.priceFrom ?? "799"));
+  const [ticketLabel, setTicketLabel] = useState(initTicket?.label ?? "General Access");
+  const [ticketDescription, setTicketDescription] = useState(initTicket?.description ?? "Premium event entry with core access perks.");
+  const [ticketPerks, setTicketPerks] = useState(initTicket?.perks.join("\n") ?? "Entry access\nCurated event experience");
+  const [highlights, setHighlights] = useState(initialData ? extractStringArray(initialData.highlights).join("\n") : "Premium venue atmosphere\nCurated crowd experience");
   const [description, setDescription] = useState(
-    "A premium event experience designed for high-energy guests.\nExpect polished production, strong pacing, and a refined on-ground atmosphere.",
+    initialData ? extractStringArray(initialData.description).join("\n") : "A premium event experience designed for high-energy guests.\nExpect polished production, strong pacing, and a refined on-ground atmosphere.",
   );
   const [policies, setPolicies] = useState(
-    "Tickets are non-refundable once confirmed.\nPlease arrive 20 minutes before the event starts.",
+    initialData ? extractStringArray(initialData.policies).join("\n") : "Tickets are non-refundable once confirmed.\nPlease arrive 20 minutes before the event starts.",
   );
-  const [posterImagePath, setPosterImagePath] = useState("");
-  const [coverImagePath, setCoverImagePath] = useState("");
+  const [posterImagePath, setPosterImagePath] = useState(initialData?.posterImage ?? "");
+  const [coverImagePath, setCoverImagePath] = useState(initialData?.coverImage ?? "");
 
   const [posterPreviewUrl, setPosterPreviewUrl] = useState<string>(pickVenueImage(0));
   const [posterFileName, setPosterFileName] = useState("No poster selected");
@@ -399,7 +451,7 @@ export function AdminEventComposer({ action }: AdminEventComposerProps) {
       <div className="rounded-[2rem] border border-white/8 bg-white/[0.03] p-5 sm:p-7">
         <div className="text-center">
           <h2 className="text-[2.2rem] font-semibold tracking-[-0.05em] text-white sm:text-[2.8rem]">
-            Create Event
+            {isEditMode ? "Edit Event" : "Create Event"}
           </h2>
 
           <div className="mt-7 grid grid-cols-3 gap-2 md:gap-4">
@@ -410,6 +462,7 @@ export function AdminEventComposer({ action }: AdminEventComposerProps) {
         </div>
 
         <form action={action} encType="multipart/form-data" className="mt-8">
+          {eventId ? <input type="hidden" name="eventId" value={eventId} /> : null}
           <input type="hidden" name="title" value={title} />
           <input type="hidden" name="category" value={category} />
           <input type="hidden" name="summary" value={summary} />
@@ -672,11 +725,11 @@ export function AdminEventComposer({ action }: AdminEventComposerProps) {
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
-              <ToggleField name="hot" label="Mark as hot-selling" />
-              <ToggleField name="featured" label="Feature on /events" />
-              <ToggleField name="trending" label="Include in trending" />
-              <ToggleField name="homepage" label="Show on homepage preview" />
-              <ToggleField name="published" label="Publish immediately" defaultChecked />
+              <ToggleField name="hot" label="Mark as hot-selling" defaultChecked={initialData?.hot} />
+              <ToggleField name="featured" label="Feature on /events" defaultChecked={initialData?.featured} />
+              <ToggleField name="trending" label="Include in trending" defaultChecked={initialData?.trending} />
+              <ToggleField name="homepage" label="Show on homepage preview" defaultChecked={initialData?.homepage} />
+              <ToggleField name="published" label="Publish immediately" defaultChecked={initialData?.published ?? true} />
             </div>
           </section>
 
@@ -714,7 +767,7 @@ export function AdminEventComposer({ action }: AdminEventComposerProps) {
                   !stepThreeReady && "cursor-not-allowed opacity-45",
                 )}
               >
-                Create Event
+                {isEditMode ? "Save Changes" : "Create Event"}
               </button>
             )}
           </div>

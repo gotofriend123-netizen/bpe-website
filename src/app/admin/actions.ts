@@ -11,7 +11,7 @@ import {
 } from "@prisma/client";
 import { z } from "zod";
 
-import { createEventListing, createOffer } from "@/lib/admin/control-center";
+import { createEventListing, createOffer, updateEventListing } from "@/lib/admin/control-center";
 import { saveEventImageUpload } from "@/lib/admin/event-media";
 import {
   addBookingTag,
@@ -568,6 +568,104 @@ export async function createOfferAction(formData: FormData) {
 // ═══════════════════════════════════════════════
 // AGENT 3 — Event Management Actions
 // ═══════════════════════════════════════════════
+
+export async function updateEventListingAction(formData: FormData) {
+  await requireAdminSession();
+  const eventId = readString(formData, "eventId");
+  if (!eventId) {
+    redirect("/admin/events?error=Event%20ID%20is%20required.");
+  }
+
+  const posterFile = readFile(formData, "posterFile");
+  const coverFile = readFile(formData, "coverFile");
+
+  const parsed = eventListingSchema.safeParse({
+    title: readString(formData, "title"),
+    slug: readString(formData, "slug") || undefined,
+    category: readString(formData, "category"),
+    summary: readString(formData, "summary"),
+    teaser: readString(formData, "teaser"),
+    venue: readString(formData, "venue"),
+    organizer: readString(formData, "organizer"),
+    city: readString(formData, "city"),
+    startsAt: readString(formData, "startsAt"),
+    endsAt: readString(formData, "endsAt"),
+    priceFrom: readNumber(formData, "priceFrom"),
+    posterImage: readString(formData, "posterImage"),
+    coverImage: readString(formData, "coverImage") || undefined,
+    availability: readString(formData, "availability"),
+    metadataLine: readString(formData, "metadataLine") || undefined,
+    hot: readBoolean(formData, "hot"),
+    featured: readBoolean(formData, "featured"),
+    trending: readBoolean(formData, "trending"),
+    homepage: readBoolean(formData, "homepage"),
+    published: readBoolean(formData, "published"),
+    highlights: readList(formData, "highlights"),
+    description: readList(formData, "description"),
+    policies: readList(formData, "policies"),
+    ticketLabel: readString(formData, "ticketLabel"),
+    ticketDescription: readString(formData, "ticketDescription"),
+    ticketPerks: readList(formData, "ticketPerks"),
+  });
+
+  if (!parsed.success) {
+    redirect(`/admin/events/${eventId}?error=Please%20review%20the%20event%20details%20before%20saving.`);
+  }
+
+  const startsAt = new Date(parsed.data.startsAt);
+  const endsAt = new Date(parsed.data.endsAt);
+
+  if (Number.isNaN(startsAt.getTime()) || Number.isNaN(endsAt.getTime()) || endsAt <= startsAt) {
+    redirect(`/admin/events/${eventId}?error=Please%20enter%20a%20valid%20event%20date%20range.`);
+  }
+
+  let posterImage = parsed.data.posterImage?.trim() || "";
+  let coverImage = parsed.data.coverImage?.trim() || undefined;
+
+  try {
+    if (posterFile) {
+      posterImage = await saveEventImageUpload(
+        posterFile,
+        "poster",
+        parsed.data.slug || parsed.data.title,
+      );
+    }
+
+    if (coverFile) {
+      coverImage = await saveEventImageUpload(
+        coverFile,
+        "cover",
+        parsed.data.slug || parsed.data.title,
+      );
+    }
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Unable to upload the event image right now.";
+    redirect(`/admin/events/${eventId}?error=${encodeURIComponent(message)}`);
+  }
+
+  if (!posterImage) {
+    redirect(`/admin/events/${eventId}?error=Please%20upload%20a%20poster%20or%20enter%20a%20poster%20image%20path.`);
+  }
+
+  try {
+    const updated = await updateEventListing(eventId, {
+      ...parsed.data,
+      posterImage,
+      coverImage: coverImage || posterImage,
+      startsAt,
+      endsAt,
+    });
+
+    revalidateAdminAndEventPages(updated.slug);
+    redirect(`/admin/events?success=${encodeURIComponent(updated.title + " updated")}`);
+  } catch (error) {
+    if (error instanceof Error && error.message === "NEXT_REDIRECT") throw error;
+    const message =
+      error instanceof Error ? error.message : "Unable to update the event listing right now.";
+    redirect(`/admin/events/${eventId}?error=${encodeURIComponent(message)}`);
+  }
+}
 
 export async function toggleEventPublishAction(formData: FormData) {
   await requireAdminSession();

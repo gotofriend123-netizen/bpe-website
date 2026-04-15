@@ -9,16 +9,9 @@ import { EventPosterCard } from "@/components/events/EventPosterCard";
 import { EventStatusBadge } from "@/components/events/EventStatusBadge";
 import { SectionHeader } from "@/components/events/SectionHeader";
 import type { EventFaq } from "@/lib/events/catalog";
-import { getEventItemBySlug, getRelatedEventItems, getAllEventItems } from "@/lib/events/repository";
+import { getEventItemBySlug, getRelatedEventItems } from "@/lib/events/repository";
 
-export const dynamic = "force-static";
-
-export async function generateStaticParams() {
-  const events = await getAllEventItems();
-  return events.map((event) => ({
-    slug: event.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 type EventDetailPageProps = {
   params: {

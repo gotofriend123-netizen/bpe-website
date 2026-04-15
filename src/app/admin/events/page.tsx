@@ -6,13 +6,13 @@ import {
   Eye,
   EyeOff,
   Flame,
+  Pencil,
   Radio,
   Sparkles,
   Trash2,
 } from "lucide-react";
 
 import {
-  archiveEventAction,
   cloneEventAction,
   createEventListingAction,
   deleteEventAction,
@@ -181,6 +181,15 @@ export default async function AdminEventsPage({ searchParams }: AdminEventsPageP
                       )}
                     </button>
                   </form>
+
+                  {/* Edit */}
+                  <Link
+                    href={`/admin/events/${event.id}`}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-all hover:bg-white hover:text-black"
+                  >
+                    <Pencil className="h-3.5 w-3.5" />
+                    Edit
+                  </Link>
 
                   {/* View live page (only if published) */}
                   {event.published ? (
