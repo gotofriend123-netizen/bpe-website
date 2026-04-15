@@ -765,28 +765,57 @@ export async function cloneEventAction(formData: FormData) {
 }
 
 export async function getEventAnalytics(eventSlug: string) {
-  const bookings = await prisma.eventBooking.findMany({
-    where: { eventSlug },
-    select: {
-      id: true,
-      quantity: true,
-      totalAmount: true,
-      status: true,
-      createdAt: true,
-    },
-    orderBy: { createdAt: "desc" },
-  });
+  const [bookings, eventListing] = await Promise.all([
+    prisma.eventBooking.findMany({
+      where: { eventSlug },
+      select: {
+        id: true,
+        reference: true,
+        customerName: true,
+        customerEmail: true,
+        ticketTierLabel: true,
+        quantity: true,
+        totalAmount: true,
+        status: true,
+        createdAt: true,
+      },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.eventListing.findUnique({
+      where: { slug: eventSlug },
+      select: { viewCount: true },
+    }),
+  ]);
 
   const confirmed = bookings.filter((b) => b.status === "confirmed");
+  const cancelled = bookings.filter((b) => b.status === "cancelled");
   const totalTickets = confirmed.reduce((sum, b) => sum + b.quantity, 0);
   const totalRevenue = confirmed.reduce((sum, b) => sum + b.totalAmount, 0);
+  const cancelledRevenue = cancelled.reduce((sum, b) => sum + b.totalAmount, 0);
 
   return {
     totalBookings: bookings.length,
     confirmedBookings: confirmed.length,
-    cancelledBookings: bookings.filter((b) => b.status === "cancelled").length,
+    cancelledBookings: cancelled.length,
     totalTicketsSold: totalTickets,
     totalRevenue,
-    recentBookings: bookings.slice(0, 10),
+    cancelledRevenue,
+    pageViews: eventListing?.viewCount ?? 0,
+    conversionRate: eventListing?.viewCount
+      ? Number(((confirmed.length / eventListing.viewCount) * 100).toFixed(1))
+      : 0,
+    recentBookings: bookings.slice(0, 20),
   };
 }
+
+export async function incrementEventPageView(slug: string) {
+  try {
+    await prisma.eventListing.update({
+      where: { slug },
+      data: { viewCount: { increment: 1 } },
+    });
+  } catch {
+    // Silently fail — page view tracking should never break the page
+  }
+}
+

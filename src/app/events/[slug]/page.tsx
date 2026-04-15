@@ -10,6 +10,7 @@ import { EventStatusBadge } from "@/components/events/EventStatusBadge";
 import { SectionHeader } from "@/components/events/SectionHeader";
 import type { EventFaq } from "@/lib/events/catalog";
 import { getEventItemBySlug, getRelatedEventItems } from "@/lib/events/repository";
+import { incrementEventPageView } from "@/app/admin/actions";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +44,9 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
   const relatedEvents = await getRelatedEventItems(event.slug, 3);
   const usesPosterAsHero = event.coverImage === event.posterImage;
+
+  // Track page view (fire-and-forget — never blocks render)
+  incrementEventPageView(event.slug);
 
   return (
     <div className="min-h-screen bg-black pb-24 pt-24 text-white sm:pt-28 event-page-bg">
