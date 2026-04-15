@@ -125,7 +125,7 @@ export default async function AdminEventDetailPage({ params, searchParams }: Adm
                 {event.categoryLabel}
               </span>
             </div>
-            <h1 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl">
+            <h1 className="mt-2 text-xl font-semibold tracking-[-0.04em] text-white sm:text-3xl">
               {event.title}
             </h1>
             <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-zinc-400">
@@ -140,12 +140,12 @@ export default async function AdminEventDetailPage({ params, searchParams }: Adm
         </div>
 
         {/* Quick actions */}
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
           <form action={toggleEventPublishAction}>
             <input type="hidden" name="eventId" value={event.id} />
             <button
               type="submit"
-              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] transition-all ${
+              className={`inline-flex w-full items-center justify-center gap-1.5 rounded-full px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] transition-all sm:w-auto sm:px-4 sm:text-[11px] sm:tracking-[0.18em] ${
                 event.published
                   ? "border border-rose-400/20 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20"
                   : "border border-emerald-400/20 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20"
@@ -163,7 +163,7 @@ export default async function AdminEventDetailPage({ params, searchParams }: Adm
             <Link
               href={`/events/${event.slug}`}
               target="_blank"
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-all hover:bg-white hover:text-black"
+              className="inline-flex items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-all hover:bg-white hover:text-black sm:px-4 sm:text-[11px] sm:tracking-[0.18em]"
             >
               <ExternalLink className="h-3.5 w-3.5" /> View Live
             </Link>
@@ -173,7 +173,7 @@ export default async function AdminEventDetailPage({ params, searchParams }: Adm
             <input type="hidden" name="eventId" value={event.id} />
             <button
               type="submit"
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-all hover:bg-white hover:text-black"
+              className="inline-flex w-full items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-all hover:bg-white hover:text-black sm:w-auto sm:px-4 sm:text-[11px] sm:tracking-[0.18em]"
             >
               <Copy className="h-3.5 w-3.5" /> Clone
             </button>
@@ -184,7 +184,7 @@ export default async function AdminEventDetailPage({ params, searchParams }: Adm
               <input type="hidden" name="eventId" value={event.id} />
               <button
                 type="submit"
-                className="inline-flex items-center gap-1.5 rounded-full border border-rose-500/15 bg-rose-500/[0.07] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-rose-400 transition-all hover:bg-rose-500/20"
+                className="inline-flex w-full items-center justify-center gap-1.5 rounded-full border border-rose-500/15 bg-rose-500/[0.07] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-rose-400 transition-all hover:bg-rose-500/20 sm:w-auto sm:px-4 sm:text-[11px] sm:tracking-[0.18em]"
               >
                 <Trash2 className="h-3.5 w-3.5" /> Delete
               </button>
@@ -193,44 +193,47 @@ export default async function AdminEventDetailPage({ params, searchParams }: Adm
         </div>
       </div>
 
-      <div className="flex gap-1 rounded-full border border-white/8 bg-white/[0.02] p-1">
-        <Link
-          href={`/admin/events/${event.id}?tab=analytics`}
-          className={`inline-flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.18em] transition-all ${
-            activeTab === "analytics"
-              ? "bg-white text-black shadow-[0_4px_16px_rgba(255,255,255,0.1)]"
-              : "text-zinc-400 hover:text-white"
-          }`}
-        >
-          <BarChart3 className="h-3.5 w-3.5" /> Analytics
-        </Link>
-        <Link
-          href={`/admin/events/${event.id}?tab=customers`}
-          className={`inline-flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.18em] transition-all ${
-            activeTab === "customers"
-              ? "bg-white text-black shadow-[0_4px_16px_rgba(255,255,255,0.1)]"
-              : "text-zinc-400 hover:text-white"
-          }`}
-        >
-          <Users className="h-3.5 w-3.5" /> Customers
-        </Link>
-        <Link
-          href={`/admin/events/${event.id}?tab=edit`}
-          className={`inline-flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.18em] transition-all ${
-            activeTab === "edit"
-              ? "bg-white text-black shadow-[0_4px_16px_rgba(255,255,255,0.1)]"
-              : "text-zinc-400 hover:text-white"
-          }`}
-        >
-          <Pencil className="h-3.5 w-3.5" /> Edit Event
-        </Link>
+      {/* Tab Navigation — horizontally scrollable on mobile */}
+      <div className="-mx-1 overflow-x-auto px-1">
+        <div className="flex min-w-0 gap-1 rounded-[1.2rem] border border-white/8 bg-white/[0.02] p-1">
+          <Link
+            href={`/admin/events/${event.id}?tab=analytics`}
+            className={`inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[0.9rem] px-3 py-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] transition-all sm:flex-1 sm:px-4 sm:tracking-[0.18em] ${
+              activeTab === "analytics"
+                ? "bg-white text-black shadow-[0_4px_16px_rgba(255,255,255,0.1)]"
+                : "text-zinc-400 hover:text-white"
+            }`}
+          >
+            <BarChart3 className="h-3.5 w-3.5" /> Analytics
+          </Link>
+          <Link
+            href={`/admin/events/${event.id}?tab=customers`}
+            className={`inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[0.9rem] px-3 py-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] transition-all sm:flex-1 sm:px-4 sm:tracking-[0.18em] ${
+              activeTab === "customers"
+                ? "bg-white text-black shadow-[0_4px_16px_rgba(255,255,255,0.1)]"
+                : "text-zinc-400 hover:text-white"
+            }`}
+          >
+            <Users className="h-3.5 w-3.5" /> Customers
+          </Link>
+          <Link
+            href={`/admin/events/${event.id}?tab=edit`}
+            className={`inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[0.9rem] px-3 py-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] transition-all sm:flex-1 sm:px-4 sm:tracking-[0.18em] ${
+              activeTab === "edit"
+                ? "bg-white text-black shadow-[0_4px_16px_rgba(255,255,255,0.1)]"
+                : "text-zinc-400 hover:text-white"
+            }`}
+          >
+            <Pencil className="h-3.5 w-3.5" /> Edit
+          </Link>
+        </div>
       </div>
 
       {/* ── Analytics Tab ── */}
       {activeTab === "analytics" ? (
         <div className="space-y-6">
           {/* Stats grid */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
             <StatCard
               label="Total Revenue"
               value={`₹${analytics.totalRevenue.toLocaleString("en-IN")}`}
