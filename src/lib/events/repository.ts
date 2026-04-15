@@ -4,7 +4,6 @@ import { EventAvailability as EventAvailabilityEnum, type Prisma } from "@prisma
 
 import { prisma } from "@/lib/prisma";
 import {
-  EVENTS,
   type EventCategoryId,
   type EventFaq,
   type EventItem,
@@ -201,29 +200,8 @@ async function getDynamicEventItems() {
   return rows.map(toEventItem);
 }
 
-function mergeEvents(dynamicEvents: EventItem[]) {
-  const map = new Map<string, EventItem>();
-  const now = new Date();
-
-  for (const event of EVENTS) {
-    if (new Date(event.endsAt) > now) {
-      map.set(event.slug, event);
-    }
-  }
-
-  for (const event of dynamicEvents) {
-    if (new Date(event.endsAt) > now) {
-      map.set(event.slug, event);
-    }
-  }
-
-  return Array.from(map.values()).sort(
-    (left, right) => new Date(left.startsAt).getTime() - new Date(right.startsAt).getTime(),
-  );
-}
-
 export async function getAllEventItems() {
-  return mergeEvents(await getDynamicEventItems());
+  return await getDynamicEventItems();
 }
 
 export async function getEventItemBySlug(slug: string) {

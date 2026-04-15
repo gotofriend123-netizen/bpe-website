@@ -183,8 +183,14 @@ export function AccountMenu({ currentUser, className, onNavigate }: AccountMenuP
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.12, ease: "easeOut" }}
-            className="absolute right-0 top-full z-50 mt-2 w-[min(92vw,320px)] origin-top-right"
+            className="absolute right-0 top-full z-[60] mt-2 w-[min(92vw,320px)] origin-top-right"
           >
+            {/* Backdrop — closes menu on tap */}
+            <div
+              className="fixed inset-0 z-[-1]"
+              onClick={() => setOpen(false)}
+              aria-hidden="true"
+            />
             <div className="overflow-hidden rounded-[1.75rem] border border-white/14 bg-[linear-gradient(180deg,rgba(18,18,18,0.98),rgba(12,12,12,0.92))] p-2.5 shadow-[0_24px_60px_rgba(0,0,0,0.42)] backdrop-blur-2xl">
               <div className="rounded-[1.25rem] border border-white/8 bg-white/[0.04] p-4">
                 <div className="flex items-center gap-3">
