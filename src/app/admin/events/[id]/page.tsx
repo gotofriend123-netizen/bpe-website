@@ -17,6 +17,8 @@ import {
   Trash2,
   TrendingUp,
   Users,
+  Phone,
+  Mail,
 } from "lucide-react";
 
 import { AdminEventComposer } from "@/components/admin/AdminEventComposer";
@@ -191,7 +193,6 @@ export default async function AdminEventDetailPage({ params, searchParams }: Adm
         </div>
       </div>
 
-      {/* ── Tab Navigation ── */}
       <div className="flex gap-1 rounded-full border border-white/8 bg-white/[0.02] p-1">
         <Link
           href={`/admin/events/${event.id}?tab=analytics`}
@@ -202,6 +203,16 @@ export default async function AdminEventDetailPage({ params, searchParams }: Adm
           }`}
         >
           <BarChart3 className="h-3.5 w-3.5" /> Analytics
+        </Link>
+        <Link
+          href={`/admin/events/${event.id}?tab=customers`}
+          className={`inline-flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.18em] transition-all ${
+            activeTab === "customers"
+              ? "bg-white text-black shadow-[0_4px_16px_rgba(255,255,255,0.1)]"
+              : "text-zinc-400 hover:text-white"
+          }`}
+        >
+          <Users className="h-3.5 w-3.5" /> Customers
         </Link>
         <Link
           href={`/admin/events/${event.id}?tab=edit`}
@@ -322,6 +333,68 @@ export default async function AdminEventDetailPage({ params, searchParams }: Adm
             </div>
           </section>
         </div>
+      ) : null}
+
+      {/* ── Customers Tab ── */}
+      {activeTab === "customers" ? (
+        <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(19,19,19,0.98),rgba(11,11,11,0.94))] p-6">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-500">
+                Customer Directory
+              </p>
+              <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-white">
+                All Customers ({analytics.recentBookings.length})
+              </h2>
+            </div>
+          </div>
+
+          <div className="mt-5 space-y-2">
+            {analytics.recentBookings.length === 0 ? (
+              <p className="py-8 text-center text-sm text-zinc-500">
+                No customers yet for this event.
+              </p>
+            ) : null}
+
+            {analytics.recentBookings.map((booking) => (
+              <div
+                key={booking.id}
+                className="rounded-[1.2rem] border border-white/6 bg-white/[0.02] px-5 py-4"
+              >
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="min-w-0 flex-1 space-y-1.5">
+                    <p className="text-base font-semibold text-white">{booking.customerName}</p>
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-zinc-400">
+                      <span className="inline-flex items-center gap-1.5">
+                        <Mail className="h-3.5 w-3.5 text-zinc-500" />
+                        {booking.customerEmail}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5">
+                        <Phone className="h-3.5 w-3.5 text-zinc-500" />
+                        {booking.customerPhone}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="text-right">
+                      <p className="text-sm font-medium text-white">₹{booking.totalAmount.toLocaleString("en-IN")}</p>
+                      <p className="text-[11px] text-zinc-500">{booking.ticketTierLabel} × {booking.quantity}</p>
+                    </div>
+                    <span
+                      className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${
+                        booking.status === "confirmed"
+                          ? "border border-emerald-400/20 bg-emerald-500/10 text-emerald-300"
+                          : "border border-rose-400/20 bg-rose-500/10 text-rose-300"
+                      }`}
+                    >
+                      {booking.status}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       ) : null}
 
       {/* ── Edit Tab ── */}

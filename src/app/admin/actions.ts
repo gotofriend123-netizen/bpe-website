@@ -508,11 +508,11 @@ export async function createEventListingAction(formData: FormData) {
     );
 
     revalidateAdminAndEventPages(created.slug);
-    redirect(`/admin/events?success=${encodeURIComponent(created.title)}`);
+    redirect(`/admin/events/new?success=${encodeURIComponent(created.title)}`);
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Unable to create the event listing right now.";
-    redirect(`/admin/events?error=${encodeURIComponent(message)}`);
+    redirect(`/admin/events/new?error=${encodeURIComponent(message)}`);
   }
 }
 
@@ -773,6 +773,7 @@ export async function getEventAnalytics(eventSlug: string) {
         reference: true,
         customerName: true,
         customerEmail: true,
+        customerPhone: true,
         ticketTierLabel: true,
         quantity: true,
         totalAmount: true,
