@@ -86,12 +86,34 @@ input[type="time"]::-webkit-calendar-picker-indicator:hover {
   background-color: #050505;
   background-image: 
     linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-    url("/EVENTS%20IMAGES/EVENT%20BACKGROUND%20%282%29.svg");
+    url("/event-bg.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   /* Hardware acceleration fix for iOS */
   transform: translateZ(0); 
+}
+
+/* ── Event Page Background — slightly more visible texture ── */
+.event-page-bg {
+  background-color: transparent !important;
+  position: relative;
+  isolation: isolate;
+}
+.event-page-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: #050505;
+  background-image: 
+    linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url("/event-bg.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: translateZ(0);
 }
 
 @keyframes twinkle {

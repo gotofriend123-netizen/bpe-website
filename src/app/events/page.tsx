@@ -130,7 +130,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
   const hasActiveFilter = Boolean(selectedCategory || searchQuery);
 
   return (
-    <div className="min-h-screen bg-black pb-12 text-white md:pb-18 paper-texture-dark">
+    <div className="min-h-screen bg-black pb-12 text-white md:pb-18 event-page-bg">
       <section className="w-full">
         {heroEvent ? (
           <EventsCinematicHero featuredEvent={heroEvent} searchQuery={searchQuery} />

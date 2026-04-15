@@ -21,7 +21,7 @@ export default async function EventConfirmationPage({
   const booking = await getEventBookingByReference(reference);
 
   return (
-    <div className="min-h-screen bg-black px-6 pb-24 pt-36 text-white paper-texture-dark">
+    <div className="min-h-screen bg-black px-6 pb-24 pt-36 text-white event-page-bg">
       <div className="mx-auto max-w-3xl">
         <AnimatedSection>
           <div className="rounded-[2.25rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-8 shadow-[0_24px_70px_rgba(0,0,0,0.3)] md:p-10">
