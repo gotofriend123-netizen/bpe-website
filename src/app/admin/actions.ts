@@ -564,3 +564,131 @@ export async function createOfferAction(formData: FormData) {
     redirect(`/admin/offers?error=${encodeURIComponent(message)}`);
   }
 }
+
+// ═══════════════════════════════════════════════
+// AGENT 3 — Event Management Actions
+// ═══════════════════════════════════════════════
+
+export async function toggleEventPublishAction(formData: FormData) {
+  await requireAdminSession();
+  const eventId = readString(formData, "eventId");
+  if (!eventId) throw new Error("Event ID is required.");
+
+  const event = await prisma.eventListing.findUnique({
+    where: { id: eventId },
+    select: { published: true },
+  });
+  if (!event) throw new Error("Event not found.");
+
+  await prisma.eventListing.update({
+    where: { id: eventId },
+    data: { published: !event.published },
+  });
+
+  revalidateAdminAndEventPages();
+}
+
+export async function archiveEventAction(formData: FormData) {
+  await requireAdminSession();
+  const eventId = readString(formData, "eventId");
+  if (!eventId) throw new Error("Event ID is required.");
+
+  await prisma.eventListing.update({
+    where: { id: eventId },
+    data: { published: false },
+  });
+
+  revalidateAdminAndEventPages();
+}
+
+export async function deleteEventAction(formData: FormData) {
+  await requireAdminSession();
+  const eventId = readString(formData, "eventId");
+  if (!eventId) throw new Error("Event ID is required.");
+
+  const event = await prisma.eventListing.findUnique({
+    where: { id: eventId },
+    select: { slug: true },
+  });
+
+  if (!event) throw new Error("Event not found.");
+
+  await prisma.eventListing.delete({ where: { id: eventId } });
+  revalidateAdminAndEventPages(event.slug);
+}
+
+export async function cloneEventAction(formData: FormData) {
+  await requireAdminSession();
+  const eventId = readString(formData, "eventId");
+  if (!eventId) throw new Error("Event ID is required.");
+
+  const original = await prisma.eventListing.findUnique({
+    where: { id: eventId },
+  });
+
+  if (!original) throw new Error("Event not found.");
+
+  const newSlug = `${original.slug}-copy-${Date.now().toString(36)}`;
+
+  await prisma.eventListing.create({
+    data: {
+      slug: newSlug,
+      title: `${original.title} (Copy)`,
+      shortTitle: original.shortTitle,
+      category: original.category,
+      categoryLabel: original.categoryLabel,
+      summary: original.summary,
+      teaser: original.teaser,
+      venue: original.venue,
+      organizer: original.organizer,
+      city: original.city,
+      startsAt: original.startsAt,
+      endsAt: original.endsAt,
+      availability: original.availability,
+      priceFrom: original.priceFrom,
+      posterImage: original.posterImage,
+      coverImage: original.coverImage,
+      accent: original.accent,
+      metadataLine: original.metadataLine,
+      highlights: original.highlights ?? undefined,
+      description: original.description ?? undefined,
+      faq: original.faq ?? undefined,
+      policies: original.policies ?? undefined,
+      ticketTiers: original.ticketTiers ?? undefined,
+      hot: false,
+      featured: false,
+      trending: false,
+      homepage: false,
+      published: false,
+    },
+  });
+
+  revalidateAdminAndEventPages();
+}
+
+export async function getEventAnalytics(eventSlug: string) {
+  const bookings = await prisma.eventBooking.findMany({
+    where: { eventSlug },
+    select: {
+      id: true,
+      quantity: true,
+      totalAmount: true,
+      status: true,
+      createdAt: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  const confirmed = bookings.filter((b) => b.status === "confirmed");
+  const totalTickets = confirmed.reduce((sum, b) => sum + b.quantity, 0);
+  const totalRevenue = confirmed.reduce((sum, b) => sum + b.totalAmount, 0);
+
+  return {
+    totalBookings: bookings.length,
+    confirmedBookings: confirmed.length,
+    cancelledBookings: bookings.filter((b) => b.status === "cancelled").length,
+    totalTicketsSold: totalTickets,
+    totalRevenue,
+    recentBookings: bookings.slice(0, 10),
+  };
+}

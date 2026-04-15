@@ -53,7 +53,7 @@ export default function ScanQRPage() {
           <div className="space-y-3">
             <button
               onClick={() => setInvalidQR(false)}
-              className="block w-full bg-[#d8f24d] text-black py-3.5 rounded-full font-semibold text-center transition-colors hover:bg-[#c4d244]"
+              className="block w-full bg-white text-black py-3.5 rounded-full font-semibold text-center transition-colors hover:bg-white/90"
             >
               Scan Again
             </button>

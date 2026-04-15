@@ -127,8 +127,8 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
         {status === "loading" && (
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black">
             <div className="relative">
-              <Loader2 className="w-12 h-12 text-[#d8f24d] animate-spin" />
-              <div className="absolute inset-0 blur-xl bg-[#d8f24d]/20 rounded-full" />
+              <Loader2 className="w-12 h-12 text-white animate-spin" />
+              <div className="absolute inset-0 blur-xl bg-white/20 rounded-full" />
             </div>
             <p className="text-white/60 mt-4 text-sm">Starting camera...</p>
             <p className="text-white/30 mt-1 text-xs">Allow camera access if prompted</p>
@@ -146,13 +146,13 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
           <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
             <div className="relative w-64 h-64">
               {/* Corner accents */}
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#d8f24d] rounded-tl-lg" />
-              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#d8f24d] rounded-tr-lg" />
-              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#d8f24d] rounded-bl-lg" />
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#d8f24d] rounded-br-lg" />
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-white rounded-tl-lg" />
+              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-white rounded-tr-lg" />
+              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-white rounded-bl-lg" />
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-white rounded-br-lg" />
               
               {/* Scanning line animation */}
-              <div className="absolute left-2 right-2 h-0.5 bg-gradient-to-r from-transparent via-[#d8f24d] to-transparent animate-[scanLine_2s_ease-in-out_infinite]" />
+              <div className="absolute left-2 right-2 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent animate-[scanLine_2s_ease-in-out_infinite]" />
             </div>
           </div>
         )}
@@ -169,7 +169,7 @@ export function QRScanner({ onScan, onError }: QRScannerProps) {
                 initAttemptedRef.current = false;
                 startCamera();
               }}
-              className="inline-flex items-center gap-2 bg-[#d8f24d] text-black px-6 py-3 rounded-full font-semibold transition-all hover:bg-[#c4d244] active:scale-95"
+              className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-semibold transition-all hover:bg-white/90 active:scale-95"
             >
               <RotateCcw className="w-4 h-4" />
               Try Again

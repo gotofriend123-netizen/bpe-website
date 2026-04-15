@@ -15,9 +15,13 @@ import {
 import { getAllEventItems, getEventItemBySlug } from "@/lib/events/repository";
 import { prisma } from "@/lib/prisma";
 import { sendMail } from "@/lib/notifications/email";
+import { sendWhatsappMessage } from "@/lib/notifications/whatsapp";
+import { toWhatsappRecipient } from "@/lib/business/contact";
 import {
   buildEventAdminAlertEmail,
   buildEventCustomerConfirmationEmail,
+  buildEventCustomerWhatsappMessage,
+  buildEventAdminWhatsappMessage,
 } from "@/lib/events/templates";
 
 export const eventBookingSchema = z.object({
@@ -88,6 +92,7 @@ async function sendEventBookingNotifications(params: {
     supportEmail: BUSINESS_SUPPORT_EMAIL,
   };
 
+  // --- Email notifications ---
   const customerEmail = await sendMail({
     to: booking.customerEmail,
     ...buildEventCustomerConfirmationEmail(input),
@@ -97,6 +102,38 @@ async function sendEventBookingNotifications(params: {
     ...buildEventAdminAlertEmail(input),
   });
 
+  // --- WhatsApp notifications (graceful — never breaks the booking) ---
+  let customerWhatsappState: "sent" | "skipped" | "failed" = "skipped";
+  let adminWhatsappState: "sent" | "skipped" | "failed" = "skipped";
+
+  try {
+    const customerWaRecipient = toWhatsappRecipient(booking.customerPhone);
+    if (customerWaRecipient) {
+      const result = await sendWhatsappMessage({
+        to: customerWaRecipient,
+        body: buildEventCustomerWhatsappMessage(input),
+      });
+      customerWhatsappState = result.ok ? "sent" : result.kind === "not-configured" ? "skipped" : "failed";
+    }
+  } catch {
+    customerWhatsappState = "failed";
+  }
+
+  try {
+    const adminWaRecipient = toWhatsappRecipient(
+      process.env.TWILIO_ADMIN_WHATSAPP_TO || "",
+    );
+    if (adminWaRecipient) {
+      const result = await sendWhatsappMessage({
+        to: adminWaRecipient,
+        body: buildEventAdminWhatsappMessage(input),
+      });
+      adminWhatsappState = result.ok ? "sent" : result.kind === "not-configured" ? "skipped" : "failed";
+    }
+  } catch {
+    adminWhatsappState = "failed";
+  }
+
   const failureReason = [
     !customerEmail.ok && customerEmail.kind === "error"
       ? `Customer email: ${customerEmail.reason}`
@@ -104,6 +141,8 @@ async function sendEventBookingNotifications(params: {
     !adminEmail.ok && adminEmail.kind === "error"
       ? `Admin email: ${adminEmail.reason}`
       : null,
+    customerWhatsappState === "failed" ? "Customer WhatsApp: delivery failed" : null,
+    adminWhatsappState === "failed" ? "Admin WhatsApp: delivery failed" : null,
   ]
     .filter(Boolean)
     .join(" | ");
@@ -121,6 +160,8 @@ async function sendEventBookingNotifications(params: {
   return {
     customerEmail: customerEmail.ok ? "sent" : customerEmail.kind === "not-configured" ? "skipped" : "failed",
     adminEmail: adminEmail.ok ? "sent" : adminEmail.kind === "not-configured" ? "skipped" : "failed",
+    customerWhatsapp: customerWhatsappState,
+    adminWhatsapp: adminWhatsappState,
   };
 }
 

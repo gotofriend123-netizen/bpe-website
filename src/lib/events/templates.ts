@@ -135,3 +135,40 @@ export function buildEventAdminAlertEmail(input: EventBookingTemplateInput) {
 
   return { subject, text, html };
 }
+
+export function buildEventCustomerWhatsappMessage(input: EventBookingTemplateInput) {
+  const dateLine = formatDateTime(input.startsAt, input.endsAt);
+  return [
+    `✅ *Event Booking Confirmed*`,
+    ``,
+    `Hi ${input.customerName},`,
+    `Your booking for *${input.eventTitle}* is confirmed!`,
+    ``,
+    `📋 *Reference:* ${input.reference}`,
+    `📍 *Venue:* ${input.venue}`,
+    `📅 *Date:* ${dateLine}`,
+    `🎟️ *Ticket:* ${input.ticketTierLabel} × ${input.quantity}`,
+    `💰 *Total:* ${formatCurrency(input.totalAmount)}`,
+    ``,
+    `View confirmation: ${input.confirmationUrl}`,
+    ``,
+    `For support, email ${input.supportEmail}`,
+    `— Black Pepper Entertainment`,
+  ].join("\n");
+}
+
+export function buildEventAdminWhatsappMessage(input: EventBookingTemplateInput) {
+  const dateLine = formatDateTime(input.startsAt, input.endsAt);
+  return [
+    `🎟️ *New Event Booking*`,
+    ``,
+    `*${input.eventTitle}*`,
+    `Ref: ${input.reference}`,
+    `Customer: ${input.customerName}`,
+    `Phone: ${input.customerPhone}`,
+    `Email: ${input.customerEmail}`,
+    `Tier: ${input.ticketTierLabel} × ${input.quantity}`,
+    `Total: ${formatCurrency(input.totalAmount)}`,
+    `Date: ${dateLine}`,
+  ].join("\n");
+}

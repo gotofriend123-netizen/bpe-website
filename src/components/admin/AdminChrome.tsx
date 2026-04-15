@@ -81,7 +81,7 @@ function MobileBottomNav({ pathname }: { pathname: string }) {
               href={item.href}
               className={cn(
                 "flex flex-col items-center gap-0.5 rounded-lg px-2 py-1 text-[9px] font-medium transition-colors",
-                active ? "text-[#d8f24d]" : "text-white/50 hover:text-white",
+                active ? "text-white" : "text-white/50 hover:text-white",
               )}
             >
               <Icon className="h-4 w-4" />
@@ -99,14 +99,14 @@ function MobileHeader({ initials }: { initials: string }) {
     <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/6 bg-[#050505]/95 px-3 py-2.5 backdrop-blur-md sm:hidden">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#d8f24d]/20 bg-[#151515] text-[10px] font-bold text-[#d8f24d]">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-[#151515] text-[10px] font-bold text-white">
             {initials}
           </div>
           <span className="text-xs font-semibold text-white">Admin</span>
         </div>
         <Link
           href="/admin#post"
-          className="flex items-center gap-1 rounded-full bg-[#d8f24d] px-2.5 py-1 text-[10px] font-bold text-black"
+          className="flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold text-black"
         >
           <Plus className="h-3 w-3" />
           Post
@@ -168,7 +168,7 @@ export function AdminChrome({
           <aside className="hidden xl:block">
             <div className="sticky top-24 rounded-[2.2rem] border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">
               <div className="mb-8 rounded-[1.5rem] border border-white/5 bg-[#151515] p-4 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)]">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#d8f24d]/20 bg-[#d8f24d]/[0.09] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-[#d8f24d]">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.09] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-white">
                   <Shield className="h-3.5 w-3.5" />
                   Admin-only
                 </span>
@@ -192,7 +192,7 @@ export function AdminChrome({
                       className={cn(
                         "flex items-center gap-3 rounded-[1.2rem] border border-white/5 px-4 py-3 text-sm font-medium transition-all duration-200",
                         active
-                          ? "bg-[#0b0b0b] text-[#d8f24d] shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
+                          ? "bg-[#0b0b0b] text-white shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.03)]"
                           : "bg-[#151515] text-white/72 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
                       )}
                     >
@@ -211,7 +211,7 @@ export function AdminChrome({
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="flex items-center gap-3 rounded-[1.2rem] border border-white/5 bg-[#151515] px-4 py-3 text-white shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] transition-all duration-200 hover:text-[#d8f24d]"
+                      className="flex items-center gap-3 rounded-[1.2rem] border border-white/5 bg-[#151515] px-4 py-3 text-white shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] transition-all duration-200 hover:text-white"
                     >
                       <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-[#0b0b0b]">
                         <Icon className="h-4 w-4" />
@@ -249,7 +249,7 @@ export function AdminChrome({
             <section className="rounded-2xl border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)] sm:rounded-[2rem] sm:p-6">
               <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                 <div className="max-w-3xl space-y-3">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-[#d8f24d]/20 bg-[#d8f24d]/[0.09] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#d8f24d]">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.09] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.28em] text-white">
                     <Shield className="h-3.5 w-3.5" />
                     Admin Suite
                   </span>
@@ -274,8 +274,8 @@ export function AdminChrome({
                       className={cn(
                         "inline-flex items-center justify-center gap-1.5 rounded-full border border-white/5 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.2em] transition-all duration-200 active:scale-[0.98]",
                         postMenuOpen
-                          ? "bg-[#d8f24d] text-black shadow-[0_18px_44px_rgba(216,242,77,0.22)]"
-                          : "bg-[#151515] text-white hover:text-[#d8f24d]",
+                          ? "bg-white text-black shadow-[0_18px_44px_rgba(255,255,255,0.1)]"
+                          : "bg-[#151515] text-white hover:text-white",
                       )}
                     >
                       <Plus className="h-4 w-4" />
@@ -308,7 +308,7 @@ export function AdminChrome({
                                   key={item.href}
                                   href={item.href}
                                   role="menuitem"
-                                  className="flex items-center gap-3 rounded-xl border border-white/5 bg-[#151515] px-3 py-2.5 text-sm font-medium text-white transition-all hover:text-[#d8f24d]"
+                                  className="flex items-center gap-3 rounded-xl border border-white/5 bg-[#151515] px-3 py-2.5 text-sm font-medium text-white transition-all hover:text-white"
                                 >
                                   <Icon className="h-4 w-4" />
                                   {item.label}
@@ -344,7 +344,7 @@ export function AdminChrome({
                       className={cn(
                         "inline-flex flex-col items-center justify-center gap-1.5 rounded-xl border border-white/5 px-2 py-3 text-[10px] font-semibold uppercase tracking-[0.14em] transition-all duration-200",
                         active
-                          ? "bg-[#0b0b0b] text-[#d8f24d]"
+                          ? "bg-[#0b0b0b] text-white"
                           : "bg-[#151515] text-white/75 hover:text-white",
                       )}
                     >

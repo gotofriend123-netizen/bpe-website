@@ -39,7 +39,7 @@ export default function ForgotPasswordPage() {
   return (
     <section className="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-xl items-center px-4 py-14 sm:px-6 lg:px-8">
       <div className="w-full rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 shadow-[0_24px_70px_rgba(0,0,0,0.34)] backdrop-blur-xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#d8f24d]">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
           Password reset
         </p>
         <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white">
@@ -48,7 +48,7 @@ export default function ForgotPasswordPage() {
 
         {success ? (
           <div className="mt-6">
-            <div className="rounded-[1.5rem] border border-[#d8f24d]/20 bg-[#d8f24d]/10 px-5 py-4 text-sm text-[#d8f24d]">
+            <div className="rounded-[1.5rem] border border-white/20 bg-white/10 px-5 py-4 text-sm text-white">
               If an account exists for {email}, a reset link has been sent. Please check your inbox.
             </div>
             <div className="mt-6">
@@ -95,7 +95,7 @@ export default function ForgotPasswordPage() {
             <button
               type="submit"
               disabled={isPending || !email}
-              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#d8f24d] px-4 py-3.5 text-sm font-semibold text-black transition hover:bg-[#e4fa67] disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-4 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isPending ? "Sending..." : "Send reset link"}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />

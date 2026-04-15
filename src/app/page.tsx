@@ -371,7 +371,7 @@ export default async function HomePage() {
         <div className="absolute inset-0 z-0 h-full w-full">
           <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-black/90 via-black/60 to-black/90" />
           <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_30%),radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.04),transparent_22%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.03),transparent_20%)]" />
-          <div className="pointer-events-none absolute left-[8%] top-[14%] z-[2] h-[14rem] w-[14rem] rounded-full bg-[#d8f24d]/[0.045] blur-[110px]" />
+          <div className="pointer-events-none absolute left-[8%] top-[14%] z-[2] h-[14rem] w-[14rem] rounded-full bg-white/[0.045] blur-[110px]" />
           <div className="pointer-events-none absolute right-[10%] top-[18%] z-[2] h-[18rem] w-[18rem] rounded-full bg-white/[0.05] blur-[120px]" />
           <div className="pointer-events-none absolute left-1/2 top-[34%] z-[2] h-[16rem] w-[34rem] -translate-x-1/2 rounded-full bg-[#d6b98c]/[0.045] blur-[130px]" />
           {/* Stars layer 1 – brighter core stars */}

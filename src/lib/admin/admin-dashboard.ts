@@ -224,7 +224,7 @@ export const BOOKING_STATUS_META: Record<
   },
   [BookingStatusEnum.confirmed]: {
     label: "Confirmed",
-    className: "border-[#d8f24d]/20 bg-[#d8f24d]/10 text-[#d8f24d]",
+    className: "border-white/20 bg-white/10 text-white",
   },
   [BookingStatusEnum.cancelled]: {
     label: "Cancelled",
@@ -236,7 +236,7 @@ export const BOOKING_STATUS_META: Record<
   },
   [BookingStatusEnum.completed]: {
     label: "Completed",
-    className: "border-[#d8f24d]/20 bg-[#d8f24d]/10 text-[#d8f24d]",
+    className: "border-white/20 bg-white/10 text-white",
   },
   [BookingStatusEnum.refund_initiated]: {
     label: "Refund Initiated",
@@ -258,7 +258,7 @@ export const SLOT_STATUS_META: Record<
 > = {
   [SlotStatusEnum.available]: {
     label: "Available",
-    className: "border-[#d8f24d]/20 bg-[#d8f24d]/10 text-[#d8f24d]",
+    className: "border-white/20 bg-white/10 text-white",
   },
   [SlotStatusEnum.pending]: {
     label: "Pending",
@@ -296,7 +296,7 @@ export const WAITLIST_STATUS_META: Record<
 > = {
   [WaitlistStatusEnum.active]: {
     label: "Active",
-    className: "border-[#d8f24d]/20 bg-[#d8f24d]/10 text-[#d8f24d]",
+    className: "border-white/20 bg-white/10 text-white",
   },
   [WaitlistStatusEnum.notified]: {
     label: "Notified",

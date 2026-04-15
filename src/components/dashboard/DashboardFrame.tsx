@@ -91,7 +91,7 @@ export function DashboardFrame({
             <div className="sticky top-24 rounded-[2.15rem] border border-white/6 bg-[#111111] p-5 shadow-[18px_18px_38px_rgba(0,0,0,0.58),-12px_-12px_28px_rgba(255,255,255,0.025)]">
               <div className="rounded-[1.5rem] border border-white/5 bg-[#151515] p-4 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.55),inset_-8px_-8px_16px_rgba(255,255,255,0.025)]">
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-[#0b0b0b] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/62">
-                  <ShieldCheck className="h-3.5 w-3.5 text-[#d8f24d]" />
+                  <ShieldCheck className="h-3.5 w-3.5 text-white" />
                   Private dashboard
                 </span>
                 <h1 className="mt-4 text-2xl font-semibold tracking-[-0.05em] text-white">
@@ -112,7 +112,7 @@ export function DashboardFrame({
                       : "bg-[#151515] text-white/70 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
                   )}
                 >
-                  <LayoutDashboard className={cn("h-4 w-4", activeTab === "overview" && "text-[#d8f24d]")} />
+                  <LayoutDashboard className={cn("h-4 w-4", activeTab === "overview" && "text-white")} />
                   Home
                 </Link>
                 <Link
@@ -124,7 +124,7 @@ export function DashboardFrame({
                       : "bg-[#151515] text-white/70 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] hover:text-white",
                   )}
                 >
-                  <NotebookTabs className={cn("h-4 w-4", activeTab === "bookings" && "text-[#d8f24d]")} />
+                  <NotebookTabs className={cn("h-4 w-4", activeTab === "bookings" && "text-white")} />
                   Dashboard
                 </Link>
 
@@ -134,7 +134,7 @@ export function DashboardFrame({
                 >
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-[1.1rem] border border-white/5 bg-[#0f0f0f] px-4 py-3 text-sm font-medium text-white/80 transition-colors hover:text-white [&::-webkit-details-marker]:hidden">
                     <span className="flex min-w-0 items-center gap-3">
-                      <Ticket className="h-4 w-4 text-[#d8f24d]" />
+                      <Ticket className="h-4 w-4 text-white" />
                       <span className="truncate">Events</span>
                     </span>
                     <span className="flex items-center gap-2">
@@ -155,7 +155,7 @@ export function DashboardFrame({
                           : "bg-[#121212] text-white/72 shadow-[inset_6px_6px_12px_rgba(0,0,0,0.45),inset_-4px_-4px_10px_rgba(255,255,255,0.02)] hover:text-white",
                       )}
                     >
-                      <Ticket className={cn("h-4 w-4", activeTab === "events" && "text-[#d8f24d]")} />
+                      <Ticket className={cn("h-4 w-4", activeTab === "events" && "text-white")} />
                       My Event Tickets
                     </Link>
                   </div>
@@ -203,7 +203,7 @@ export function DashboardFrame({
                 <div className="flex flex-col gap-6 sm:gap-8 lg:flex-row lg:items-start lg:justify-between">
                   <div className="max-w-3xl space-y-4">
                     <span className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-[#0b0b0b] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-white/65 shadow-[inset_6px_6px_14px_rgba(0,0,0,0.55),inset_-4px_-4px_10px_rgba(255,255,255,0.025)]">
-                      <ShieldCheck className="h-3.5 w-3.5 text-[#d8f24d]" />
+                      <ShieldCheck className="h-3.5 w-3.5 text-white" />
                       Private account area
                     </span>
                     <div className="space-y-2 sm:space-y-3">
@@ -218,14 +218,14 @@ export function DashboardFrame({
                     <div className="flex flex-wrap gap-3">
                       <Link
                         href="/booking"
-                        className="inline-flex items-center gap-2 rounded-full bg-[#d8f24d] px-5 py-3 text-sm font-semibold text-black transition-transform duration-200 hover:-translate-y-0.5"
+                        className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-transform duration-200 hover:-translate-y-0.5"
                       >
                         Book Now
                         <ArrowRight className="h-4 w-4" />
                       </Link>
                       <Link
                         href="/dashboard/bookings"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-[#151515] px-5 py-3 text-sm font-semibold text-white transition-colors hover:text-[#d8f24d]"
+                        className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-[#151515] px-5 py-3 text-sm font-semibold text-white transition-colors hover:text-white"
                       >
                         View bookings
                       </Link>

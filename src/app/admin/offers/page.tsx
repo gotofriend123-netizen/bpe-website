@@ -18,7 +18,7 @@ function Input({ className = "", ...props }: InputHTMLAttributes<HTMLInputElemen
   return (
     <input
       {...props}
-      className={`mt-2 min-h-[48px] w-full rounded-[1rem] border border-white/10 bg-black/25 px-4 text-sm text-white outline-none transition-all duration-200 placeholder:text-zinc-500 focus:border-[#d8f24d]/35 focus:bg-white/[0.03] ${className}`}
+      className={`mt-2 min-h-[48px] w-full rounded-[1rem] border border-white/10 bg-black/25 px-4 text-sm text-white outline-none transition-all duration-200 placeholder:text-zinc-500 focus:border-white/20 focus:bg-white/[0.03] ${className}`}
     />
   );
 }
@@ -27,7 +27,7 @@ function Textarea({ className = "", ...props }: TextareaHTMLAttributes<HTMLTextA
   return (
     <textarea
       {...props}
-      className={`mt-2 w-full rounded-[1rem] border border-white/10 bg-black/25 px-4 py-3 text-sm leading-7 text-white outline-none transition-all duration-200 placeholder:text-zinc-500 focus:border-[#d8f24d]/35 focus:bg-white/[0.03] ${className}`}
+      className={`mt-2 w-full rounded-[1rem] border border-white/10 bg-black/25 px-4 py-3 text-sm leading-7 text-white outline-none transition-all duration-200 placeholder:text-zinc-500 focus:border-white/20 focus:bg-white/[0.03] ${className}`}
     />
   );
 }
@@ -47,7 +47,7 @@ function Checkbox({
         type="checkbox"
         name={name}
         defaultChecked={defaultChecked}
-        className="h-4 w-4 rounded border-white/20 bg-black text-[#d8f24d] focus:ring-[#d8f24d]/30"
+        className="h-4 w-4 rounded border-white/20 bg-black text-white focus:ring-white/30"
       />
       {label}
     </label>
@@ -111,7 +111,7 @@ export default async function AdminOffersPage({ searchParams }: AdminOffersPageP
                 Post a new offer
               </h2>
             </div>
-            <span className="rounded-full border border-[#d8f24d]/20 bg-[#d8f24d]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#d8f24d]">
+            <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
               Offers only
             </span>
           </div>
@@ -170,7 +170,7 @@ export default async function AdminOffersPage({ searchParams }: AdminOffersPageP
                 <select
                   name="status"
                   defaultValue="active"
-                  className="mt-2 min-h-[48px] w-full rounded-[1rem] border border-white/10 bg-black/25 px-4 text-sm text-white outline-none focus:border-[#d8f24d]/35"
+                  className="mt-2 min-h-[48px] w-full rounded-[1rem] border border-white/10 bg-black/25 px-4 text-sm text-white outline-none focus:border-white/20"
                 >
                   <option value="draft" className="bg-[#111] text-white">Draft</option>
                   <option value="active" className="bg-[#111] text-white">Active</option>
@@ -189,7 +189,7 @@ export default async function AdminOffersPage({ searchParams }: AdminOffersPageP
             <div className="flex flex-wrap gap-3 pt-2">
               <button
                 type="submit"
-                className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#d8f24d] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-black transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_44px_rgba(216,242,77,0.22)]"
+                className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-white px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-black transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_44px_rgba(216,242,77,0.22)]"
               >
                 Publish offer
               </button>
@@ -233,7 +233,7 @@ export default async function AdminOffersPage({ searchParams }: AdminOffersPageP
                           {offer.status}
                         </span>
                         {offer.featured ? (
-                          <span className="rounded-full border border-[#d8f24d]/20 bg-[#d8f24d]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#d8f24d]">
+                          <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
                             <Sparkles className="mr-1 inline h-3 w-3" />
                             Featured
                           </span>
@@ -248,7 +248,7 @@ export default async function AdminOffersPage({ searchParams }: AdminOffersPageP
 
                     <div className="grid gap-2 text-right">
                       {offer.discountLabel ? (
-                        <span className="rounded-full border border-[#d8f24d]/20 bg-[#d8f24d]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#d8f24d]">
+                        <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
                           <BadgePercent className="mr-1 inline h-3 w-3" />
                           {offer.discountLabel}
                         </span>

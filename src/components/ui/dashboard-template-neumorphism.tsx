@@ -99,7 +99,7 @@ export function DashboardTemplateNeumorphism() {
                   )}
                 >
                   {isDarkMode ? (
-                    <SunMedium className="h-4 w-4 text-[#d8f24d]" />
+                    <SunMedium className="h-4 w-4 text-white" />
                   ) : (
                     <MoonStar className="h-4 w-4" />
                   )}
@@ -136,7 +136,7 @@ export function DashboardTemplateNeumorphism() {
                       "flex w-full items-center gap-3 rounded-[1.15rem] border border-white/5 px-4 py-3 text-left transition-all duration-200",
                       active ? insetShadow[tone] : shellShadow[tone],
                       active
-                        ? "text-[#d8f24d]"
+                        ? "text-white"
                         : isDarkMode
                           ? "text-white/70 hover:text-white"
                           : "text-black/70 hover:text-black",

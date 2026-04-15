@@ -69,7 +69,7 @@ function TextInput({
     <input
       {...props}
       className={cn(
-        "mt-2 min-h-[52px] w-full rounded-[0.95rem] border border-white/8 bg-black/40 px-4 text-sm text-white outline-none transition-all duration-200 placeholder:text-zinc-500 focus:border-[#d8f24d]/55 focus:bg-white/[0.06]",
+        "mt-2 min-h-[52px] w-full rounded-[0.95rem] border border-white/8 bg-black/40 px-4 text-sm text-white outline-none transition-all duration-200 placeholder:text-zinc-500 focus:border-white/30 focus:bg-white/[0.06]",
         className,
       )}
     />
@@ -85,7 +85,7 @@ function SelectInput({
     <select
       {...props}
       className={cn(
-        "mt-2 min-h-[52px] w-full rounded-[0.95rem] border border-white/8 bg-black/40 px-4 text-sm text-white outline-none transition-all duration-200 focus:border-[#d8f24d]/55 focus:bg-white/[0.06]",
+        "mt-2 min-h-[52px] w-full rounded-[0.95rem] border border-white/8 bg-black/40 px-4 text-sm text-white outline-none transition-all duration-200 focus:border-white/30 focus:bg-white/[0.06]",
         className,
       )}
     >
@@ -102,7 +102,7 @@ function TextBox({
     <textarea
       {...props}
       className={cn(
-        "mt-2 w-full rounded-[0.95rem] border border-white/8 bg-black/40 px-4 py-3 text-sm leading-7 text-white outline-none transition-all duration-200 placeholder:text-zinc-500 focus:border-[#d8f24d]/55 focus:bg-white/[0.06]",
+        "mt-2 w-full rounded-[0.95rem] border border-white/8 bg-black/40 px-4 py-3 text-sm leading-7 text-white outline-none transition-all duration-200 placeholder:text-zinc-500 focus:border-white/30 focus:bg-white/[0.06]",
         className,
       )}
     />
@@ -124,7 +124,7 @@ function ToggleField({
         type="checkbox"
         name={name}
         defaultChecked={defaultChecked}
-        className="h-4 w-4 rounded border-white/20 bg-black text-[#d8f24d] focus:ring-[#d8f24d]/40"
+        className="h-4 w-4 rounded border-white/20 bg-black text-white focus:ring-white/30"
       />
       {label}
     </label>
@@ -146,7 +146,7 @@ function StepIndicator({
         className={cn(
           "flex h-11 w-11 items-center justify-center rounded-full text-sm font-semibold transition-all",
           active
-            ? "bg-[#d8f24d] text-black shadow-[0_14px_32px_rgba(216,242,77,0.18)]"
+            ? "bg-white text-black shadow-[0_14px_32px_rgba(255,255,255,0.1)]"
             : "bg-white/[0.1] text-zinc-300",
         )}
       >
@@ -156,7 +156,7 @@ function StepIndicator({
       <p
         className={cn(
           "text-center text-[0.82rem] font-medium",
-          active ? "text-[#d8f24d]" : "text-zinc-400",
+          active ? "text-white" : "text-zinc-400",
         )}
       >
         {label}
@@ -186,7 +186,7 @@ function FileTrigger({
           className={cn(
             "inline-flex min-h-[44px] cursor-pointer items-center justify-center rounded-[0.8rem] px-4 text-[0.82rem] font-semibold transition-all",
             buttonTone === "primary"
-              ? "bg-[#bcd437] text-black hover:bg-[#d8f24d]"
+              ? "bg-white/80 text-black hover:bg-white"
               : "bg-[#343434] text-white hover:bg-[#404040]",
           )}
         >
@@ -339,11 +339,11 @@ export function AdminEventComposer({ action }: AdminEventComposerProps) {
       <aside className="xl:sticky xl:top-6 xl:self-start rounded-[2rem] border border-white/8 bg-white/[0.03] p-4 sm:p-5">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-[1.7rem] font-semibold tracking-[-0.04em] text-[#d8f24d]">Poster Preview</p>
+            <p className="text-[1.7rem] font-semibold tracking-[-0.04em] text-white">Poster Preview</p>
           </div>
           <button
             type="button"
-            className="inline-flex min-h-[40px] items-center justify-center rounded-[0.8rem] bg-[#d8f24d] px-4 text-[0.82rem] font-semibold text-black transition-all hover:bg-[#e4fa67]"
+            className="inline-flex min-h-[40px] items-center justify-center rounded-[0.8rem] bg-white px-4 text-[0.82rem] font-semibold text-black transition-all hover:bg-white/90"
           >
             <Download className="mr-2 h-4 w-4" />
             Download
@@ -362,11 +362,11 @@ export function AdminEventComposer({ action }: AdminEventComposerProps) {
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.82))]" />
             <div className={cn("absolute inset-0 bg-gradient-to-t", previewAccent)} />
-            <div className="absolute left-5 top-5 text-[1.9rem] font-black tracking-[-0.05em] text-[#d8f24d]">
+            <div className="absolute left-5 top-5 text-[1.9rem] font-black tracking-[-0.05em] text-white">
               BLACK PEPPER
             </div>
             <div className="absolute inset-x-0 bottom-0 p-5">
-              <span className="inline-flex rounded-full bg-[#d8f24d] px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-black">
+              <span className="inline-flex rounded-full bg-white px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-black">
                 {categoryLabel}
               </span>
               <h3 className="mt-3 text-[2.2rem] font-semibold leading-[0.94] tracking-[-0.06em] text-white">
@@ -382,13 +382,13 @@ export function AdminEventComposer({ action }: AdminEventComposerProps) {
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <button
               type="button"
-              className="inline-flex min-h-[44px] items-center justify-center rounded-[0.9rem] bg-white/[0.08] px-4 text-[0.82rem] font-medium text-[#d8f24d] transition-all hover:bg-white/[0.12]"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-[0.9rem] bg-white/[0.08] px-4 text-[0.82rem] font-medium text-white transition-all hover:bg-white/[0.12]"
             >
               Toggle QR Code
             </button>
             <button
               type="button"
-              className="inline-flex min-h-[44px] items-center justify-center rounded-[0.9rem] bg-white/[0.08] px-4 text-[0.82rem] font-medium text-[#d8f24d] transition-all hover:bg-white/[0.12]"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-[0.9rem] bg-white/[0.08] px-4 text-[0.82rem] font-medium text-white transition-all hover:bg-white/[0.12]"
             >
               Change Style
             </button>
@@ -398,7 +398,7 @@ export function AdminEventComposer({ action }: AdminEventComposerProps) {
 
       <div className="rounded-[2rem] border border-white/8 bg-white/[0.03] p-5 sm:p-7">
         <div className="text-center">
-          <h2 className="text-[2.2rem] font-semibold tracking-[-0.05em] text-[#d8f24d] sm:text-[2.8rem]">
+          <h2 className="text-[2.2rem] font-semibold tracking-[-0.05em] text-white sm:text-[2.8rem]">
             Create Event
           </h2>
 
@@ -699,8 +699,8 @@ export function AdminEventComposer({ action }: AdminEventComposerProps) {
                 onClick={handleNext}
                 disabled={!canAdvance}
                 className={cn(
-                  "inline-flex h-12 min-w-[68px] items-center justify-center rounded-[0.8rem] bg-[#bcd437] px-5 text-black transition-all",
-                  !canAdvance ? "cursor-not-allowed opacity-45" : "hover:bg-[#d8f24d]",
+                  "inline-flex h-12 min-w-[68px] items-center justify-center rounded-[0.8rem] bg-white/80 px-5 text-black transition-all",
+                  !canAdvance ? "cursor-not-allowed opacity-45" : "hover:bg-white",
                 )}
               >
                 <ChevronRight className="h-5 w-5" />
@@ -710,7 +710,7 @@ export function AdminEventComposer({ action }: AdminEventComposerProps) {
                 type="submit"
                 disabled={!stepThreeReady}
                 className={cn(
-                  "inline-flex min-h-[52px] items-center justify-center rounded-[0.8rem] bg-[#d8f24d] px-6 text-sm font-semibold text-black transition-all hover:bg-[#e4fa67]",
+                  "inline-flex min-h-[52px] items-center justify-center rounded-[0.8rem] bg-white px-6 text-sm font-semibold text-black transition-all hover:bg-white/90",
                   !stepThreeReady && "cursor-not-allowed opacity-45",
                 )}
               >

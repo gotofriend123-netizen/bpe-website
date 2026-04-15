@@ -33,7 +33,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         </div>
 
         {searchParams?.registered ? (
-          <div className="rounded-[1.5rem] border border-[#d8f24d]/20 bg-[#d8f24d]/10 px-5 py-4 text-sm text-[#d8f24d]">
+          <div className="rounded-[1.5rem] border border-white/20 bg-white/10 px-5 py-4 text-sm text-white">
             Your account has been successfully created! You may now sign in to your dashboard.
             If verification is enabled, please check your email first.
           </div>

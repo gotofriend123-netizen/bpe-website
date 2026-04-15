@@ -34,7 +34,7 @@ export function DashboardEmptyState({
         <p className="text-sm leading-7 text-white/60">{description}</p>
         <Link
           href={ctaHref}
-          className="inline-flex items-center gap-2 rounded-full bg-[#d8f24d] px-5 py-3 text-sm font-semibold text-black transition-transform duration-200 hover:-translate-y-0.5"
+          className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-transform duration-200 hover:-translate-y-0.5"
         >
           {ctaLabel}
           <ArrowRight className="h-4 w-4" />

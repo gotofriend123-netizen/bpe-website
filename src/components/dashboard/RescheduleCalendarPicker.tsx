@@ -245,7 +245,7 @@ export function RescheduleCalendarPicker({
                 >
                   <span className="relative z-10">{format(day, "d")}</span>
                   {isActive && !isSelected ? (
-                    <span className="absolute bottom-2 h-1.5 w-1.5 rounded-full bg-[#d8f24d] shadow-[0_0_8px_rgba(216,242,77,0.4)]" />
+                    <span className="absolute bottom-2 h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.25)]" />
                   ) : null}
                   {isActive && isSelected ? (
                     <motion.div
@@ -301,7 +301,7 @@ export function RescheduleCalendarPicker({
                             "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.2em]",
                             isSelected
                               ? "bg-black/10 text-black/80"
-                              : "bg-[#d8f24d]/10 border border-[#d8f24d]/20 text-[#d8f24d]",
+                              : "bg-white/10 border border-white/20 text-white",
                           ].join(" ")}
                         >
                           <Sparkles className="h-3 w-3" />

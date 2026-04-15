@@ -124,7 +124,7 @@ function ActivityChart({
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-4 text-xs uppercase tracking-[0.24em] text-zinc-500">
         <span className="inline-flex items-center gap-2">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#d8f24d]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-white" />
           Studio bookings
         </span>
         <span className="inline-flex items-center gap-2">
@@ -153,7 +153,7 @@ function ActivityChart({
           <path
             d={studioPath}
             fill="none"
-            stroke="#d8f24d"
+            stroke="white"
             strokeWidth="4"
             strokeLinecap="round"
           />
@@ -167,7 +167,7 @@ function ActivityChart({
 
           {data.map((point, index) => (
             <g key={point.label}>
-              <circle cx={pointX(index)} cy={pointY(point.studioBookings)} r="4.5" fill="#d8f24d" />
+              <circle cx={pointX(index)} cy={pointY(point.studioBookings)} r="4.5" fill="white" />
               <circle cx={pointX(index)} cy={pointY(point.eventTickets)} r="4.5" fill="#6f6bff" />
               <text
                 x={pointX(index)}
@@ -262,14 +262,14 @@ function QuickLink({
   return (
     <Link
       href={href}
-      className="group rounded-[1.4rem] border border-white/5 bg-[#0b0b0b] p-4 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] transition-all duration-300 hover:-translate-y-0.5 hover:text-[#d8f24d]"
+      className="group rounded-[1.4rem] border border-white/5 bg-[#0b0b0b] p-4 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] transition-all duration-300 hover:-translate-y-0.5 hover:text-white"
     >
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-sm font-semibold text-white">{label}</p>
           <p className="mt-1 text-sm leading-6 text-zinc-400">{caption}</p>
         </div>
-        <ArrowRight className="h-5 w-5 text-[#d8f24d] transition-transform duration-300 group-hover:translate-x-1" />
+        <ArrowRight className="h-5 w-5 text-white transition-transform duration-300 group-hover:translate-x-1" />
       </div>
     </Link>
   );
@@ -288,7 +288,7 @@ export default async function AdminOverviewPage() {
           value={formatCurrency(data.stats.totalEventIncome)}
           caption="Total ticket volume processed."
           icon={IndianRupee}
-          accent="bg-gradient-to-br from-[#d8f24d] via-[#b4cc3c] to-[#728211]"
+          accent="bg-gradient-to-br from-white via-white/60 to-white/20"
         />
         <StatCard
           label="Past Events"
@@ -302,7 +302,7 @@ export default async function AdminOverviewPage() {
           value={data.stats.studioBookings}
           caption="Hall and studio reservations tracked across the venue pipeline."
           icon={CalendarDays}
-          accent="bg-gradient-to-br from-[#d8f24d] via-[#b4cc3c] to-[#728211]"
+          accent="bg-gradient-to-br from-white via-white/60 to-white/20"
         />
         <StatCard
           label="Event tickets"
@@ -517,7 +517,7 @@ export default async function AdminOverviewPage() {
           action={
             <Link
               href="/admin/events"
-              className="inline-flex items-center gap-2 rounded-full border border-[#d8f24d]/20 bg-[#d8f24d]/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#d8f24d] transition-all hover:border-[#d8f24d]/35 hover:bg-[#d8f24d] hover:text-black"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white transition-all hover:border-white/20 hover:bg-white hover:text-black"
             >
               Manage events
               <ArrowRight className="h-4 w-4" />
@@ -534,7 +534,7 @@ export default async function AdminOverviewPage() {
                   <div>
                     <div className="flex flex-wrap gap-2">
                       {event.hot ? (
-                        <span className="rounded-full border border-[#d8f24d]/20 bg-[#d8f24d]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#d8f24d]">
+                        <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
                           Hot
                         </span>
                       ) : null}
@@ -600,7 +600,7 @@ export default async function AdminOverviewPage() {
                       </p>
                     </div>
                     {offer.discountLabel ? (
-                      <span className="rounded-full border border-[#d8f24d]/20 bg-[#d8f24d]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#d8f24d]">
+                      <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
                         {offer.discountLabel}
                       </span>
                     ) : null}
@@ -621,7 +621,7 @@ export default async function AdminOverviewPage() {
           eyebrow="Venue QR Codes"
           title="Permanent check-in QR codes for all venue gates"
           action={
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#d8f24d]/20 bg-[#d8f24d]/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#d8f24d]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white">
               <QrCode className="h-3.5 w-3.5" />
               Permanent
             </span>

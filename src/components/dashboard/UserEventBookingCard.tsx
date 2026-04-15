@@ -164,7 +164,7 @@ export function UserEventBookingCard({ booking }: UserEventBookingCardProps) {
         <div className="mt-auto flex flex-col gap-3 border-t border-white/8 pt-5 sm:flex-row sm:flex-wrap">
           <Link
             href={`/events/${booking.eventSlug}`}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-[#d8f24d]"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-white"
           >
             View event
           </Link>

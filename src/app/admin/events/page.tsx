@@ -81,7 +81,7 @@ export default async function AdminEventsPage({ searchParams }: AdminEventsPageP
                         {event.categoryLabel}
                       </span>
                       {event.hot ? (
-                        <span className="rounded-full border border-[#d8f24d]/20 bg-[#d8f24d]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#d8f24d]">
+                        <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
                           <Flame className="mr-1 inline h-3 w-3" />
                           Hot
                         </span>

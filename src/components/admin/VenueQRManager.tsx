@@ -126,8 +126,8 @@ function VenueQRCard({ venue }: { venue: VenueQRConfig }) {
     <div className="rounded-[1.8rem] border border-white/6 bg-[#151515] p-6 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.52),inset_-8px_-8px_16px_rgba(255,255,255,0.025)]">
       {/* Header */}
       <div className="flex items-start gap-3 mb-5">
-        <div className="rounded-xl bg-[#d8f24d]/10 p-2.5">
-          <MapPin className="h-5 w-5 text-[#d8f24d]" />
+        <div className="rounded-xl bg-white/10 p-2.5">
+          <MapPin className="h-5 w-5 text-white" />
         </div>
         <div>
           <p className="text-base font-semibold text-white">{venue.label}</p>
@@ -181,7 +181,7 @@ function VenueQRCard({ venue }: { venue: VenueQRConfig }) {
         </button>
         <button
           onClick={handleCopyLink}
-          className="flex items-center justify-center gap-1.5 rounded-xl border border-[#d8f24d]/20 bg-[#d8f24d]/10 px-3 py-2.5 text-[11px] font-semibold uppercase tracking-widest text-[#d8f24d] transition-all hover:bg-[#d8f24d]/20 col-span-2"
+          className="flex items-center justify-center gap-1.5 rounded-xl border border-white/20 bg-white/10 px-3 py-2.5 text-[11px] font-semibold uppercase tracking-widest text-white transition-all hover:bg-white/20 col-span-2"
         >
           {copied ? (
             <>

@@ -168,8 +168,8 @@ export function CheckInClient({ venueSlug, venueName, userName }: CheckInClientP
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
           <div className="relative">
-            <Loader2 className="w-12 h-12 text-[#d8f24d] animate-spin mx-auto" />
-            <div className="absolute inset-0 blur-xl bg-[#d8f24d]/20 rounded-full" />
+            <Loader2 className="w-12 h-12 text-white animate-spin mx-auto" />
+            <div className="absolute inset-0 blur-xl bg-white/20 rounded-full" />
           </div>
           <p className="mt-4 text-white/60">Validating your booking...</p>
         </div>
@@ -201,7 +201,7 @@ export function CheckInClient({ venueSlug, venueName, userName }: CheckInClientP
             {isNoBooking && (
               <Link
                 href="/booking"
-                className="block w-full bg-[#d8f24d] text-black py-3.5 rounded-full font-semibold text-center transition-colors hover:bg-[#c4d244]"
+                className="block w-full bg-white text-black py-3.5 rounded-full font-semibold text-center transition-colors hover:bg-white/90"
               >
                 Book a Slot
               </Link>
@@ -223,8 +223,8 @@ export function CheckInClient({ venueSlug, venueName, userName }: CheckInClientP
       <div className="max-w-md mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-full bg-[#d8f24d]/10 flex items-center justify-center mx-auto mb-4 relative">
-            <QrCode className="w-8 h-8 text-[#d8f24d]" />
+          <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-4 relative">
+            <QrCode className="w-8 h-8 text-white" />
             {status === "checked_in" && (
               <div className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-2 border-black animate-pulse" />
             )}
@@ -235,7 +235,7 @@ export function CheckInClient({ venueSlug, venueName, userName }: CheckInClientP
 
         {/* Welcome */}
         <div className="flex items-center gap-3 bg-[#111111] rounded-xl border border-white/10 px-4 py-3 mb-5">
-          <User className="w-4 h-4 text-[#d8f24d] shrink-0" />
+          <User className="w-4 h-4 text-white shrink-0" />
           <span className="text-sm text-white/80">Welcome, {userName}</span>
         </div>
 
@@ -244,7 +244,7 @@ export function CheckInClient({ venueSlug, venueName, userName }: CheckInClientP
           <div className="bg-[#111111] rounded-2xl border border-white/10 p-5 mb-6">
             <div className="flex items-center justify-between mb-4">
               <span className="text-[10px] uppercase tracking-widest text-white/50">Booking Details</span>
-              <span className="text-xs text-[#d8f24d] font-mono">{validation.booking.reference}</span>
+              <span className="text-xs text-white font-mono">{validation.booking.reference}</span>
             </div>
 
             <div className="space-y-3">
@@ -277,7 +277,7 @@ export function CheckInClient({ venueSlug, venueName, userName }: CheckInClientP
                     ? "bg-green-500/10 text-green-400 border border-green-500/20"
                     : status === "checked_out"
                     ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
-                    : "bg-[#d8f24d]/10 text-[#d8f24d] border border-[#d8f24d]/20"
+                    : "bg-white/10 text-white border border-white/20"
                 }`}
               >
                 <div
@@ -286,7 +286,7 @@ export function CheckInClient({ venueSlug, venueName, userName }: CheckInClientP
                       ? "bg-green-400 animate-pulse"
                       : status === "checked_out"
                       ? "bg-blue-400"
-                      : "bg-[#d8f24d]"
+                      : "bg-white"
                   }`}
                 />
                 {status === "checked_in"
@@ -301,9 +301,9 @@ export function CheckInClient({ venueSlug, venueName, userName }: CheckInClientP
 
         {/* Active session timer */}
         {status === "checked_in" && (
-          <div className="bg-[#111111] rounded-2xl border border-[#d8f24d]/20 p-6 mb-6 text-center">
-            <p className="text-[10px] uppercase tracking-widest text-[#d8f24d] mb-3">Active Session</p>
-            <div className="text-5xl font-mono font-bold text-[#d8f24d] tabular-nums">
+          <div className="bg-[#111111] rounded-2xl border border-white/20 p-6 mb-6 text-center">
+            <p className="text-[10px] uppercase tracking-widest text-white mb-3">Active Session</p>
+            <div className="text-5xl font-mono font-bold text-white tabular-nums">
               {formatTimer(timer)}
             </div>
             <p className="text-white/30 text-xs mt-2">Session timer</p>
@@ -323,14 +323,14 @@ export function CheckInClient({ venueSlug, venueName, userName }: CheckInClientP
         {status === "idle" && validation?.valid && (
           <button
             onClick={handleStartCheckIn}
-            className="w-full bg-[#d8f24d] text-black py-4 rounded-full font-semibold text-lg hover:bg-[#c4d244] transition-all active:scale-[0.98]"
+            className="w-full bg-white text-black py-4 rounded-full font-semibold text-lg hover:bg-white/90 transition-all active:scale-[0.98]"
           >
             Start Check-In
           </button>
         )}
 
         {status === "checking_in" && (
-          <button disabled className="w-full bg-[#d8f24d]/50 text-black py-4 rounded-full font-semibold text-lg flex items-center justify-center gap-2">
+          <button disabled className="w-full bg-white/50 text-black py-4 rounded-full font-semibold text-lg flex items-center justify-center gap-2">
             <Loader2 className="w-5 h-5 animate-spin" />
             Starting...
           </button>
