@@ -261,46 +261,54 @@ export default async function AdminOverviewPage() {
 
   return (
     <div className="space-y-6">
-      <section className="mb-2">
-        <Panel eyebrow="Admin Panel Navigation" title="Quick access to all admin tools">
-          <div className="grid grid-cols-2 gap-3 mt-4 sm:grid-cols-3 md:grid-cols-5">
-            <Link
-              href="/admin/bookings"
-              className="flex flex-col items-center gap-2 rounded-[1.3rem] border border-white/6 bg-white/[0.02] p-4 transition-all hover:bg-white/[0.05]"
-            >
-              <BookOpenCheck className="h-5 w-5 text-white/80" />
-              <span className="text-sm font-medium text-white/90">Bookings</span>
-            </Link>
-            <Link
-              href="/admin/events"
-              className="flex flex-col items-center gap-2 rounded-[1.3rem] border border-white/6 bg-white/[0.02] p-4 transition-all hover:bg-white/[0.05]"
-            >
-              <Ticket className="h-5 w-5 text-white/80" />
-              <span className="text-sm font-medium text-white/90">Events</span>
-            </Link>
-            <Link
-              href="/admin/calendar"
-              className="flex flex-col items-center gap-2 rounded-[1.3rem] border border-white/6 bg-white/[0.02] p-4 transition-all hover:bg-white/[0.05]"
-            >
-              <CalendarDays className="h-5 w-5 text-white/80" />
-              <span className="text-sm font-medium text-white/90">Calendar</span>
-            </Link>
-            <Link
-              href="/admin/offers"
-              className="flex flex-col items-center gap-2 rounded-[1.3rem] border border-white/6 bg-white/[0.02] p-4 transition-all hover:bg-white/[0.05]"
-            >
-              <BadgePercent className="h-5 w-5 text-white/80" />
-              <span className="text-sm font-medium text-white/90">Offers</span>
-            </Link>
-            <Link
-              href="/admin/settings"
-              className="flex flex-col items-center gap-2 rounded-[1.3rem] border border-white/6 bg-white/[0.02] p-4 transition-all hover:bg-white/[0.05]"
-            >
-              <Settings2 className="h-5 w-5 text-white/80" />
-              <span className="text-sm font-medium text-white/90">Settings</span>
-            </Link>
-          </div>
-        </Panel>
+      <section className="mb-6 mt-2">
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-5 md:gap-3">
+          <Link
+            href="/admin/bookings"
+            className="group flex flex-col items-center justify-center gap-2 rounded-[1.2rem] border border-white/5 bg-white/[0.02] py-4 transition-all hover:bg-white/[0.06] hover:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+          >
+            <div className="rounded-full bg-white/[0.04] p-2.5 transition-transform group-hover:scale-110">
+              <BookOpenCheck className="h-4 w-4 text-white/80" />
+            </div>
+            <span className="text-[11px] font-medium tracking-wide text-white/70 group-hover:text-white">Bookings</span>
+          </Link>
+          <Link
+            href="/admin/events"
+            className="group flex flex-col items-center justify-center gap-2 rounded-[1.2rem] border border-white/5 bg-white/[0.02] py-4 transition-all hover:bg-white/[0.06] hover:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+          >
+            <div className="rounded-full bg-white/[0.04] p-2.5 transition-transform group-hover:scale-110">
+              <Ticket className="h-4 w-4 text-white/80" />
+            </div>
+            <span className="text-[11px] font-medium tracking-wide text-white/70 group-hover:text-white">Events</span>
+          </Link>
+          <Link
+            href="/admin/calendar"
+            className="group flex flex-col items-center justify-center gap-2 rounded-[1.2rem] border border-white/5 bg-white/[0.02] py-4 transition-all hover:bg-white/[0.06] hover:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+          >
+            <div className="rounded-full bg-white/[0.04] p-2.5 transition-transform group-hover:scale-110">
+              <CalendarDays className="h-4 w-4 text-white/80" />
+            </div>
+            <span className="text-[11px] font-medium tracking-wide text-white/70 group-hover:text-white">Calendar</span>
+          </Link>
+          <Link
+            href="/admin/offers"
+            className="group flex flex-col items-center justify-center gap-2 rounded-[1.2rem] border border-white/5 bg-white/[0.02] py-4 transition-all hover:bg-white/[0.06] hover:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+          >
+            <div className="rounded-full bg-white/[0.04] p-2.5 transition-transform group-hover:scale-110">
+              <BadgePercent className="h-4 w-4 text-white/80" />
+            </div>
+            <span className="text-[11px] font-medium tracking-wide text-white/70 group-hover:text-white">Offers</span>
+          </Link>
+          <Link
+            href="/admin/settings"
+            className="group flex flex-col items-center justify-center gap-2 rounded-[1.2rem] border border-white/5 bg-white/[0.02] py-4 transition-all hover:bg-white/[0.06] hover:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+          >
+            <div className="rounded-full bg-white/[0.04] p-2.5 transition-transform group-hover:scale-110">
+              <Settings2 className="h-4 w-4 text-white/80" />
+            </div>
+            <span className="text-[11px] font-medium tracking-wide text-white/70 group-hover:text-white">Settings</span>
+          </Link>
+        </div>
       </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
