@@ -40,9 +40,6 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
       >
-        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script src="https://www.googletagmanager.com/gtag/js?id=G-0L0LHXY2JY" async></script>
         <script id="google-analytics" dangerouslySetInnerHTML={{
           __html: `
