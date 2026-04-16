@@ -10,6 +10,9 @@ import {
   IndianRupee,
   History,
   QrCode,
+  Shield,
+  BookOpenCheck,
+  Settings2,
 } from "lucide-react";
 
 import { getAdminControlCenterData } from "@/lib/admin/control-center";
@@ -259,6 +262,41 @@ export default async function AdminOverviewPage() {
 
   return (
     <div className="space-y-6">
+      <section className="sm:hidden">
+        <Panel eyebrow="Admin Panel Navigation" title="Quick access to all admin tools">
+          <div className="grid grid-cols-2 gap-3 mt-4">
+            <Link
+              href="/admin/bookings"
+              className="flex flex-col items-center gap-2 rounded-[1.3rem] border border-white/6 bg-white/[0.02] p-4 transition-all hover:bg-white/[0.05]"
+            >
+              <BookOpenCheck className="h-5 w-5 text-white/80" />
+              <span className="text-sm font-medium text-white/90">Bookings</span>
+            </Link>
+            <Link
+              href="/admin/events"
+              className="flex flex-col items-center gap-2 rounded-[1.3rem] border border-white/6 bg-white/[0.02] p-4 transition-all hover:bg-white/[0.05]"
+            >
+              <Ticket className="h-5 w-5 text-white/80" />
+              <span className="text-sm font-medium text-white/90">Events</span>
+            </Link>
+            <Link
+              href="/admin/calendar"
+              className="flex flex-col items-center gap-2 rounded-[1.3rem] border border-white/6 bg-white/[0.02] p-4 transition-all hover:bg-white/[0.05]"
+            >
+              <CalendarDays className="h-5 w-5 text-white/80" />
+              <span className="text-sm font-medium text-white/90">Calendar</span>
+            </Link>
+            <Link
+              href="/admin/offers"
+              className="flex flex-col items-center gap-2 rounded-[1.3rem] border border-white/6 bg-white/[0.02] p-4 transition-all hover:bg-white/[0.05]"
+            >
+              <BadgePercent className="h-5 w-5 text-white/80" />
+              <span className="text-sm font-medium text-white/90">Offers</span>
+            </Link>
+          </div>
+        </Panel>
+      </section>
+
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <StatCard
           label="Total Income"
