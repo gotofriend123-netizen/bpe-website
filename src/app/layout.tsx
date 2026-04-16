@@ -21,6 +21,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://blackpepperentertainment.in"),
   title: "Black Pepper Entertainment",
   description: "Where People Gather, Create, and Speak. The Arcade community hall and Verve Studio podcast spaces.",
 };
@@ -36,9 +37,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
-      >
+      <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script src="https://www.googletagmanager.com/gtag/js?id=G-0L0LHXY2JY" async></script>
         <script id="google-analytics" dangerouslySetInnerHTML={{
           __html: `
@@ -48,11 +50,18 @@ export default async function RootLayout({
             gtag('config', 'G-0L0LHXY2JY');
           `
         }}></script>
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
+      >
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-md">
+          Skip to content
+        </a>
         <Navbar currentUser={currentUser} />
         <Suspense fallback={null}>
           <AuthEntryPrompt currentUser={currentUser} />
         </Suspense>
-        <main className="min-h-screen">
+        <main id="main" className="min-h-screen">
           {children}
         </main>
         <Footer />

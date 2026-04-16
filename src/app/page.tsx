@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 export const revalidate = 60;
 
+import Image from "next/image";
+
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -32,9 +34,9 @@ import { getHomepageEventItems } from "@/lib/events/repository";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Black Pepper Entertainment | Premium Events, Hall, and Studio Bookings",
+  title: "Black Pepper Entertainment | Premium Venues & Events",
   description:
-    "Book The Arcade community hall, Verve Studio, and curated events with Black Pepper Entertainment. Explore availability, venue formats, and ticketed experiences in one premium destination.",
+    "Book The Arcade community hall, Verve Studio, and curated events with Black Pepper Entertainment. Explore flexible venues and ticketed experiences in Raipur.",
   keywords: [
     "Black Pepper Entertainment",
     "The Arcade",
@@ -355,6 +357,12 @@ export default async function HomePage() {
         image: ["/the-arcade/dsc02553.jpg", "/verve-studio/dsc02518.jpg"],
         telephone: "+91-9203411611",
         areaServed: "Raipur, Chhattisgarh, India",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Raipur",
+          addressRegion: "Chhattisgarh",
+          addressCountry: "IN"
+        },
         description:
           "Premium community hall, podcast studio, and events destination for gatherings, creator sessions, and live experiences.",
       },
@@ -503,9 +511,13 @@ export default async function HomePage() {
                     glowIntensity={0.82}
                     fillOpacity={0.16}
                   >
-                    <div
-                      className="absolute inset-0 bg-cover bg-center opacity-60"
-                      style={{ backgroundImage: `url(${space.image})` }}
+                    <Image
+                      src={space.image}
+                      alt={`${space.title} background`}
+                      fill
+                      priority={index === 0}
+                      className="object-cover opacity-60"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/20" />
                     <div className="relative z-10 flex h-full flex-col justify-end p-7 sm:p-9">
@@ -524,7 +536,7 @@ export default async function HomePage() {
                           href={space.detailHref}
                           className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/14 bg-white/[0.06] px-5 py-3 text-sm font-semibold text-white transition-all hover:border-white/24 hover:bg-white hover:text-black"
                         >
-                          View Details
+                          View Space Details
                         </Link>
                         <Link
                           href={space.bookingHref}
@@ -852,9 +864,12 @@ export default async function HomePage() {
             {galleryPreview.map((item, index) => (
               <AnimatedSection key={item.title} delay={0.12 + index * 0.08} direction="up">
                   <div className="group relative min-h-[17rem] h-full overflow-hidden rounded-[1.7rem] border border-white/10 bg-black md:min-h-[22rem] md:rounded-[2rem]">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center opacity-75 transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${item.image})` }}
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover opacity-75 transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-transparent" />
                   <div className="relative z-10 flex min-h-[17rem] flex-col justify-end p-5 md:min-h-[22rem] md:p-6">
