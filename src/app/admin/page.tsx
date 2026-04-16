@@ -250,30 +250,7 @@ function EventMixChart({
   );
 }
 
-function QuickLink({
-  href,
-  label,
-  caption,
-}: {
-  href: string;
-  label: string;
-  caption: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group rounded-[1.4rem] border border-white/5 bg-[#0b0b0b] p-4 shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)] transition-all duration-300 hover:-translate-y-0.5 hover:text-white"
-    >
-      <div className="flex items-center justify-between gap-3">
-        <div>
-          <p className="text-sm font-semibold text-white">{label}</p>
-          <p className="mt-1 text-sm leading-6 text-zinc-400">{caption}</p>
-        </div>
-        <ArrowRight className="h-5 w-5 text-white transition-transform duration-300 group-hover:translate-x-1" />
-      </div>
-    </Link>
-  );
-}
+
 
 export default async function AdminOverviewPage() {
   const data = await getAdminControlCenterData();
