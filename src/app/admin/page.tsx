@@ -262,9 +262,9 @@ export default async function AdminOverviewPage() {
 
   return (
     <div className="space-y-6">
-      <section className="sm:hidden">
+      <section className="mb-2">
         <Panel eyebrow="Admin Panel Navigation" title="Quick access to all admin tools">
-          <div className="grid grid-cols-2 gap-3 mt-4">
+          <div className="grid grid-cols-2 gap-3 mt-4 sm:grid-cols-3 md:grid-cols-5">
             <Link
               href="/admin/bookings"
               className="flex flex-col items-center gap-2 rounded-[1.3rem] border border-white/6 bg-white/[0.02] p-4 transition-all hover:bg-white/[0.05]"
@@ -292,6 +292,13 @@ export default async function AdminOverviewPage() {
             >
               <BadgePercent className="h-5 w-5 text-white/80" />
               <span className="text-sm font-medium text-white/90">Offers</span>
+            </Link>
+            <Link
+              href="/admin/settings"
+              className="flex flex-col items-center gap-2 rounded-[1.3rem] border border-white/6 bg-white/[0.02] p-4 transition-all hover:bg-white/[0.05]"
+            >
+              <Settings2 className="h-5 w-5 text-white/80" />
+              <span className="text-sm font-medium text-white/90">Settings</span>
             </Link>
           </div>
         </Panel>
