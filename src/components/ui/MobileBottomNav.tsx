@@ -23,25 +23,28 @@ export function MobileBottomNav() {
 
   if (!mounted) return null;
 
+  // Do not show the dashboard floating nav on admin routes to prevent overlap with admin nav
+  if (pathname?.startsWith("/admin")) return null;
+
   return (
     <>
       {/* Floating Background */}
-      <div className="fixed bottom-4 left-4 right-4 z-40 sm:left-auto sm:right-6 sm:w-auto">
+      <div className="fixed top-[5.5rem] left-1/2 z-40 -translate-x-1/2 sm:bottom-6 sm:left-auto sm:right-6 sm:top-auto sm:translate-x-0 sm:w-auto">
         <div className="relative flex items-center justify-center gap-1 rounded-full border border-white/10 bg-[#0a0a0a]/95 px-2 py-2 shadow-[0_0_40px_rgba(0,0,0,0.6),0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl">
           {/* Glow Effect */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-white/5 via-transparent to-white/5 pointer-events-none" />
+          <div className="absolute inset-0 pointer-events-none rounded-full bg-gradient-to-r from-white/5 via-transparent to-white/5" />
           
           <div className="relative flex items-center gap-1">
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+              const isActive = pathname === item.href || (item.href !== "/" && pathname?.startsWith(item.href));
               
               return (
                 <Link
                   key={item.key}
                   href={item.href}
                   className={cn(
-                    "group relative flex flex-col items-center gap-1 rounded-full px-2 min-[380px]:px-3 py-2 transition-all duration-300",
+                    "group relative flex flex-col items-center gap-1 rounded-full px-2 py-2 transition-all duration-300 min-[380px]:px-3",
                     isActive
                       ? "text-white"
                       : "text-white/50 hover:text-white",
@@ -77,8 +80,7 @@ export function MobileBottomNav() {
         </div>
       </div>
       
-      {/* Safe Area Spacer */}
-      <div className="h-20 sm:hidden" />
+      {/* Safe Area Spacer no longer needed at bottom since mobile nav is top-fixed */}
     </>
   );
 }
