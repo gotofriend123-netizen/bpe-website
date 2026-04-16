@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-
-export const revalidate = 60;
-
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -32,6 +29,8 @@ import { Demo as GlassMarquee } from "@/components/ui/Demo";
 import { arcadeImages, pickVenueImage, verveImages } from "@/lib/content/site-images";
 import { getHomepageEventItems } from "@/lib/events/repository";
 import { cn } from "@/lib/utils";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Black Pepper Entertainment | Premium Venues & Events",
