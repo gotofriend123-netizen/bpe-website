@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverActions: {
-      bodySizeLimit: "12mb",
-    },
+  serverExternalPackages: [],
+  serverActions: {
+    bodySizeLimit: "12mb",
   },
   images: {
     remotePatterns: [
@@ -20,7 +19,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)",
+        source: "/:path*",
         headers: [
           {
             key: "X-Content-Type-Options",
