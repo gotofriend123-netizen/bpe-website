@@ -10,7 +10,6 @@ import {
   IndianRupee,
   History,
   QrCode,
-  Shield,
   BookOpenCheck,
   Settings2,
 } from "lucide-react";
