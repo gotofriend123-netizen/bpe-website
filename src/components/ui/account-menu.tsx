@@ -183,11 +183,11 @@ export function AccountMenu({ currentUser, className, onNavigate }: AccountMenuP
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.12, ease: "easeOut" }}
-            className="absolute right-0 top-full z-[60] mt-2 w-[min(92vw,320px)] origin-top-right"
+            className="fixed left-4 right-4 top-[84px] z-[60] mx-auto w-auto max-w-[360px] origin-top sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-2 sm:w-[320px] sm:origin-top-right"
           >
             {/* Backdrop — closes menu on tap */}
             <div
-              className="fixed inset-0 z-[-1]"
+              className="fixed inset-[-100vh] z-[-1] sm:inset-0"
               onClick={() => setOpen(false)}
               aria-hidden="true"
             />
