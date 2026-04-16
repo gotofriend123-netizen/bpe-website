@@ -363,7 +363,6 @@ export function AdminChrome({
         </div>
       </div>
 
-      <MobileBottomNav pathname={pathname} />
     </div>
   );
 }
