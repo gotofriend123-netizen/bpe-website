@@ -23,8 +23,6 @@ export function MobileBottomNav() {
 
   if (!mounted) return null;
 
-  // Do not show the dashboard floating nav on admin routes to prevent overlap with admin nav
-  if (pathname?.startsWith("/admin")) return null;
 
   return (
     <>
