@@ -68,31 +68,6 @@ function getInitials(name: string) {
     .join("");
 }
 
-function MobileBottomNav({ pathname }: { pathname: string }) {
-  return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/8 bg-[#0c0c0c] px-1 py-1.5 pb-safe sm:hidden">
-      <div className="flex items-center justify-around">
-        {ADMIN_LINKS.slice(0, 5).map((item) => {
-          const Icon = item.icon;
-          const active = isActive(pathname, item.href);
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "flex flex-col items-center gap-0.5 rounded-lg px-2 py-1 text-[9px] font-medium transition-colors",
-                active ? "text-white" : "text-white/50 hover:text-white",
-              )}
-            >
-              <Icon className="h-4 w-4" />
-              <span className="text-[8px] uppercase">{item.label}</span>
-            </Link>
-          );
-        })}
-      </div>
-    </nav>
-  );
-}
 
 function MobileHeader({ initials }: { initials: string }) {
   return (
