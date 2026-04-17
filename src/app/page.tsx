@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     siteName: "Black Pepper Entertainment",
     images: [
       {
-        url: "/the-arcade/dsc02553.jpg",
+        url: "/the-arcade/dsc02553.webp",
         width: 1200,
         height: 630,
         alt: "Black Pepper Entertainment venue preview",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: "Black Pepper Entertainment",
     description:
       "Premium venue bookings and curated event experiences for gatherings, creators, and conversations.",
-    images: ["/the-arcade/dsc02553.jpg"],
+    images: ["/the-arcade/dsc02553.webp"],
   },
   alternates: {
     canonical: "/",
@@ -353,7 +353,7 @@ export default async function HomePage() {
       {
         "@type": "LocalBusiness",
         name: "Black Pepper Entertainment",
-        image: ["/the-arcade/dsc02553.jpg", "/verve-studio/dsc02518.jpg"],
+        image: ["/the-arcade/dsc02553.webp", "/verve-studio/dsc02518.webp"],
         telephone: "+91-9203411611",
         areaServed: "Raipur, Chhattisgarh, India",
         address: {

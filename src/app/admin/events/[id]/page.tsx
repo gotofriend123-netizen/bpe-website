@@ -233,7 +233,7 @@ export default async function AdminEventDetailPage({ params, searchParams }: Adm
       {activeTab === "analytics" ? (
         <div className="space-y-6">
           {/* Stats grid */}
-          <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             <StatCard
               label="Total Revenue"
               value={`₹${analytics.totalRevenue.toLocaleString("en-IN")}`}
@@ -285,7 +285,7 @@ export default async function AdminEventDetailPage({ params, searchParams }: Adm
 
           {/* Recent bookings table */}
           <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(19,19,19,0.98),rgba(11,11,11,0.94))] p-6">
-            <div className="flex items-end justify-between gap-4">
+            <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-500">
                   Booking Activity
@@ -341,7 +341,7 @@ export default async function AdminEventDetailPage({ params, searchParams }: Adm
       {/* ── Customers Tab ── */}
       {activeTab === "customers" ? (
         <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(19,19,19,0.98),rgba(11,11,11,0.94))] p-6">
-          <div className="flex items-end justify-between gap-4">
+          <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-500">
                 Customer Directory

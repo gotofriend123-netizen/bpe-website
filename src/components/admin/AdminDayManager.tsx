@@ -50,7 +50,7 @@ export const AdminDayManager = ({ space, date }: AdminDayManagerProps) => {
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-      <div className="flex justify-between items-center mb-6 relative z-10">
+      <div className="flex flex-wrap justify-between items-center gap-4 mb-6 relative z-10">
         <div>
            <h3 className="text-2xl font-bold text-white tracking-tight">{format(date, 'MMMM do, yyyy')}</h3>
            <p className="text-gray-400 text-sm mt-1">{slots.length} Slots Generated</p>
@@ -86,7 +86,7 @@ export const AdminDayManager = ({ space, date }: AdminDayManagerProps) => {
                 {slot.label && <span className="ml-2 text-xs uppercase text-amber-500 font-bold bg-amber-500/10 px-2 py-0.5 rounded">{slot.label}</span>}
              </div>
 
-             <div className="flex items-center gap-3">
+             <div className="flex flex-wrap items-center gap-3">
                 <span className={`px-2 py-1 text-xs font-bold uppercase rounded border ${statusColors[slot.status] || 'bg-gray-500/20 text-gray-400 border-gray-500/30'}`}>
                   {slot.status}
                 </span>

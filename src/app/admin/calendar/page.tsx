@@ -145,9 +145,9 @@ export default async function AdminCalendarPage({
                 key={day.dateKey}
                 className="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5"
               >
-                <div className="flex items-start justify-between gap-3">
+                <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="text-lg font-semibold text-white">{day.label}</p>
+                    <p className="text-lg font-semibold text-white break-words">{day.label}</p>
                     <p className="text-xs uppercase tracking-[0.22em] text-zinc-500">
                       {formatDateLabel(day.dateKey)}
                     </p>

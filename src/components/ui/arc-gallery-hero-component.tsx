@@ -30,7 +30,7 @@ type ArcGalleryHeroProps = {
   secondaryCtaHref?: string;
 };
 
-const FALLBACK_IMAGE = "/the-arcade/dsc02553.jpg";
+const FALLBACK_IMAGE = "/the-arcade/dsc02553.webp";
 
 export const ArcGalleryHero: React.FC<ArcGalleryHeroProps> = ({
   images,

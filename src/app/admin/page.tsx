@@ -47,15 +47,15 @@ function StatCard({
 
   return (
     <div className="rounded-[1.8rem] border border-white/6 bg-[#151515] p-5 shadow-[inset_8px_8px_16px_rgba(0,0,0,0.52),inset_-8px_-8px_16px_rgba(255,255,255,0.025)]">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500 break-words">
             {label}
           </p>
           <p className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-white">
             {value}
           </p>
-          <p className="mt-2 text-sm leading-6 text-zinc-400">{caption}</p>
+          <p className="mt-2 text-sm leading-6 text-zinc-400 break-words">{caption}</p>
         </div>
         <div className={`rounded-2xl p-[1px] ${accent}`}>
           <div className="rounded-2xl bg-[#0b0b0b] p-3 text-white shadow-[12px_12px_24px_rgba(0,0,0,0.42),-8px_-8px_18px_rgba(255,255,255,0.02)]">
@@ -262,7 +262,7 @@ export default async function AdminOverviewPage() {
   return (
     <div className="space-y-6">
       <section className="mb-6 mt-2">
-        <div className="grid grid-cols-3 gap-2 sm:grid-cols-5 md:gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 md:gap-3">
           <Link
             href="/admin/bookings"
             className="group flex flex-col items-center justify-center gap-2 rounded-[1.2rem] border border-white/5 bg-white/[0.02] py-4 transition-all hover:bg-white/[0.06] hover:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
@@ -311,7 +311,7 @@ export default async function AdminOverviewPage() {
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <StatCard
           label="Total Income"
           value={formatCurrency(data.stats.totalEventIncome)}
@@ -402,9 +402,9 @@ export default async function AdminOverviewPage() {
                     className="rounded-[1.4rem] border border-white/8 bg-black/25 p-4"
                   >
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                      <div>
-                        <p className="text-sm font-semibold text-white">{booking.reference}</p>
-                        <p className="mt-1 text-sm text-zinc-400">
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-white break-words">{booking.reference}</p>
+                        <p className="mt-1 text-sm text-zinc-400 break-words">
                           {booking.customerName} · {booking.space}
                         </p>
                         <p className="mt-1 text-xs uppercase tracking-[0.2em] text-zinc-500">
@@ -444,9 +444,9 @@ export default async function AdminOverviewPage() {
                 className="rounded-[1.4rem] border border-white/8 bg-black/25 p-4"
               >
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <p className="text-sm font-semibold text-white">{booking.eventTitle}</p>
-                    <p className="mt-1 text-sm text-zinc-400">
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-white break-words">{booking.eventTitle}</p>
+                    <p className="mt-1 text-sm text-zinc-400 break-words">
                       {booking.customerName} · {booking.quantity} tickets
                     </p>
                     <p className="mt-1 text-xs uppercase tracking-[0.2em] text-zinc-500">
@@ -507,8 +507,8 @@ export default async function AdminOverviewPage() {
                         </span>
                       ) : null}
                     </div>
-                    <p className="mt-3 text-lg font-semibold text-white">{event.title}</p>
-                    <p className="mt-1 text-sm text-zinc-400">
+                    <p className="mt-3 text-lg font-semibold text-white break-words">{event.title}</p>
+                    <p className="mt-1 text-sm text-zinc-400 break-words">
                       {event.categoryLabel} · {event.venue}
                     </p>
                     <p className="mt-1 text-xs uppercase tracking-[0.2em] text-zinc-500">

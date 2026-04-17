@@ -75,8 +75,8 @@ function EventRow({ event }: { event: AdminEventListingRecord }) {
               </span>
             ) : null}
           </div>
-          <p className="mt-1.5 truncate text-base font-semibold text-white">{event.title}</p>
-          <p className="mt-0.5 text-xs text-zinc-500">
+          <p className="mt-1.5 break-words text-base font-semibold text-white">{event.title}</p>
+          <p className="mt-0.5 text-xs text-zinc-500 break-words">
             {event.venue} · {format(parseISO(event.startsAt), "dd MMM yyyy")} · {event.bookingsCount} bookings · ₹{event.priceFrom}
           </p>
         </div>
@@ -202,7 +202,7 @@ export function AdminEventsClient({
       ) : null}
 
       {/* ── Header with dropdown ── */}
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-500">Event Management</p>
           <h1 className="mt-1 text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl">Events</h1>
@@ -253,7 +253,7 @@ export function AdminEventsClient({
       </div>
 
       {/* ── Stats ── */}
-      <section className="grid gap-3 grid-cols-2 lg:grid-cols-5">
+      <section className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
         <div className="rounded-[1.4rem] border border-white/10 bg-[linear-gradient(180deg,rgba(34,34,34,0.96),rgba(16,16,16,0.94))] p-4">
           <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-zinc-500">Published</p>
           <p className="mt-2 text-3xl font-semibold text-white">{publishedCount}</p>
@@ -284,10 +284,10 @@ export function AdminEventsClient({
 
       {/* ── Event list (collapsible rows) ── */}
       <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(19,19,19,0.98),rgba(11,11,11,0.94))] p-5">
-        <div className="flex items-end justify-between gap-4">
+        <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-500">Inventory</p>
-            <h2 className="mt-1.5 text-xl font-semibold tracking-[-0.03em] text-white">
+            <h2 className="mt-1.5 text-xl font-semibold tracking-[-0.03em] text-white break-words">
               All Events ({eventListings.length})
             </h2>
           </div>

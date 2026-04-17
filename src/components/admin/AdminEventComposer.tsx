@@ -389,9 +389,9 @@ export function AdminEventComposer({ action, initialData, eventId }: AdminEventC
   return (
     <section className="grid gap-6 xl:grid-cols-[0.98fr_1.02fr]">
       <aside className="xl:sticky xl:top-6 xl:self-start rounded-[2rem] border border-white/8 bg-white/[0.03] p-4 sm:p-5">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="text-[1.7rem] font-semibold tracking-[-0.04em] text-white">Poster Preview</p>
+            <p className="text-[1.7rem] font-semibold tracking-[-0.04em] text-white break-words">Poster Preview</p>
           </div>
           <button
             type="button"
@@ -450,11 +450,11 @@ export function AdminEventComposer({ action, initialData, eventId }: AdminEventC
 
       <div className="rounded-[2rem] border border-white/8 bg-white/[0.03] p-5 sm:p-7">
         <div className="text-center">
-          <h2 className="text-[2.2rem] font-semibold tracking-[-0.05em] text-white sm:text-[2.8rem]">
+          <h2 className="text-[2.2rem] font-semibold tracking-[-0.05em] text-white sm:text-[2.8rem] break-words">
             {isEditMode ? "Edit Event" : "Create Event"}
           </h2>
 
-          <div className="mt-7 grid grid-cols-3 gap-2 md:gap-4">
+          <div className="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-4">
             <StepIndicator step={1} label="Event Details" active={currentStep === 1} />
             <StepIndicator step={2} label="Location" active={currentStep === 2} />
             <StepIndicator step={3} label="Pricing & Tickets" active={currentStep === 3} />
@@ -733,7 +733,7 @@ export function AdminEventComposer({ action, initialData, eventId }: AdminEventC
             </div>
           </section>
 
-          <div className="mt-7 flex items-center justify-between gap-4">
+          <div className="mt-7 flex flex-wrap items-center justify-between gap-4">
             <button
               type="button"
               onClick={handleBack}
