@@ -65,6 +65,7 @@ export function buildAdminBookingAlertEmail(input: BookingNotificationTemplateIn
               ["Time", `${input.startTime} - ${input.endTime}`],
               ["Booking status", input.statusLabel],
               ["Booking package", input.packageLabel],
+              ["Specific studio", input.specificStudio],
               ["Customer notes", input.adminNotes],
               ["Created at", formatCreatedAt(input.createdAt)],
             ]
@@ -129,6 +130,7 @@ export function buildCustomerBookingConfirmationEmail(
           <p style="margin:0 0 10px;font-size:16px;"><strong>Space:</strong> ${escapeHtml(input.spaceLabel)}</p>
           <p style="margin:0 0 10px;font-size:16px;"><strong>Date:</strong> ${escapeHtml(formatDateLabel(input.dateKey))}</p>
           <p style="margin:0 0 10px;font-size:16px;"><strong>Time:</strong> ${escapeHtml(`${input.startTime} - ${input.endTime}`)}</p>
+          ${input.specificStudio ? `<p style="margin:0 0 10px;font-size:16px;"><strong>Studio:</strong> ${escapeHtml(input.specificStudio)}</p>` : ""}
           <p style="margin:0;font-size:16px;"><strong>Status:</strong> ${escapeHtml(input.statusLabel)}</p>
         </div>
         <p style="margin:0 0 18px;color:#d4d4d8;font-size:15px;line-height:1.7;">${escapeHtml(renderPolicySummary(input.policySummary))}</p>
@@ -161,6 +163,7 @@ export function buildCustomerBookingWhatsappMessage(
     `${input.spaceLabel}`,
     `${formatDateLabel(input.dateKey)}`,
     `${input.startTime} - ${input.endTime}`,
+    input.specificStudio ? `Studio: ${input.specificStudio}` : null,
     `Status: ${input.statusLabel}`,
     `Support: ${input.supportEmail} | WhatsApp ${input.supportWhatsappDisplay}`,
   ].join("\n");
@@ -175,6 +178,7 @@ export function buildAdminBookingWhatsappMessage(
     `${input.spaceLabel}`,
     `${formatDateLabel(input.dateKey)} · ${input.startTime} - ${input.endTime}`,
     `Status: ${input.statusLabel}`,
+    input.specificStudio ? `Studio: ${input.specificStudio}` : null,
     input.packageLabel ? `Package: ${input.packageLabel}` : null,
   ]
     .filter(Boolean)

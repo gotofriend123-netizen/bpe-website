@@ -98,6 +98,7 @@ function buildTemplateInput(params: {
     endTime: booking.endTime,
     statusLabel: getStatusLabel(booking.status),
     packageLabel: booking.packageLabel,
+    specificStudio: booking.specificStudio,
     adminNotes: booking.adminNotes,
     createdAt: booking.createdAt.toISOString(),
     manageBookingUrl: toAbsoluteAppUrl(manageUrl),
@@ -208,6 +209,7 @@ export async function sendBookingNotifications(params: {
     },
   });
 
+  console.log(`[notifications] Preparing to send confirmations for ${booking.reference}...`);
   const policySummary = buildPolicySummary(settings);
   const templateInput = buildTemplateInput({
     booking,
@@ -215,6 +217,8 @@ export async function sendBookingNotifications(params: {
     manageUrl: params.manageUrl,
     policySummary,
   });
+
+  console.log(`[notifications] Channels attempted: Admin Email, Customer Email, Customer WhatsApp, Admin WhatsApp`);
 
   const adminEmailResult = normalizeChannelResult(
     booking.adminEmailSent,

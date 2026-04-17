@@ -20,6 +20,7 @@ export type BookingNotificationTemplateInput = {
   endTime: string;
   statusLabel: string;
   packageLabel?: string | null;
+  specificStudio?: string | null;
   adminNotes?: string | null;
   createdAt: string;
   manageBookingUrl?: string;

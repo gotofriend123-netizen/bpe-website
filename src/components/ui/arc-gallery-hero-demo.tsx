@@ -77,7 +77,7 @@ export function ArcGalleryHeroDemo() {
       description="A cinematic first look at The Arcade and Verve Studio, using the real spaces to set the tone before a booking begins."
       primaryCtaLabel="View Gallery"
       primaryCtaHref="/gallery"
-      className="mt-3 min-h-[30rem] w-full bg-black pb-4 text-white sm:mt-5 sm:min-h-[36rem] md:mt-6 md:pb-0"
+      className="mt-12 min-h-[30rem] w-full bg-black pb-4 text-white sm:mt-16 sm:min-h-[36rem] md:mt-20 md:pb-0"
       startAngle={16}
       endAngle={164}
       radiusLg={500}
