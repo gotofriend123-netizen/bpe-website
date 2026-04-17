@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   CalendarDays,
@@ -56,12 +57,13 @@ export function UserEventBookingCard({ booking }: UserEventBookingCardProps) {
     >
       <div className="relative aspect-[16/9] overflow-hidden border-b border-white/8 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_55%),linear-gradient(180deg,rgba(15,15,15,0.35),rgba(8,8,8,0.96))]">
         {booking.posterImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={booking.posterImage}
             alt={booking.eventTitle}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
             loading="lazy"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : null}
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,6,6,0.1),rgba(6,6,6,0.78))]" />

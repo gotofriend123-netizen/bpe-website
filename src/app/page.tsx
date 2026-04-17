@@ -35,7 +35,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Black Pepper Entertainment | Premium Venues & Events",
   description:
-    "Book The Arcade community hall, Verve Studio, and curated events with Black Pepper Entertainment. Explore flexible venues and ticketed experiences in Raipur.",
+    "Book The Arcade community hall, Verve Studio, and curated events in Raipur with Black Pepper Entertainment. Discover premium venues and experiences.",
   keywords: [
     "Black Pepper Entertainment",
     "The Arcade",

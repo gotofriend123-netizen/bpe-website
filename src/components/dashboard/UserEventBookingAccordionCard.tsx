@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   CalendarDays,
@@ -58,12 +59,13 @@ export function UserEventBookingAccordionCard({
         <div className="flex gap-4">
           <div className="relative h-24 w-20 shrink-0 overflow-hidden rounded-[1.2rem] border border-white/8 bg-[linear-gradient(180deg,rgba(15,15,15,0.35),rgba(8,8,8,0.96))]">
             {booking.posterImage ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <Image
                 src={booking.posterImage}
                 alt={booking.eventTitle}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 loading="lazy"
+                sizes="80px"
               />
             ) : null}
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,6,6,0.12),rgba(6,6,6,0.82))]" />
