@@ -31,6 +31,7 @@ import { formatBookingDurationLabel } from "@/lib/booking/duration";
 import { useBookingStore } from "@/lib/store/bookingStore";
 import type { BookingFormValues } from "@/lib/validations";
 import type { Space, PublicSlot } from "@/lib/types/booking";
+import { cn } from "@/lib/utils";
 
 type BookingSnapshot = Pick<
   BookingFormValues,
