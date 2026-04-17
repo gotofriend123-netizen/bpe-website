@@ -53,7 +53,7 @@ export const InteractiveSelector = ({ title, description, options }: Interactive
       </div>
 
       {/* Options Container */}
-      <div className="flex w-full max-w-[1200px] h-[400px] md:h-[500px] mx-auto px-4 md:px-6 overflow-hidden gap-2 md:gap-4 relative">
+      <div className="flex flex-col md:flex-row w-full max-w-[1200px] h-[600px] md:h-[500px] mx-auto px-4 md:px-6 overflow-hidden gap-2 md:gap-4 relative">
         {options.map((option, index) => {
           const isActive = activeIndex === index;
           const isAnimated = animatedOptions.includes(index);
@@ -81,7 +81,7 @@ export const InteractiveSelector = ({ title, description, options }: Interactive
               />
               
               {/* Bottom Label Container */}
-              <div className="absolute left-0 right-0 bottom-4 md:bottom-6 flex items-center h-16 px-3 md:px-6 gap-3 md:gap-4 w-full z-10 pointer-events-none">
+              <div className={`absolute left-0 right-0 flex items-center px-3 md:px-6 gap-3 md:gap-4 w-full z-10 pointer-events-none transition-all duration-700 ${isActive ? 'bottom-4 md:bottom-6 h-16' : 'top-1/2 -translate-y-1/2 md:top-auto md:translate-y-0 md:bottom-6 md:h-16'}`}>
                 
                 {/* Icon Wrapper */}
                 <div className="min-w-[40px] md:min-w-[50px] h-[40px] md:h-[50px] flex items-center justify-center rounded-full bg-white/10 backdrop-blur-xl shadow-lg border border-white/20 shrink-0 text-white transition-transform duration-500">
