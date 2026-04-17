@@ -34,6 +34,7 @@ export function BookingForm({
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<BookingFormValues>({
     resolver: zodResolver(bookingFormSchema),
@@ -61,6 +62,21 @@ export function BookingForm({
         "selectedPackage",
       ],
     });
+
+  useEffect(() => {
+    reset({
+      ...initialData,
+      fullName: initialData?.fullName || "",
+      phoneNumber: initialData?.phoneNumber || "",
+      email: initialData?.email || "",
+      bookingType: initialData?.bookingType || "",
+      specificStudio: initialData?.specificStudio || "",
+      selectedPackage: initialData?.selectedPackage || "",
+      date: initialData?.date || "",
+      time: initialData?.time || "",
+      termsAccepted: false,
+    });
+  }, [initialData, reset]);
 
   useEffect(() => {
     onValuesChange?.({
@@ -292,10 +308,10 @@ export function BookingForm({
           <label className="text-sm font-medium text-gray-300">Date</label>
           <input
             {...register("date")}
-            disabled={isSubmitting}
+            disabled={isSubmitting || !!slotId}
             type="date"
             min={formatLocalDateKey(new Date())}
-            className="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-white/20 transition-all cursor-pointer"
+            className="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-white/20 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ colorScheme: "dark" }}
           />
           {errors.date && (
@@ -308,9 +324,9 @@ export function BookingForm({
           <label className="text-sm font-medium text-gray-300">Time</label>
           <input
             {...register("time")}
-            disabled={isSubmitting}
+            disabled={isSubmitting || !!slotId}
             type="time"
-            className="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-white/20 transition-all cursor-pointer"
+            className="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-white/20 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ colorScheme: "dark" }}
           />
           {errors.time && (

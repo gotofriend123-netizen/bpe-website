@@ -12,9 +12,10 @@ import { fetchAvailability } from "@/lib/booking/client";
 interface TimeSlotListProps {
   space: Space;
   selectedDate: Date;
+  onSelectSlot?: (slot: PublicSlot) => void;
 }
 
-export const TimeSlotList = ({ space, selectedDate }: TimeSlotListProps) => {
+export const TimeSlotList = ({ space, selectedDate, onSelectSlot }: TimeSlotListProps) => {
   const router = useRouter();
   const dateStr = format(selectedDate, 'yyyy-MM-dd');
   const [slots, setSlots] = useState<PublicSlot[]>([]);
@@ -67,7 +68,11 @@ export const TimeSlotList = ({ space, selectedDate }: TimeSlotListProps) => {
     const slot = availableSlots.find(s => s.id === selectedSlot);
     if (!slot) return;
     
-    router.push(`/booking?space=${space}&date=${dateStr}&time=${slot.startTime}&slotId=${slot.id}`);
+    if (onSelectSlot) {
+      onSelectSlot(slot);
+    } else {
+      router.push(`/booking?space=${space}&date=${dateStr}&time=${slot.startTime}&slotId=${slot.id}`);
+    }
   };
 
   if (isUnavailable) {

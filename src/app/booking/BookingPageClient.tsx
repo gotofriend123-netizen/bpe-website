@@ -13,6 +13,10 @@ import {
 } from "lucide-react";
 import { BookingForm } from "@/components/BookingForm";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { SpaceSwitcher } from "@/components/calendar/SpaceSwitcher";
+import { CalendarGrid } from "@/components/calendar/CalendarGrid";
+import { TimeSlotList } from "@/components/calendar/TimeSlotList";
+import { GlowCard } from "@/components/ui/GlowCard";
 import { SPECIFIC_STUDIOS } from "@/config/data";
 import { getBusinessSupportWhatsappLink } from "@/lib/business/contact";
 import {
@@ -26,6 +30,7 @@ import {
 import { formatBookingDurationLabel } from "@/lib/booking/duration";
 import { useBookingStore } from "@/lib/store/bookingStore";
 import type { BookingFormValues } from "@/lib/validations";
+import type { Space, PublicSlot } from "@/lib/types/booking";
 
 type BookingSnapshot = Pick<
   BookingFormValues,
@@ -44,6 +49,15 @@ export function BookingPageClient({
   const dateParam = searchParams.get("date");
   const timeParam = searchParams.get("time");
   const slotId = searchParams.get("slotId");
+
+  const [selectedSpace, setSelectedSpace] = useState<Space>(
+    (searchParams.get("space") as Space) || "vsl",
+  );
+  const [selectedDateObj, setSelectedDateObj] = useState<Date>(
+    dateParam ? new Date(dateParam) : new Date(),
+  );
+  const [selectedSlot, setSelectedSlot] = useState<PublicSlot | null>(null);
+  const [showForm, setShowForm] = useState(!!slotId);
 
   const resolvedBookingType = useMemo(
     () =>
@@ -326,11 +340,91 @@ export function BookingPageClient({
 
           <div className="min-w-0">
             <AnimatedSection direction="left" delay={0.3}>
-            <BookingForm
-              initialData={initialData}
-              slotId={slotId ?? undefined}
-              onValuesChange={handleValuesChange}
-            />
+              <div className="space-y-12">
+                {/* Stage 1: Availability Selection */}
+                <section className={cn("space-y-8 transition-all duration-500", showForm && "opacity-50 blur-[2px] pointer-events-none scale-[0.98] origin-top")}>
+                  <div className="flex flex-col items-center justify-center text-center space-y-4 mb-4">
+                     <h2 className="text-3xl font-bold text-white tracking-tight">1. Pick your Space & Time</h2>
+                     <p className="text-zinc-400 max-w-md">Our calendars are always live. Select a slot below to ensure your session is confirmed instantly.</p>
+                  </div>
+                  
+                  <SpaceSwitcher
+                    selected={selectedSpace}
+                    onChange={(s) => {
+                      setSelectedSpace(s);
+                      setSelectedSlot(null);
+                    }}
+                  />
+
+                  <div className="flex flex-col gap-8 lg:flex-row">
+                    <div className="flex-1">
+                      <CalendarGrid
+                        space={selectedSpace}
+                        selectedDate={selectedDateObj}
+                        onSelectDate={(d) => {
+                          setSelectedDateObj(d);
+                          setSelectedSlot(null);
+                        }}
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <GlowCard
+                        className="h-full min-h-[400px]"
+                        contentClassName="p-6 md:p-8"
+                        backgroundColor="#09070f"
+                        borderRadius={30}
+                      >
+                        <TimeSlotList
+                          space={selectedSpace}
+                          selectedDate={selectedDateObj}
+                          onSelectSlot={(slot) => {
+                            setSelectedSlot(slot);
+                            setShowForm(true);
+                            // Scroll to form on mobile
+                            if (window.innerWidth < 1024) {
+                               setTimeout(() => {
+                                 document.getElementById('booking-form-section')?.scrollIntoView({ behavior: 'smooth' });
+                               }, 100);
+                            }
+                          }}
+                        />
+                      </GlowCard>
+                    </div>
+                  </div>
+                </section>
+
+                {/* Stage 2: Booking Form */}
+                <section id="booking-form-section" className={cn("space-y-8 transition-all duration-500", !showForm && "opacity-30 blur-[4px] pointer-events-none")}>
+                   <div className="flex flex-col items-center justify-center text-center space-y-4">
+                     <h2 className="text-3xl font-bold text-white tracking-tight">2. Finalize your Details</h2>
+                     {!showForm ? (
+                        <p className="text-amber-400 font-medium">Please select a time slot above first.</p>
+                     ) : (
+                        <div className="flex items-center gap-4">
+                           <button 
+                            onClick={() => setShowForm(false)}
+                            className="text-sm text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
+                           >
+                              Change Slot
+                           </button>
+                        </div>
+                     )}
+                  </div>
+
+                  <BookingForm
+                    initialData={{
+                        ...initialData,
+                        date: selectedSlot?.dateKey || dateParam || "",
+                        time: selectedSlot?.startTime || timeParam || "",
+                        bookingType: selectedSlot 
+                            ? (selectedSlot.space === 'arcade' ? 'arcade' : (selectedSlot.space === 'vsl' ? 'verve-studio-left' : 'verve-studio-right'))
+                            : (resolvedBookingType || "")
+                    }}
+                    slotId={selectedSlot?.id || slotId || undefined}
+                    onValuesChange={handleValuesChange}
+                  />
+                </section>
+              </div>
             </AnimatedSection>
           </div>
         </div>
