@@ -1,6 +1,6 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
-import { Mic, MoveRight, Camera, Armchair, Monitor, Radio as Soundwave } from "lucide-react";
+import { Mic, MoveRight, Camera, Armchair, Monitor, Radio as Soundwave, CheckCircle2 } from "lucide-react";
 import { PaperIcon } from "@/components/ui/PaperIcon";
 import { InteractiveSelector } from "@/components/ui/interactive-selector";
 import { arcadeImages, verveImages } from "@/lib/content/site-images";
@@ -9,6 +9,17 @@ export const metadata = {
   title: "Verve Studio | Premium Podcast & Content Studio",
   description: "Book Verve Studio for pristine 4K podcast recordings, interviews, and brand conversations. Fully equipped and professionally lit.",
 };
+
+const AMENITIES = [
+  "Broadcast-grade Acoustic Treatment",
+  "Pre-rigged Cinema Cameras",
+  "Shure Mics & Audio Interfaces",
+  "DMX Controlled Aputure Lighting",
+  "Dedicated Control/Monitoring",
+  "Zero-latency Audio Routing",
+  "Live Streaming Capabilities",
+  "On-site Technical Staff"
+];
 
 const verveOptions = [
   {
@@ -105,6 +116,64 @@ export default function VerveStudioPage() {
         </div>
       </section>
 
+      {/* Description & Use Cases (Photo Grid) */}
+      <section className="py-24">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <AnimatedSection direction="right">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Engineered for excellence.</h2>
+              <p className="text-gray-400 text-lg leading-relaxed mb-6">
+                Verve Studio is designed from the ground up for high-fidelity audio and video production. With acoustically isolated spaces and pre-lit modular corners, you can walk in and start recording broadcast-quality content immediately.
+              </p>
+              <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                Ideal for premium podcasts, intimate interviews, vodcasts, voiceover recording, and focused creator content.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {AMENITIES.map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-white shrink-0 mt-0.5" />
+                    <span className="text-gray-300">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </AnimatedSection>
+            
+            <AnimatedSection direction="left" className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="space-y-4">
+                <div
+                  className="h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
+                  style={{ backgroundImage: `url('${verveImages[0]}')` }}
+                />
+                <div
+                  className="h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
+                  style={{ backgroundImage: `url('${verveImages[1]}')` }}
+                />
+              </div>
+              <div className="space-y-4 lg:pt-12">
+                <div
+                  className="h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
+                  style={{ backgroundImage: `url('${verveImages[2]}')` }}
+                />
+                <div
+                  className="h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
+                  style={{ backgroundImage: `url('${verveImages[3]}')` }}
+                />
+              </div>
+              <div className="space-y-4 pt-6 hidden lg:block">
+                <div
+                  className="h-56 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
+                  style={{ backgroundImage: `url('${verveImages[4]}')` }}
+                />
+                <div
+                  className="h-48 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
+                  style={{ backgroundImage: `url('${verveImages[6]}')` }}
+                />
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
       {/* Split Sets */}
       <section className="py-24 bg-black">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -132,7 +201,7 @@ export default function VerveStudioPage() {
                <div className="relative h-[400px] rounded-3xl border border-white/10 overflow-hidden mb-6">
                  <div
                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                   style={{ backgroundImage: `url('${verveImages[5]}')` }}
+                   style={{ backgroundImage: `url('${verveImages[6]}')` }}
                  />
                  <div className="absolute inset-0 bg-black/20" />
                </div>

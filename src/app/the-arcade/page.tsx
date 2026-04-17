@@ -43,7 +43,7 @@ const arcadeOptions = [
   {
     title: "Acoustic Tuning",
     description: "Engineered panels and heavy curtains",
-    image: verveImages[3],
+    image: arcadeImages[2],
     icon: <Focus size={24} />
   },
   {
@@ -130,25 +130,35 @@ export default function TheArcadePage() {
               </div>
             </AnimatedSection>
             
-            <AnimatedSection direction="left" className="grid grid-cols-2 gap-4">
+            <AnimatedSection direction="left" className="grid grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="space-y-4">
                 <div
-                  className="h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
+                  className="h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
                   style={{ backgroundImage: `url('${arcadeImages[4]}')` }}
                 />
                 <div
-                  className="h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
+                  className="h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
                   style={{ backgroundImage: `url('${arcadeImages[0]}')` }}
                 />
               </div>
-              <div className="space-y-4 pt-12">
+              <div className="space-y-4 lg:pt-12">
                 <div
-                  className="h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
+                  className="h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
                   style={{ backgroundImage: `url('${arcadeImages[1]}')` }}
                 />
                 <div
-                  className="h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
+                  className="h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
                   style={{ backgroundImage: `url('${arcadeImages[5]}')` }}
+                />
+              </div>
+              <div className="space-y-4 pt-6 hidden lg:block">
+                <div
+                  className="h-56 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
+                  style={{ backgroundImage: `url('${arcadeImages[2]}')` }}
+                />
+                <div
+                  className="h-48 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
+                  style={{ backgroundImage: `url('${arcadeImages[3]}')` }}
                 />
               </div>
             </AnimatedSection>
