@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Users, MoveRight, Lightbulb, Focus, Video, Maximize, CheckCircle2 } from "lucide-react";
 import { PaperIcon } from "@/components/ui/PaperIcon";
 import { InteractiveSelector } from "@/components/ui/interactive-selector";
-import { arcadeImages, verveImages } from "@/lib/content/site-images";
+import { arcadeImages } from "@/lib/content/site-images";
 
 export const metadata = {
   title: "The Arcade | Community Hall by Black Pepper",
