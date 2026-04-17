@@ -34,7 +34,7 @@ export function BookingForm({
     control,
     register,
     handleSubmit,
-    reset,
+    setValue,
     formState: { errors },
   } = useForm<BookingFormValues>({
     resolver: zodResolver(bookingFormSchema),
@@ -63,20 +63,12 @@ export function BookingForm({
       ],
     });
 
+  // Safely update form fields when calendar/slot data changes without wiping user inputs
   useEffect(() => {
-    reset({
-      ...initialData,
-      fullName: initialData?.fullName || "",
-      phoneNumber: initialData?.phoneNumber || "",
-      email: initialData?.email || "",
-      bookingType: initialData?.bookingType || "",
-      specificStudio: initialData?.specificStudio || "",
-      selectedPackage: initialData?.selectedPackage || "",
-      date: initialData?.date || "",
-      time: initialData?.time || "",
-      termsAccepted: false,
-    });
-  }, [initialData, reset]);
+    if (initialData?.bookingType) setValue("bookingType", initialData.bookingType, { shouldValidate: true });
+    if (initialData?.date) setValue("date", initialData.date, { shouldValidate: true });
+    if (initialData?.time) setValue("time", initialData.time, { shouldValidate: true });
+  }, [initialData?.bookingType, initialData?.date, initialData?.time, setValue]);
 
   useEffect(() => {
     onValuesChange?.({
