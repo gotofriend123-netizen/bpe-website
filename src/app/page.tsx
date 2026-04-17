@@ -467,7 +467,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-white/8 bg-black pt-1 pb-10 sm:pb-14">
+      <section className="border-y border-white/8 bg-black py-8 sm:py-12">
         <AnimatedSection>
           <div className="w-full overflow-hidden bg-black">
             <GlassMarquee />

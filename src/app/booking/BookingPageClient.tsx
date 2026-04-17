@@ -10,6 +10,7 @@ import {
   ShieldAlert,
   Sparkles,
   Star,
+  ArrowRight
 } from "lucide-react";
 import { BookingForm } from "@/components/BookingForm";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -189,245 +190,189 @@ export function BookingPageClient({
               <Sparkles className="h-4 w-4 text-amber-300" />
               Premium Reservation Flow
             </span>
-            <h1 className="text-5xl font-semibold tracking-[-0.04em] text-white md:text-7xl">
-              Secure your session with confidence.
+            <h1 className="text-5xl font-semibold tracking-[-0.04em] text-white md:text-7xl underline decoration-white/10 decoration-wavy underline-offset-8">
+              Secure your session.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-zinc-400 md:text-xl">
-              Finalize your booking details below. Your summary stays in sync as
-              you choose the space, date, setup, and session time.
+              Follow our simple three-step process to finalize your booking and secure your creative space.
             </p>
           </AnimatedSection>
         </div>
 
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:gap-14">
-          <div className="space-y-6 lg:sticky lg:top-28 lg:self-start">
-            <AnimatedSection direction="right" delay={0.1}>
-              <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-7 shadow-[0_30px_80px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:p-8">
-                <div className="mb-8 flex items-center justify-between gap-4 border-b border-white/10 pb-6">
-                  <div>
-                    <h2 className="flex items-center gap-3 text-2xl font-semibold tracking-tight text-white">
-                      <Star className="h-6 w-6 text-amber-400" />
-                      Booking Summary
-                    </h2>
-                    <p className="mt-2 text-sm text-zinc-400">
-                      Live details from your booking form.
-                    </p>
-                  </div>
-                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.28em] text-zinc-300">
-                    {slot ? "Instant" : "Request"}
-                  </span>
-                </div>
+        <div className="flex flex-col gap-24 max-w-5xl mx-auto">
+          {/* Stage 1: Availability Selection */}
+          <section className={cn("space-y-10 transition-all duration-500", showForm && "opacity-50 blur-[2px] pointer-events-none scale-[0.98] origin-top")}>
+            <div className="flex flex-col items-center justify-center text-center space-y-4">
+               <h2 className="text-4xl font-bold text-white tracking-tight flex items-center gap-4">
+                 <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white text-black text-xl">1</span>
+                 Pick your Space & Time
+               </h2>
+               <p className="text-zinc-400 max-w-md">Our calendars are always live. Select a slot below to ensure your session is confirmed instantly.</p>
+            </div>
+            
+            <SpaceSwitcher
+              selected={selectedSpace}
+              onChange={(s) => {
+                setSelectedSpace(s);
+                setSelectedSlot(null);
+              }}
+            />
 
-                <div className="space-y-4">
-                  <div className="rounded-[1.5rem] border border-white/10 bg-black/30 p-5">
-                    <div className="flex items-start gap-4">
-                      <div className="rounded-2xl border border-white/10 bg-white/6 p-3">
-                        <MapPin className="h-5 w-5 text-zinc-300" />
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-zinc-500">
-                          Selected Space
-                        </p>
-                        <p className="mt-2 text-xl font-semibold text-white">
-                          {selectedSpaceLabel}
-                        </p>
-                        {bookingSnapshot.bookingType === "" && studioParam === "verve" ? (
-                          <p className="mt-2 text-sm text-zinc-400">
-                            Choose Left or Right inside the form to lock the exact set.
-                          </p>
-                        ) : null}
-                      </div>
+            <div className="flex flex-col gap-8 lg:flex-row">
+              <div className="flex-1">
+                <CalendarGrid
+                  space={selectedSpace}
+                  selectedDate={selectedDateObj}
+                  onSelectDate={(d) => {
+                    setSelectedDateObj(d);
+                    setSelectedSlot(null);
+                  }}
+                />
+              </div>
+              <div className="flex-1">
+                <GlowCard
+                  className="h-full min-h-[400px]"
+                  contentClassName="p-6 md:p-8"
+                  backgroundColor="#09070f"
+                  borderRadius={30}
+                >
+                  <TimeSlotList
+                    space={selectedSpace}
+                    selectedDate={selectedDateObj}
+                    onSelectSlot={(slot) => {
+                      setSelectedSlot(slot);
+                      setShowForm(true);
+                      // Scroll to form
+                      setTimeout(() => {
+                        document.getElementById('booking-form-section')?.scrollIntoView({ behavior: 'smooth' });
+                      }, 200);
+                    }}
+                  />
+                </GlowCard>
+              </div>
+            </div>
+          </section>
+
+          {/* Stage 2: Booking Form */}
+          <section id="booking-form-section" className={cn("space-y-10 transition-all duration-500", !showForm && "opacity-30 blur-[4px] pointer-events-none")}>
+             <div className="flex flex-col items-center justify-center text-center space-y-4">
+               <h2 className="text-4xl font-bold text-white tracking-tight flex items-center gap-4">
+                 <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white text-black text-xl">2</span>
+                 Finalize your Details
+               </h2>
+               {!showForm ? (
+                  <p className="text-zinc-500">Please select a time slot above to continue.</p>
+               ) : (
+                  <button 
+                  onClick={() => setShowForm(false)}
+                  className="text-sm px-4 py-2 rounded-full bg-white/5 border border-white/10 text-zinc-400 hover:text-white transition-colors"
+                  >
+                    ← Change Space or Time
+                  </button>
+               )}
+            </div>
+
+            <BookingForm
+              initialData={{
+                  ...initialData,
+                  date: selectedSlot?.dateKey || dateParam || "",
+                  time: selectedSlot?.startTime || timeParam || "",
+                  bookingType: selectedSlot 
+                      ? (selectedSlot.space === 'arcade' ? 'arcade' : (selectedSlot.space === 'vsl' ? 'verve-studio-left' : 'verve-studio-right'))
+                      : (resolvedBookingType || "")
+              }}
+              slotId={selectedSlot?.id || slotId || undefined}
+              onValuesChange={handleValuesChange}
+            />
+          </section>
+
+          {/* Stage 3: Summary & Policy */}
+          <section className={cn("space-y-10 transition-all duration-500", !showForm && "opacity-30 blur-[4px]")}>
+            <div className="flex flex-col items-center justify-center text-center space-y-4">
+               <h2 className="text-4xl font-bold text-white tracking-tight flex items-center gap-4">
+                 <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white text-black text-xl">3</span>
+                 Review Booking Summary
+               </h2>
+               <p className="text-zinc-400">Everything looks good? Proceed with your reservation.</p>
+            </div>
+
+            <div className="grid gap-8 lg:grid-cols-2">
+              <AnimatedSection direction="up" delay={0.1}>
+                <section className="rounded-[2.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.35)] backdrop-blur-2xl h-full">
+                  <div className="mb-8 flex items-center justify-between gap-4 border-b border-white/10 pb-6">
+                    <div>
+                      <h2 className="flex items-center gap-3 text-2xl font-semibold tracking-tight text-white">
+                        <Star className="h-6 w-6 text-amber-400" />
+                        Summary
+                      </h2>
                     </div>
-                  </div>
-
-                  <div className="rounded-[1.5rem] border border-white/10 bg-black/30 p-5">
-                    <div className="flex items-start gap-4">
-                      <div className="rounded-2xl border border-white/10 bg-white/6 p-3">
-                        <CalendarCheck className="h-5 w-5 text-zinc-300" />
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-zinc-500">
-                          Session Date
-                        </p>
-                        <p className="mt-2 text-lg font-semibold text-white">
-                          {selectedDateLabel}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="rounded-[1.5rem] border border-white/10 bg-black/30 p-5">
-                    <div className="flex items-start gap-4">
-                      <div className="rounded-2xl border border-white/10 bg-white/6 p-3">
-                        <Clock3 className="h-5 w-5 text-zinc-300" />
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-zinc-500">
-                          Time Window
-                        </p>
-                        <p className="mt-2 text-lg font-semibold text-white">
-                          {selectedTimeLabel}
-                        </p>
-                        {startTime ? (
-                          <p className="mt-2 text-sm text-zinc-400">
-                            Standard block duration: {formatBookingDurationLabel(defaultBookingDurationHours)}
-                          </p>
-                        ) : null}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-8 rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-6">
-                  <div className="mb-5 flex items-center justify-between gap-3 border-b border-white/10 pb-4">
-                    <h3 className="text-lg font-semibold text-white">
-                      Booking Status
-                    </h3>
-                    <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-zinc-300">
-                      {slot?.isPeakTime ? "Peak Slot" : "Standard"}
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.28em] text-zinc-300">
+                      {slot ? "Instant Selection" : "Request"}
                     </span>
                   </div>
 
-                  <div className="space-y-3 text-sm text-zinc-300">
-                    <div className="flex items-start justify-between gap-4">
-                      <span className="text-zinc-500">Flow</span>
-                      <span className="max-w-[18rem] text-right">{bookingMode}</span>
+                  <div className="space-y-4">
+                    <div className="rounded-[1.5rem] border border-white/10 bg-black/30 p-5">
+                       <p className="text-xs font-semibold uppercase tracking-[0.28em] text-zinc-500 mb-2">Space</p>
+                       <p className="text-xl font-semibold text-white">{selectedSpaceLabel}</p>
                     </div>
-                    <div className="flex items-start justify-between gap-4">
-                      <span className="text-zinc-500">Package</span>
-                      <span className="max-w-[18rem] text-right">
-                        {selectedPackage?.name ?? "Choose your package in the form"}
-                      </span>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="rounded-[1.5rem] border border-white/10 bg-black/30 p-5">
+                        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-zinc-500 mb-2">Date</p>
+                        <p className="text-lg font-semibold text-white">{selectedDateLabel}</p>
+                      </div>
+                      <div className="rounded-[1.5rem] border border-white/10 bg-black/30 p-5">
+                        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-zinc-500 mb-2">Time Slot</p>
+                        <p className="text-lg font-semibold text-white">{selectedTimeLabel}</p>
+                      </div>
                     </div>
-                    <div className="flex items-start justify-between gap-4">
-                      <span className="text-zinc-500">Pricing Note</span>
-                      <span className="max-w-[18rem] text-right">{pricingHint}</span>
+
+                    <div className="mt-6 p-6 rounded-[1.75rem] border border-white/10 bg-white/5">
+                       <div className="flex items-center justify-between mb-2">
+                          <span className="text-zinc-500 text-sm">Package Selection</span>
+                          <span className="text-white font-medium">{selectedPackage?.name ?? "Pick your setup in step 2"}</span>
+                       </div>
+                       <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                          <span className="text-zinc-500 text-sm font-semibold">ESTIMATED PRICE</span>
+                          <span className="text-white font-bold text-lg">{pricingHint}</span>
+                       </div>
                     </div>
                   </div>
-                </div>
-              </section>
-            </AnimatedSection>
+                </section>
+              </AnimatedSection>
 
-            <AnimatedSection direction="up" delay={0.2}>
-              <section className="rounded-[2rem] border border-white/10 bg-[#0b0b0b]/90 p-7 shadow-2xl backdrop-blur-xl sm:p-8">
-                <div className="flex items-start gap-4">
-                  <ShieldAlert className="mt-1 h-6 w-6 shrink-0 text-zinc-300" />
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">
-                      Cancellation Policy
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-zinc-400">
-                      Cancel or reschedule at least 72 hours before your session
-                      for the smoothest outcome. Requests between 24 and 72 hours
-                      may still be reviewed, but availability and refund rules become stricter.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-6 border-t border-white/10 pt-6">
-                  <a
-                    href={getBusinessSupportWhatsappLink()}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[#25D366]/30 bg-[#25D366]/10 px-5 py-4 text-sm font-semibold text-[#25D366] transition-colors hover:bg-[#25D366]/20"
-                  >
-                    <MessageCircle className="h-5 w-5" />
-                    Need help? Chat on WhatsApp
-                  </a>
-                </div>
-              </section>
-            </AnimatedSection>
-          </div>
-
-          <div className="min-w-0">
-            <AnimatedSection direction="left" delay={0.3}>
-              <div className="space-y-12">
-                {/* Stage 1: Availability Selection */}
-                <section className={cn("space-y-8 transition-all duration-500", showForm && "opacity-50 blur-[2px] pointer-events-none scale-[0.98] origin-top")}>
-                  <div className="flex flex-col items-center justify-center text-center space-y-4 mb-4">
-                     <h2 className="text-3xl font-bold text-white tracking-tight">1. Pick your Space & Time</h2>
-                     <p className="text-zinc-400 max-w-md">Our calendars are always live. Select a slot below to ensure your session is confirmed instantly.</p>
+              <AnimatedSection direction="up" delay={0.2}>
+                <section className="rounded-[2.5rem] border border-white/10 bg-[#0b0b0b]/90 p-8 shadow-2xl backdrop-blur-xl h-full flex flex-col">
+                  <div className="flex items-start gap-4 mb-8">
+                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10">
+                      <ShieldAlert className="h-6 w-6 text-zinc-300" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-white">Cancellation Policy</h3>
+                      <p className="mt-3 text-sm leading-7 text-zinc-400">
+                        Full Refund: Cancel/reschedule 72h+ in advance. <br/>
+                        Partial Refund: Requests between 24h-72h. <br/>
+                        Under 24h bookings are generally locked.
+                      </p>
+                    </div>
                   </div>
                   
-                  <SpaceSwitcher
-                    selected={selectedSpace}
-                    onChange={(s) => {
-                      setSelectedSpace(s);
-                      setSelectedSlot(null);
-                    }}
-                  />
-
-                  <div className="flex flex-col gap-8 lg:flex-row">
-                    <div className="flex-1">
-                      <CalendarGrid
-                        space={selectedSpace}
-                        selectedDate={selectedDateObj}
-                        onSelectDate={(d) => {
-                          setSelectedDateObj(d);
-                          setSelectedSlot(null);
-                        }}
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <GlowCard
-                        className="h-full min-h-[400px]"
-                        contentClassName="p-6 md:p-8"
-                        backgroundColor="#09070f"
-                        borderRadius={30}
-                      >
-                        <TimeSlotList
-                          space={selectedSpace}
-                          selectedDate={selectedDateObj}
-                          onSelectSlot={(slot) => {
-                            setSelectedSlot(slot);
-                            setShowForm(true);
-                            // Scroll to form on mobile
-                            if (window.innerWidth < 1024) {
-                               setTimeout(() => {
-                                 document.getElementById('booking-form-section')?.scrollIntoView({ behavior: 'smooth' });
-                               }, 100);
-                            }
-                          }}
-                        />
-                      </GlowCard>
-                    </div>
+                  <div className="mt-auto pt-8 border-t border-white/10">
+                    <a
+                      href={getBusinessSupportWhatsappLink()}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group flex items-center justify-center gap-3 rounded-2xl border border-[#25D366]/30 bg-[#25D366]/5 px-6 py-5 text-sm font-bold text-[#25D366] transition-all hover:bg-[#25D366]/10"
+                    >
+                      <MessageCircle className="h-6 w-6" />
+                      Chat with Concierge <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </a>
                   </div>
                 </section>
-
-                {/* Stage 2: Booking Form */}
-                <section id="booking-form-section" className={cn("space-y-8 transition-all duration-500", !showForm && "opacity-30 blur-[4px] pointer-events-none")}>
-                   <div className="flex flex-col items-center justify-center text-center space-y-4">
-                     <h2 className="text-3xl font-bold text-white tracking-tight">2. Finalize your Details</h2>
-                     {!showForm ? (
-                        <p className="text-amber-400 font-medium">Please select a time slot above first.</p>
-                     ) : (
-                        <div className="flex items-center gap-4">
-                           <button 
-                            onClick={() => setShowForm(false)}
-                            className="text-sm text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
-                           >
-                              Change Slot
-                           </button>
-                        </div>
-                     )}
-                  </div>
-
-                  <BookingForm
-                    initialData={{
-                        ...initialData,
-                        date: selectedSlot?.dateKey || dateParam || "",
-                        time: selectedSlot?.startTime || timeParam || "",
-                        bookingType: selectedSlot 
-                            ? (selectedSlot.space === 'arcade' ? 'arcade' : (selectedSlot.space === 'vsl' ? 'verve-studio-left' : 'verve-studio-right'))
-                            : (resolvedBookingType || "")
-                    }}
-                    slotId={selectedSlot?.id || slotId || undefined}
-                    onValuesChange={handleValuesChange}
-                  />
-                </section>
-              </div>
-            </AnimatedSection>
-          </div>
+              </AnimatedSection>
+            </div>
+          </section>
         </div>
       </div>
     </main>
