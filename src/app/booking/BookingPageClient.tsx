@@ -3,9 +3,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
-  CalendarCheck,
-  Clock3,
-  MapPin,
   MessageCircle,
   ShieldAlert,
   Sparkles,
@@ -28,7 +25,6 @@ import {
   isBookingTypeId,
   resolveBookingTypeFromParams,
 } from "@/lib/booking-utils";
-import { formatBookingDurationLabel } from "@/lib/booking/duration";
 import { useBookingStore } from "@/lib/store/bookingStore";
 import type { BookingFormValues } from "@/lib/validations";
 import type { Space, PublicSlot } from "@/lib/types/booking";
@@ -165,10 +161,6 @@ export function BookingPageClient({
   const pricingHint = slot?.isPeakTime
     ? slot.label ?? "Peak pricing applies to this slot."
     : selectedPackage?.pricePreview ?? "Package pricing is finalized once you pick your setup.";
-
-  const bookingMode = slot
-    ? "This slot will be locked immediately after submission."
-    : "This booking will be reviewed and confirmed by the team.";
 
   const initialData: Partial<BookingFormValues> = {
     bookingType: resolvedBookingType ?? "",
