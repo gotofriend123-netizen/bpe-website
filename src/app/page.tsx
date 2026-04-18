@@ -12,7 +12,6 @@ import {
   LayoutGrid,
   MoveRight,
   Play,
-  ShieldCheck,
   Sparkles,
   Users,
   Globe,
@@ -147,7 +146,7 @@ const desktopWhyChooseCards: IconCard[] = [
   {
     title: "Cultural Relevance",
     description:
-      "We don't just host events; we curate programming that pushes the cultural needle forward.",
+      "We don\u0027t just host events; we curate programming that pushes the cultural needle forward.",
     icon: Globe,
     highlights: ["Curated programming", "Cultural impact"],
   },
