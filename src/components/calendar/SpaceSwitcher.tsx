@@ -10,8 +10,8 @@ interface SpaceSwitcherProps {
 
 export const SpaceSwitcher = ({ selected, onChange }: SpaceSwitcherProps) => {
   const options: { id: Space; label: string }[] = [
-    { id: 'vsl', label: 'Verve Studio L' },
-    { id: 'vsr', label: 'Verve Studio R' },
+    { id: 'vsl', label: 'Verve Studio Left' },
+    { id: 'vsr', label: 'Verve Studio Right' },
     { id: 'arcade', label: 'The Arcade' }
   ];
 
