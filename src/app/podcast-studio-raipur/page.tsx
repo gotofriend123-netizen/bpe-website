@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
 import { MoveRight, MapPin } from "lucide-react";
