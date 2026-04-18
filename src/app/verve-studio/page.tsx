@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Mic, MoveRight, Camera, Armchair, Monitor, Radio as Soundwave, CheckCircle2 } from "lucide-react";
 import { PaperIcon } from "@/components/ui/PaperIcon";
 import { InteractiveSelector } from "@/components/ui/interactive-selector";
-import { arcadeImages, verveImages, verveLeftSetupImages, verveRightSetupImages } from "@/lib/content/site-images";
+import { verveLeftSetupImages, verveRightSetupImages } from "@/lib/content/site-images";
 
 export const metadata = {
   title: "Verve Studio | Premium Podcast & Content Studio",
@@ -23,35 +23,35 @@ const AMENITIES = [
 
 const verveOptions = [
   {
-    title: "Broadcast Audio",
-    description: "Shure SM7B mics & RØDECaster setup",
-    image: verveImages[2],
+    title: "The Crimson Crown",
+    description: "Verve Left — Bold crimson tones with dramatic lighting",
+    image: verveLeftSetupImages[0],
     icon: <Mic size={24} />
   },
   {
-    title: "4K Blackmagic",
-    description: "Cinema cameras pre-rigged and balanced",
-    image: verveImages[5],
+    title: "The Horizon",
+    description: "Verve Left — Warm horizon gradients with ambient backlighting",
+    image: verveLeftSetupImages[1],
     icon: <Camera size={24} />
   },
   {
-    title: "The Left Set",
-    description: "Warm, ambient, conversational lighting",
-    image: verveImages[0],
+    title: "The Sage",
+    description: "Verve Left — Deep sage palette with earthy, grounded styling",
+    image: verveLeftSetupImages[2],
     icon: <Armchair size={24} />
   },
   {
-    title: "The Right Set",
-    description: "Moody, high-contrast neon aesthetics",
-    image: verveImages[4],
+    title: "The Urban Flame",
+    description: "Verve Right — Industrial vibe with flame-toned lighting",
+    image: verveRightSetupImages[0],
     icon: <Monitor size={24} />
   },
   {
-    title: "Pristine Isolation",
-    description: "Triple-layered acoustic soundproofing",
-    image: arcadeImages[1],
+    title: "The Ivory",
+    description: "Verve Right — Clean ivory backdrop with minimal styling",
+    image: verveRightSetupImages[1],
     icon: <Soundwave size={24} />
-  }
+  },
 ];
 
 export default function VerveStudioPage() {
@@ -63,7 +63,7 @@ export default function VerveStudioPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/90 z-10" />
           <div
             className="absolute inset-0 bg-cover bg-center opacity-50 mix-blend-screen"
-            style={{ backgroundImage: `url('${verveImages[2]}')` }}
+            style={{ backgroundImage: `url('${verveLeftSetupImages[0]}')` }}
           />
         </div>
         <div className="container mx-auto px-6 relative z-20">
