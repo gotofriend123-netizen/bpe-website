@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
 import { bookingFormSchema, BookingFormValues } from "@/lib/validations";
-import { BOOKING_TYPES, SPECIFIC_STUDIOS } from "@/config/data";
+import { BOOKING_TYPES, SPECIFIC_STUDIOS, ARCADE_PACKAGES } from "@/config/data";
 import { useRouter } from "next/navigation";
 import { GlowCard } from "@/components/ui/GlowCard";
 import {
@@ -91,6 +91,8 @@ export function BookingForm({
   const showSpecificStudio =
     selectedBookingType === "verve-studio-left" ||
     selectedBookingType === "verve-studio-right";
+    
+  const showArcadePackages = selectedBookingType === "the-arcade";
 
   const onSubmit = async (data: BookingFormValues) => {
     setIsSubmitting(true);
@@ -265,11 +267,11 @@ export function BookingForm({
             {/* Studio Preview Image */}
             {selectedStudioId && studioSetupImages[selectedStudioId] && (
               <div className="mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                <div className="relative w-full h-48 sm:h-56 md:h-64 rounded-2xl overflow-hidden border border-white/10">
+                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black/40 flex items-center justify-center">
                   <img
                     src={studioSetupImages[selectedStudioId]}
                     alt={SPECIFIC_STUDIOS.find((s) => s.id === selectedStudioId)?.name || "Studio preview"}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                   <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent px-4 py-3">
                     <p className="text-white font-semibold text-sm">
@@ -310,6 +312,36 @@ export function BookingForm({
                   <p className="text-red-400 text-xs mt-2">{errors.selectedPackage.message}</p>
                 )}
               </div>
+            )}
+          </div>
+        )}
+
+        {/* Arcade Pricing Packages */}
+        {showArcadePackages && (
+          <div className="mt-4 p-4 rounded-xl bg-white/5 border border-white/10 md:col-span-2 animate-in fade-in slide-in-from-top-4 duration-300">
+            <h4 className="text-sm font-semibold text-white mb-3">Select a Package:</h4>
+            <div className="space-y-3">
+              {ARCADE_PACKAGES.map((pkg) => (
+                <label
+                  key={pkg.id}
+                  className="flex items-start space-x-3 p-3 rounded-lg border border-white/5 bg-[#1a1a1a] hover:bg-white/5 cursor-pointer transition-colors"
+                >
+                  <input
+                    type="radio"
+                    value={pkg.id}
+                    {...register("selectedPackage")}
+                    disabled={isSubmitting}
+                    className="mt-1 min-w-[16px] w-4 h-4 text-white focus:ring-white/20 bg-black border-gray-600 cursor-pointer"
+                  />
+                  <div className="flex flex-col sm:flex-row sm:justify-between w-full gap-1">
+                    <span className="text-sm font-medium text-white">{pkg.name}</span>
+                    <span className="text-sm text-gray-400">{pkg.pricePreview}</span>
+                  </div>
+                </label>
+              ))}
+            </div>
+            {errors.selectedPackage && (
+              <p className="text-red-400 text-xs mt-2">{errors.selectedPackage.message}</p>
             )}
           </div>
         )}

@@ -29,6 +29,14 @@ export const bookingFormBaseSchema = z.object({
         });
       }
     }
+  } else if (data.bookingType === "the-arcade") {
+    if (!data.selectedPackage || data.selectedPackage === "") {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Please select a package for The Arcade.",
+        path: ["selectedPackage"],
+      });
+    }
   }
 });
 

@@ -13,8 +13,9 @@ const ARCADE_PKGS = [
 ];
 
 const VERVE_PKGS = [
-  { name: "Creator Session", price: "₹3,500", duration: "2 Hours", desc: "For straightforward 2-person podcast recordings.", feats: ["2x 4K Cams", "2x Shure SM7B", "Basic lighting", "Raw handover"] },
-  { name: "Professional Block", price: "₹6,000", duration: "4 Hours", desc: "For long-form multiset content and brand shoots.", feats: ["Up to 4Cams", "4x Shure SM7B", "Custom aesthetic lighting", "Multi-track audio raw", "Set assistant"] },
+  { name: "The Urban Flame", price: "₹4,000", duration: "2 Hours", desc: "Baseline studio-only setup for self-guided creators.", feats: ["Acoustic isolation", "Standard ambient lighting", "Raw access", "Add-on mics/cams available"] },
+  { name: "Standard Setup (Crimson Crown, Wave)", price: "₹6,500", duration: "2 Hours", desc: "For straightforward podcast recordings.", feats: ["1x 4K Camera", "1x Shure SM7B", "Aputure Set Lighting", "Raw clips included"] },
+  { name: "Premium Setup (Ivory, Sage, Horizon)", price: "₹8,500", duration: "2 Hours", desc: "Dual angle recording setup for interviews.", feats: ["2x 4K Cameras", "2x Shure SM7B", "Custom aesthetic lighting", "Raw handover"] },
 ];
 
 export default function PricingPage() {
@@ -61,7 +62,7 @@ export default function PricingPage() {
         {/* Verve Studio Pricing */}
         <div>
           <AnimatedSection><h2 className="text-3xl font-bold mb-8 text-center">Verve Studio (Podcast)</h2></AnimatedSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {VERVE_PKGS.map((pkg, i) => (
               <AnimatedSection key={i} delay={0.1 * i} direction="up" className="bg-[#111] border border-white/10 rounded-3xl p-8 hover:bg-white/5 transition-colors relative flex flex-col">
                 <div className="mb-6">

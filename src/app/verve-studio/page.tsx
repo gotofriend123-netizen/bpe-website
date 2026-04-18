@@ -141,32 +141,32 @@ export default function VerveStudioPage() {
             <AnimatedSection direction="left" className="grid grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="space-y-4">
                 <div
-                  className="h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${verveImages[0]}')` }}
+                  className="h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center transition-transform hover:scale-[1.02]"
+                  style={{ backgroundImage: `url('${verveLeftSetupImages[0]}')` }}
                 />
                 <div
-                  className="h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${verveImages[1]}')` }}
+                  className="h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center transition-transform hover:scale-[1.02]"
+                  style={{ backgroundImage: `url('${verveLeftSetupImages[1]}')` }}
                 />
               </div>
               <div className="space-y-4 lg:pt-12">
                 <div
-                  className="h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${verveImages[2]}')` }}
+                  className="h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center transition-transform hover:scale-[1.02]"
+                  style={{ backgroundImage: `url('${verveLeftSetupImages[2]}')` }}
                 />
                 <div
-                  className="h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${verveImages[3]}')` }}
+                  className="h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center transition-transform hover:scale-[1.02]"
+                  style={{ backgroundImage: `url('${verveRightSetupImages[0]}')` }}
                 />
               </div>
               <div className="space-y-4 pt-6 hidden lg:block">
                 <div
-                  className="h-56 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${verveImages[4]}')` }}
+                  className="h-56 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center transition-transform hover:scale-[1.02]"
+                  style={{ backgroundImage: `url('${verveRightSetupImages[1]}')` }}
                 />
                 <div
-                  className="h-48 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${verveImages[6]}')` }}
+                  className="h-48 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center transition-transform hover:scale-[1.02]"
+                  style={{ backgroundImage: `url('${verveRightSetupImages[2]}')` }}
                 />
               </div>
             </AnimatedSection>

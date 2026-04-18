@@ -4,6 +4,11 @@ export const BOOKING_TYPES = [
   { id: "the-arcade", label: "The Arcade" },
 ] as const;
 
+export const ARCADE_PACKAGES = [
+  { id: "arcade-half", name: "Half Day Event (4 Hours)", pricePreview: "₹15,000 / half day" },
+  { id: "arcade-full", name: "Full Day Event (8 Hours)", pricePreview: "₹25,000 / full day" },
+] as const;
+
 export type BookingTypeId = (typeof BOOKING_TYPES)[number]["id"];
 
 export const SPECIFIC_STUDIOS = [
