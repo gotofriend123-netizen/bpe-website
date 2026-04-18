@@ -5,11 +5,9 @@ import {
   ArrowUpRight,
   BadgeCheck,
   CalendarCheck,
-  CalendarClock,
   Camera,
   CheckCircle2,
   GalleryHorizontalEnd,
-  Headphones,
   Info,
   LayoutGrid,
   Mic2,
@@ -79,15 +77,7 @@ export const metadata: Metadata = {
   },
 };
 
-type SpaceCard = {
-  title: string;
-  subtitle: string;
-  description: string;
-  detailHref: string;
-  bookingHref: string;
-  image: string;
-  icon: LucideIcon;
-};
+
 
 type IconCard = {
   title: string;
@@ -110,29 +100,6 @@ type PricingCard = {
   description: string;
   ctaHref: string;
 };
-
-const spaces: SpaceCard[] = [
-  {
-    title: "The Arcade",
-    subtitle: "Flexible event hall",
-    description:
-      "A flexible and visually refined hall built for workshops, exhibitions, launches, gatherings, and curated community experiences.",
-    detailHref: "/the-arcade",
-    bookingHref: "/availability?space=arcade",
-    image: arcadeImages[3],
-    icon: LayoutGrid,
-  },
-  {
-    title: "Verve Studio",
-    subtitle: "Podcast and creator studio",
-    description:
-      "A professional recording environment crafted for podcasts, interviews, talk shows, creator content, and brand-led conversations.",
-    detailHref: "/verve-studio",
-    bookingHref: "/availability?space=vsl",
-    image: verveImages[2],
-    icon: Play,
-  },
-];
 
 const desktopWhyChooseCards: IconCard[] = [
   {
@@ -972,10 +939,10 @@ export default async function HomePage() {
             <div className="relative z-10 grid gap-16 lg:grid-cols-2 lg:items-center">
               <div>
                 <h2 className="text-4xl font-semibold tracking-[-0.04em] text-white md:text-5xl lg:text-6xl mb-6">
-                  Let's Build Something Meaningful.
+                  Let&apos;s Build Something Meaningful.
                 </h2>
                 <p className="max-w-md text-base leading-8 text-zinc-400 md:text-lg mb-8">
-                  Whether you're booking a podcast session, hosting a corporate launch, or exploring cultural showcases, our team is ready to deliver premium execution.
+                  Whether you&apos;re booking a podcast session, hosting a corporate launch, or exploring cultural showcases, our team is ready to deliver premium execution.
                 </p>
                 <div className="space-y-4">
                   <p className="text-zinc-300 font-medium">+91 9203411611</p>
