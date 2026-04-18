@@ -18,6 +18,10 @@ import {
 import { BookingClientError, createBooking } from "@/lib/booking/client";
 import { studioSetupImages } from "@/lib/content/site-images";
 
+// Studios that belong to each side
+const LEFT_STUDIO_IDS = ["the-crimson-crown", "the-horizon", "the-sage"];
+const RIGHT_STUDIO_IDS = ["the-urban-flame", "the-ivory", "the-wave"];
+
 interface BookingFormProps {
   initialData?: Partial<BookingFormValues>;
   slotId?: string;
@@ -253,7 +257,13 @@ export function BookingForm({
               <option value="" disabled hidden>
                 Select a Specific Studio
               </option>
-              {SPECIFIC_STUDIOS.map((studio) => (
+              {SPECIFIC_STUDIOS.filter((studio) =>
+                selectedBookingType === "verve-studio-left"
+                  ? LEFT_STUDIO_IDS.includes(studio.id)
+                  : selectedBookingType === "verve-studio-right"
+                  ? RIGHT_STUDIO_IDS.includes(studio.id)
+                  : true
+              ).map((studio) => (
                 <optgroup key={studio.id} label={studio.name}>
                   <option value={studio.id} className="text-white/80">
                     {studio.name} — Please check package pricing below
@@ -272,7 +282,7 @@ export function BookingForm({
                   <img
                     src={studioSetupImages[selectedStudioId]}
                     alt={SPECIFIC_STUDIOS.find((s) => s.id === selectedStudioId)?.name || "Studio preview"}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent px-4 py-3">
                     <p className="text-white font-semibold text-sm">
