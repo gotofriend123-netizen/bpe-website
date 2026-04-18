@@ -38,3 +38,27 @@ export const venueImages = [
 export function pickVenueImage(index: number) {
   return venueImages[index % venueImages.length];
 }
+
+/** Per-studio-setup preview images keyed by studio ID from SPECIFIC_STUDIOS */
+export const studioSetupImages: Record<string, string> = {
+  // Verve Studio Left setups
+  "the-crimson-crown": "/verve-studio/left/the-crimson-crown.jpg",
+  "the-horizon": "/verve-studio/left/the-horizon.webp",
+  "the-sage": "/verve-studio/left/the-sage.jpg",
+  // Verve Studio Right setups
+  "the-urban-flame": "/verve-studio/right/the-urban-flame.webp",
+  "the-ivory": "/verve-studio/right/the-ivory.webp",
+  "the-wave": "/verve-studio/right/the-wave.jpg",
+};
+
+export const verveLeftSetupImages = [
+  "/verve-studio/left/the-crimson-crown.jpg",
+  "/verve-studio/left/the-horizon.webp",
+  "/verve-studio/left/the-sage.jpg",
+] as const;
+
+export const verveRightSetupImages = [
+  "/verve-studio/right/the-urban-flame.webp",
+  "/verve-studio/right/the-ivory.webp",
+  "/verve-studio/right/the-wave.jpg",
+] as const;

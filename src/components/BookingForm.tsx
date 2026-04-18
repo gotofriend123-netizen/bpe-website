@@ -15,6 +15,7 @@ import {
   isBookingTypeId,
 } from "@/lib/booking-utils";
 import { BookingClientError, createBooking } from "@/lib/booking/client";
+import { studioSetupImages } from "@/lib/content/site-images";
 
 interface BookingFormProps {
   initialData?: Partial<BookingFormValues>;
@@ -259,6 +260,24 @@ export function BookingForm({
             </select>
             {errors.specificStudio && (
               <p className="text-red-400 text-xs mt-1">{errors.specificStudio.message}</p>
+            )}
+
+            {/* Studio Preview Image */}
+            {selectedStudioId && studioSetupImages[selectedStudioId] && (
+              <div className="mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                <div className="relative w-full h-48 sm:h-56 md:h-64 rounded-2xl overflow-hidden border border-white/10">
+                  <img
+                    src={studioSetupImages[selectedStudioId]}
+                    alt={SPECIFIC_STUDIOS.find((s) => s.id === selectedStudioId)?.name || "Studio preview"}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent px-4 py-3">
+                    <p className="text-white font-semibold text-sm">
+                      {SPECIFIC_STUDIOS.find((s) => s.id === selectedStudioId)?.name}
+                    </p>
+                  </div>
+                </div>
+              </div>
             )}
 
             {/* Pricing Packages based on Selected Specific Studio */}

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Mic, MoveRight, Camera, Armchair, Monitor, Radio as Soundwave, CheckCircle2 } from "lucide-react";
 import { PaperIcon } from "@/components/ui/PaperIcon";
 import { InteractiveSelector } from "@/components/ui/interactive-selector";
-import { arcadeImages, verveImages } from "@/lib/content/site-images";
+import { arcadeImages, verveImages, verveLeftSetupImages, verveRightSetupImages } from "@/lib/content/site-images";
 
 export const metadata = {
   title: "Verve Studio | Premium Podcast & Content Studio",
@@ -174,40 +174,66 @@ export default function VerveStudioPage() {
         </div>
       </section>
 
-      {/* Split Sets */}
+      {/* Studio Setups Showcase */}
       <section className="py-24 bg-black">
         <div className="container mx-auto px-6 max-w-6xl">
            <AnimatedSection className="mb-16 text-center">
-             <h2 className="text-4xl font-bold text-white">Two Distinct Aesthetics</h2>
-             <p className="text-gray-400 mt-4">Verve Studio offers two uniquely styled podcast corners.</p>
+             <h2 className="text-4xl font-bold text-white">Six Unique Studio Setups</h2>
+             <p className="text-gray-400 mt-4">Each setup is designed with a distinct mood to match your brand perfectly.</p>
            </AnimatedSection>
-           
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-             {/* Left Set */}
-             <AnimatedSection delay={0.1} direction="right" className="group">
-               <div className="relative h-[400px] rounded-3xl border border-white/10 overflow-hidden mb-6">
-                 <div
-                   className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                   style={{ backgroundImage: `url('${verveImages[0]}')` }}
-                 />
-                 <div className="absolute inset-0 bg-black/20" />
-               </div>
-               <h3 className="text-3xl font-bold text-white mb-2">Verve Studio - Left</h3>
-               <p className="text-gray-400">A dark, moody, neon-accented environment perfect for intense, deep-dive conversations and modern creator branding.</p>
-             </AnimatedSection>
 
-             {/* Right Set */}
-             <AnimatedSection delay={0.2} direction="left" className="group">
-               <div className="relative h-[400px] rounded-3xl border border-white/10 overflow-hidden mb-6">
-                 <div
-                   className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                   style={{ backgroundImage: `url('${verveImages[6]}')` }}
-                 />
-                 <div className="absolute inset-0 bg-black/20" />
-               </div>
-               <h3 className="text-3xl font-bold text-white mb-2">Verve Studio - Right</h3>
-               <p className="text-gray-400">A warmer, wood-toned, softer aesthetic designed for intimate interviews, storytelling, and elegant brand visuals.</p>
-             </AnimatedSection>
+           {/* LEFT SETUPS */}
+           <AnimatedSection className="mb-8">
+             <h3 className="text-2xl font-bold text-white mb-2">Verve Studio — Left</h3>
+             <p className="text-gray-500 mb-6">Dark, moody, neon-accented environments for intense conversations.</p>
+           </AnimatedSection>
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+             {[
+               { name: "The Crimson Crown", img: verveLeftSetupImages[0], desc: "Bold crimson tones with dramatic overhead lighting" },
+               { name: "The Horizon", img: verveLeftSetupImages[1], desc: "Warm horizon gradients with ambient backlighting" },
+               { name: "The Sage", img: verveLeftSetupImages[2], desc: "Deep sage green palette with earthy, grounded styling" },
+             ].map((setup, i) => (
+               <AnimatedSection key={setup.name} delay={i * 0.1} direction="up" className="group">
+                 <div className="relative h-[280px] rounded-2xl border border-white/10 overflow-hidden mb-4">
+                   <div
+                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                     style={{ backgroundImage: `url('${setup.img}')` }}
+                   />
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                   <div className="absolute bottom-0 inset-x-0 px-5 py-4">
+                     <h4 className="text-lg font-bold text-white">{setup.name}</h4>
+                   </div>
+                 </div>
+                 <p className="text-gray-400 text-sm">{setup.desc}</p>
+               </AnimatedSection>
+             ))}
+           </div>
+
+           {/* RIGHT SETUPS */}
+           <AnimatedSection className="mb-8">
+             <h3 className="text-2xl font-bold text-white mb-2">Verve Studio — Right</h3>
+             <p className="text-gray-500 mb-6">Warm, wood-toned, softer aesthetics for intimate storytelling.</p>
+           </AnimatedSection>
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+             {[
+               { name: "The Urban Flame", img: verveRightSetupImages[0], desc: "Urban-industrial vibe with strategic flame-toned lighting" },
+               { name: "The Ivory", img: verveRightSetupImages[1], desc: "Clean ivory backdrop with elegant, minimal styling" },
+               { name: "The Wave", img: verveRightSetupImages[2], desc: "Flowing wave-inspired contours with soft blue accents" },
+             ].map((setup, i) => (
+               <AnimatedSection key={setup.name} delay={i * 0.1} direction="up" className="group">
+                 <div className="relative h-[280px] rounded-2xl border border-white/10 overflow-hidden mb-4">
+                   <div
+                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                     style={{ backgroundImage: `url('${setup.img}')` }}
+                   />
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                   <div className="absolute bottom-0 inset-x-0 px-5 py-4">
+                     <h4 className="text-lg font-bold text-white">{setup.name}</h4>
+                   </div>
+                 </div>
+                 <p className="text-gray-400 text-sm">{setup.desc}</p>
+               </AnimatedSection>
+             ))}
            </div>
         </div>
       </section>

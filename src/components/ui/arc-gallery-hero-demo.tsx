@@ -67,6 +67,30 @@ const galleryImages = [
     height: 3072,
     alt: "Verve Studio styled seating composition",
   },
+  {
+    src: "/verve-studio/left/the-crimson-crown.jpg",
+    width: 4096,
+    height: 3072,
+    alt: "The Crimson Crown — Verve Studio Left",
+  },
+  {
+    src: "/verve-studio/left/the-horizon.webp",
+    width: 4096,
+    height: 3072,
+    alt: "The Horizon — Verve Studio Left",
+  },
+  {
+    src: "/verve-studio/right/the-urban-flame.webp",
+    width: 4096,
+    height: 3072,
+    alt: "The Urban Flame — Verve Studio Right",
+  },
+  {
+    src: "/verve-studio/right/the-ivory.webp",
+    width: 4096,
+    height: 3072,
+    alt: "The Ivory — Verve Studio Right",
+  },
 ];
 
 export function ArcGalleryHeroDemo() {
