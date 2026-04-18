@@ -71,7 +71,7 @@ export default function TheArcadePage() {
              <span className="text-white/60 font-semibold tracking-widest uppercase text-sm mb-4 block">Community Hall</span>
              <h1 className="text-6xl md:text-8xl font-bold text-white mb-6">The Arcade</h1>
              <p className="text-xl md:text-2xl text-gray-300 max-w-2xl leading-relaxed mb-8">
-               A vast, flexible canvas built for connection. The ultimate backdrop for your next creative or corporate event.
+               A space that adapts to your creativity. A modern, versatile community hall designed to host meaningful gatherings, where people connect, learn, and celebrate.
              </p>
              <Link href="/calendar?space=arcade" className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold rounded-full hover:bg-white/20 transition-all shadow-[0_4px_30px_rgba(255,255,255,0.05)]">
                Book The Arcade <MoveRight className="w-5 h-5" />
@@ -118,7 +118,7 @@ export default function TheArcadePage() {
                 The Arcade isn&apos;t just an empty room; it&apos;s a meticulously engineered environment. With smart lighting arrays that can match your brand colors and an open floor plan that accommodates any seating arrangement, The Arcade transforms to meet your exact needs.
               </p>
               <p className="text-gray-400 text-lg leading-relaxed mb-8">
-                Ideal for product launches, art exhibitions, community meetups, panel discussions, and creative workshops.
+                Ideal for community events & social gatherings, corporate meetings & conferences, workshops & training sessions, brand launches & private events. It thrives as a professional yet welcoming environment.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {AMENITIES.map((item, i) => (

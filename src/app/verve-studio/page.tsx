@@ -70,8 +70,8 @@ export default function VerveStudioPage() {
           <AnimatedSection>
              <span className="text-white/60 font-semibold tracking-widest uppercase text-sm mb-4 block">Podcast Studio</span>
              <h1 className="text-6xl md:text-9xl font-bold text-white mb-6 blur-[0.3px]">Verve Studio</h1>
-             <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-10">
-               Engineering pristine conversations. The premier podcast and content creator studio delivering uncompromising 4K visual and audio fidelity.
+              <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-10">
+               Voice Redefined. A premium content and podcast production space created for creators, brands, and storytellers.
              </p>
              <Link href="/calendar?space=vsl" className="inline-flex items-center gap-2 px-10 py-5 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold text-lg rounded-full hover:bg-white/20 transition-all shadow-[0_4px_30px_rgba(255,255,255,0.1)]">
                Book Verve Studio <MoveRight className="w-5 h-5" />
@@ -126,7 +126,7 @@ export default function VerveStudioPage() {
                 Verve Studio is designed from the ground up for high-fidelity audio and video production. With acoustically isolated spaces and pre-lit modular corners, you can walk in and start recording broadcast-quality content immediately.
               </p>
               <p className="text-gray-400 text-lg leading-relaxed mb-8">
-                Ideal for premium podcasts, intimate interviews, vodcasts, voiceover recording, and focused creator content.
+                Ideal for podcast recording & talk shows, content creation & reels, brand videos & digital campaigns, interviews & creative shoots.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {AMENITIES.map((item, i) => (

@@ -17,6 +17,10 @@ import {
   Play,
   ShieldCheck,
   Sparkles,
+  Music,
+  Globe,
+  Star,
+  Users,
   type LucideIcon,
 } from "lucide-react";
 
@@ -132,97 +136,79 @@ const spaces: SpaceCard[] = [
 
 const desktopWhyChooseCards: IconCard[] = [
   {
-    title: "Premium Ambience",
-    description:
-      "Ambient lighting, polished detailing, and a cinematic tone make the first impression feel immediately premium.",
+    title: "Premium Execution",
+    description: "Every detail is designed to make the experience feel polished, practical, and easy to work with for both events and content creation.",
     icon: Sparkles,
-    highlights: ["Ambient lighting support", "Refined visual atmosphere"],
+    highlights: ["Meticulously engineered spaces", "Cinematic visual tone"],
   },
   {
-    title: "Flexible Bookings",
-    description:
-      "Availability, policy windows, and next-slot guidance are built into the flow so changes stay manageable.",
-    icon: CalendarCheck,
-    highlights: ["Live slot visibility", "Managed reschedule flow"],
+    title: "Cultural Relevance",
+    description: "We host meaningful gatherings that leave a cultural impression, bringing together brands, ideas, and people.",
+    icon: GalleryHorizontalEnd,
+    highlights: ["Curated experiential events", "Cultural showcases"],
   },
   {
-    title: "Event-Ready Layouts",
-    description:
-      "The Arcade is shaped like a true community hall, giving launches, workshops, and premium gatherings a layout that feels intentional from arrival to wrap.",
+    title: "Built for Community",
+    description: "Whether it’s a startup launch or a private gathering, our spaces are designed where people connect, learn, and celebrate.",
     icon: LayoutGrid,
-    highlights: ["Community hall layout", "Built for workshops and launches"],
+    highlights: ["Expansive event halls", "Flexible scaling"],
   },
   {
-    title: "Podcast-Ready Setup",
-    description:
-      "Verve Studio is tuned for creator-led conversations, with a setup that feels composed, camera-friendly, and production-ready.",
-    icon: Mic2,
-    highlights: ["Interview and talk-show ready", "Professional audio atmosphere"],
-  },
-  {
-    title: "Capacity & Comfort",
-    description:
-      "The Arcade gives teams room to host confidently while still keeping movement, seating, and guest comfort well balanced.",
-    icon: CalendarClock,
-    highlights: ["Up to 100 standing capacity", "Up to 60 seated capacity"],
-  },
-  {
-    title: "Smooth Support Experience",
-    description:
-      "From first inquiry to final handoff, the support flow stays clear, responsive, and built to reduce friction.",
+    title: "Professionalism",
+    description: "From seamless event support to high-fidelity audio engineering, our team is committed to delivering flawless execution.",
     icon: ShieldCheck,
-    highlights: ["Guided booking journey", "Clear support communication"],
+    highlights: ["On-site support staff", "Clear booking flows"],
+  },
+  {
+    title: "Spaces for Expression",
+    description: "Designed for modern content demands, enabling high-quality production across multiple formats and aesthetics.",
+    icon: Mic2,
+    highlights: ["Creator-friendly studios", "Camera-ready environments"],
+  },
+  {
+    title: "Forward-Thinking",
+    description: "We are continually evolving our layouts and technology to ensure your production or event meets modern creative standards.",
+    icon: Camera,
+    highlights: ["DMX programmed lighting", "Acoustic treatments"],
   },
 ];
 
 const mobileWhyChooseCards: CompactIconCard[] = [
   {
-    title: "Premium Ambience",
+    title: "Premium Execution",
     description: "Cinematic tone and polished first impressions.",
     icon: Sparkles,
-    tag: "Ambient lighting",
+    tag: "High Quality",
   },
   {
-    title: "Flexible Bookings",
-    description: "Live slots and policy-aware changes stay manageable.",
-    icon: CalendarCheck,
-    tag: "Reschedule flow",
+    title: "Cultural Relevance",
+    description: "Experiences that leave a cultural impression.",
+    icon: GalleryHorizontalEnd,
+    tag: "Curated",
   },
   {
-    title: "Community Layout",
-    description: "A true hall layout built for launches and workshops.",
+    title: "Community First",
+    description: "Connecting people, brands, and ideas.",
     icon: LayoutGrid,
-    tag: "Arcade-ready",
+    tag: "Gatherings",
   },
   {
-    title: "Sound Ready",
-    description: "Production support without overcomplicating the setup.",
-    icon: Headphones,
-    tag: "Sound environment",
-  },
-  {
-    title: "Podcast Setup",
-    description: "Interview-led sessions feel composed and creator-friendly.",
-    icon: Mic2,
-    tag: "Studio-ready",
-  },
-  {
-    title: "Camera Finish",
-    description: "Framing and composition feel polished on camera.",
-    icon: Camera,
-    tag: "Camera-ready",
-  },
-  {
-    title: "Capacity Comfort",
-    description: "Space to host confidently without losing comfort.",
-    icon: CalendarClock,
-    tag: "100 standing",
-  },
-  {
-    title: "Support Flow",
-    description: "Guided booking and clear communication throughout.",
+    title: "Professionalism",
+    description: "Seamless support and flawless delivery.",
     icon: ShieldCheck,
-    tag: "Responsive help",
+    tag: "Reliable",
+  },
+  {
+    title: "Expression",
+    description: "Built for modern content and creators.",
+    icon: Mic2,
+    tag: "Studios",
+  },
+  {
+    title: "Forward-Thinking",
+    description: "Evolving tech for modern creative standards.",
+    icon: Camera,
+    tag: "Equipped",
   },
 ];
 
@@ -431,19 +417,14 @@ export default async function HomePage() {
           </AnimatedSection>
 
           <AnimatedSection delay={0.2} className="mx-auto max-w-5xl">
-            <h1 className="mb-4 bg-gradient-to-b from-white to-gray-400 bg-clip-text text-[2.65rem] font-bold leading-[0.95] tracking-[-0.05em] text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.22)] sm:mb-5 sm:text-5xl md:text-6xl lg:text-7xl">
-              Where People Gather, <br className="hidden md:block" /> Create, and Speak.
+            <h1 className="mb-4 bg-gradient-to-b from-white to-gray-400 bg-clip-text text-[2.65rem] font-bold leading-[0.95] tracking-[-0.05em] text-transparent uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.22)] sm:mb-5 sm:text-5xl md:text-6xl lg:text-7xl">
+              Two Brands. <br className="hidden md:block" /> One Creative Vision.
             </h1>
           </AnimatedSection>
 
           <AnimatedSection delay={0.4} className="mx-auto max-w-3xl">
             <p className="mb-7 max-w-3xl text-[14px] leading-6 text-gray-300 sm:text-base sm:leading-7 md:mb-8 md:text-lg">
-              Black Pepper Entertainment brings together{" "}
-              <span className="font-semibold text-white">The Arcade</span>, a
-              refined community hall, and{" "}
-              <span className="font-semibold text-white">Verve Studio</span>, a
-              polished recording environment built for premium gatherings,
-              memorable sessions, and creator-led conversations.
+              Shaping exceptional experiences and meaningful moments. <span className="font-semibold text-white">Black Pepper Entertainment</span> is a forward-thinking creative ecosystem where brands, spaces, and ideas converge.
             </p>
           </AnimatedSection>
 
@@ -477,80 +458,118 @@ export default async function HomePage() {
 
       <ArcGalleryHeroDemo />
 
-      <section className="relative z-20 bg-black py-1.5 md:py-12">
-        <div className="container mx-auto px-6">
-          <AnimatedSection className="mb-3 md:mb-6">
+      <section className="relative z-20 bg-black py-1.5 md:py-16 border-t border-white/5">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <AnimatedSection className="mb-12 md:mb-20">
             <SectionHeading
-              eyebrow="Choose Your Space"
-              title="Two premium environments, each built for a different kind of moment."
-              description="Choose the room that matches your format, your audience, and the experience you want people to remember."
+              eyebrow="Our Vision"
+              title="Rooted in Creativity, Community, and Excellence."
+              description="At the heart of Black Pepper lies a vision to build spaces where creativity, purpose, and community come together. Each brand within our ecosystem has a distinct identity, yet all are united by a shared commitment to thoughtful experiences and cultural relevance."
             />
           </AnimatedSection>
 
-          <HomeCardRail
-            className="md:grid-cols-2"
-            mobileBehavior="slider"
-            mobileCardWidthClassName="w-[74vw] max-w-[17.5rem]"
-          >
-            {spaces.map((space, index) => {
-              const Icon = space.icon;
+          {/* The Arcade Featured Section */}
+          <AnimatedSection direction="up" delay={0.1}>
+            <div className="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#050505] min-h-[500px] mb-8 md:mb-12">
+              <div className="absolute inset-0 md:w-[55%]">
+                <Image
+                  src={arcadeImages[3]}
+                  alt="The Arcade"
+                  fill
+                  className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-1000"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black via-black/80 md:via-black/50 to-transparent" />
+              </div>
+              <div className="relative z-10 flex h-full flex-col justify-end md:justify-center p-8 md:p-16 md:w-[60%] md:ml-auto">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-200">
+                  <LayoutGrid className="h-4 w-4" />
+                  Community Hall
+                </div>
+                <h3 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">The Arcade</h3>
+                <p className="text-xl font-medium text-white/80 mb-4">A space that adapts to your creativity.</p>
+                <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-md mb-8">
+                  A modern, versatile community hall designed to host meaningful gatherings and memorable experiences. Adaptable layouts, refined interiors, and seamless event support make it ideal for social and professional events.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link href="/the-arcade" className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/20 bg-white/[0.05] px-6 text-sm font-semibold text-white transition hover:bg-white hover:text-black">
+                    Explore The Arcade
+                  </Link>
+                  <Link href="/availability?space=arcade" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-black transition hover:bg-zinc-200">
+                    Book Now <ArrowUpRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
 
+          {/* Verve Studio Featured Section */}
+          <AnimatedSection direction="up" delay={0.2}>
+            <div className="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#050505] min-h-[500px]">
+              <div className="absolute inset-0 md:left-auto md:right-0 md:w-[55%]">
+                <Image
+                  src={verveImages[2]}
+                  alt="Verve Studio"
+                  fill
+                  className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-1000"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-black via-black/80 md:via-black/50 to-transparent" />
+              </div>
+              <div className="relative z-10 flex h-full flex-col justify-end md:justify-center p-8 md:p-16 md:w-[60%] md:mr-auto">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-200">
+                  <Play className="h-4 w-4" />
+                  Podcast & Content Studio
+                </div>
+                <h3 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">Verve Studio</h3>
+                <p className="text-xl font-medium text-white/80 mb-4">Voice Redefined.</p>
+                <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-md mb-8">
+                  A premium content and podcast production space created for creators, brands, and storytellers. Featuring six fully equipped aesthetic podcast sets across two spacious halls for high-quality production across multiple formats.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link href="/verve-studio" className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/20 bg-white/[0.05] px-6 text-sm font-semibold text-white transition hover:bg-white hover:text-black">
+                    Explore Verve Studio
+                  </Link>
+                  <Link href="/availability?space=vsl" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-black transition hover:bg-zinc-200">
+                    Book Now <ArrowUpRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Our Expertise Section */}
+      <section className="bg-[#030303] py-16 md:py-24 border-y border-white/5">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <AnimatedSection className="mb-12">
+            <SectionHeading
+              eyebrow="Our Expertise"
+              title="Beyond Our Spaces"
+              description="We represent impactful live events and experiences that leave a cultural impression."
+            />
+          </AnimatedSection>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { title: "Music Festivals", icon: Music, desc: "Large-scale cultural integrations." },
+              { title: "Live Concerts", icon: Star, desc: "Premium live entertainment." },
+              { title: "Cultural Showcases", icon: Globe, desc: "Celebrating art and thought." },
+              { title: "Curated Events", icon: Users, desc: "Bespoke experiential moments." },
+            ].map((item, i) => {
+              const Icon = item.icon;
               return (
-                <AnimatedSection
-                  key={space.title}
-                  delay={0.15 + index * 0.12}
-                  direction="up"
-                  className="h-full"
-                >
-                  <GlowCard
-                    className="h-full"
-                    contentClassName="relative h-full min-h-[29rem] overflow-hidden rounded-[2rem] border border-white/10 md:min-h-[32rem]"
-                    backgroundColor="#050505"
-                    borderRadius={32}
-                    glowIntensity={0.82}
-                    fillOpacity={0.16}
-                  >
-                    <Image
-                      src={space.image}
-                      alt={`${space.title} background`}
-                      fill
-                      priority={index === 0}
-                      className="object-cover opacity-60"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/20" />
-                    <div className="relative z-10 flex h-full flex-col justify-end p-7 sm:p-9">
-                      <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.26em] text-zinc-200">
-                        <Icon className="h-4 w-4" />
-                        {space.subtitle}
-                      </div>
-                      <h3 className="text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
-                        {space.title}
-                      </h3>
-                      <p className="mt-4 max-w-xl text-sm leading-7 text-zinc-300 sm:text-base">
-                        {space.description}
-                      </p>
-                      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <Link
-                          href={space.detailHref}
-                          className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/14 bg-white/[0.06] px-5 py-3 text-sm font-semibold text-white transition-all hover:border-white/24 hover:bg-white hover:text-black"
-                        >
-                          View Space Details
-                        </Link>
-                        <Link
-                          href={space.bookingHref}
-                          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-all hover:-translate-y-0.5 hover:bg-zinc-100"
-                        >
-                          Book This Space
-                          <ArrowUpRight className="h-4 w-4" />
-                        </Link>
-                      </div>
+                <AnimatedSection key={i} delay={0.1 + (i * 0.1)} direction="up">
+                  <div className="group relative flex flex-col items-center justify-center text-center h-full min-h-[220px] rounded-[2rem] border border-white/10 bg-white/[0.02] p-8 transition-colors hover:bg-white/[0.04]">
+                    <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/[0.06] border border-white/10 text-white transition-transform group-hover:scale-110">
+                      <Icon strokeWidth={1.5} size={28} />
                     </div>
-                  </GlowCard>
+                    <h4 className="text-xl font-semibold text-white mb-2">{item.title}</h4>
+                    <p className="text-sm text-zinc-400">{item.desc}</p>
+                  </div>
                 </AnimatedSection>
               );
             })}
-          </HomeCardRail>
+          </div>
         </div>
       </section>
 
@@ -944,37 +963,49 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="relative py-1.5 md:py-12">
+      <section className="relative py-24 border-t border-white/5">
         <div className="absolute inset-0 bg-gradient-to-b from-black to-[#090909]" />
         <div className="container relative z-10 mx-auto px-6">
-          <AnimatedSection className="mx-auto max-w-4xl rounded-[3rem] border border-white/10 bg-white/[0.05] p-10 text-center shadow-[0_30px_90px_rgba(0,0,0,0.38)] backdrop-blur-3xl md:p-20">
-            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.05]">
-              <Camera className="h-6 w-6 text-white" />
-            </div>
-            <h2 className="text-4xl font-semibold tracking-[-0.04em] text-white md:text-6xl">
-              Ready to Host, Record, or Create?
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-zinc-400 md:text-lg">
-              Move from browsing into a booking path that keeps the experience premium from the first click through confirmation and follow-up.
-            </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:justify-center">
-              <Link
-                href="/booking"
-                className="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition-all hover:-translate-y-0.5 hover:bg-zinc-100"
-              >
-                Book Now
-              </Link>
-              <Link
-                href="/availability"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-black"
-              >
-                Check Availability
-                <MoveRight className="h-4 w-4" />
-              </Link>
+          <AnimatedSection className="mx-auto max-w-5xl rounded-[3rem] border border-white/10 bg-white/[0.05] p-10 md:p-20 overflow-hidden shadow-[0_30px_90px_rgba(0,0,0,0.38)] backdrop-blur-3xl">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.05),transparent_40%)]" />
+            
+            <div className="relative z-10 grid gap-16 lg:grid-cols-2 lg:items-center">
+              <div>
+                <h2 className="text-4xl font-semibold tracking-[-0.04em] text-white md:text-5xl lg:text-6xl mb-6">
+                  Let's Build Something Meaningful.
+                </h2>
+                <p className="max-w-md text-base leading-8 text-zinc-400 md:text-lg mb-8">
+                  Whether you're booking a podcast session, hosting a corporate launch, or exploring cultural showcases, our team is ready to deliver premium execution.
+                </p>
+                <div className="space-y-4">
+                  <p className="text-zinc-300 font-medium">+91 9203411611</p>
+                  <p className="text-zinc-300 font-medium">adityasingh808589@gmail.com</p>
+                  <p className="text-zinc-500">Raipur, Chhattisgarh</p>
+                </div>
+              </div>
+              
+              <div className="flex flex-col gap-4 sm:flex-row lg:flex-col lg:items-end lg:justify-center">
+                <Link
+                  href="/booking"
+                  className="inline-flex min-h-14 lg:w-64 items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-bold uppercase tracking-widest text-black transition-all hover:bg-zinc-200"
+                >
+                  Book Your Space
+                </Link>
+                <a
+                  href="https://wa.me/919203411611"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-14 lg:w-64 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/[0.05] px-8 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-white/10"
+                >
+                  WhatsApp Inquiry
+                  <MoveRight className="h-4 w-4" />
+                </a>
+              </div>
             </div>
           </AnimatedSection>
         </div>
       </section>
+
     </div>
   );
 }
