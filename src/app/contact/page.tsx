@@ -1,6 +1,5 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
-import Link from "next/link";
 
 export const metadata = {
   title: "Contact Black Pepper Entertainment Raipur | Enquire About Bookings",
