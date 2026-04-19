@@ -102,7 +102,7 @@ export default function PricingPage() {
           </AnimatedSection>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {ARCADE_PKGS.map((pkg, i) => (
-              <AnimatedSection key={i} delay={0.1 * i} direction="up" className="relative border rounded-3xl p-8 hover:bg-white/5 transition-colors flex flex-col" style={{ background: "#111", borderColor: pkg.popular ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.1)" }}>
+              <AnimatedSection key={i} delay={0.1 * i} direction="up" className={`relative border rounded-3xl p-8 hover:bg-white/5 transition-colors flex flex-col bg-[#111] ${pkg.popular ? "border-white/30" : "border-white/10"}`}>
                 {pkg.popular && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center px-4 py-1.5 rounded-full bg-white text-black text-xs font-bold uppercase tracking-widest">
                     ★ Most Popular
@@ -140,7 +140,7 @@ export default function PricingPage() {
           </AnimatedSection>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {VERVE_PKGS.map((pkg, i) => (
-              <AnimatedSection key={i} delay={0.1 * i} direction="up" className="relative border rounded-3xl p-8 hover:bg-white/5 transition-colors flex flex-col" style={{ background: "#111", borderColor: pkg.popular ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.1)" }}>
+              <AnimatedSection key={i} delay={0.1 * i} direction="up" className={`relative border rounded-3xl p-8 hover:bg-white/5 transition-colors flex flex-col bg-[#111] ${pkg.popular ? "border-white/30" : "border-white/10"}`}>
                 {pkg.popular && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center px-4 py-1.5 rounded-full bg-white text-black text-xs font-bold uppercase tracking-widest">
                     ★ Most Popular
