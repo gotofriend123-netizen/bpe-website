@@ -4,8 +4,18 @@ import { MoveRight, Play, LayoutGrid } from "lucide-react";
 import { arcadeImages, verveImages } from "@/lib/content/site-images";
 
 export const metadata = {
-  title: "Spaces | The Arcade & Verve Studio",
-  description: "Explore the premium spaces at Black Pepper Entertainment.",
+  title: "Our Spaces | Event Hall & Podcast Studio in Raipur | Black Pepper Entertainment",
+  description: "Explore The Arcade community hall for events in Raipur and Verve Studio — a professional podcast & content creation studio in Raipur. Both available for online booking.",
+  keywords: [
+    "event hall Raipur",
+    "podcast studio Raipur",
+    "community hall Raipur",
+    "content creation studio Raipur",
+    "The Arcade Raipur",
+    "Verve Studio Raipur",
+    "studio space for rent Raipur",
+    "4K recording studio Raipur",
+  ],
 };
 
 export default function SpacesPage() {
@@ -14,11 +24,12 @@ export default function SpacesPage() {
       <div className="container mx-auto px-6 max-w-7xl">
         
         <AnimatedSection className="text-center mb-24">
+          <span className="inline-flex rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-300 mb-4">Raipur, Chhattisgarh</span>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
-            Our Spaces
+            Two Premium Spaces in Raipur
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Choose the perfect environment for your next big idea.
+            Book The Arcade community event hall or Verve Studio podcast recording studio — both in Raipur, both available online.
           </p>
         </AnimatedSection>
 
@@ -81,19 +92,20 @@ export default function SpacesPage() {
               </div>
               <h2 className="text-4xl md:text-5xl font-bold">Verve Studio</h2>
               <p className="text-xl text-gray-400 leading-relaxed">
-                The ultimate creator playground. Acoustically treated, heavily stylized, and fully equipped for multi-cam 4K podcast recordings and solo productions.
+                Raipur&apos;s premier podcast &amp; content creation studio. Acoustically treated, heavily stylized, and fully equipped for multi-cam 4K podcast recordings, interviews, and solo productions.
               </p>
               <ul className="space-y-4 text-gray-300">
-                <li className="flex items-center gap-3"><div className="w-2 h-2 bg-white rounded-full" /> Multi-cam 4K setup included</li>
-                <li className="flex items-center gap-3"><div className="w-2 h-2 bg-white rounded-full" /> Shure SM7B broadcast mics</li>
-                <li className="flex items-center gap-3"><div className="w-2 h-2 bg-white rounded-full" /> Multiple set designs (Left/Right)</li>
+                <li className="flex items-center gap-3"><div className="w-2 h-2 bg-white rounded-full" /> Multi-cam 4K Sony cameras included</li>
+                <li className="flex items-center gap-3"><div className="w-2 h-2 bg-white rounded-full" /> Shure SM7B broadcast microphones</li>
+                <li className="flex items-center gap-3"><div className="w-2 h-2 bg-white rounded-full" /> Multiple set designs (VSL &amp; VSR)</li>
                 <li className="flex items-center gap-3"><div className="w-2 h-2 bg-white rounded-full" /> Professional audio interfacing</li>
+                <li className="flex items-center gap-3"><div className="w-2 h-2 bg-white rounded-full" /> From ₹4,000 / 2-hour session</li>
               </ul>
               <div className="pt-4 flex gap-4 flex-wrap">
                 <Link href="/verve-studio" className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-colors">
                   View Details
                 </Link>
-                <Link href="/calendar?space=vsl" className="px-8 py-4 bg-transparent border border-white/20 text-white font-bold rounded-full hover:bg-white/5 transition-colors flex items-center gap-2 group">
+                <Link href="/availability?space=vsl" className="px-8 py-4 bg-transparent border border-white/20 text-white font-bold rounded-full hover:bg-white/5 transition-colors flex items-center gap-2 group">
                   Book Now <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>

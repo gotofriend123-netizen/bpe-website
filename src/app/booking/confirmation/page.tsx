@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { CheckCircle2, CalendarDays, Clock, MapPin, ArrowRight } from "lucide-react";
@@ -11,6 +11,7 @@ import {
   BUSINESS_SUPPORT_WHATSAPP_DISPLAY,
   getBusinessSupportWhatsappLink,
 } from "@/lib/business/contact";
+import { trackPurchase } from "@/lib/analytics/ga4";
 
 function getDeliveryTone(state: string | null) {
   if (state === "sent") {
@@ -39,6 +40,19 @@ function BookingConfirmationPageContent() {
       bookingType: space,
       space,
     }) ?? space;
+
+  // 🔥 GA4: Fire purchase event on booking confirmation
+  useEffect(() => {
+    if (status === "confirmed" && ref !== "PENDING") {
+      trackPurchase({
+        bookingId: ref,
+        spaceName: spaceName ?? space ?? "Unknown Space",
+        spaceId: space ?? "unknown",
+        amount: 0, // amount not available from URL; set when payment integration added
+        packageName: undefined,
+      });
+    }
+  }, [ref, space, spaceName, status]);
 
   return (
     <main className="min-h-screen bg-black text-white font-sans pt-32 pb-24 flex items-center justify-center">

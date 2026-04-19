@@ -1,9 +1,19 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import Link from "next/link";
 
 export const metadata = {
-  title: "Contact Us | Black Pepper Entertainment",
-  description: "Get in touch with the Black Pepper Entertainment team.",
+  title: "Contact Black Pepper Entertainment Raipur | Enquire About Bookings",
+  description: "Contact Black Pepper Entertainment in Raipur, Chhattisgarh. Call, email, or WhatsApp to enquire about booking The Arcade event hall or Verve Studio podcast recording studio.",
+  keywords: [
+    "contact Black Pepper Entertainment Raipur",
+    "event hall enquiry Raipur",
+    "podcast studio contact Raipur",
+    "book arcade Raipur contact",
+    "Verve Studio contact",
+    "Black Pepper Entertainment phone number",
+    "Black Pepper Entertainment address Raipur",
+  ],
 };
 
 export default function ContactPage() {
@@ -12,9 +22,10 @@ export default function ContactPage() {
       <div className="container mx-auto px-6 max-w-6xl">
         
         <AnimatedSection className="text-center mb-20">
+          <span className="inline-flex rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-300 mb-4">Raipur, Chhattisgarh</span>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">Contact Us</h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Got specific requirements for a huge event? Or just want to check out the studio before booking? Reach out.
+            Got specific requirements for a large event? Want to visit before booking? Or just want a quick quote? Reach out — we respond fast.
           </p>
         </AnimatedSection>
 
@@ -52,17 +63,25 @@ export default function ContactPage() {
               <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-6">
                 <MapPin className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-white mb-4">Location</h2>
+              <h2 className="text-3xl font-bold text-white mb-4">Find Us in Raipur</h2>
               <p className="text-gray-400 text-lg leading-relaxed mb-6">
-                Arcade Community Hall, <br />
+                The Arcade &amp; Verve Studio, <br />
                 Near Hotel Royal Avenue, <br />
                 Raipur, Chhattisgarh 492001
               </p>
               
-              <div className="w-full h-48 bg-white/5 border border-white/10 rounded-2xl overflow-hidden relative">
-                <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-                  <span className="text-sm uppercase tracking-widest font-semibold">Interactive Map Placeholder</span>
-                </div>
+              <a
+                href="https://maps.google.com/?q=Black+Pepper+Entertainment,+Near+Hotel+Royal+Avenue,+Raipur+Chhattisgarh"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 py-3 px-6 bg-white/10 border border-white/20 rounded-xl text-white text-sm font-semibold hover:bg-white hover:text-black transition-all"
+              >
+                <MapPin className="w-4 h-4" /> Open in Google Maps
+              </a>
+
+              <div className="mt-6 pt-6 border-t border-white/10">
+                <p className="text-xs text-gray-600 uppercase tracking-widest mb-2">Hours</p>
+                <p className="text-gray-300 font-semibold">Mon – Sun: 9:00 AM – 9:00 PM</p>
               </div>
             </div>
           </AnimatedSection>

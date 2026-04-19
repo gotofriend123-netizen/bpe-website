@@ -6,8 +6,20 @@ import { InteractiveSelector } from "@/components/ui/interactive-selector";
 import { verveLeftSetupImages, verveRightSetupImages } from "@/lib/content/site-images";
 
 export const metadata = {
-  title: "Verve Studio | Premium Podcast & Content Studio",
-  description: "Book Verve Studio for pristine 4K podcast recordings, interviews, and brand conversations. Fully equipped and professionally lit.",
+  title: "Verve Studio | Podcast Recording Studio in Raipur | Black Pepper Entertainment",
+  description: "Book Verve Studio — Raipur's only professional podcast recording studio with 4K cameras, Shure SM7B microphones, Aputure lighting, and acoustic treatment. From ₹4,000 per session.",
+  keywords: [
+    "podcast studio Raipur",
+    "podcast recording studio Raipur",
+    "podcast studio for rent Raipur",
+    "Verve Studio Raipur",
+    "4K recording studio Raipur",
+    "content creation studio Raipur",
+    "Shure SM7B studio Raipur",
+    "vodcast studio Raipur",
+    "interview studio Raipur",
+    "creator studio Raipur",
+  ],
 };
 
 const AMENITIES = [
@@ -68,12 +80,12 @@ export default function VerveStudioPage() {
         </div>
         <div className="container mx-auto px-6 relative z-20">
           <AnimatedSection>
-             <span className="text-white/60 font-semibold tracking-widest uppercase text-sm mb-4 block">Podcast Studio</span>
+             <span className="text-white/60 font-semibold tracking-widest uppercase text-sm mb-4 block">Podcast Studio — Raipur</span>
              <h1 className="text-6xl md:text-9xl font-bold text-white mb-6 blur-[0.3px]">Verve Studio</h1>
               <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-10">
-               Voice Redefined. A premium content and podcast production space created for creators, brands, and storytellers.
+               Raipur&apos;s premier podcast &amp; content creation studio. 4K cameras, Shure SM7B microphones, Aputure lighting, and acoustic treatment &mdash; all included. Book from ₹4,000.
              </p>
-             <Link href="/calendar?space=vsl" className="inline-flex items-center gap-2 px-10 py-5 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold text-lg rounded-full hover:bg-white/20 transition-all shadow-[0_4px_30px_rgba(255,255,255,0.1)]">
+             <Link href="/availability?space=vsl" className="inline-flex items-center gap-2 px-10 py-5 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold text-lg rounded-full hover:bg-white/20 transition-all shadow-[0_4px_30px_rgba(255,255,255,0.1)]">
                Book Verve Studio <MoveRight className="w-5 h-5" />
              </Link>
           </AnimatedSection>
@@ -244,6 +256,30 @@ export default function VerveStudioPage() {
         description="Everything you need to shoot a hit podcast is included in your booking." 
         options={verveOptions} 
       />
+
+      {/* Final CTA + Cross-Space Link */}
+      <section className="py-24 border-t border-white/10 bg-gradient-to-t from-[#0a0a0a] to-black">
+        <div className="container mx-auto px-6 text-center">
+          <AnimatedSection>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Book Raipur&apos;s Best Podcast Studio</h2>
+            <p className="text-gray-400 mb-8 max-w-xl mx-auto">Check live availability for Verve Studio and secure your session instantly online.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link 
+                href="/availability?space=vsl"
+                className="inline-block bg-white text-black px-10 py-5 rounded-full font-bold text-lg hover:bg-zinc-200 transition-all"
+              >
+                Book Verve Studio Now
+              </Link>
+              <Link
+                href="/the-arcade"
+                className="inline-block border border-white/20 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white/10 transition-all"
+              >
+                Also Explore The Arcade →
+              </Link>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
 
     </div>
   );

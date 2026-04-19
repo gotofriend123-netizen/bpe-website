@@ -6,8 +6,20 @@ import { InteractiveSelector } from "@/components/ui/interactive-selector";
 import { arcadeImages } from "@/lib/content/site-images";
 
 export const metadata = {
-  title: "The Arcade | Community Hall by Black Pepper",
-  description: "Book The Arcade, our highly versatile community hall for events, pop-ups, workshops, and gatherings.",
+  title: "The Arcade | Community Hall & Event Space in Raipur | Black Pepper Entertainment",
+  description: "Book The Arcade — Raipur's premium community hall and event venue. Host workshops, brand launches, parties, and corporate events. DMX lighting, professional PA, on-site crew. From ₹15,000.",
+  keywords: [
+    "community hall Raipur",
+    "event hall Raipur",
+    "The Arcade community hall",
+    "event space booking Raipur",
+    "party hall Raipur",
+    "workshop venue Raipur",
+    "brand launch venue Raipur",
+    "corporate event hall Raipur",
+    "Shankar Nagar community hall",
+    "Black Pepper Entertainment Raipur",
+  ],
 };
 
 const AMENITIES = [
@@ -68,12 +80,12 @@ export default function TheArcadePage() {
         </div>
         <div className="container mx-auto px-6 relative z-20">
           <AnimatedSection>
-             <span className="text-white/60 font-semibold tracking-widest uppercase text-sm mb-4 block">Community Hall</span>
+             <span className="text-white/60 font-semibold tracking-widest uppercase text-sm mb-4 block">Community Hall — Raipur</span>
              <h1 className="text-6xl md:text-8xl font-bold text-white mb-6">The Arcade</h1>
              <p className="text-xl md:text-2xl text-gray-300 max-w-2xl leading-relaxed mb-8">
-               A space that adapts to your creativity. A modern, versatile community hall designed to host meaningful gatherings, where people connect, learn, and celebrate.
+               Raipur&apos;s premier community hall &amp; event space. A modern, versatile venue designed to host meaningful gatherings, workshops, brand launches, and parties — where people connect, learn, and celebrate.
              </p>
-             <Link href="/calendar?space=arcade" className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold rounded-full hover:bg-white/20 transition-all shadow-[0_4px_30px_rgba(255,255,255,0.05)]">
+             <Link href="/availability?space=arcade" className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold rounded-full hover:bg-white/20 transition-all shadow-[0_4px_30px_rgba(255,255,255,0.05)]">
                Book The Arcade <MoveRight className="w-5 h-5" />
              </Link>
           </AnimatedSection>
@@ -198,17 +210,26 @@ export default function TheArcadePage() {
         options={arcadeOptions} 
       />
 
-      {/* 6. FINAL CTA */}
+      {/* 6. FINAL CTA + Cross-Space Link */}
       <section className="py-24 border-t border-white/10 bg-gradient-to-t from-[#0a0a0a] to-black">
         <div className="container mx-auto px-6 text-center">
           <AnimatedSection>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">Ready to host your next event?</h2>
-            <Link 
-              href="/calendar?space=arcade"
-              className="inline-block bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white/20 transition-all shadow-[0_4px_30px_rgba(255,255,255,0.1)]"
-            >
-              Book The Arcade Now
-            </Link>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Ready to host your next event in Raipur?</h2>
+            <p className="text-gray-400 mb-8 max-w-xl mx-auto">Book The Arcade online instantly. Check live availability and secure your date.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link 
+                href="/availability?space=arcade"
+                className="inline-block bg-white text-black px-10 py-5 rounded-full font-bold text-lg hover:bg-zinc-200 transition-all shadow-[0_4px_30px_rgba(255,255,255,0.1)]"
+              >
+                Book The Arcade Now
+              </Link>
+              <Link
+                href="/verve-studio"
+                className="inline-block border border-white/20 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white/10 transition-all"
+              >
+                Also Explore Verve Studio →
+              </Link>
+            </div>
           </AnimatedSection>
         </div>
       </section>

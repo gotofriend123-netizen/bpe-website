@@ -35,7 +35,8 @@
     "prisma/**/*.ts",
     "scripts/**/*.ts",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    "page_old.tsx"
   ],
   "exclude": [
     "node_modules",

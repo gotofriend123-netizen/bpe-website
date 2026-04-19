@@ -2,9 +2,18 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { arcadeImages, verveImages } from "@/lib/content/site-images";
 
 export const metadata = {
-  title: "About Us | Black Pepper Entertainment Raipur",
-  description:
-    "Learn about Black Pepper Entertainment in Raipur, Chhattisgarh. Discover the mission behind our premium creative spaces: Verve Studio and The Arcade.",
+  title: "About Black Pepper Entertainment | Premium Venue & Studio in Raipur",
+  description: "Black Pepper Entertainment is Raipur's premier creative venue company. Learn about The Arcade community hall and Verve Studio podcast studio — two premium spaces built for creators, brands, and communities in Raipur, Chhattisgarh.",
+  keywords: [
+    "Black Pepper Entertainment Raipur",
+    "about Black Pepper Entertainment",
+    "event company Raipur",
+    "premium venue Raipur",
+    "The Arcade Raipur",
+    "Verve Studio Raipur",
+    "creative studio Raipur",
+    "Shankar Nagar community hall",
+  ],
 };
 
 export default function AboutPage() {
@@ -54,12 +63,12 @@ export default function AboutPage() {
             </p>
             <div className="flex gap-12 border-t border-white/10 pt-6">
               <div>
-                <p className="mb-2 text-4xl font-bold text-white">2023</p>
-                <p className="text-sm uppercase tracking-wider text-gray-500">Established</p>
+                <p className="mb-2 text-4xl font-bold text-white">150+</p>
+                <p className="text-sm uppercase tracking-wider text-gray-500">Events Hosted</p>
               </div>
               <div>
-                <p className="mb-2 text-4xl font-bold text-white">2</p>
-                <p className="text-sm uppercase tracking-wider text-gray-500">Premium Spaces</p>
+                <p className="mb-2 text-4xl font-bold text-white">500+</p>
+                <p className="text-sm uppercase tracking-wider text-gray-500">Studio Sessions</p>
               </div>
               <div>
                 <p className="mb-2 text-4xl font-bold text-white">Jan &apos;26</p>

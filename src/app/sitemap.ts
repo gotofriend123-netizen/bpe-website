@@ -41,5 +41,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  return [...coreRoutes, ...seoRoutes];
+  // Blog articles (high-intent keyword targeting)
+  const blogRoutes = [
+    '/blogs/podcast-studio-for-rent-in-raipur',
+    '/blogs/event-hall-booking-raipur',
+    '/blogs/community-hall-shankar-nagar-raipur',
+    '/blogs/photoshoot-studio-raipur',
+    '/blogs/party-hall-raipur',
+    '/blogs/brand-launch-raipur',
+    '/blogs/featured',
+    '/blogs/1',
+  ].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.85,
+  }));
+
+  return [...coreRoutes, ...seoRoutes, ...blogRoutes];
 }

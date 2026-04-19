@@ -911,7 +911,7 @@ export default async function HomePage() {
 
           <div className="md:hidden">
             <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {upcomingEvents.map((event, index) => (
+              {upcomingEvents.map((event: any, index: number) => (
                 <AnimatedSection
                   key={event.slug}
                   delay={0.08 + index * 0.05}
@@ -925,7 +925,7 @@ export default async function HomePage() {
           </div>
 
           <div className="hidden gap-5 md:grid md:grid-cols-2 xl:grid-cols-4">
-            {upcomingEvents.map((event, index) => (
+            {upcomingEvents.map((event: any, index: number) => (
               <AnimatedSection key={event.slug} delay={0.1 + index * 0.06} direction="up" className="h-full">
                 <EventPosterCard event={event} variant="compact" showSummary={false} />
               </AnimatedSection>

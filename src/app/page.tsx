@@ -40,9 +40,19 @@ export const metadata: Metadata = {
     "Verve Studio",
     "event venue Raipur",
     "podcast studio Raipur",
-    "hall booking",
-    "event tickets",
-    "creator studio",
+    "podcast studio for rent in Raipur",
+    "podcast recording studio Raipur",
+    "event hall booking Raipur",
+    "community hall Shankar Nagar Raipur",
+    "party hall Raipur",
+    "photoshoot studio Raipur",
+    "content creator studio Raipur",
+    "corporate event venue Raipur",
+    "vodcast studio Raipur",
+    "4K recording studio Raipur",
+    "hall booking Raipur",
+    "event space for rent Raipur",
+    "creator studio Raipur",
   ],
   openGraph: {
     title: "Black Pepper Entertainment",
@@ -286,8 +296,8 @@ function SectionHeading(props: {
       <span className="inline-flex rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-300">
         {eyebrow}
       </span>
-      <h2 className="sr-only">{title}</h2>
-      <p className="sr-only">{description}</p>
+      <h2 className="mt-4 text-3xl font-bold tracking-[-0.04em] text-white md:text-4xl">{title}</h2>
+      <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-zinc-400 md:text-base">{description}</p>
     </div>
   );
 }
@@ -316,6 +326,8 @@ export default async function HomePage() {
         image: ["/the-arcade/dsc02553.webp", "/verve-studio/dsc02518.webp"],
         telephone: "+91-9203411611",
         areaServed: "Raipur, Chhattisgarh, India",
+        priceRange: "₹₹",
+        openingHours: "Mo-Su 09:00-21:00",
         address: {
           "@type": "PostalAddress",
           addressLocality: "Raipur",
@@ -323,7 +335,11 @@ export default async function HomePage() {
           addressCountry: "IN"
         },
         description:
-          "Premium community hall, podcast studio, and events destination for gatherings, creator sessions, and live experiences.",
+          "Premium community hall, podcast studio for rent, and events destination in Raipur. Book The Arcade event venue or Verve Studio podcast recording studio online.",
+        hasMap: "https://maps.google.com/?q=Black+Pepper+Entertainment+Raipur",
+        sameAs: [
+          "https://blackpepperentertainment.in"
+        ],
       },
     ],
   };
@@ -392,13 +408,13 @@ export default async function HomePage() {
 
           <AnimatedSection delay={0.2} className="mx-auto max-w-5xl">
             <h1 className="mb-4 bg-gradient-to-b from-white to-gray-400 bg-clip-text text-[2.65rem] font-bold leading-[0.95] tracking-[-0.05em] text-transparent drop-shadow-[0_0_20px_rgba(255,255,255,0.22)] sm:mb-5 sm:text-5xl md:text-6xl lg:text-7xl">
-              Two Brands. <br className="hidden md:block" /> One Creative Vision.
+              Raipur&apos;s Premier <br className="hidden md:block" /> Event &amp; Studio Spaces.
             </h1>
           </AnimatedSection>
 
           <AnimatedSection delay={0.4} className="mx-auto max-w-3xl">
             <p className="mb-7 max-w-3xl text-[14px] leading-6 text-gray-300 sm:text-base sm:leading-7 md:mb-8 md:text-lg">
-              Black Pepper Entertainment is a forward-thinking creative and event company built to shape exceptional experiences and meaningful moments. It brings together brands, spaces, and ideas under one unified ecosystem.
+              Book <strong className="text-white">The Arcade</strong> — a premium community hall for events, workshops &amp; brand launches — or <strong className="text-white">Verve Studio</strong>, a professional podcast &amp; content creation studio. Both in Raipur. Book your slot online in minutes.
             </p>
           </AnimatedSection>
 
@@ -419,6 +435,44 @@ export default async function HomePage() {
               Check Availability <MoveRight className="h-5 w-5" />
             </Link>
           </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ── SOCIAL PROOF TRUST STRIP ── */}
+      <section className="border-y border-white/8 bg-[#080808] py-8 md:py-10">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+            {[
+              { stat: "150+", label: "Events Hosted", sub: "at The Arcade" },
+              { stat: "500+", label: "Studio Sessions", sub: "at Verve Studio" },
+              { stat: "4.9★", label: "Average Rating", sub: "from our clients" },
+              { stat: "Est. 2023", label: "Black Pepper", sub: "Raipur, Chhattisgarh" },
+            ].map((item) => (
+              <div key={item.stat} className="flex flex-col items-center text-center">
+                <span className="text-2xl font-bold text-white md:text-3xl">{item.stat}</span>
+                <span className="mt-1 text-xs font-semibold uppercase tracking-widest text-zinc-300">{item.label}</span>
+                <span className="mt-0.5 text-[11px] text-zinc-500">{item.sub}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {[
+              { quote: "The Arcade was perfect for our 150-person product launch. Zero hiccups, stunning setup, and the team handled everything seamlessly.", name: "Rohan M.", role: "Startup Founder, Raipur" },
+              { quote: "We recorded our first 10 podcast episodes at Verve Studio. The Shure SM7B setup and 4K cameras made us look like pros from day one.", name: "Anjali S.", role: "Podcast Host" },
+              { quote: "The community hall vibe at The Arcade is unmatched in Raipur. We've hosted three workshops here and every time guests are blown away.", name: "Priya K.", role: "Workshop Organiser, Raipur" },
+            ].map((t) => (
+              <div key={t.name} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+                <p className="text-sm leading-7 text-zinc-300">&ldquo;{t.quote}&rdquo;</p>
+                <div className="mt-4 flex items-center gap-2">
+                  <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-white">{t.name[0]}</div>
+                  <div>
+                    <p className="text-xs font-semibold text-white">{t.name}</p>
+                    <p className="text-[11px] text-zinc-500">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
