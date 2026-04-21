@@ -439,7 +439,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── SOCIAL PROOF TRUST STRIP ── */}
-      <section className="border-y border-white/8 bg-[#080808] py-8 md:py-10">
+      <section className="border-y border-white/8 bg-[#080808] py-4 md:py-10">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {[
@@ -486,7 +486,7 @@ export default async function HomePage() {
 
       <ArcGalleryHeroDemo />
 
-      <section className="relative z-20 bg-black py-1.5 md:py-12">
+      <section className="relative z-20 bg-black py-0 md:py-12">
         <div className="container mx-auto px-6">
           <AnimatedSection className="mb-3 md:mb-6">
             <SectionHeading
@@ -563,7 +563,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-black py-1.5 md:py-12">
+      <section className="bg-black py-4 md:py-12">
         <div className="container mx-auto px-6">
           <AnimatedSection className="mb-3 md:mb-6">
             <SectionHeading
@@ -660,7 +660,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-white/5 bg-[#050505] py-1.5 md:py-12">
+      <section className="border-y border-white/5 bg-[#050505] py-4 md:py-12">
         <div className="container mx-auto px-6">
           <AnimatedSection className="mb-3 md:mb-6">
             <SectionHeading
@@ -739,7 +739,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-black py-1.5 md:py-12">
+      <section className="bg-black py-4 md:py-12">
         <div className="container mx-auto px-6">
           <div className="grid gap-8 xl:grid-cols-[0.9fr_1.1fr] xl:items-center">
             <AnimatedSection direction="none" className="min-w-0">

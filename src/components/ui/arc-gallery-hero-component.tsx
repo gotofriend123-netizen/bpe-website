@@ -84,11 +84,11 @@ export const ArcGalleryHero: React.FC<ArcGalleryHeroProps> = ({
           radius: fittedRadius,
           cardSize: fittedCardSize,
           arcHeight: fittedRadius * (denseArc ? 2.02 : 1.88),
-          sectionMinHeight: denseArc ? 560 : 540,
+          sectionMinHeight: denseArc ? 480 : 440,
           localStartAngle: denseArc ? 32 : 40,
           localEndAngle: denseArc ? 148 : 140,
-          contentOffset: denseArc ? -58 : -64,
-          topClearance: denseArc ? 28 : 22,
+          contentOffset: denseArc ? -48 : -54,
+          topClearance: 12,
         });
       } else if (width < 1024) {
         setLayout({

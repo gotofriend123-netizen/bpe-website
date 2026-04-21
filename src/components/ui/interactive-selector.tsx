@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { AnimatedSection } from "./AnimatedSection";
 
 export interface SelectorOption {
   title: string;
@@ -40,7 +42,7 @@ export const InteractiveSelector = ({ title, description, options }: Interactive
   }, [options]);
 
   return (
-    <div className="relative flex flex-col items-center justify-center py-24 bg-transparent font-sans text-white"> 
+    <div className="relative flex flex-col items-center justify-center py-12 md:py-24 bg-transparent font-sans text-white"> 
       
       {/* Header Section */}
       <div className="w-full max-w-3xl px-6 mb-12 text-center">
