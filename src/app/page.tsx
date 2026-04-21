@@ -147,25 +147,18 @@ const desktopWhyChooseCards: IconCard[] = [
     highlights: ["Cultural hub", "Welcoming atmosphere"],
   },
   {
-    title: "Design Driven",
+    title: "Premium Tech & Design",
     description:
-      "Every space is curated to feel premium, visually cohesive, and functionally superior for modern creators.",
+      "Curated premium aesthetics meeting professional grade AV equipment and flawless operational support.",
     icon: Sparkles,
-    highlights: ["Premium aesthetics", "Architectural excellence"],
+    highlights: ["High-end AV & Lighting", "Architectural excellence"],
   },
   {
     title: "Cultural Relevance",
     description:
-      "We don\u0027t just host events; we curate programming that pushes the cultural needle forward.",
+      "We don't just host events; we curate programming that pushes the cultural needle forward.",
     icon: Globe,
     highlights: ["Curated programming", "Cultural impact"],
-  },
-  {
-    title: "Professional Excellence",
-    description:
-      "Expect high-end AV equipment, a seasoned crew, and flawless operational support from start to finish.",
-    icon: BadgeCheck,
-    highlights: ["High-end AV equipment", "Flawless support"],
   },
 ];
 
@@ -601,7 +594,7 @@ export default async function HomePage() {
             })}
           </HomeCardRail>
 
-          <div className="hidden auto-rows-fr gap-4 md:grid md:grid-cols-2 xl:grid-cols-3">
+          <div className="hidden auto-rows-fr gap-4 md:grid md:grid-cols-3">
             {desktopWhyChooseCards.map((card, index) => {
               const Icon = card.icon;
               const visibleHighlights = card.highlights ?? [];
