@@ -521,7 +521,7 @@ export default async function HomePage() {
                   >
                     <Image
                       src={space.image}
-                      alt={`${space.title} background`}
+                      alt={`${space.title} - Raipur's premier ${space.title === "The Arcade" ? "event hall and community space" : "podcast recording studio"} interior`}
                       fill
                       priority={index === 0}
                       className="object-cover opacity-60"

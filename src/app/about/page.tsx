@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { arcadeImages, verveImages } from "@/lib/content/site-images";
 
@@ -41,9 +42,11 @@ export default function AboutPage() {
             direction="right"
             className="relative h-[500px] overflow-hidden rounded-3xl border border-white/10 bg-white/5"
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center opacity-70"
-              style={{ backgroundImage: `url('${arcadeImages[4]}')` }}
+            <Image
+              src={arcadeImages[4]}
+              alt="Inside Black Pepper Entertainment's flagship venue - The Arcade Raipur"
+              fill
+              className="object-cover opacity-70"
             />
           </AnimatedSection>
 
@@ -90,9 +93,11 @@ export default function AboutPage() {
             {/* Verve Studio */}
             <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#111]">
               <div className="relative h-72 overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                  style={{ backgroundImage: `url('${verveImages[0]}')` }}
+                <Image
+                  src={verveImages[0]}
+                  alt="Verve Studio Raipur - Professional podcast and talk show studio setup"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent" />
               </div>
@@ -124,9 +129,11 @@ export default function AboutPage() {
             {/* The Arcade */}
             <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#111]">
               <div className="relative h-72 overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                  style={{ backgroundImage: `url('${arcadeImages[0]}')` }}
+                <Image
+                  src={arcadeImages[0]}
+                  alt="The Arcade Raipur - Versatile event space and community hall for Raipur's creative community"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent" />
               </div>

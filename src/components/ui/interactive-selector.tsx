@@ -1,12 +1,10 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
-import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import Image from "next/image";
 
 export interface SelectorOption {
   title: string;
   description: string;
   image: string;
+  imageAlt?: string;
   icon: React.ReactNode;
 }
 
@@ -66,14 +64,18 @@ export const InteractiveSelector = ({ title, description, options }: Interactive
                 ${isActive ? 'border-white/50 shadow-[0_0_40px_rgba(255,255,255,0.2)] flex-[6] md:flex-[7]' : 'border-white/10 flex-[1] hover:flex-[1.5]'}
               `}
               style={{
-                backgroundImage: `url('${option.image}')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
                 opacity: isAnimated ? 1 : 0,
                 transform: isAnimated ? 'translateX(0)' : 'translateX(-40px)',
               }}
               onClick={() => handleOptionClick(index)}
             >
+              <Image 
+                src={option.image}
+                alt={option.imageAlt || option.title}
+                fill
+                className="object-cover transition-transform duration-700 ease-in-out"
+                priority={index === 0}
+              />
               {/* Dark Gradient Overlay for text readability */}
               <div 
                 className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none transition-opacity duration-700"

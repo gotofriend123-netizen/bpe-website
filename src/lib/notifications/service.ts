@@ -264,7 +264,7 @@ export async function sendBookingNotifications(params: {
   );
 
   const adminWhatsappRecipient = toWhatsappRecipient(
-    process.env.TWILIO_ADMIN_WHATSAPP_TO || settings?.whatsappNumber || "",
+    process.env.TWILIO_ADMIN_WHATSAPP_TO || settings?.whatsappNumber || BUSINESS_SUPPORT_WHATSAPP_E164,
   );
   const adminWhatsappResult = normalizeChannelResult(
     booking.adminWhatsappSent,

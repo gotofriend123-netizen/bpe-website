@@ -1,8 +1,4 @@
-import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import Link from "next/link";
-import { Mic, MoveRight, Camera, Armchair, Monitor, Radio as Soundwave, CheckCircle2 } from "lucide-react";
-import { PaperIcon } from "@/components/ui/PaperIcon";
-import { InteractiveSelector } from "@/components/ui/interactive-selector";
+import Image from "next/image";
 import { verveLeftSetupImages, verveRightSetupImages } from "@/lib/content/site-images";
 
 export const metadata = {
@@ -38,30 +34,35 @@ const verveOptions = [
     title: "The Crimson Crown",
     description: "Verve Left — Bold crimson tones with dramatic lighting",
     image: verveLeftSetupImages[0],
+    imageAlt: "The Crimson Crown setup at Verve Studio Raipur - professional podcast recording with red lighting",
     icon: <Mic size={24} />
   },
   {
     title: "The Horizon",
     description: "Verve Left — Warm horizon gradients with ambient backlighting",
     image: verveLeftSetupImages[1],
+    imageAlt: "The Horizon setup at Verve Studio Raipur - professional podcast studio with warm gradient backgroun",
     icon: <Camera size={24} />
   },
   {
     title: "The Sage",
     description: "Verve Left — Deep sage palette with earthy, grounded styling",
     image: verveLeftSetupImages[2],
+    imageAlt: "The Sage setup at Verve Studio Raipur - professional podcast recording environment with sage green tones",
     icon: <Armchair size={24} />
   },
   {
     title: "The Urban Flame",
     description: "Verve Right — Industrial vibe with flame-toned lighting",
     image: verveRightSetupImages[0],
+    imageAlt: "The Urban Flame setup at Verve Studio Raipur - podcast studio with industrial design and orange lighting",
     icon: <Monitor size={24} />
   },
   {
     title: "The Ivory",
     description: "Verve Right — Clean ivory backdrop with minimal styling",
     image: verveRightSetupImages[1],
+    imageAlt: "The Ivory setup at Verve Studio Raipur - clean and minimal podcast recording studio",
     icon: <Soundwave size={24} />
   },
 ];
@@ -73,9 +74,12 @@ export default function VerveStudioPage() {
       <section className="relative h-[80vh] min-h-[700px] flex items-center justify-center text-center pt-20">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/90 z-10" />
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-50 mix-blend-screen"
-            style={{ backgroundImage: `url('${verveLeftSetupImages[0]}')` }}
+          <Image
+            src={verveLeftSetupImages[0]}
+            alt="Verve Studio - Raipur's premier podcast and content creation studio interior"
+            fill
+            priority
+            className="object-cover opacity-50 mix-blend-screen"
           />
         </div>
         <div className="container mx-auto px-6 relative z-20">
@@ -152,34 +156,28 @@ export default function VerveStudioPage() {
             
             <AnimatedSection direction="left" className="grid grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="space-y-4">
-                <div
-                  className="h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center transition-transform hover:scale-[1.02]"
-                  style={{ backgroundImage: `url('${verveLeftSetupImages[0]}')` }}
-                />
-                <div
-                  className="h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center transition-transform hover:scale-[1.02]"
-                  style={{ backgroundImage: `url('${verveLeftSetupImages[1]}')` }}
-                />
+                <div className="relative h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 overflow-hidden transition-transform hover:scale-[1.02]">
+                  <Image src={verveLeftSetupImages[0]} alt="Podcast session at Verve Studio Raipur - The Crimson Crown setup" fill className="object-cover" />
+                </div>
+                <div className="relative h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 overflow-hidden transition-transform hover:scale-[1.02]">
+                  <Image src={verveLeftSetupImages[1]} alt="Video podcast recording at Verve Studio Raipur - The Horizon setup" fill className="object-cover" />
+                </div>
               </div>
               <div className="space-y-4 lg:pt-12">
-                <div
-                  className="h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center transition-transform hover:scale-[1.02]"
-                  style={{ backgroundImage: `url('${verveLeftSetupImages[2]}')` }}
-                />
-                <div
-                  className="h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center transition-transform hover:scale-[1.02]"
-                  style={{ backgroundImage: `url('${verveRightSetupImages[0]}')` }}
-                />
+                <div className="relative h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 overflow-hidden transition-transform hover:scale-[1.02]">
+                  <Image src={verveLeftSetupImages[2]} alt="Professional audio recording at Verve Studio Raipur - The Sage setup" fill className="object-cover" />
+                </div>
+                <div className="relative h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 overflow-hidden transition-transform hover:scale-[1.02]">
+                  <Image src={verveRightSetupImages[0]} alt="Creator studio session at Verve Studio Raipur - The Urban Flame setup" fill className="object-cover" />
+                </div>
               </div>
               <div className="space-y-4 pt-6 hidden lg:block">
-                <div
-                  className="h-56 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center transition-transform hover:scale-[1.02]"
-                  style={{ backgroundImage: `url('${verveRightSetupImages[1]}')` }}
-                />
-                <div
-                  className="h-48 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center transition-transform hover:scale-[1.02]"
-                  style={{ backgroundImage: `url('${verveRightSetupImages[2]}')` }}
-                />
+                <div className="relative h-56 rounded-2xl border border-white/10 bg-white/5 overflow-hidden transition-transform hover:scale-[1.02]">
+                  <Image src={verveRightSetupImages[1]} alt="Modern interview recording at Verve Studio Raipur - The Ivory setup" fill className="object-cover" />
+                </div>
+                <div className="relative h-48 rounded-2xl border border-white/10 bg-white/5 overflow-hidden transition-transform hover:scale-[1.02]">
+                  <Image src={verveRightSetupImages[2]} alt="Content creation setup at Verve Studio Raipur - The Wave setup" fill className="object-cover" />
+                </div>
               </div>
             </AnimatedSection>
           </div>
@@ -198,55 +196,59 @@ export default function VerveStudioPage() {
            <AnimatedSection className="mb-8">
              <h3 className="text-2xl font-bold text-white mb-2">Verve Studio — Left</h3>
              <p className="text-gray-500 mb-6">Dark, moody, neon-accented environments for intense conversations.</p>
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+              {[
+                { name: "The Crimson Crown", img: verveLeftSetupImages[0], desc: "Bold crimson tones with dramatic overhead lighting", alt: "The Crimson Crown podcast setup at Verve Studio Raipur" },
+                { name: "The Horizon", img: verveLeftSetupImages[1], desc: "Warm horizon gradients with ambient backlighting", alt: "The Horizon podcast setup at Verve Studio Raipur" },
+                { name: "The Sage", img: verveLeftSetupImages[2], desc: "Deep sage green palette with earthy, grounded styling", alt: "The Sage podcast setup at Verve Studio Raipur" },
+              ].map((setup, i) => (
+                <AnimatedSection key={setup.name} delay={i * 0.1} direction="up" className="group">
+                  <div className="relative h-[280px] rounded-2xl border border-white/10 overflow-hidden mb-4">
+                    <Image
+                      src={setup.img}
+                      alt={setup.alt}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    <div className="absolute bottom-0 inset-x-0 px-5 py-4">
+                      <h4 className="text-lg font-bold text-white">{setup.name}</h4>
+                    </div>
+                  </div>
+                  <p className="text-gray-400 text-sm">{setup.desc}</p>
+                </AnimatedSection>
+              ))}
+            </div>
            </AnimatedSection>
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-             {[
-               { name: "The Crimson Crown", img: verveLeftSetupImages[0], desc: "Bold crimson tones with dramatic overhead lighting" },
-               { name: "The Horizon", img: verveLeftSetupImages[1], desc: "Warm horizon gradients with ambient backlighting" },
-               { name: "The Sage", img: verveLeftSetupImages[2], desc: "Deep sage green palette with earthy, grounded styling" },
-             ].map((setup, i) => (
-               <AnimatedSection key={setup.name} delay={i * 0.1} direction="up" className="group">
-                 <div className="relative h-[280px] rounded-2xl border border-white/10 overflow-hidden mb-4">
-                   <div
-                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                     style={{ backgroundImage: `url('${setup.img}')` }}
-                   />
-                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                   <div className="absolute bottom-0 inset-x-0 px-5 py-4">
-                     <h4 className="text-lg font-bold text-white">{setup.name}</h4>
-                   </div>
-                 </div>
-                 <p className="text-gray-400 text-sm">{setup.desc}</p>
-               </AnimatedSection>
-             ))}
-           </div>
 
            {/* RIGHT SETUPS */}
            <AnimatedSection className="mb-8">
              <h3 className="text-2xl font-bold text-white mb-2">Verve Studio — Right</h3>
              <p className="text-gray-500 mb-6">Warm, wood-toned, softer aesthetics for intimate storytelling.</p>
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { name: "The Urban Flame", img: verveRightSetupImages[0], desc: "Urban-industrial vibe with strategic flame-toned lighting", alt: "The Urban Flame podcast setup at Verve Studio Raipur" },
+                { name: "The Ivory", img: verveRightSetupImages[1], desc: "Clean ivory backdrop with elegant, minimal styling", alt: "The Ivory podcast setup at Verve Studio Raipur" },
+                { name: "The Wave", img: verveRightSetupImages[2], desc: "Flowing wave-inspired contours with soft blue accents", alt: "The Wave podcast setup at Verve Studio Raipur" },
+              ].map((setup, i) => (
+                <AnimatedSection key={setup.name} delay={i * 0.1} direction="up" className="group">
+                  <div className="relative h-[280px] rounded-2xl border border-white/10 overflow-hidden mb-4">
+                    <Image
+                      src={setup.img}
+                      alt={setup.alt}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    <div className="absolute bottom-0 inset-x-0 px-5 py-4">
+                      <h4 className="text-lg font-bold text-white">{setup.name}</h4>
+                    </div>
+                  </div>
+                  <p className="text-gray-400 text-sm">{setup.desc}</p>
+                </AnimatedSection>
+              ))}
+            </div>
            </AnimatedSection>
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-             {[
-               { name: "The Urban Flame", img: verveRightSetupImages[0], desc: "Urban-industrial vibe with strategic flame-toned lighting" },
-               { name: "The Ivory", img: verveRightSetupImages[1], desc: "Clean ivory backdrop with elegant, minimal styling" },
-               { name: "The Wave", img: verveRightSetupImages[2], desc: "Flowing wave-inspired contours with soft blue accents" },
-             ].map((setup, i) => (
-               <AnimatedSection key={setup.name} delay={i * 0.1} direction="up" className="group">
-                 <div className="relative h-[280px] rounded-2xl border border-white/10 overflow-hidden mb-4">
-                   <div
-                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                     style={{ backgroundImage: `url('${setup.img}')` }}
-                   />
-                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                   <div className="absolute bottom-0 inset-x-0 px-5 py-4">
-                     <h4 className="text-lg font-bold text-white">{setup.name}</h4>
-                   </div>
-                 </div>
-                 <p className="text-gray-400 text-sm">{setup.desc}</p>
-               </AnimatedSection>
-             ))}
-           </div>
         </div>
       </section>
 

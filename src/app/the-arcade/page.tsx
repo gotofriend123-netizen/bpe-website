@@ -1,8 +1,4 @@
-import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import Link from "next/link";
-import { Users, MoveRight, Lightbulb, Focus, Video, Maximize, CheckCircle2 } from "lucide-react";
-import { PaperIcon } from "@/components/ui/PaperIcon";
-import { InteractiveSelector } from "@/components/ui/interactive-selector";
+import Image from "next/image";
 import { arcadeImages } from "@/lib/content/site-images";
 
 export const metadata = {
@@ -38,30 +34,35 @@ const arcadeOptions = [
     title: "Expansive Capacity",
     description: "Comfortably host up to 100 standing guests",
     image: arcadeImages[3],
+    imageAlt: "Spacious interior of The Arcade community hall in Raipur hosting a large group",
     icon: <Users size={24} />
   },
   {
     title: "Cinematic Lighting",
     description: "Fully DMX programmable Aputure array",
     image: arcadeImages[1],
+    imageAlt: "Professional DMX programmable Aputure lighting setup at The Arcade Raipur",
     icon: <Lightbulb size={24} />
   },
   {
     title: "Modular Layouts",
     description: "Rearrange the space for any use-case",
     image: arcadeImages[0],
+    imageAlt: "Modular seating and stage layout at The Arcade event venue Raipur",
     icon: <Maximize size={24} />
   },
   {
     title: "Acoustic Tuning",
     description: "Engineered panels and heavy curtains",
     image: arcadeImages[2],
+    imageAlt: "Acoustically treated interior of The Arcade community hall Raipur",
     icon: <Focus size={24} />
   },
   {
     title: "Live Transmission",
     description: "Fiber internet built for streaming",
     image: arcadeImages[5],
+    imageAlt: "High-speed live streaming setup at The Arcade event hall Raipur",
     icon: <Video size={24} />
   }
 ];
@@ -73,9 +74,12 @@ export default function TheArcadePage() {
       <section className="relative h-[70vh] min-h-[600px] flex items-center pt-20">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/80 z-10" />
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-60 mix-blend-luminosity"
-            style={{ backgroundImage: `url('${arcadeImages[3]}')` }}
+          <Image
+            src={arcadeImages[3]}
+            alt="The Arcade - Premium Community Hall and Event Venue in Raipur"
+            fill
+            priority
+            className="object-cover opacity-60 mix-blend-luminosity"
           />
         </div>
         <div className="container mx-auto px-6 relative z-20">
@@ -144,34 +148,28 @@ export default function TheArcadePage() {
             
             <AnimatedSection direction="left" className="grid grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="space-y-4">
-                <div
-                  className="h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${arcadeImages[4]}')` }}
-                />
-                <div
-                  className="h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${arcadeImages[0]}')` }}
-                />
+                <div className="relative h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+                  <Image src={arcadeImages[4]} alt="The Arcade Raipur - Event space with modular stage" fill className="object-cover" />
+                </div>
+                <div className="relative h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+                  <Image src={arcadeImages[0]} alt="Workshop setup at The Arcade community hall Raipur" fill className="object-cover" />
+                </div>
               </div>
               <div className="space-y-4 lg:pt-12">
-                <div
-                  className="h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${arcadeImages[1]}')` }}
-                />
-                <div
-                  className="h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${arcadeImages[5]}')` }}
-                />
+                <div className="relative h-48 lg:h-40 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+                  <Image src={arcadeImages[1]} alt="Cinematic lighting at The Arcade Raipur venue" fill className="object-cover" />
+                </div>
+                <div className="relative h-48 lg:h-64 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+                  <Image src={arcadeImages[5]} alt="Live streaming event at The Arcade Raipur" fill className="object-cover" />
+                </div>
               </div>
               <div className="space-y-4 pt-6 hidden lg:block">
-                <div
-                  className="h-56 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${arcadeImages[2]}')` }}
-                />
-                <div
-                  className="h-48 rounded-2xl border border-white/10 bg-white/5 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${arcadeImages[3]}')` }}
-                />
+                <div className="relative h-56 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+                  <Image src={arcadeImages[2]} alt="Professional sound systems at The Arcade Raipur" fill className="object-cover" />
+                </div>
+                <div className="relative h-48 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+                  <Image src={arcadeImages[3]} alt="Corporate gathering at The Arcade community space Raipur" fill className="object-cover" />
+                </div>
               </div>
             </AnimatedSection>
           </div>

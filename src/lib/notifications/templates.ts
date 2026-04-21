@@ -153,33 +153,43 @@ export function buildCustomerBookingConfirmationEmail(
 export function buildCustomerBookingWhatsappMessage(
   input: BookingNotificationTemplateInput,
 ) {
-  const openingLine =
-    input.statusLabel === "Confirmed"
-      ? `Hi ${input.customerName}, your booking is confirmed with ${input.reference}.`
-      : `Hi ${input.customerName}, your booking request is in with ${input.reference}.`;
+  const isConfirmed = input.statusLabel === "Confirmed";
+  const header = isConfirmed
+    ? `✨ *Booking Confirmed!*`
+    : `📩 *Booking Request Received*`;
 
   return [
-    openingLine,
-    `${input.spaceLabel}`,
-    `${formatDateLabel(input.dateKey)}`,
-    `${input.startTime} - ${input.endTime}`,
-    input.specificStudio ? `Studio: ${input.specificStudio}` : null,
-    `Status: ${input.statusLabel}`,
-    `Support: ${input.supportEmail} | WhatsApp ${input.supportWhatsappDisplay}`,
-  ].join("\n");
+    header,
+    `Hi ${input.customerName}, your session at *Black Pepper Entertainment* is ${isConfirmed ? 'reserved' : 'in review'}.`,
+    "",
+    `📍 *Space:* ${input.spaceLabel}`,
+    `📅 *Date:* ${formatDateLabel(input.dateKey)}`,
+    `⏰ *Time:* ${input.startTime} - ${input.endTime}`,
+    input.specificStudio ? `🎬 *Studio:* ${input.specificStudio}` : null,
+    `🔖 *Ref:* ${input.reference}`,
+    "",
+    `Need help? Tap here: wa.me/${input.supportWhatsappDisplay.replace(/\D/g, "")}`,
+    "",
+    `See you soon! 🌶️`
+  ].filter(Boolean).join("\n");
 }
 
 export function buildAdminBookingWhatsappMessage(
   input: BookingNotificationTemplateInput,
 ) {
   return [
-    `New booking alert: ${input.reference}`,
-    `${input.customerName} · ${input.customerPhone}`,
-    `${input.spaceLabel}`,
-    `${formatDateLabel(input.dateKey)} · ${input.startTime} - ${input.endTime}`,
-    `Status: ${input.statusLabel}`,
-    input.specificStudio ? `Studio: ${input.specificStudio}` : null,
-    input.packageLabel ? `Package: ${input.packageLabel}` : null,
+    `🔔 *NEW BOOKING ALERT*`,
+    `-----------------------`,
+    `👤 *Customer:* ${input.customerName}`,
+    `📞 *Phone:* ${input.customerPhone}`,
+    `📍 *Space:* ${input.spaceLabel}`,
+    `📅 *Date:* ${formatDateLabel(input.dateKey)}`,
+    `⏰ *Time:* ${input.startTime} - ${input.endTime}`,
+    `🔖 *Ref:* ${input.reference}`,
+    input.specificStudio ? `🎬 *Studio:* ${input.specificStudio}` : null,
+    input.packageLabel ? `📦 *Package:* ${input.packageLabel}` : null,
+    `-----------------------`,
+    `Go to Admin Dashboard to manage.`,
   ]
     .filter(Boolean)
     .join("\n");
