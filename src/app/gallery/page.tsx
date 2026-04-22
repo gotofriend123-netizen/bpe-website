@@ -10,10 +10,10 @@ export const metadata = {
 
 export default function GalleryPage() {
   return (
-    <div className="min-h-screen bg-black pb-24 pt-32">
+    <div className="min-h-screen bg-black pt-24 pb-12 md:pt-32 md:pb-24">
       <div className="container mx-auto max-w-[1680px] px-4 sm:px-6">
         {/* Header */}
-        <AnimatedSection className="mb-14 text-center">
+        <AnimatedSection className="mb-10 text-center md:mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-white/60 backdrop-blur-xl">
             Our Visual Story
           </span>
