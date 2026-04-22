@@ -1,5 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Users, Lightbulb, Maximize, Focus, Video, MoveRight, CheckCircle2 } from "lucide-react";
 import { arcadeImages } from "@/lib/content/site-images";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { PaperIcon } from "@/components/ui/PaperIcon";
+import { InteractiveSelector } from "@/components/ui/interactive-selector";
 
 export const metadata = {
   title: "The Arcade | Community Hall & Event Space in Raipur | Black Pepper Entertainment",
@@ -125,7 +130,7 @@ export default function TheArcadePage() {
       </section>
 
       {/* Description & Use Cases */}
-      <section className="py-24">
+      <section className="py-12 md:py-24">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
             <AnimatedSection direction="right">
@@ -177,7 +182,7 @@ export default function TheArcadePage() {
       </section>
 
       {/* Mini Pricing Sneak Peek */}
-      <section className="py-24 bg-[#050505] border-t border-white/5">
+      <section className="py-12 md:py-24 bg-[#050505] border-t border-white/5">
         <div className="container mx-auto px-6 max-w-4xl text-center">
           <AnimatedSection>
             <h2 className="text-4xl font-bold mb-6">Transparent Pricing</h2>
@@ -209,7 +214,7 @@ export default function TheArcadePage() {
       />
 
       {/* 6. FINAL CTA + Cross-Space Link */}
-      <section className="py-24 border-t border-white/10 bg-gradient-to-t from-[#0a0a0a] to-black">
+      <section className="py-12 md:py-24 border-t border-white/10 bg-gradient-to-t from-[#0a0a0a] to-black">
         <div className="container mx-auto px-6 text-center">
           <AnimatedSection>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Ready to host your next event in Raipur?</h2>

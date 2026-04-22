@@ -13,9 +13,9 @@ export default function BlogsPage() {
   const otherPosts = BLOG_POSTS.filter((post) => !post.featured);
 
   return (
-    <div className="bg-black min-h-screen pt-32 pb-24">
+    <div className="bg-black min-h-screen pt-24 pb-12 md:pt-32 md:pb-24">
       <div className="container mx-auto px-6 max-w-7xl">
-        <AnimatedSection className="mb-20">
+        <AnimatedSection className="mb-10 md:mb-20">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white tracking-tight">The Journal</h1>
           <p className="text-xl text-gray-400 max-w-2xl">
             Insights, event breakdowns, and creator tips straightforward from our team of engineers and event staff.
@@ -24,7 +24,7 @@ export default function BlogsPage() {
 
         {/* Featured Blog */}
         {featuredPost ? (
-          <AnimatedSection delay={0.1} className="mb-24 group cursor-pointer block">
+          <AnimatedSection delay={0.1} className="mb-16 md:mb-24 group cursor-pointer block">
             <Link href={`/blogs/${featuredPost.slug}`} className="relative h-[500px] w-full rounded-3xl overflow-hidden block">
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
             <div className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-1000" style={{ backgroundImage: `url('${featuredPost.img}?q=80&w=2070&auto=format&fit=crop')` }} />

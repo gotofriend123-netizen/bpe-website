@@ -49,7 +49,7 @@ export default function PhotoshootStudioRaipurPage() {
         </div>
       </section>
 
-      <section className="py-24 border-b border-white/5 bg-[#050505]">
+      <section className="py-12 md:py-24 border-b border-white/5 bg-[#050505]">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
              <AnimatedSection delay={0.1} className="p-8 bg-[#111] rounded-3xl border border-white/10">

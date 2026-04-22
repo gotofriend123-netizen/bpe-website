@@ -50,7 +50,7 @@ export default function PodcastStudioRaipurPage() {
         </div>
       </section>
 
-      <section className="py-24 max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <section className="py-12 md:py-24 max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         <AnimatedSection direction="right">
           <h2 className="text-3xl font-bold mb-6">Designed for Seamless Video Podcasts</h2>
           <p className="text-gray-400 text-lg mb-6 leading-relaxed">

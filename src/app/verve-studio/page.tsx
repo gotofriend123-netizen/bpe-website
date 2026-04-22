@@ -1,5 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Mic, Camera, Armchair, Monitor, Waves, MoveRight, CheckCircle2 } from "lucide-react";
 import { verveLeftSetupImages, verveRightSetupImages } from "@/lib/content/site-images";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { PaperIcon } from "@/components/ui/PaperIcon";
+import { InteractiveSelector } from "@/components/ui/interactive-selector";
 
 export const metadata = {
   title: "Verve Studio | Podcast Recording Studio in Raipur | Black Pepper Entertainment",
@@ -63,7 +68,7 @@ const verveOptions = [
     description: "Verve Right — Clean ivory backdrop with minimal styling",
     image: verveRightSetupImages[1],
     imageAlt: "The Ivory setup at Verve Studio Raipur - clean and minimal podcast recording studio",
-    icon: <Soundwave size={24} />
+    icon: <Waves size={24} />
   },
 ];
 
@@ -97,7 +102,7 @@ export default function VerveStudioPage() {
       </section>
 
       {/* Equipment Showcase */}
-      <section className="py-24 border-b border-white/5">
+      <section className="py-12 md:py-24 border-b border-white/5">
         <div className="container mx-auto px-6">
           <AnimatedSection className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">Industry-Standard Gear</h2>
@@ -133,7 +138,7 @@ export default function VerveStudioPage() {
       </section>
 
       {/* Description & Use Cases (Photo Grid) */}
-      <section className="py-24">
+      <section className="py-12 md:py-24">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
             <AnimatedSection direction="right">
@@ -185,7 +190,7 @@ export default function VerveStudioPage() {
       </section>
 
       {/* Studio Setups Showcase */}
-      <section className="py-24 bg-black">
+      <section className="py-12 md:py-24 bg-black">
         <div className="container mx-auto px-6 max-w-6xl">
            <AnimatedSection className="mb-16 text-center">
              <h2 className="text-4xl font-bold text-white">Six Unique Studio Setups</h2>
@@ -260,7 +265,7 @@ export default function VerveStudioPage() {
       />
 
       {/* Final CTA + Cross-Space Link */}
-      <section className="py-24 border-t border-white/10 bg-gradient-to-t from-[#0a0a0a] to-black">
+      <section className="py-12 md:py-24 border-t border-white/10 bg-gradient-to-t from-[#0a0a0a] to-black">
         <div className="container mx-auto px-6 text-center">
           <AnimatedSection>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Book Raipur&apos;s Best Podcast Studio</h2>

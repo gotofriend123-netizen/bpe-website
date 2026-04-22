@@ -49,7 +49,7 @@ export default function PartyHallRaipurPage() {
         </div>
       </section>
 
-      <section className="py-24 border-b border-white/5 bg-[#050505]">
+      <section className="py-12 md:py-24 border-b border-white/5 bg-[#050505]">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
              <AnimatedSection delay={0.1} className="p-8 bg-[#111] rounded-3xl border border-white/10">
@@ -71,7 +71,7 @@ export default function PartyHallRaipurPage() {
         </div>
       </section>
 
-      <section className="py-24 max-w-4xl mx-auto px-6">
+      <section className="py-12 md:py-24 max-w-4xl mx-auto px-6">
         <AnimatedSection className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-6">A Different Class of Party Hall in Raipur</h2>
           <p className="text-gray-400 text-lg leading-relaxed">

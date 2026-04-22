@@ -19,10 +19,10 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-black pb-24 pt-32">
+    <div className="min-h-screen bg-black pt-24 pb-12 md:pt-32 md:pb-24">
       <div className="container mx-auto max-w-6xl px-6">
         {/* Header */}
-        <AnimatedSection className="mb-20 text-center">
+        <AnimatedSection className="mb-10 text-center md:mb-20">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-white/60">
             Est. 2023
           </span>
@@ -37,7 +37,7 @@ export default function AboutPage() {
         </AnimatedSection>
 
         {/* Story Section */}
-        <div className="mb-32 grid grid-cols-1 items-center gap-16 md:grid-cols-2">
+        <div className="mb-20 grid grid-cols-1 items-center gap-16 md:mb-32 md:grid-cols-2">
           <AnimatedSection
             direction="right"
             className="relative h-[500px] overflow-hidden rounded-3xl border border-white/10 bg-white/5"
@@ -82,7 +82,7 @@ export default function AboutPage() {
         </div>
 
         {/* Our Spaces */}
-        <AnimatedSection className="mb-32">
+        <AnimatedSection className="mb-16 md:mb-32">
           <h2 className="mb-4 text-center text-3xl font-bold text-white">Our Spaces</h2>
           <p className="mx-auto mb-12 max-w-2xl text-center text-base leading-relaxed text-gray-400">
             Both of our premium creative spaces opened in January 2026, marking a new chapter for

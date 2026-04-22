@@ -65,13 +65,13 @@ const serviceSchema = {
 
 export default function PricingPage() {
   return (
-    <div className="bg-black min-h-screen pt-32 pb-24">
+    <div className="bg-black min-h-screen pt-24 pb-12 md:pt-32 md:pb-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
       <div className="container mx-auto px-6 max-w-6xl">
-        <AnimatedSection className="text-center mb-16">
+        <AnimatedSection className="text-center mb-10 md:mb-16">
           <span className="inline-flex rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-300 mb-4">Transparent Pricing</span>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">Pricing for Event Hall &amp; Podcast Studio in Raipur</h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
@@ -80,7 +80,7 @@ export default function PricingPage() {
         </AnimatedSection>
 
         {/* What Every Booking Includes */}
-        <AnimatedSection className="mb-16">
+        <AnimatedSection className="mb-10 md:mb-16">
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-8">
             <h2 className="text-xl font-bold text-white mb-6 text-center">What Every Booking Includes</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -95,7 +95,7 @@ export default function PricingPage() {
         </AnimatedSection>
 
         {/* The Arcade Pricing */}
-        <div className="mb-24">
+        <div className="mb-12 md:mb-24">
           <AnimatedSection>
             <h2 className="text-3xl font-bold mb-2 text-center">The Arcade</h2>
             <p className="text-center text-gray-400 mb-8">Premium community hall &amp; event space in Raipur — for workshops, launches &amp; parties</p>
@@ -133,7 +133,7 @@ export default function PricingPage() {
         </div>
 
         {/* Verve Studio Pricing */}
-        <div className="mb-16">
+        <div className="mb-10 md:mb-16">
           <AnimatedSection>
             <h2 className="text-3xl font-bold mb-2 text-center">Verve Studio</h2>
             <p className="text-center text-gray-400 mb-8">Professional podcast recording studio in Raipur — 4K cameras, Shure SM7B, acoustic treatment</p>

@@ -17,10 +17,10 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="bg-black min-h-screen pt-32 pb-24">
+    <div className="bg-black min-h-screen pt-24 pb-12 md:pt-32 md:pb-24">
       <div className="container mx-auto px-6 max-w-6xl">
         
-        <AnimatedSection className="text-center mb-20">
+        <AnimatedSection className="text-center mb-10 md:mb-20">
           <span className="inline-flex rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-300 mb-4">Raipur, Chhattisgarh</span>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">Contact Us</h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">

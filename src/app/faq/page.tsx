@@ -32,10 +32,10 @@ const FAQS = [
 
 export default function FAQPage() {
   return (
-    <div className="bg-black min-h-screen pt-32 pb-24">
+    <div className="bg-black min-h-screen pt-24 pb-12 md:pt-32 md:pb-24">
       <FAQSchema faqs={FAQS} />
       <div className="container mx-auto px-6 max-w-4xl">
-        <AnimatedSection className="text-center mb-16">
+        <AnimatedSection className="text-center mb-10 md:mb-16">
           <span className="inline-flex rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-300 mb-4">Help Centre</span>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">Frequently Asked Questions About Booking in Raipur</h1>
           <p className="text-xl text-gray-400">Everything you need to know before stepping into The Arcade or Verve Studio in Raipur.</p>

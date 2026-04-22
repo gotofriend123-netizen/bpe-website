@@ -4,6 +4,7 @@ import { BookingStatus, Prisma } from "@prisma/client";
 
 import {
   BUSINESS_SUPPORT_WHATSAPP_DISPLAY,
+  BUSINESS_SUPPORT_WHATSAPP_E164,
   formatBusinessSupportContact,
   toAbsoluteAppUrl,
   toWhatsappRecipient,
