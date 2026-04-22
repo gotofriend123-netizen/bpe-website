@@ -1,7 +1,6 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
-import { MapPin, ArrowRight, Camera, Lightbulb, Shield, MoveRight, Star, CheckCircle2 } from "lucide-react";
-import { PaperIcon } from "@/components/ui/PaperIcon";
+import { MapPin, Camera, Lightbulb, Shield, MoveRight } from "lucide-react";
 import { verveImages } from "@/lib/content/site-images";
 import { LocalBusinessSchema, OrganizationSchema } from "@/components/seo/LocalSchema";
 

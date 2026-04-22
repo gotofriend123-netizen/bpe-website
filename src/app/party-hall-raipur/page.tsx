@@ -1,6 +1,6 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
-import { MapPin, ArrowRight, Sparkles, Music, GlassWater, MoveRight, Star, CheckCircle2 } from "lucide-react";
+import { MapPin, Sparkles, Music, GlassWater, MoveRight } from "lucide-react";
 import { arcadeImages } from "@/lib/content/site-images";
 import { LocalBusinessSchema, OrganizationSchema } from "@/components/seo/LocalSchema";
 

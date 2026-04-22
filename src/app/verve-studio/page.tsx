@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Play, Mic, Headphones, Video, Sparkles, MoveRight, Camera, Mic2, Lightbulb, Zap, Armchair, Monitor, Waves, CheckCircle2 } from "lucide-react";
+import { Mic, Video, MoveRight, Camera, Mic2, Lightbulb, Zap, Armchair, Monitor, Waves, CheckCircle2 } from "lucide-react";
 import { verveLeftSetupImages, verveRightSetupImages } from "@/lib/content/site-images";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { InteractiveSelector } from "@/components/ui/interactive-selector";

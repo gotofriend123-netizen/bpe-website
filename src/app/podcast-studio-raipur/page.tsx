@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
-import { MapPin, ArrowRight, Mic2, Camera, Users, MoveRight, Star, CheckCircle2 } from "lucide-react";
+import { MapPin, Mic2, Camera, Users, MoveRight } from "lucide-react";
 import { verveImages } from "@/lib/content/site-images";
 import { LocalBusinessSchema, OrganizationSchema } from "@/components/seo/LocalSchema";
 
