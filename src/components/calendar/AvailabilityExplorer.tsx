@@ -9,7 +9,7 @@ import { CalendarGrid } from "@/components/calendar/CalendarGrid";
 import { TimeSlotList } from "@/components/calendar/TimeSlotList";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { resolveSpaceFromParams } from "@/lib/booking-utils";
-import { verveImages } from "@/lib/content/site-images";
+import { verveImages, arcadeImages } from "@/lib/content/site-images";
 
 export function AvailabilityExplorer() {
   const searchParams = useSearchParams();
@@ -36,11 +36,13 @@ export function AvailabilityExplorer() {
     setSelectedDate(new Date());
   };
 
+  const bgImage = space === "arcade" ? arcadeImages[0] : verveImages[1];
+
   return (
     <div className="bg-black min-h-screen pt-32 pb-24 text-white font-sans selection:bg-white/30 selection:text-white">
       <div
-        className="fixed inset-0 pointer-events-none z-0 bg-cover bg-center opacity-20 mix-blend-screen blur-lg"
-        style={{ backgroundImage: `url('${verveImages[2]}')` }}
+        className="fixed inset-0 pointer-events-none z-0 bg-cover bg-center opacity-20 mix-blend-screen blur-lg transition-all duration-700"
+        style={{ backgroundImage: `url('${bgImage}')` }}
       />
       <div className="fixed inset-0 pointer-events-none z-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
 

@@ -23,13 +23,9 @@ export const metadata = {
 };
 
 const AMENITIES = [
-  "Customizable Intelligent Lighting",
   "High-Fidelity Audio System",
-  "Modular Stage & Seating",
   "High-Speed Wi-Fi",
   "Projector & Screen Setup",
-  "Climate Control",
-  "Lounge / Green Room Access",
   "On-site Support Staff"
 ];
 
