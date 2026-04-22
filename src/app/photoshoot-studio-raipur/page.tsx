@@ -1,6 +1,6 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
-import { MoveRight, MapPin } from "lucide-react";
+import { MapPin, ArrowRight, Camera, Lightbulb, Shield, MoveRight, Star, CheckCircle2 } from "lucide-react";
 import { PaperIcon } from "@/components/ui/PaperIcon";
 import { verveImages } from "@/lib/content/site-images";
 import { LocalBusinessSchema, OrganizationSchema } from "@/components/seo/LocalSchema";
@@ -52,21 +52,29 @@ export default function PhotoshootStudioRaipurPage() {
       <section className="py-12 md:py-24 border-b border-white/5 bg-[#050505]">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-             <AnimatedSection delay={0.1} className="p-8 bg-[#111] rounded-3xl border border-white/10">
-                <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="camera" size={56} /></div>
-                <h3 className="font-bold text-white text-xl mb-2">Cinematic Angles</h3>
-                <p className="text-gray-400">Multiple practical backdrops and rich, textured foregrounds available on site.</p>
-             </AnimatedSection>
-             <AnimatedSection delay={0.2} className="p-8 bg-[#111] rounded-3xl border border-white/10">
-                <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="lightbulb" size={56} /></div>
-                <h3 className="font-bold text-white text-xl mb-2">Aputure Lighting</h3>
-                <p className="text-gray-400">Industry-leading RGB lighting setups to dial in your exact mood.</p>
-             </AnimatedSection>
-             <AnimatedSection delay={0.3} className="p-8 bg-[#111] rounded-3xl border border-white/10">
-                <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="shield" size={56} /></div>
-                <h3 className="font-bold text-white text-xl mb-2">Private & Secure</h3>
-                <p className="text-gray-400">Locked-down studio access ensuring talent privacy and focus.</p>
-             </AnimatedSection>
+             <AnimatedSection delay={0.1}>
+              <div className="bg-[#0a0a0a] border border-white/10 p-8 rounded-3xl text-center">
+                <div className="mx-auto mb-4 w-12 h-12 flex items-center justify-center text-white/80"><Camera size={36} /></div>
+                <h3 className="font-bold text-white mb-2">Ideal Angles</h3>
+                <p className="text-sm text-gray-400">Multiple corners designed for high-end fashion and brand photography.</p>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.2}>
+              <div className="bg-[#0a0a0a] border border-white/10 p-8 rounded-3xl text-center">
+                <div className="mx-auto mb-4 w-12 h-12 flex items-center justify-center text-white/80"><Lightbulb size={36} /></div>
+                <h3 className="font-bold text-white mb-2">Premium Lighting</h3>
+                <p className="text-sm text-gray-400">Pro Aputure LED setups available for shoot day rentals.</p>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.3}>
+              <div className="bg-[#0a0a0a] border border-white/10 p-8 rounded-3xl text-center">
+                <div className="mx-auto mb-4 w-12 h-12 flex items-center justify-center text-white/80"><Shield size={36} /></div>
+                <h3 className="font-bold text-white mb-2">Private & Secure</h3>
+                <p className="text-sm text-gray-400">A controlled environment to maintain privacy for high-profile client shoots.</p>
+              </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>

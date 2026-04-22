@@ -70,7 +70,7 @@ export default function ContactPage() {
               </p>
               
               <a
-                href="https://maps.google.com/?q=Black+Pepper+Entertainment,+Near+Hotel+Royal+Avenue,+Raipur+Chhattisgarh"
+                href="https://www.google.com/maps?gs_lcrp=EgZjaHJvbWUqDAgCECMYJxiABBiKBTIGCAAQRRg8MgwIARBFGDkYsQMYgAQyDAgCECMYJxiABBiKBTIKCAMQABixAxiABDIKCAQQABixAxiABDIKCAUQABixAxiABDIGCAYQRRg8MgYIBxBFGDzSAQg1MjUzajBqN6gCALACAA&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KWt54-wo3Sg6Ma0tD640mllz&daddr=2nd+Floor,+H.R.+Vertex,+Plot+No+76,+Sec+-+3,+behind+Apollo+Pharmacy,+Geetanjali+Colony,+Shankar+Nagar,+Raipur,+Chhattisgarh+492004"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2 py-3 px-6 bg-white/10 border border-white/20 rounded-xl text-white text-sm font-semibold hover:bg-white hover:text-black transition-all"
@@ -80,7 +80,7 @@ export default function ContactPage() {
 
               <div className="mt-6 pt-6 border-t border-white/10">
                 <p className="text-xs text-gray-600 uppercase tracking-widest mb-2">Hours</p>
-                <p className="text-gray-300 font-semibold">Mon – Sun: 9:00 AM – 9:00 PM</p>
+                <p className="text-gray-300 font-semibold">Mon – Sun: 9:30 AM – 8:30 PM</p>
               </div>
             </div>
           </AnimatedSection>

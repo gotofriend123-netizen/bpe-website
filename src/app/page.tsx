@@ -320,7 +320,7 @@ export default async function HomePage() {
         telephone: "+91-9203411611",
         areaServed: "Raipur, Chhattisgarh, India",
         priceRange: "₹₹",
-        openingHours: "Mo-Su 09:00-21:00",
+        openingHours: "Mo-Su 09:30-20:30",
         address: {
           "@type": "PostalAddress",
           addressLocality: "Raipur",
@@ -329,7 +329,7 @@ export default async function HomePage() {
         },
         description:
           "Premium community hall, podcast studio for rent, and events destination in Raipur. Book The Arcade event venue or Verve Studio podcast recording studio online.",
-        hasMap: "https://maps.google.com/?q=Black+Pepper+Entertainment+Raipur",
+        hasMap: "https://www.google.com/maps?gs_lcrp=EgZjaHJvbWUqDAgCECMYJxiABBiKBTIGCAAQRRg8MgwIARBFGDkYsQMYgAQyDAgCECMYJxiABBiKBTIKCAMQABixAxiABDIKCAQQABixAxiABDIKCAUQABixAxiABDIGCAYQRRg8MgYIBxBFGDzSAQg1MjUzajBqN6gCALACAA&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KWt54-wo3Sg6Ma0tD640mllz&daddr=2nd+Floor,+H.R.+Vertex,+Plot+No+76,+Sec+-+3,+behind+Apollo+Pharmacy,+Geetanjali+Colony,+Shankar+Nagar,+Raipur,+Chhattisgarh+492004",
         sameAs: [
           "https://blackpepperentertainment.in"
         ],

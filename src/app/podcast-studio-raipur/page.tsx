@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
-import { MoveRight, MapPin } from "lucide-react";
-import { PaperIcon } from "@/components/ui/PaperIcon";
+import { MapPin, ArrowRight, Mic2, Camera, Users, MoveRight, Star, CheckCircle2 } from "lucide-react";
 import { verveImages } from "@/lib/content/site-images";
 import { LocalBusinessSchema, OrganizationSchema } from "@/components/seo/LocalSchema";
 
@@ -57,18 +56,27 @@ export default function PodcastStudioRaipurPage() {
             Whether you are recording an interview, launching a video series, or conducting corporate training, Verve Studio removes the friction of production. Just bring your SD cards or hard-drive, sit down, and hit record.
           </p>
           <ul className="space-y-4 mb-8">
-            <li className="flex items-start gap-3 text-gray-300">
-              <div className="shrink-0"><PaperIcon name="microphone" size={28} /></div>
-              <span><strong>Broadcast Audio:</strong> Shure SM7B microphones perfectly EQ&apos;d through a RØDECaster Pro.</span>
-            </li>
-            <li className="flex items-start gap-3 text-gray-300">
-              <div className="shrink-0"><PaperIcon name="camera" size={28} /></div>
-              <span><strong>4K Video:</strong> Multi-cam Blackmagic cinema setups pre-balanced.</span>
-            </li>
-            <li className="flex items-start gap-3 text-gray-300">
-              <div className="shrink-0"><PaperIcon name="users" size={28} /></div>
-              <span><strong>Two Sets:</strong> Choose between our moody neon corner or the warm acoustic setup.</span>
-            </li>
+            <div className="flex items-start gap-4 p-6 bg-white/[0.04] border border-white/10 rounded-2xl">
+              <div className="shrink-0 text-white/70"><Mic2 size={24} /></div>
+              <div>
+                <h3 className="font-bold text-white mb-1">Shure SM7B Setup</h3>
+                <p className="text-gray-400 text-sm">Professional audio chain for that rich, broadcast vocal sound.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4 p-6 bg-white/[0.04] border border-white/10 rounded-2xl">
+              <div className="shrink-0 text-white/70"><Camera size={24} /></div>
+              <div>
+                <h3 className="font-bold text-white mb-1">Multi-Cam 4K</h3>
+                <p className="text-gray-400 text-sm">Every session is captured in stunning 4K with cinema-grade Sony gear.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4 p-6 bg-white/[0.04] border border-white/10 rounded-2xl">
+              <div className="shrink-0 text-white/70"><Users size={24} /></div>
+              <div>
+                <h3 className="font-bold text-white mb-1">Host & Guest Staging</h3>
+                <p className="text-gray-400 text-sm">Two distinct sets (VSL & VSR) built for interviews and solo shows.</p>
+              </div>
+            </div>
           </ul>
         </AnimatedSection>
         <AnimatedSection direction="left">

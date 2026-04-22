@@ -57,7 +57,7 @@ const marqueeTestimonials = [...testimonials, ...testimonials];
 export function PremiumTestimonials() {
   return (
     <section id="testimonials" className="relative overflow-hidden bg-[#050505] py-10 text-white md:py-12">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="w-full">
         <h2 className="sr-only">What guests and teams say about Black Pepper Entertainment.</h2>
         <p className="sr-only">
           Infinite testimonial slider highlighting premium experiences across The Arcade and Verve Studio.

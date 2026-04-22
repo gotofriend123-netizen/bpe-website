@@ -79,7 +79,7 @@ export default function SpacesPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
               <div
                 className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-1000"
-                style={{ backgroundImage: `url('${verveImages[2]}')` }}
+                style={{ backgroundImage: `url('${verveImages[1]}')` }}
               />
             </AnimatedSection>
 

@@ -52,42 +52,43 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
     <div className="min-h-screen bg-black pb-24 pt-24 text-white sm:pt-28 event-page-bg">
       <section className="px-0 sm:container sm:mx-auto sm:px-6">
         <AnimatedSection>
-          <div className="grid md:grid-cols-[1fr_1fr] lg:grid-cols-[1.15fr_0.85fr]">
-            <div className="relative min-h-[18rem] sm:min-h-[24rem] lg:min-h-[40rem]">
-              <Image
-                src={event.coverImage}
-                alt={event.title}
-                fill
-                className={usesPosterAsHero ? "object-contain bg-[#050505] p-2 sm:p-4 lg:p-8" : "object-cover"}
-                sizes="(max-width: 1024px) 100vw, 55vw"
-                priority
-              />
-              <div className={`absolute inset-0 bg-gradient-to-br ${event.accent}`} />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.1),rgba(0,0,0,0.88)]" />
-              <div className="absolute left-4 top-4 sm:left-6">
-                <EventStatusBadge status={event.availability} />
+          <div className="grid md:grid-cols-[1.1fr_0.9fr] lg:grid-cols-[1.2fr_0.8fr] gap-6 lg:gap-10">
+            <div className="space-y-6 sm:space-y-8">
+              <div className="relative aspect-[4/5] sm:aspect-video md:aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
+                <Image
+                  src={event.coverImage}
+                  alt={event.title}
+                  fill
+                  className={usesPosterAsHero ? "object-contain bg-[#050505] p-2 sm:p-4 lg:p-8" : "object-cover"}
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  priority
+                />
+                <div className="absolute left-4 top-4 sm:left-6 z-20">
+                  <EventStatusBadge status={event.availability} />
+                </div>
               </div>
-              <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 lg:p-10">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-orange-100">
+
+              <div className="px-5 sm:px-0">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#f97316]">
                   {event.categoryLabel}
                 </p>
-                <h1 className="mt-2 sm:mt-4 max-w-3xl text-2xl sm:text-4xl font-semibold tracking-[-0.06em] text-white md:text-6xl">
+                <h1 className="mt-3 text-3xl font-bold tracking-[-0.04em] text-white sm:text-4xl md:text-5xl lg:text-6xl">
                   {event.title}
                 </h1>
-                <p className="mt-2 sm:mt-4 max-w-2xl text-[13px] sm:text-[15px] leading-6 sm:leading-7 text-zinc-200 md:text-lg md:leading-8">
+                <p className="mt-4 text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8 md:text-lg">
                   {event.teaser}
                 </p>
 
-                <div className="mt-3 sm:mt-6 flex flex-wrap gap-2 sm:gap-3 text-xs sm:text-sm text-zinc-100">
-                  <span className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/15 bg-black/35 px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-md">
+                <div className="mt-6 flex flex-wrap gap-2 sm:gap-3 text-xs sm:text-sm text-zinc-100">
+                  <span className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-md">
                     <CalendarDays className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#f97316]" />
                     {format(new Date(event.startsAt), "EEE, d MMM")}
                   </span>
-                  <span className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/15 bg-black/35 px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-md">
+                  <span className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-md">
                     <Clock3 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#f97316]" />
                     {format(new Date(event.startsAt), "h:mm a")}
                   </span>
-                  <span className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/15 bg-black/35 px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-md">
+                  <span className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-md">
                     <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#f97316]" />
                     {event.venue}
                   </span>
@@ -95,8 +96,10 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
               </div>
             </div>
 
-            <div className="border-t border-white/10 p-4 sm:p-6 md:border-l md:border-t-0 lg:p-8">
-              <EventBookingCard event={event} />
+            <div className="p-4 sm:p-0">
+              <div className="sticky top-28">
+                <EventBookingCard event={event} />
+              </div>
             </div>
           </div>
         </AnimatedSection>

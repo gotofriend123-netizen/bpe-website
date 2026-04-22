@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mic, Camera, Armchair, Monitor, Waves, MoveRight, CheckCircle2 } from "lucide-react";
+import { Play, Mic, Headphones, Video, Sparkles, MoveRight, Camera, Mic2, Lightbulb, Zap, Armchair, Monitor, Waves, CheckCircle2 } from "lucide-react";
 import { verveLeftSetupImages, verveRightSetupImages } from "@/lib/content/site-images";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { PaperIcon } from "@/components/ui/PaperIcon";
 import { InteractiveSelector } from "@/components/ui/interactive-selector";
 
 export const metadata = {
@@ -111,25 +110,25 @@ export default function VerveStudioPage() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <AnimatedSection delay={0.1} direction="up" className="bg-[#0a0a0a] border border-white/10 p-8 rounded-3xl text-center hover:bg-white/5 transition-colors">
-              <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="video" size={56} /></div>
+              <div className="mx-auto mb-4 w-12 h-12 flex items-center justify-center text-white/80"><Video size={36} /></div>
               <h3 className="font-bold text-white mb-2">4K Cinema Cams</h3>
               <p className="text-sm text-gray-400">Crisp, cinematic visuals with stunning depth of field.</p>
             </AnimatedSection>
 
             <AnimatedSection delay={0.2} direction="up" className="bg-[#0a0a0a] border border-white/10 p-8 rounded-3xl text-center hover:bg-white/5 transition-colors">
-              <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="microphone" size={56} /></div>
+              <div className="mx-auto mb-4 w-12 h-12 flex items-center justify-center text-white/80"><Mic2 size={36} /></div>
               <h3 className="font-bold text-white mb-2">Shure SM7B</h3>
               <p className="text-sm text-gray-400">The industry standard for warm, perfect broadcast sound.</p>
             </AnimatedSection>
 
             <AnimatedSection delay={0.3} direction="up" className="bg-[#0a0a0a] border border-white/10 p-8 rounded-3xl text-center hover:bg-white/5 transition-colors">
-              <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="speaker" size={56} /></div>
+              <div className="mx-auto mb-4 w-12 h-12 flex items-center justify-center text-white/80"><Lightbulb size={36} /></div>
               <h3 className="font-bold text-white mb-2">Aputure Lighting</h3>
               <p className="text-sm text-gray-400">Beautiful, flattering lighting engineered per set.</p>
             </AnimatedSection>
 
             <AnimatedSection delay={0.4} direction="up" className="bg-[#0a0a0a] border border-white/10 p-8 rounded-3xl text-center hover:bg-white/5 transition-colors">
-              <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="headphones" size={56} /></div>
+              <div className="mx-auto mb-4 w-12 h-12 flex items-center justify-center text-white/80"><Zap size={36} /></div>
               <h3 className="font-bold text-white mb-2">Zero Friction</h3>
               <p className="text-sm text-gray-400">Bring your SD card or hard drive and take raw stems immediately.</p>
             </AnimatedSection>

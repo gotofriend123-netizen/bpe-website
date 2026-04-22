@@ -1,7 +1,6 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import Link from "next/link";
-import { MoveRight, MapPin } from "lucide-react";
-import { PaperIcon } from "@/components/ui/PaperIcon";
+import { MapPin, ArrowRight, Sparkles, Music, GlassWater, MoveRight, Star, CheckCircle2 } from "lucide-react";
 import { arcadeImages } from "@/lib/content/site-images";
 import { LocalBusinessSchema, OrganizationSchema } from "@/components/seo/LocalSchema";
 
@@ -53,20 +52,20 @@ export default function PartyHallRaipurPage() {
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
              <AnimatedSection delay={0.1} className="p-8 bg-[#111] rounded-3xl border border-white/10">
-                <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="sparkles" size={56} /></div>
-                <h3 className="font-bold text-white text-xl mb-2">Cinematic Vibe</h3>
-                <p className="text-gray-400">Match the room&apos;s entire ambient structure to your birthday or party theme.</p>
-             </AnimatedSection>
-             <AnimatedSection delay={0.2} className="p-8 bg-[#111] rounded-3xl border border-white/10">
-                <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="music" size={56} /></div>
-                <h3 className="font-bold text-white text-xl mb-2">Acoustic Perfection</h3>
-                <p className="text-gray-400">Built to handle loud DJ sets without echo, making a flawless dance environment.</p>
-             </AnimatedSection>
-             <AnimatedSection delay={0.3} className="p-8 bg-[#111] rounded-3xl border border-white/10">
-                <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"><PaperIcon name="glass" size={56} /></div>
-                <h3 className="font-bold text-white text-xl mb-2">Private Lounge</h3>
-                <p className="text-gray-400">Rest, prep, or secure belongings in the VIP green room during the party.</p>
-             </AnimatedSection>
+              <div className="mx-auto mb-4 w-12 h-12 flex items-center justify-center text-white/80"><Sparkles size={36} /></div>
+              <h3 className="font-bold text-white text-xl mb-2">Social Vibe</h3>
+              <p className="text-gray-400">Warm accent lighting and open spacing perfect for parties.</p>
+            </AnimatedSection>
+            <AnimatedSection delay={0.2} className="p-8 bg-[#111] rounded-3xl border border-white/10">
+              <div className="mx-auto mb-4 w-12 h-12 flex items-center justify-center text-white/80"><Music size={36} /></div>
+              <h3 className="font-bold text-white text-xl mb-2">JBL Audio</h3>
+              <p className="text-gray-400">Integrated sound systems that fill the room naturally.</p>
+            </AnimatedSection>
+            <AnimatedSection delay={0.3} className="p-8 bg-[#111] rounded-3xl border border-white/10">
+              <div className="mx-auto mb-4 w-12 h-12 flex items-center justify-center text-white/80"><GlassWater size={36} /></div>
+              <h3 className="font-bold text-white text-xl mb-2">Self-Service Zone</h3>
+              <p className="text-gray-400">Dedicated F&B areas to keep your guests served and happy.</p>
+            </AnimatedSection>
           </div>
         </div>
       </section>
