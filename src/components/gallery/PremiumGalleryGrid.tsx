@@ -104,15 +104,6 @@ export function PremiumGalleryGrid() {
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                {/* Hover Content */}
-                <div className="absolute inset-x-0 bottom-0 translate-y-4 p-5 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-white/90 backdrop-blur-xl">
-                      <Sparkles className="h-3 w-3" />
-                      {image.space === "verve" ? "Verve Studio" : "The Arcade"}
-                    </span>
-                  </div>
-                </div>
 
                 {/* Corner Glow */}
                 <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/[0.06] opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
