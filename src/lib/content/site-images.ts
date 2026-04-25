@@ -12,17 +12,11 @@ export const verveImages = [
   "/verve-studio/dsc02518.webp",
   "/verve-studio/DSC02464.webp",
   "/verve-studio/DSC02469 (1).webp",
-  "/verve-studio/DSC02496.webp",
   "/verve-studio/dsc02531.webp",
   "/verve-studio/dsc02534.webp",
-  "/verve-studio/dsc02511.webp",
-  "/verve-studio/DSC02501 (1).webp",
-  "/verve-studio/left/the-crimson-crown.jpg",
   "/verve-studio/left/the-horizon.webp",
   "/verve-studio/left/the-sage.jpg",
   "/verve-studio/right/the-urban-flame.webp",
-  "/verve-studio/right/the-ivory.webp",
-  "/verve-studio/right/the-wave.jpg",
 ] as const;
 
 export const venueImages = [
