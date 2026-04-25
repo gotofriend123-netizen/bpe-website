@@ -18,14 +18,12 @@ const VERVE_GALLERY: GalleryImage[] = verveImages.map((src, i) => ({
   src,
   alt: `Verve Studio ${i + 1}`,
   space: "verve" as const,
-  span: i === 0 ? "featured" : i % 5 === 2 ? "tall" : i % 7 === 3 ? "wide" : undefined,
 }));
 
 const ARCADE_GALLERY: GalleryImage[] = arcadeImages.map((src, i) => ({
   src,
   alt: `The Arcade ${i + 1}`,
   space: "arcade" as const,
-  span: i === 0 ? "featured" : i % 4 === 1 ? "tall" : undefined,
 }));
 
 type FilterTab = "all" | "verve" | "arcade";
@@ -69,34 +67,27 @@ export function PremiumGalleryGrid() {
         </div>
       </div>
 
-      {/* Masonry Grid */}
-      <motion.div layout className="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
+      {/* Uniform Grid */}
+      <motion.div layout className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence mode="popLayout">
           {displayed.map((image, idx) => (
             <motion.div
               key={image.src}
               layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, translateY: 20 }}
+              animate={{ opacity: 1, translateY: 0 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4, delay: idx * 0.03 }}
-              className={`group relative mb-4 break-inside-avoid cursor-pointer overflow-hidden rounded-2xl border border-white/[0.06] ${
-                image.span === "featured"
-                  ? "sm:col-span-2"
-                  : image.span === "tall"
-                    ? ""
-                    : ""
-              }`}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
+              className="group relative cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02]"
               onClick={() => setLightboxImage(image)}
             >
-              {/* Image */}
-              <div className="relative aspect-auto overflow-hidden">
+              {/* Image Container with Fixed Aspect Ratio */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
                   src={image.src}
                   alt={image.alt}
-                  width={800}
-                  height={image.span === "tall" ? 1000 : image.span === "wide" ? 450 : 600}
-                  className="h-auto w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  fill
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                   loading="lazy"
                   quality={85}
                 />
